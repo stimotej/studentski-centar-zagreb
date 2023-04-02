@@ -1,6 +1,5 @@
 import Image from "next/image";
 import React from "react";
-import Card from "../shared/Card";
 import UnderConstructionTag from "../shared/UnderConstructionTag";
 
 interface DigitalnoPotpisivanjeSectionProps {

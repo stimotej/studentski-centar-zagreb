@@ -1,3 +1,6 @@
+import HelpSection from "@/components/prehrana/HelpSection";
+import KvalitetaPrehraneSection from "@/components/prehrana/KvalitetaPrehraneSection";
+import WeapayBanner from "@/components/prehrana/WeapayBanner";
 import Card from "@/components/shared/Card";
 import Layout from "@/components/shared/Layout";
 import PageTitle from "@/components/shared/PageTitle";
@@ -12,7 +15,11 @@ const PrehranaPage = () => {
   });
 
   return (
-    <Layout>
+    <Layout
+      title="Prehrana"
+      description="Studentski centar Zagreb broji čak 16 restorana smještenih na vrlo atraktivnim lokacijama po Zagrebu. Na stranicama svakog restorana možete pratiti dnevnu ponudu jela koja se taj dan poslužuju."
+      bottomComponent={<HelpSection />}
+    >
       <PageTitle
         title="Prehrana"
         subtitle="Studentski centar Zagreb broji čak 16 restorana smještenih na vrlo atraktivnim lokacijama po Zagrebu. Na stranicama svakog restorana možete pratiti dnevnu ponudu jela koja se taj dan poslužuju."
@@ -56,6 +63,10 @@ const PrehranaPage = () => {
         posts={posts}
         loading={isLoading}
       />
+
+      <KvalitetaPrehraneSection className="my-12" />
+
+      <WeapayBanner className="mt-32" />
     </Layout>
   );
 };

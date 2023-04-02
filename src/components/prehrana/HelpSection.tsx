@@ -8,7 +8,7 @@ const HelpSection = () => {
     <div className="flex flex-wrap-reverse mt-28 gap-8 relative bg-gradient-to-b from-transparent to-blue-50">
       <div className="flex-1">
         <Image
-          src="/slike/pitanja-i-pomoc.png"
+          src="/slike/prehrana/pitanja_i_pomoc.png"
           alt="Pitanja i pomoć"
           width={500}
           height={370}
@@ -20,25 +20,22 @@ const HelpSection = () => {
         <div className="grid grid-cols-2 grid-rows-2 gap-4 mt-10 [&>div>a]:text-primary [&>div>div]:mb-1 [&>div>div]:text-xs [&>div>div]:tracking-wider [&>div>div]:font-semibold [&>div>div]:text-text">
           <div>
             <div>EMAIL ADRESA</div>
-            <a href="mailto:ured@sczg.hr">ured@sczg.hr</a>
+            <a href="mailto:prehrana@sczg.hr">prehrana@sczg.hr</a>
           </div>
           <div>
             <div>TELEFON</div>
-            <a href="tel:+385 1 4593 555">+385 1 4593 555</a>
+            <a href="tel:+385 1 4593 654">+385 1 4593 654</a>
           </div>
-          <div>
+          <div className="col-span-2">
             <div>ADRESA</div>
-            <a href="https://goo.gl/maps/c8zmCvydby9os12k7">
-              Savska cesta 25, 10000 Zagreb
+            <a href="https://goo.gl/maps/XNJ98VWsZp16tKRe6">
+              Studentski centar Zagreb, Savska cesta 25, 10000, Zagreb, Hrvatska
             </a>
           </div>
-          <div>
-            <div>URED RAVNATELJA</div>
-            <a href="tel:+385 1 4593 621">+385 1 4593 621</a>
-          </div>
         </div>
+
         <ButtonLink
-          href="mailto:ured@sczg.hr"
+          href="mailto:prehrana@sczg.hr"
           className="!rounded-full mt-10 w-fit"
           isRegularLink
         >

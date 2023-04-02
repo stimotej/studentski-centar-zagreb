@@ -27,7 +27,10 @@ const StudentServisPage = () => {
   });
 
   return (
-    <Layout>
+    <Layout
+      title="Student servis"
+      description="Student servis studentskog centar Sveučilišta u Zagrebu posreduje u pronalasku studentskih poslova između studenata i poslodavaca. Pronađite najbolje poslove na oglasniku studentskih poslova."
+    >
       {isLoading ? (
         <Spinner className="mt-12 mx-auto" />
       ) : (

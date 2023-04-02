@@ -8,7 +8,12 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = (props) => {
   return (
-    <div className={clsx("shadow-lg p-6 rounded-lg w-full", props.className)}>
+    <div
+      className={clsx(
+        "shadow-lg p-6 bg-white rounded-lg w-full",
+        props.className
+      )}
+    >
       {props.children}
     </div>
   );
