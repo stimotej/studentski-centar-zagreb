@@ -1,0 +1,67 @@
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { useRef } from "react";
+import type { JobsMeta, Post } from "../types";
+import jobKeys from "./queries";
+
+export type JobsFilters = {
+  categories?: number[];
+  orderby?: string;
+  order?: string;
+  search?: string;
+};
+
+export const useJobs = (filters: JobsFilters) => {
+  const mediaPerPage = 30;
+  const totalPages = useRef(0);
+
+  return useInfiniteQuery(
+    jobKeys.jobsFiltered(filters),
+    async ({ pageParam }) => {
+      const response = await axios.get<Post<JobsMeta>[]>("/jobs", {
+        params: {
+          per_page: mediaPerPage,
+          page: pageParam,
+          timestamp: new Date().getTime(),
+          allowed_sc: true,
+          ...filters,
+        },
+      });
+      totalPages.current = response.headers?.["x-wp-totalpages"];
+      return response.data;
+    },
+    {
+      getNextPageParam: (lastPage, pages) => {
+        if (pages.length + 1 <= totalPages.current) return pages.length + 1;
+      },
+    }
+  );
+};
+
+export const useJob = (slug: string) => {
+  return useQuery(jobKeys.job(slug), async () => {
+    const response = await axios.get<Post<JobsMeta>[]>("/jobs/", {
+      params: {
+        slug: slug,
+      },
+    });
+    return response.data[0];
+  });
+};
+const filters = {
+  per_page: 6,
+  orderby: "featured",
+  order: "desc",
+  allowed_sc: true,
+};
+
+export const getJobs = async () => {
+  const response = await axios.get<Post<JobsMeta>[]>("/jobs", {
+    params: filters,
+  });
+  return response.data;
+};
+
+export const useJobsHome = () => {
+  return useQuery(jobKeys.jobsFiltered(filters), getJobs);
+};
