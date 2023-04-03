@@ -17,6 +17,7 @@ import { useJobsHome } from "@/features/jobs";
 import { useCalendarEvents } from "@/features/calendar";
 import dayjs from "dayjs";
 import { faqs, slides } from "@/utils/constants";
+import Spinner from "@/components/elements/Spinner";
 
 const Home: NextPage = () => {
   const { data: obavijesti, isLoading: isLoadingObavijesti } =
@@ -35,23 +36,29 @@ const Home: NextPage = () => {
       <div className="mt-6 flex flex-col gap-16 md:flex-row">
         <div className="w-full md:w-[70%]">
           <h2 className="text-2xl font-semibold">Obavijesti</h2>
-          <div className="grid grid-cols-2 gap-8 mt-6">
-            {!!obavijesti && obavijesti?.length > 0 ? (
-              obavijesti?.map((obavijest) => (
-                <PostCard
-                  key={obavijest.id}
-                  slug={obavijest.slug}
-                  title={clearHtmlFromString(obavijest.title.rendered)}
-                  category={obavijest.category}
-                  date={obavijest.date}
-                  excerpt={clearHtmlFromString(obavijest.excerpt.rendered)}
-                  image={obavijest.image_url}
-                />
-              ))
-            ) : (
-              <div className="my-4 text-light">Nema obavijesti za prikaz</div>
-            )}
-          </div>
+          {isLoadingObavijesti ? (
+            <div className="py-8">
+              <Spinner className="mx-auto" />
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 gap-8 mt-6">
+              {!!obavijesti && obavijesti?.length > 0 ? (
+                obavijesti?.map((obavijest) => (
+                  <PostCard
+                    key={obavijest.id}
+                    slug={obavijest.slug}
+                    title={clearHtmlFromString(obavijest.title.rendered)}
+                    category={obavijest.category}
+                    date={obavijest.date}
+                    excerpt={clearHtmlFromString(obavijest.excerpt.rendered)}
+                    image={obavijest.image_url}
+                  />
+                ))
+              ) : (
+                <div className="my-4 text-light">Nema obavijesti za prikaz</div>
+              )}
+            </div>
+          )}
           <div className="flex justify-center mt-8">
             <ButtonLink href="/obavijesti" className="px-8 !rounded-full">
               Idi na obavijesti
