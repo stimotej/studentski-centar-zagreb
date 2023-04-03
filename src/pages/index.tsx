@@ -1,5 +1,4 @@
 import { type NextPage } from "next";
-
 import Layout from "@/components/shared/Layout";
 import Slider from "@/components/elements/Slider";
 import LinkCards from "@/components/pocetna/LinkCards";
