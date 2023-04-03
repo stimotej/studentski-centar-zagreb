@@ -48,7 +48,7 @@ const PosloviPage: NextPage = () => {
         subtitle="Za pregled poslova objavljenih na staroj stranici pritisni na link pretraži poslove"
         action={{
           title: "Pretraži poslove",
-          href: "http://www.sczg.unizg.hr/student-servis/ponuda-poslova/",
+          href: "http://161.53.174.9/student-servis/ponuda-poslova/",
         }}
       />
       <div className="mt-12 flex flex-col-reverse gap-12 md:flex-row pb-12">

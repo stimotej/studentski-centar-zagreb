@@ -28,7 +28,7 @@ const AboutSection: React.FC<AboutSectionProps> = (props) => {
           className="w-full h-auto object-cover rounded-lg"
         />
         <ButtonLink
-          href="http://www.sczg.unizg.hr/student-servis/"
+          href="http://161.53.174.9/student-servis/"
           className="mt-6"
           isRegularLink
         >

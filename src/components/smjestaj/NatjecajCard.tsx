@@ -19,7 +19,7 @@ const NatjecajCard: React.FC<NatjecajCardProps> = (props) => {
         stranici:
       </p>
       <p className="mt-2 text-center">
-        <a href="www.sczg.unizg.hr" className="text-primary">
+        <a href="http://www.sczg.unizg.hr/" className="text-primary">
           www.sczg.unizg.hr
         </a>
       </p>

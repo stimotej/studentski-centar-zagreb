@@ -133,7 +133,7 @@ const SmjestajPage = () => {
       }
     >
       <PageTitle
-        title="Obavijesti – studentski smještaj"
+        title="Obavijesti - studentski smještaj"
         subtitle="Pravo na smještaj u studentskom domu je osobno pravo studenta i nije prenosivo na drugu osobu. Studentski centar u Zagrebu će odmah po useljenju studenata u studentske domove obavljati intenzivne kontrole ostvarenog prava i sukladno Pravilniku o domskom redu i uvjetima boravka studenata u studentskim domovima sankcionirati prekršitelje."
         action={{
           title: "STUDENTSKI DOMOVI",
@@ -159,7 +159,7 @@ const SmjestajPage = () => {
           image="/slike/smjestaj/ikone/lijecnicki_pregled.png"
           title="Liječnički pregled za smještaj"
           content={`<div class="et_pb_blurb_description">Isti se provodi se u svrhu utvrđivanja zdravstvenih rizika za boravak u kolektivu. <b></b>Molimo studente da se na pregled u ambulantu naruče telefonski.
-<br><a href="http://161.53.174.14/wp-content/uploads/2023/02/Raspored-ambulanti_2022.pdf">Raspored ambulanti</a></div>`}
+<br><a href="/dokumenti/smjestaj/Raspored-ambulanti_2022.pdf">Raspored ambulanti</a></div>`}
           imageClassName="w-[90px] h-[90px] object-contain"
           contentClassName="text-light leading-relaxed"
         />
@@ -173,7 +173,7 @@ const SmjestajPage = () => {
         <ContentCard
           image="/slike/smjestaj/ikone/mjere.png"
           title="Sukladan preventivnim mjerama"
-          content={`<div class="et_pb_blurb_description"><p>Boravak u studentskom domu mora biti sukladan propisanim preventivnim mjerama zaštite od COVIDa-19. <br><a href="http://161.53.174.14/wp-content/uploads/2022/09/Preporuke-za-sve-odgojno-obrazovne-ustanove.pdf" target="_blank" rel="noopener">Preporuke Hrvatskog zavoda za javno zdravstvo</a></p></div>`}
+          content={`<div class="et_pb_blurb_description"><p>Boravak u studentskom domu mora biti sukladan propisanim preventivnim mjerama zaštite od COVIDa-19. <br><a href="/dokumenti/smjestaj/Preporuke-za-sve-odgojno-obrazovne-ustanove.pdf" target="_blank" rel="noopener">Preporuke Hrvatskog zavoda za javno zdravstvo</a></p></div>`}
           imageClassName="w-[90px] h-[90px] object-contain"
           contentClassName="text-light leading-relaxed"
         />
