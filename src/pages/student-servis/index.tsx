@@ -147,7 +147,7 @@ const StudentServisPage = () => {
         description="Jednostavan sustav prijave ovih poslodavaca u bazu Studentskog centra u Zagrebu."
         action={{
           title: "PRIJAVA ČLANSTVO POSLODAVCI",
-          href: "/registracija-poslodavac",
+          href: "/prijava-poslodavac",
         }}
         className="mb-12"
       >

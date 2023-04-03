@@ -1,5 +1,6 @@
 import ButtonLink from "@/components/elements/ButtonLink";
 import Spinner from "@/components/elements/Spinner";
+import Card from "@/components/shared/Card";
 import FAQCards from "@/components/shared/FAQCards";
 import InfoPostCard from "@/components/shared/InfoPostCard";
 import Layout from "@/components/shared/Layout";
@@ -383,6 +384,18 @@ const SportPage = () => {
                 )}
               </div>
             )}
+
+            <Section>
+              <Card>
+                <ButtonLink
+                  href="http://161.53.174.9/sport/"
+                  className="mx-auto"
+                  isRegularLink
+                >
+                  Arhiva
+                </ButtonLink>
+              </Card>
+            </Section>
           </div>
         )
       }

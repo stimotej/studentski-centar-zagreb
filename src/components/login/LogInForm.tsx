@@ -102,13 +102,13 @@ const LogInForm: React.FC<LogInFormProps> = (props) => {
           Prijavi se
         </Button>
       </form>
-      <div className="text-sm mt-3">
+      {/* <div className="text-sm mt-3">
         Nemaš račun?{" "}
         <Link href="#" className="text-primary">
           Registriraj se
         </Link>
-      </div>
-      <UnderConstructionTag className="mx-auto mt-4" />
+      </div> */}
+      <UnderConstructionTag className="mx-auto mt-6" />
     </Card>
   );
 };

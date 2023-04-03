@@ -42,10 +42,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = (props) => {
             <button
               onClick={() =>
                 handleScrollPosts(
-                  -(
-                    (postCardRefs.current[index]?.offsetWidth || 600) * 3 +
-                    3 * 32
-                  ),
+                  -((postCardRefs.current[index]?.offsetWidth || 600) + 3 * 32),
                   index
                 )
               }
@@ -56,8 +53,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = (props) => {
             <button
               onClick={() =>
                 handleScrollPosts(
-                  (postCardRefs.current[index]?.offsetWidth || 600) * 3 +
-                    3 * 32,
+                  (postCardRefs.current[index]?.offsetWidth || 600) + 3 * 32,
                   index
                 )
               }

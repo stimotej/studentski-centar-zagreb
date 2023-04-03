@@ -79,7 +79,7 @@ const CompanyLoginPage: NextPage = () => {
               />
             );
           })()}
-          <LogInForm className="mt-4" />
+          {/* <LogInForm className="mt-4" /> */}
         </div>
       </div>
     </Layout>
