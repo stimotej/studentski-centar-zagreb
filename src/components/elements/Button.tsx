@@ -15,7 +15,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
         disabled={props.disabled || props.loading}
         className={clsx(
-          "relative flex items-center gap-1 bg-primary hover:bg-primary/90 rounded-full uppercase text-white tracking-widest text-xs py-4 px-8 font-semibold",
+          "relative flex text-center items-center gap-1 bg-primary hover:bg-primary/90 rounded-full uppercase text-white tracking-widest text-xs py-4 px-8 font-semibold",
           props.disabled && "!bg-gray-200 !text-gray-600 hover:!bg-gray-200",
           props.className
         )}

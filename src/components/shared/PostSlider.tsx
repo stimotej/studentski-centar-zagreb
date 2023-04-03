@@ -96,7 +96,7 @@ const PostCard: React.FC<PostCardProps> = (props) => {
         alt={clearHtmlFromString(props.post.title.rendered)}
         width={350}
         height={200}
-        className="rounded-lg object-cover w-[60vw] h-[30vh] max-w-[350px] min-w-[200px]"
+        className="rounded-lg object-cover w-[60vw] h-[30vh] max-w-[350px] min-w-[300px]"
       />
       <div className="flex flex-col gap-2 px-4 mt-4">
         <h4 className="text-text font-semibold text-xl">

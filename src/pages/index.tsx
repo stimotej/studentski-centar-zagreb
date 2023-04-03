@@ -40,7 +40,7 @@ const Home: NextPage = () => {
               <Spinner className="mx-auto" />
             </div>
           ) : (
-            <div className="grid grid-cols-2 gap-8 mt-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-6">
               {!!obavijesti && obavijesti?.length > 0 ? (
                 obavijesti?.map((obavijest) => (
                   <PostCard

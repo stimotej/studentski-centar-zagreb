@@ -1,7 +1,6 @@
 import Button from "@/components/elements/Button";
 import ButtonLink from "@/components/elements/ButtonLink";
 import DisplayHTML from "@/components/elements/DisplayHTML";
-import Spinner from "@/components/elements/Spinner";
 import DnevniMenuSection from "@/components/prehrana/DnevniMenuSection";
 import RestoranJelaSection from "@/components/prehrana/RestoranJelaSection";
 import Card from "@/components/shared/Card";
@@ -68,7 +67,7 @@ const RestaurantPage: NextPage = () => {
           }
           className="flex-1"
         />
-        <Card className="flex-1 mt-24 text-center text-sm text-light">
+        <Card className="flex-1 mt-0 md:mt-24 text-center text-sm text-light">
           <h5 className="uppercase text-primary underline font-semibold mb-6">
             RADNO VRIJEME
           </h5>
