@@ -80,7 +80,34 @@ export type PostsMeta = {
   radno_vrijeme: string;
   restaurant_info: RestaurantInfo[];
   menu_restaurant_id: number;
-  menu_products: MenuProduct[];
+  menu_products:
+    | {
+        dorucak:
+          | {
+              menu: MenuProduct[] | undefined;
+              vege_menu: MenuProduct[] | undefined;
+              izbor: MenuProduct[] | undefined;
+              prilozi: MenuProduct[] | undefined;
+            }
+          | undefined;
+        rucak:
+          | {
+              menu: MenuProduct[] | undefined;
+              vege_menu: MenuProduct[] | undefined;
+              izbor: MenuProduct[] | undefined;
+              prilozi: MenuProduct[] | undefined;
+            }
+          | undefined;
+        vecera:
+          | {
+              menu: MenuProduct[] | undefined;
+              vege_menu: MenuProduct[] | undefined;
+              izbor: MenuProduct[] | undefined;
+              prilozi: MenuProduct[] | undefined;
+            }
+          | undefined;
+      }
+    | [];
   menu_date: string;
   price: string;
   stock_status: string;
@@ -95,7 +122,7 @@ export type PostsMeta = {
   kontakt: string;
   radno_vrijeme_blagajni: string;
   lokacija: string;
-  image_groups: [];
+  image_groups: ImageGroup[];
 };
 
 export type JobsMeta = {
@@ -127,6 +154,15 @@ export type JobsMeta = {
   labels: string[];
 };
 
+export type MenuProduct = {
+  id: number;
+  title: string;
+  stock: string;
+  allergens: string;
+  weight: string;
+  price: string;
+};
+
 export type Company = {
   roles: string[];
   oib_company: string;
@@ -146,12 +182,28 @@ export type Company = {
   image_url: string;
 };
 
+export type ImageGroup = {
+  id: number;
+  title: string;
+  images: {
+    id: number;
+    url: string;
+  }[];
+};
+
 export type Document = {
   id: number;
   title: string;
   media_type: string;
   mime_type: string;
   source_url: string;
+};
+
+export type Banner = {
+  id: number;
+  image_url: string;
+  banner_url: string;
+  title: string;
 };
 
 export type Category = {
@@ -164,7 +216,7 @@ export type Category = {
   taxonomy: string;
   parent: number;
   meta: {
-    image_groups: [];
+    image_groups: ImageGroup[];
   };
 };
 
@@ -172,12 +224,4 @@ export type RestaurantInfo = {
   title: string;
   icon: string;
   order: number;
-};
-
-export type MenuProduct = {
-  id: number;
-  title: string;
-  media_type: string;
-  mime_type: string;
-  source_url: string;
 };

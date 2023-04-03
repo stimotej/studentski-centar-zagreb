@@ -51,7 +51,7 @@ const ObavijestiPage: NextPage = () => {
                         key={obavijest.id}
                         slug={obavijest.slug}
                         title={clearHtmlFromString(obavijest.title.rendered)}
-                        category={obavijest.category}
+                        category={obavijest.author_meta.display_name}
                         date={obavijest.date}
                         excerpt={clearHtmlFromString(
                           obavijest.excerpt.rendered

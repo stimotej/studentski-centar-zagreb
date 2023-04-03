@@ -8,6 +8,8 @@ import {
   infoSSAboutPost,
   infoSSInfoCategory,
   infoPostsCategoryId,
+  faqStudentServisCategory,
+  obavijestiStudentServisCategory,
 } from "@/utils/constants";
 import AboutSection from "@/components/student-servis/AboutSection";
 import Spinner from "@/components/elements/Spinner";
@@ -20,10 +22,14 @@ import UnderConstructionTag from "@/components/shared/UnderConstructionTag";
 import DavanjaPoslodavcaSection from "@/components/student-servis/DavanjaPoslodavcaSection";
 import DigitalnoPotpisivanjeSection from "@/components/student-servis/DigitalnoPotpisivanjeSection";
 import ClanstvoSection from "@/components/student-servis/ClanstvoSection";
+import SectionTitle from "@/components/shared/SectionTitle";
+import FAQCards from "@/components/shared/FAQCards";
+import ButtonLink from "@/components/elements/ButtonLink";
+import PagePosts from "@/components/shared/PagePosts";
 
 const StudentServisPage = () => {
   const { data: posts, isLoading } = usePosts({
-    categories: [infoPostsCategoryId, infoPostsSS],
+    categories: [infoPostsCategoryId, infoPostsSS, faqStudentServisCategory],
   });
 
   return (
@@ -65,6 +71,9 @@ const StudentServisPage = () => {
         </>
       )}
 
+      <PagePosts category={obavijestiStudentServisCategory} className="mt-16" />
+
+      <div id="prijava"></div>
       <LoginLinksSection className="mt-24 mb-24" />
 
       <PageTitle
@@ -97,10 +106,40 @@ const StudentServisPage = () => {
 
       <UgovaranjePoslaSection className="mb-12 mt-24" />
 
+      {!!posts?.filter((item) =>
+        item.categories.includes(faqStudentServisCategory)
+      ).length && (
+        <div className="mb-24">
+          <SectionTitle title="Često postavljana pitanja" />
+          <FAQCards
+            items={
+              posts
+                .filter((item) =>
+                  item.categories.includes(faqStudentServisCategory)
+                )
+                .slice(0, 8)
+                .map((item) => ({
+                  title: item.title.rendered,
+                  content: item.content.rendered,
+                })) || []
+            }
+            loading={isLoading}
+          />
+          {posts?.filter((item) =>
+            item.categories.includes(faqStudentServisCategory)
+          ).length > 8 && (
+            <ButtonLink href="/student-servis/faq" className="mx-auto mt-6">
+              Vidi sve
+            </ButtonLink>
+          )}
+        </div>
+      )}
+
       <DavanjaPoslodavcaSection className="mb-24" />
 
       <DigitalnoPotpisivanjeSection className="mb-24" />
 
+      <div id="clanstvo"></div>
       <ClanstvoSection className="mb-24" />
 
       <BlueCard

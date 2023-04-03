@@ -13,6 +13,9 @@ import { useJobs } from "@/features/jobs";
 import JobCard from "@/components/jobs/JobCard";
 import { useCategories } from "@/features/categories";
 import { jobsCategoryId } from "@/utils/constants";
+import ObrasciSection from "@/components/jobs/ObrasciSection";
+import { useBanners } from "@/features/banners";
+import Image from "next/image";
 
 const PosloviPage: NextPage = () => {
   const [category, setCategory] = useState<number>(jobsCategoryId);
@@ -32,6 +35,8 @@ const PosloviPage: NextPage = () => {
   });
 
   const { data: categories } = useCategories(jobsCategoryId);
+
+  const { data: banners } = useBanners();
 
   return (
     <Layout
@@ -110,8 +115,40 @@ const PosloviPage: NextPage = () => {
                 : [{ title: "Svi poslovi", value: jobsCategoryId }]
             }
           />
+          <ObrasciSection className="mt-6 hidden md:block" />
+          {!!banners?.length && (
+            <div className="hidden md:grid grid-cols-2 sm:grid-cols-3 md:grid-cols-1 gap-6 mt-8">
+              {banners?.map((banner) => (
+                <a href={banner.banner_url} key={banner.id}>
+                  <Image
+                    src={banner.image_url}
+                    alt={banner.title}
+                    width={220}
+                    height={300}
+                    className="w-full h-auto rounded-lg"
+                  />
+                </a>
+              ))}
+            </div>
+          )}
         </div>
       </div>
+      <ObrasciSection className="mt-6 md:hidden" />
+      {!!banners?.length && (
+        <div className="grid md:hidden grid-cols-2 sm:grid-cols-3 md:grid-cols-1 gap-6 my-8">
+          {banners?.map((banner) => (
+            <a href={banner.banner_url} key={banner.id}>
+              <Image
+                src={banner.image_url}
+                alt={banner.title}
+                width={220}
+                height={300}
+                className="w-full h-auto rounded-lg"
+              />
+            </a>
+          ))}
+        </div>
+      )}
     </Layout>
   );
 };

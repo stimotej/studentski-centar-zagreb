@@ -26,6 +26,8 @@ export const usePost = (slug: string) => {
 interface FiltersType {
   categories?: number[];
   include?: number[];
+  orderby?: string;
+  order?: string;
 }
 
 const defaultFilters = {

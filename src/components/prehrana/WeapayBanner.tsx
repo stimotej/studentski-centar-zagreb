@@ -54,7 +54,7 @@ const WeapayBanner: React.FC<WeapayBannerProps> = (props) => {
         alt="Weapay mockup"
         width={300}
         height={260}
-        className="w-[300px] h-auto object-cover absolute right-6 -bottom-12"
+        className="w-[300px] h-auto object-cover absolute right-6 -bottom-12 invisible lg:visible"
       />
     </div>
   );

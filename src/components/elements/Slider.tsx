@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import Image from "next/image";
 import React, { useState, useEffect, useRef } from "react";
+import DisplayHTML from "./DisplayHTML";
 
 interface Slide {
   src: string;
@@ -136,9 +137,11 @@ export default function Slider({ slides, className }: SliderProps) {
                 : " -translate-x-1/2 translate-y-full opacity-0"
             }`}
           >
-            <h1 className="mb-6 text-3xl font-bold">{slide.title}</h1>
-            <p className="mb-4">{slide.subtitle}</p>
-            <div className="flex items-center justify-center">
+            <h1 className="mb-6 text-3xl font-bold line-clamp-3">
+              {slide.title}
+            </h1>
+            <DisplayHTML html={slide.subtitle} className="line-clamp-3" />
+            <div className="flex items-center justify-center mt-4">
               <a
                 href={slide.actionHref}
                 className="w-fit rounded-full bg-white/20 px-4 py-3 font-semibold transition-colors hover:bg-primary"

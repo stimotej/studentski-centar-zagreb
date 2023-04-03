@@ -27,10 +27,17 @@ const InfoPostPage = () => {
       </Layout>
     );
   return (
-    <Layout>
+    <Layout
+      title={clearHtmlFromString(obavijest?.title.rendered || "")}
+      description={clearHtmlFromString(obavijest?.excerpt.rendered || "")}
+    >
       <PageTitle
         title={clearHtmlFromString(obavijest?.title.rendered || "")}
-        subtitle={<DisplayHTML html={obavijest?.excerpt.rendered || ""} />}
+        subtitle={
+          clearHtmlFromString(obavijest?.excerpt.rendered || "") ? (
+            <DisplayHTML html={obavijest?.excerpt.rendered || ""} />
+          ) : null
+        }
       />
       <div className="my-16">
         <DisplayHTML html={obavijest?.content.rendered || ""} />

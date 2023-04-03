@@ -9,6 +9,8 @@ export const restaurantsCategoryId = 32;
 
 export const infoPostsCategoryId = 169;
 
+// student servis
+
 export const infoPostsSS = 170;
 
 export const infoSSAboutPost = 7317;
@@ -19,32 +21,93 @@ export const infoSSRegisterPost = 7631;
 export const infoSSPoslovniceCategory = 171;
 export const infoSSInfoCategory = 181;
 
+// smjestaj
+
+export const infoPostsSmjestaj = 176;
+
+export const infoSmjestajInfoCategory = 264;
+export const infoSmjestajForeignStudentsCategory = 237;
+export const infoSmjestajDormitoriesCategory = 125;
+
+// sport
+
+export const infoPostsSport = 177;
+
+export const infoSportEdukacijskeCategory = 255;
+export const infoSportEdukacijskeSportskeCategory = 260;
+export const infoSportEdukacijskeStrucneCategory = 259;
+
+export const infoSportNatjecateljskeCategory = 254;
+
+export const infoSportRekreacijskeCategory = 253;
+export const infoSportRekreacijskeCjelogodisnjeCategory = 257;
+export const infoSportRekreacijskePovremeneCategory = 258;
+
+export const infoSportZabavaCategory = 256;
+
+// FAQ
+
+export const faqCategory = 183;
+
+export const faqKulturaCategory = 184;
+export const faqPrehranaCategory = 185;
+export const faqSmjestajCategory = 186;
+export const faqSportCategory = 187;
+export const faqStudentServisCategory = 188;
+
+// OBAVIJESTI
+
+export const obavijestiStudentServisCategory = 166;
+export const obavijestiSmjestajCategory = 139;
+export const obavijestiSportCategory = 165;
+export const obavijestiKulturaCategory = 127;
+export const obavijestiPrehranaCategory = 164;
+
 // FOR HOME PAGE
 
 export const slides = [
   {
+    src: "/slike/Student-servis.jpg",
+    title: "Otvoren šalter Student servisa u studentskom naselju Stjepan Radić",
+    subtitle:
+      "U prizemlju 10. paviljona u studentskom domu Stjepan Radić, Jarunska 2, otvorena je podružnica Student servisa Studentskog centra u Zagrebu. Na lokaciji možete obaviti: podizanje/predaja studentskog ugovora, podizanje/predaja računa, učlanjenje kao i dobiti sve informacije vezane uz rad putem Student servisa.&nbsp;Prilaz šalteru pogodan je za osobe sa invaliditetom.&nbsp;&nbsp;Radno vrijeme: ponedjeljak &#8211; petak;&nbsp;7:30 h - 15:30 [&hellip;]",
+    actionTitle: "Saznaj više",
+    actionHref:
+      "/obavijesti/otvoren-salter-student-servisa-u-studentskom-naselju-stjepan-radic",
+  },
+  {
     src: "/slike/studentski-dom.jpg",
-    title: "Rezultati Natječaja za smještaj 2022./2023.",
+    title: "Potpora studentima podstanarima",
     subtitle:
-      "Poznati su rezultati Natječaja za subvencionirani smještaj studenata u studentske domove za akademsku godinu 2022. / 2023.",
+      "REZULTATI 2.&nbsp;JAVNOG POZIVAza utvrđivanje prava na potporu smještaja studenata u privatnom smještaju&nbsp;na području Grada Zagreba i Zagrebačke županije za akademsku godinu 2022./2023.Sukladno predanim zahtjevima objavljujemo listu&nbsp;studenata koji su se odazvali na ovaj javni poziv u akademskoj godini 2022. / 2023.Listu možete pogledati ovdje.Studenti koji su ostvarili pravo na potporu za smještaj studenata u privatnom smještaju [&hellip;]",
     actionTitle: "Saznaj više",
-    actionHref: "#",
+    actionHref: "/obavijesti/potpora-studentima-podstanarima",
   },
   {
-    src: "/slike/galerija-sc.jpg",
-    title: "Rezultati javnog poziva za izlaganje u Galeriji SC u 2023. godini",
+    src: "/slike/menza_nsk.jpg",
+    title: "Ponovno otvoren restoran SC-a u NSK",
     subtitle:
-      "Pogledaj rezultate javnog poziva za izlaganje u Galeriji SC u 2023. godini",
+      "Ponuda se sastoji od:od drugih prehrambenih proizvoda tipa brze hrane (pizza, sendviči i sl.)Podjela hrane vrši se putem dvije linije samoposluživanja.Radno vrijeme:od ponedjeljka do petka 8:00 &#8211; 15:00,subotom, nedjeljom i blagdanom ne radi.Caffe bar &#8220;NSK&#8221;Radno vrijeme:od ponedjeljka do petka 8:00 – 15:00,Subotom, nedjeljom i blagdanom ne radi.",
     actionTitle: "Saznaj više",
-    actionHref: "#",
+    actionHref: "/obavijesti/ponovno-otvoren-restoran-sc-a-u-nsk",
   },
   {
-    src: "/slike/teatar-td.jpg",
-    title: "Teatar &TD zatvara sezonu vrhunskim predstavama!",
-    subtitle:
-      "Na kraju još jedne izazovne sezone Teatar &TD poziva publiku na gledanje pet naslova, tri premijerno odigrana ovo proljeće i dva nešto starija nagrađivana koja uvijek izazivaju najnevjerojatnije reakcije!",
+    src: "/slike/obavijest-prehrana.png",
+    title:
+      "Obavijest studentima o načinu davanja prigovora na konzumaciju u restoranu",
+    subtitle: "",
     actionTitle: "Saznaj više",
-    actionHref: "#",
+    actionHref:
+      "/obavijesti/obavijest-studentima-o-nacinu-davanja-prigovora-na-konzumaciju-u-restoranu",
+  },
+  {
+    src: "/slike/radionice-kultura.jpg",
+    title: "Novi ciklus scenarističke radionice za studente! Upisi u tijeku.",
+    subtitle:
+      "Upiši scenarističku radionicu i nauči novu vještinu!Kroz praktičan rad i stručno vodstvo diplomiranog dramaturga dobit ćeš uvid u osnove pisanja za film. Prethodno iskustvo nije potrebno, jedino što ti treba je ideja koju ćeš tijekom radionice pretvoriti u scenarij.Sad je idealno vrijeme za onu filmsku ideju o kojoj razmišljaš već godinama.Prijave traju do popunjavanja grupe, […]",
+    actionTitle: "Saznaj više",
+    actionHref:
+      "/obavijesti/novi-ciklus-scenaristicke-radionice-za-studente-upisi-u-tijeku",
   },
 ];
 

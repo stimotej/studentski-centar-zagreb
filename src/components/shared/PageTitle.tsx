@@ -6,11 +6,12 @@ interface PageTitleProps {
   title: string;
   subtitle?: string | React.ReactNode;
   action?: { title: string; href: string; isRegularLink?: boolean };
+  className?: string;
 }
 
 const PageTitle: React.FC<PageTitleProps> = (props) => {
   return (
-    <div className="mt-12">
+    <div className={clsx("mt-12", props.className)}>
       <div className="w-12 h-4 bg-primary"></div>
       <h1 className="text-3xl lg:text-4xl xl:text-5xl leading-tight font-semibold text-text mt-6">
         {props.title}

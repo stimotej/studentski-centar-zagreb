@@ -12,7 +12,7 @@ type ButtonLinkProps = {
 
 const ButtonLink: React.FC<ButtonLinkProps> = (props) => {
   const styles = clsx(
-    "flex w-fit items-center gap-1 bg-primary hover:bg-primary/90 rounded-full uppercase text-white tracking-wider text-sm py-3 px-6 font-medium",
+    "flex w-fit items-center gap-1 bg-primary hover:bg-primary/90 rounded-full uppercase text-white tracking-widest text-xs py-4 px-8 font-semibold",
     props.className
   );
 

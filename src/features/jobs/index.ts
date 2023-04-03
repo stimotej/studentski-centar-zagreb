@@ -62,6 +62,6 @@ export const getJobs = async () => {
   return response.data;
 };
 
-export const useJobsHome = () => {
-  return useQuery(jobKeys.jobsFiltered(filters), getJobs);
+export const useJobsHome = (initialData?: Post<JobsMeta>[]) => {
+  return useQuery(jobKeys.jobsFiltered(filters), getJobs, { initialData });
 };

@@ -10,6 +10,10 @@ html {
     @apply text-primary;
 }
 
+.white-links .ql-editor a {
+    @apply text-white underline;
+}
+
 .ql-editor iframe {
     @apply rounded-lg w-full h-[400px];
 }

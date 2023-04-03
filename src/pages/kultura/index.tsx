@@ -4,14 +4,25 @@ import EventCards from "@/components/kultura/EventCards";
 import KlubSC from "@/components/kultura/KlubSC";
 import BlueCard from "@/components/shared/BlueCard";
 import ContentCard from "@/components/shared/ContentCard";
+import FAQCards from "@/components/shared/FAQCards";
 import Layout from "@/components/shared/Layout";
+import PagePosts from "@/components/shared/PagePosts";
 import PageTitle from "@/components/shared/PageTitle";
 import SectionTitle from "@/components/shared/SectionTitle";
 import { useNewEvents } from "@/features/events";
+import { usePosts } from "@/features/posts";
+import {
+  faqKulturaCategory,
+  obavijestiKulturaCategory,
+} from "@/utils/constants";
 import React from "react";
 
 const KulturaPage = () => {
   const { data: events, isLoading } = useNewEvents();
+
+  const { data: posts, isLoading: isLoadingPosts } = usePosts({
+    categories: [faqKulturaCategory],
+  });
 
   return (
     <Layout
@@ -26,6 +37,9 @@ const KulturaPage = () => {
           isRegularLink: true,
         }}
       />
+
+      <PagePosts category={obavijestiKulturaCategory} className="mt-12" />
+
       <BlueCard
         title="Ulaznice za &TD dostupne i u online prodaji!"
         description="Ulaznice za predstave Teatra &TD, koncerte i određene filmske projekcije u SC-u, osim na našim blagajnama možete kupiti i putem online platforme za prodaju ulaznica Ulaznice.hr te na njihovim prodajnim mjestima."
@@ -107,6 +121,30 @@ const KulturaPage = () => {
           className="flex-1"
         />
       </div>
+      {!!posts?.filter((item) => item.categories.includes(faqKulturaCategory))
+        .length && (
+        <div className="mb-24">
+          <SectionTitle title="Često postavljana pitanja" />
+          <FAQCards
+            items={
+              posts
+                .filter((item) => item.categories.includes(faqKulturaCategory))
+                .slice(0, 8)
+                .map((item) => ({
+                  title: item.title.rendered,
+                  content: item.content.rendered,
+                })) || []
+            }
+            loading={isLoadingPosts}
+          />
+          {posts?.filter((item) => item.categories.includes(faqKulturaCategory))
+            .length > 8 && (
+            <ButtonLink href="/kultura/faq" className="mx-auto mt-6">
+              Vidi sve
+            </ButtonLink>
+          )}
+        </div>
+      )}
     </Layout>
   );
 };

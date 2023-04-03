@@ -1,24 +1,87 @@
+import ButtonLink from "@/components/elements/ButtonLink";
 import HelpSection from "@/components/prehrana/HelpSection";
 import KvalitetaPrehraneSection from "@/components/prehrana/KvalitetaPrehraneSection";
 import WeapayBanner from "@/components/prehrana/WeapayBanner";
 import Card from "@/components/shared/Card";
+import FAQCards from "@/components/shared/FAQCards";
 import Layout from "@/components/shared/Layout";
+import PagePosts from "@/components/shared/PagePosts";
 import PageTitle from "@/components/shared/PageTitle";
 import PostSlider from "@/components/shared/PostSlider";
+import Section from "@/components/shared/Section";
+import SectionTitle from "@/components/shared/SectionTitle";
 import { usePosts } from "@/features/posts";
-import { restaurantsCategoryId } from "@/utils/constants";
+import {
+  faqPrehranaCategory,
+  obavijestiPrehranaCategory,
+  restaurantsCategoryId,
+} from "@/utils/constants";
 import React from "react";
 
 const PrehranaPage = () => {
   const { data: posts, isLoading } = usePosts({
     categories: [restaurantsCategoryId],
+    orderby: "order",
+  });
+
+  const { data: faqs, isLoading: isLoadingFaqs } = usePosts({
+    categories: [faqPrehranaCategory],
   });
 
   return (
     <Layout
       title="Prehrana"
       description="Studentski centar Zagreb broji čak 16 restorana smještenih na vrlo atraktivnim lokacijama po Zagrebu. Na stranicama svakog restorana možete pratiti dnevnu ponudu jela koja se taj dan poslužuju."
-      bottomComponent={<HelpSection />}
+      bottomComponent={
+        <>
+          <div id="restorani"></div>
+          <PostSlider
+            title="Restorani"
+            subtitle="Restorani Studentskog Centra u Zagrebu"
+            className="mt-24"
+            posts={posts}
+            loading={isLoading}
+          />
+
+          <KvalitetaPrehraneSection className="mb-12" />
+
+          <Section className="mt-24">
+            <WeapayBanner />
+
+            {!!faqs?.filter((item) =>
+              item.categories.includes(faqPrehranaCategory)
+            ).length && (
+              <div className="mt-32">
+                <SectionTitle title="Često postavljana pitanja" />
+                <FAQCards
+                  items={
+                    faqs
+                      .filter((item) =>
+                        item.categories.includes(faqPrehranaCategory)
+                      )
+                      .slice(0, 8)
+                      .map((item) => ({
+                        title: item.title.rendered,
+                        content: item.content.rendered,
+                      })) || []
+                  }
+                  loading={isLoadingFaqs}
+                />
+                {faqs?.filter((item) =>
+                  item.categories.includes(faqPrehranaCategory)
+                ).length > 8 && (
+                  <ButtonLink href="/prehrana/faq" className="mx-auto mt-6">
+                    Vidi sve
+                  </ButtonLink>
+                )}
+              </div>
+            )}
+          </Section>
+
+          <div id="pitanja-i-pomoc"></div>
+          <HelpSection />
+        </>
+      }
     >
       <PageTitle
         title="Prehrana"
@@ -56,17 +119,7 @@ const PrehranaPage = () => {
         </Card>
       </div>
 
-      <PostSlider
-        title="Restorani"
-        subtitle="Restorani Studentskog Centra u Zagrebu"
-        className="mt-24"
-        posts={posts}
-        loading={isLoading}
-      />
-
-      <KvalitetaPrehraneSection className="my-12" />
-
-      <WeapayBanner className="mt-32" />
+      <PagePosts category={obavijestiPrehranaCategory} className="mt-12" />
     </Layout>
   );
 };

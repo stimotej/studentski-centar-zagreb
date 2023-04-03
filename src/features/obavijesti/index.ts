@@ -65,3 +65,19 @@ export const getObavijesti = async () => {
 export const useObavijestiHome = () => {
   return useQuery(obavijestiKeys.obavijestiFiltered(filters), getObavijesti);
 };
+
+export const useObavijestiPage = (category: number) => {
+  const filtersPage = {
+    per_page: 4,
+    orderby: "date",
+    order: "desc",
+    categories: [category],
+  };
+
+  return useQuery(obavijestiKeys.obavijestiFiltered(filtersPage), async () => {
+    const response = await axios.get<Post<ObavijestiMeta>[]>("/obavijesti", {
+      params: filtersPage,
+    });
+    return response.data;
+  });
+};

@@ -66,7 +66,6 @@ const CompanyLoginPage: NextPage = () => {
           );
         })()}
         <div className="flex-1">
-          <LogInForm />
           {(() => {
             const predajaOglasaPost = posts?.find(
               (post) => post.id === infoSSPredajaOglasaPost
@@ -77,10 +76,10 @@ const CompanyLoginPage: NextPage = () => {
                 title={predajaOglasaPost?.title.rendered || ""}
                 content={predajaOglasaPost?.content.rendered || ""}
                 documents={predajaOglasaPost?.meta.documents || []}
-                className="mt-4"
               />
             );
           })()}
+          <LogInForm className="mt-4" />
         </div>
       </div>
     </Layout>

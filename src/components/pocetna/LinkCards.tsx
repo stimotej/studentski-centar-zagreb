@@ -29,7 +29,7 @@ const slides = [
   {
     title: "SMJEŠTAJ",
     links: [
-      { title: "Kontakt", href: "/obavijesti/kontakti/" },
+      { title: "Kontakt", href: "/informacije/kontakti/" },
       { title: "Natječaj", href: "/smjestaj#natjecaj" },
       {
         title: "Naselja",

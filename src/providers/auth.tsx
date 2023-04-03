@@ -38,7 +38,6 @@ const AuthProvider: React.FC<AuthProviderProps> = (props) => {
             },
           }
         );
-        console.log("res", response.data);
         if (response.data.data.status !== 200) {
           logout();
           return;
@@ -63,7 +62,6 @@ const AuthProvider: React.FC<AuthProviderProps> = (props) => {
       axios.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${response.data.token}`;
-      console.log("res", response.data);
       localStorage.setItem("access-token", response.data.token || "");
       const userData = {
         email: response.data.user_email,

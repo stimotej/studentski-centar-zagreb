@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import Card from "../shared/Card";
 
@@ -37,12 +38,22 @@ const GeneralInfoCard = () => {
       </p>
       <p className="font-medium text-xs">STATUT STUDENTSKOG CENTRA U ZAGREBU</p>
       <p className="mb-2">
-        <a className="text-primary">Statut Studentskog centra u Zagrebu</a>
+        <a href="/dokumenti/sc_statut_30_01_2014.pdf" className="text-primary">
+          Statut Studentskog centra u Zagrebu
+        </a>
       </p>
       <p>
-        <a className="text-primary">
+        <a
+          href="/dokumenti/Odluka_o_dodjeli_financijskih_sredstava_05072021.pdf"
+          className="text-primary"
+        >
           Odluka o dodjeli financijskih sredstava za 2021. godinu
         </a>
+      </p>
+      <p className="mt-2">
+        <Link href="/informacije/opci-podaci" className="text-primary">
+          Saznaj više
+        </Link>
       </p>
     </Card>
   );

@@ -39,8 +39,9 @@ const LoginLinksSection: React.FC<LoginLinksSectionProps> = (props) => {
           title="STUDENT"
           description="Korisnički profil studenta omogućuje uređivanje profila studenta, pretraživanje poslova, izdavanje ugovora, statuse isplata, ažuriranje podataka i korisničku podršku."
           link={{
-            href: "/prijava-student",
+            href: "https://natjecaj.sczg.hr/student/Application",
             title: "PRIJAVA STUDENT",
+            isRegularLink: true,
           }}
         />
         <LoginLinkCard
@@ -59,7 +60,7 @@ const LoginLinksSection: React.FC<LoginLinksSectionProps> = (props) => {
 interface LoginLinkCardProps {
   title: string;
   description: string;
-  link: { href: string; title: string };
+  link: { href: string; title: string; isRegularLink?: boolean };
 }
 
 const LoginLinkCard: React.FC<LoginLinkCardProps> = (props) => {
@@ -69,7 +70,11 @@ const LoginLinkCard: React.FC<LoginLinkCardProps> = (props) => {
         {props.title}
       </h4>
       <p className="text-light leading-loose mt-2">{props.description}</p>
-      <ButtonLink href={props.link.href} className="mt-4">
+      <ButtonLink
+        href={props.link.href}
+        className="mt-4"
+        isRegularLink={props.link.isRegularLink}
+      >
         {props.link.title}
       </ButtonLink>
     </Card>

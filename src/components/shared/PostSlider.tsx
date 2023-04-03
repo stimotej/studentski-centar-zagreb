@@ -41,7 +41,7 @@ const PostSlider: React.FC<PostSliderProps> = (props) => {
       ) : (
         <div
           ref={postsContainerRef}
-          className="flex gap-8 overflow-x-auto hide-scrollbar px-8 bg-yellow-100 group"
+          className="flex gap-8 overflow-x-auto hide-scrollbar px-8 group"
         >
           {props.posts?.map((post, index) => (
             <div key={index} ref={postCardRef}>
@@ -57,7 +57,7 @@ const PostSlider: React.FC<PostSliderProps> = (props) => {
                 -((postCardRef.current?.offsetWidth || 600) * 3 + 3 * 32)
               )
             }
-            className="bg-white/60 backdrop-blur-sm invisible active:shadow-md group-hover:visible opacity-0 group-hover:opacity-100 transition-[opacity,transform] shadow-lg rounded-lg py-6 px-2 absolute left-6 top-1/2 transform -translate-y-1/2 -translate-x-[100px] group-hover:translate-x-0"
+            className="bg-white/60 backdrop-blur-sm invisible active:shadow-md group-hover:visible opacity-0 group-hover:opacity-100 transition-[opacity,transform] shadow-lg rounded-lg py-6 px-2 absolute left-6 top-1/2 transform -translate-y-1/2"
           >
             <MdChevronLeft size={24} />
           </button>
@@ -67,7 +67,7 @@ const PostSlider: React.FC<PostSliderProps> = (props) => {
                 (postCardRef.current?.offsetWidth || 600) * 3 + 3 * 32
               )
             }
-            className="bg-white/60 backdrop-blur-sm invisible active:shadow-md group-hover:visible opacity-0 group-hover:opacity-100 transition-[opacity,transform] shadow-lg rounded-lg py-6 px-2 absolute right-6 top-1/2 transform -translate-y-1/2 translate-x-[100px] group-hover:translate-x-0"
+            className="bg-white/60 backdrop-blur-sm invisible active:shadow-md group-hover:visible opacity-0 group-hover:opacity-100 transition-[opacity,transform] shadow-lg rounded-lg py-6 px-2 absolute right-6 top-1/2 transform -translate-y-1/2"
           >
             <MdChevronRight size={24} />
           </button>
