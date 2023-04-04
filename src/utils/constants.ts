@@ -67,7 +67,7 @@ export const obavijestiPrehranaCategory = 164;
 
 export const slides = [
   {
-    src: "/slike/Student-servis.jpg",
+    src: "/sczg/slike/Student-servis.jpg",
     title: "Otvoren šalter Student servisa u studentskom naselju Stjepan Radić",
     subtitle:
       "U prizemlju 10. paviljona u studentskom domu Stjepan Radić, Jarunska 2, otvorena je podružnica Student servisa Studentskog centra u Zagrebu. Na lokaciji možete obaviti: podizanje/predaja studentskog ugovora, podizanje/predaja računa, učlanjenje kao i dobiti sve informacije vezane uz rad putem Student servisa.&nbsp;Prilaz šalteru pogodan je za osobe sa invaliditetom.&nbsp;&nbsp;Radno vrijeme: ponedjeljak &#8211; petak;&nbsp;7:30 h - 15:30 [&hellip;]",
@@ -76,7 +76,7 @@ export const slides = [
       "/obavijesti/otvoren-salter-student-servisa-u-studentskom-naselju-stjepan-radic",
   },
   {
-    src: "/slike/studentski-dom.jpg",
+    src: "/sczg/slike/studentski-dom.jpg",
     title: "Potpora studentima podstanarima",
     subtitle:
       "REZULTATI 2.&nbsp;JAVNOG POZIVAza utvrđivanje prava na potporu smještaja studenata u privatnom smještaju&nbsp;na području Grada Zagreba i Zagrebačke županije za akademsku godinu 2022./2023.Sukladno predanim zahtjevima objavljujemo listu&nbsp;studenata koji su se odazvali na ovaj javni poziv u akademskoj godini 2022. / 2023.Listu možete pogledati ovdje.Studenti koji su ostvarili pravo na potporu za smještaj studenata u privatnom smještaju [&hellip;]",
@@ -84,7 +84,7 @@ export const slides = [
     actionHref: "/obavijesti/potpora-studentima-podstanarima",
   },
   {
-    src: "/slike/menza_nsk.jpg",
+    src: "/sczg/slike/menza_nsk.jpg",
     title: "Ponovno otvoren restoran SC-a u NSK",
     subtitle:
       "Ponuda se sastoji od:od drugih prehrambenih proizvoda tipa brze hrane (pizza, sendviči i sl.)Podjela hrane vrši se putem dvije linije samoposluživanja.Radno vrijeme:od ponedjeljka do petka 8:00 &#8211; 15:00,subotom, nedjeljom i blagdanom ne radi.Caffe bar &#8220;NSK&#8221;Radno vrijeme:od ponedjeljka do petka 8:00 – 15:00,Subotom, nedjeljom i blagdanom ne radi.",
@@ -92,7 +92,7 @@ export const slides = [
     actionHref: "/obavijesti/ponovno-otvoren-restoran-sc-a-u-nsk",
   },
   {
-    src: "/slike/obavijest-prehrana.png",
+    src: "/sczg/slike/obavijest-prehrana.png",
     title:
       "Obavijest studentima o načinu davanja prigovora na konzumaciju u restoranu",
     subtitle: "",
@@ -101,7 +101,7 @@ export const slides = [
       "/obavijesti/obavijest-studentima-o-nacinu-davanja-prigovora-na-konzumaciju-u-restoranu",
   },
   {
-    src: "/slike/radionice-kultura.jpg",
+    src: "/sczg/slike/radionice-kultura.jpg",
     title: "Novi ciklus scenarističke radionice za studente! Upisi u tijeku.",
     subtitle:
       "Upiši scenarističku radionicu i nauči novu vještinu!Kroz praktičan rad i stručno vodstvo diplomiranog dramaturga dobit ćeš uvid u osnove pisanja za film. Prethodno iskustvo nije potrebno, jedino što ti treba je ideja koju ćeš tijekom radionice pretvoriti u scenarij.Sad je idealno vrijeme za onu filmsku ideju o kojoj razmišljaš već godinama.Prijave traju do popunjavanja grupe, […]",

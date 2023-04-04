@@ -6,7 +6,7 @@ const KlubSC = () => {
   return (
     <Card className="flex flex-col md:flex-row gap-6">
       <Image
-        src="/slike/stablo-znanja-logo.png"
+        src="/sczg/slike/stablo-znanja-logo.png"
         alt="Stablo znanja"
         title="Stablo znanja"
         width={100}

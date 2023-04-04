@@ -15,27 +15,27 @@ const IconCardsSection: React.FC<IconCardsSectionProps> = (props) => {
       )}
     >
       <IconCard
-        image="/slike/student-servis/ikone/clanstvo.png"
+        image="/sczg/slike/student-servis/ikone/clanstvo.png"
         text="Članstvo studenta i poslodavaca u Student servisu."
       />
       <IconCard
-        image="/slike/student-servis/ikone/vodenje-ocevidnika-clanova.png"
+        image="/sczg/slike/student-servis/ikone/vodenje-ocevidnika-clanova.png"
         text="Vođenje očevidnika članova redovnih studenata i obavljenih posredovanja."
       />
       <IconCard
-        image="/slike/student-servis/ikone/obrada-trzista.png"
+        image="/sczg/slike/student-servis/ikone/obrada-trzista.png"
         text="Obrada tržišta studentskog rada i posredovanja u pronalasku posla."
       />
       <IconCard
-        image="/slike/student-servis/ikone/obracun.png"
+        image="/sczg/slike/student-servis/ikone/obracun.png"
         text="Obračun i naplata studentske zarade od poslodavca u korist studenta."
       />
       <IconCard
-        image="/slike/student-servis/ikone/digitalno-pretrazivanje.png"
+        image="/sczg/slike/student-servis/ikone/digitalno-pretrazivanje.png"
         text="Digitalno pretraživanje tržišta rada i studentskih poslova."
       />
       <IconCard
-        image="/slike/student-servis/ikone/isplata.png"
+        image="/sczg/slike/student-servis/ikone/isplata.png"
         text="Isplata punog iznosa zarade studentu, bez naknade."
       />
     </div>

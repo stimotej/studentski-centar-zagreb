@@ -14,7 +14,7 @@ const KvalitetaPrehraneSection: React.FC<KvalitetaPrehraneSectionProps> = (
   return (
     <div className={clsx("relative z-[2] pt-36 bg-[#fafafa]", props.className)}>
       <Image
-        src="/slike/pozadina-oblik-vrh.svg"
+        src="/sczg/slike/pozadina-oblik-vrh.svg"
         alt="Pozadinski oblik"
         width={1630}
         height={300}
@@ -36,7 +36,7 @@ const KvalitetaPrehraneSection: React.FC<KvalitetaPrehraneSectionProps> = (
           </div>
           <div className="flex-1">
             <Image
-              src="/slike/prehrana/vaznost_kvalitete_prehrane.png"
+              src="/sczg/slike/prehrana/vaznost_kvalitete_prehrane.png"
               alt="Važnost kvalitetne prehrane"
               width={400}
               height={360}
@@ -69,26 +69,26 @@ const KvalitetaPrehraneSection: React.FC<KvalitetaPrehraneSectionProps> = (
           </Card>
           <div className="flex flex-col gap-6 flex-1">
             <SectionCard
-              image="/slike/prehrana/ikone/raznovrsna_prehrana.png"
+              image="/sczg/slike/prehrana/ikone/raznovrsna_prehrana.png"
               title="Raznovrsna prehrana"
             />
             <SectionCard
-              image="/slike/prehrana/ikone/tjelesna_aktivnost.png"
+              image="/sczg/slike/prehrana/ikone/tjelesna_aktivnost.png"
               title="Tjelesna aktivnost"
             />
             <SectionCard
-              image="/slike/prehrana/ikone/normalna_tjelesna_masa.png"
+              image="/sczg/slike/prehrana/ikone/normalna_tjelesna_masa.png"
               title="Normalna tjelesna masa"
             />
             <SectionCard
-              image="/slike/prehrana/ikone/vitamini_i_minerali.png"
+              image="/sczg/slike/prehrana/ikone/vitamini_i_minerali.png"
               title="Vitamini i minerali"
             />
           </div>
         </div>
       </Section>
       <Image
-        src="/slike/pozadina-oblik-dno.svg"
+        src="/sczg/slike/pozadina-oblik-dno.svg"
         alt="Pozadinski oblik"
         width={1630}
         height={300}

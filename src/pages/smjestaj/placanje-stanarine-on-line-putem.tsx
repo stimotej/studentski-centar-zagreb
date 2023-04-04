@@ -18,27 +18,27 @@ const PlacanjeStanarineOnLinePutemPage: NextPage = () => {
       />
       <Step
         number={1}
-        image="/slike/smjestaj/placanje-stanarine/korak_1.png"
+        image="/sczg/slike/smjestaj/placanje-stanarine/korak_1.png"
         content={`<div class="et_pb_blurb_description"><p><strong>Pristupiti osobnom profilu putem linka:</strong><span>&nbsp;</span><a target="_blank" href="https://natjecaj.sczg.hr/student/login.ashx" rel="noopener">https://natjecaj.sczg.hr/student/login.ashx</a></p></div>`}
       />
       <Step
         number={2}
-        image="/slike/smjestaj/placanje-stanarine/korak_2.jpg"
+        image="/sczg/slike/smjestaj/placanje-stanarine/korak_2.jpg"
         content={`<p><strong>Nakon prijave u osobni profil, kliknuti na „<em>Naplata smještaja</em>“.</strong></p>`}
       />
       <Step
         number={3}
-        image="/slike/smjestaj/placanje-stanarine/korak_3.jpg"
+        image="/sczg/slike/smjestaj/placanje-stanarine/korak_3.jpg"
         content={`<p><strong>U srednjem dijelu ekrana potrebno je odabrati što se plaća, na način da se odabir potvrdi klikom na praznu kučicu.</strong></p>`}
       />
       <Step
         number={4}
-        image="/slike/smjestaj/placanje-stanarine/korak_4.jpg"
+        image="/sczg/slike/smjestaj/placanje-stanarine/korak_4.jpg"
         content={`<p><strong>Sa desne strane vidljiva je opcija „Plaćanje odabranih usluga“ na čiji se klik otvara obrazac za plaćanje stanarine (sukladno odabranim opcijama).</strong></p>`}
       />
       <Step
         number={5}
-        image="/slike/smjestaj/placanje-stanarine/korak_5.jpg"
+        image="/sczg/slike/smjestaj/placanje-stanarine/korak_5.jpg"
         content={`<p><strong>U obrazac potrebno je unijeti broj kartice, datum isteka i kontrolni broj. Ako su ti podaci ispravno upisani, transakciju je potrebno potvrditi nekim oblikom tokena (čitač kartice, mtoken – kao i na svakom web plaćanju).</strong></p>`}
       />
 

@@ -1,10 +1,19 @@
 import type {
-  User,
   LoginResponse,
   ValidateTokenResponse,
 } from "@/features/auth/types";
 import React, { createContext, useMemo, useState, useEffect } from "react";
 import axios from "axios";
+import * as z from "zod";
+
+const userSchema = z.object({
+  email: z.string(),
+  nicename: z.string(),
+  displayName: z.string(),
+  roles: z.array(z.string()),
+});
+
+type User = z.infer<typeof userSchema>;
 
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_SC_API_URL;
 
@@ -25,8 +34,13 @@ const AuthProvider: React.FC<AuthProviderProps> = (props) => {
 
   useEffect(() => {
     (async () => {
-      const userData = JSON.parse(localStorage.getItem("user-data") || "{}");
-      setUser(userData);
+      const userData = JSON.parse(localStorage.getItem("user-data") || "null");
+      try {
+        const parsedUser = userSchema.parse(userData);
+        setUser(parsedUser);
+      } catch (error) {
+        return;
+      }
       const token = localStorage.getItem("access-token");
       try {
         const response = await axios.post<ValidateTokenResponse>(

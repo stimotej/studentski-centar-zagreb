@@ -15,7 +15,7 @@ const WeapayBanner: React.FC<WeapayBannerProps> = (props) => {
       )}
     >
       <Image
-        src="/slike/prehrana/weapay_logo.png"
+        src="/sczg/slike/prehrana/weapay_logo.png"
         alt="Weapay logo"
         width={100}
         height={74}
@@ -31,7 +31,7 @@ const WeapayBanner: React.FC<WeapayBannerProps> = (props) => {
         <div className="flex gap-2 mt-4">
           <a href="https://apps.apple.com/app/weapay/id1592689129">
             <Image
-              src="/slike/prehrana/app_store_download_button.png"
+              src="/sczg/slike/prehrana/app_store_download_button.png"
               alt="Weapay app store"
               width={120}
               height={36}
@@ -40,7 +40,7 @@ const WeapayBanner: React.FC<WeapayBannerProps> = (props) => {
           </a>
           <a href="https://play.google.com/store/apps/details?id=wea.pay">
             <Image
-              src="/slike/prehrana/google_play_download_button.png"
+              src="/sczg/slike/prehrana/google_play_download_button.png"
               alt="Weapay google play"
               width={120}
               height={36}
@@ -50,7 +50,7 @@ const WeapayBanner: React.FC<WeapayBannerProps> = (props) => {
         </div>
       </div>
       <Image
-        src="/slike/prehrana/weapay_mockup.png"
+        src="/sczg/slike/prehrana/weapay_mockup.png"
         alt="Weapay mockup"
         width={300}
         height={260}

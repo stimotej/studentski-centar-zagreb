@@ -36,7 +36,7 @@ const Navbar = () => {
     >
       <div className="flex items-center gap-4">
         <Link href="/">
-          <Image src="/sc-logo.svg" alt="SC Logo" width={56} height={56} />
+          <Image src="/sczg/sc-logo.svg" alt="SC Logo" width={56} height={56} />
         </Link>
         <div className="flex flex-col text-sm font-medium">
           <span>Sveučilište u Zagrebu</span>

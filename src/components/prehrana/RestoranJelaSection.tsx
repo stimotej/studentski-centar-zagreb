@@ -104,7 +104,7 @@ const RestoranJelaSection: React.FC<RestoranJelaProps> = (props) => {
         </div>
         <div className="flex-1">
           <Image
-            src="/slike/prehrana/restoran_jela.png"
+            src="/sczg/slike/prehrana/restoran_jela.png"
             alt="Važnost kvalitetne prehrane"
             width={400}
             height={360}

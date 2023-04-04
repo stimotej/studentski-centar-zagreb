@@ -33,7 +33,7 @@ const JobCard: React.FC<JobCardProps> = (props) => {
             <span className="line-clamp-2 font-semibold">{props.title}</span>
           </div>
           <Image
-            src={props.companyPicture || "/slike/company-placeholder.png"}
+            src={props.companyPicture || "/sczg/slike/company-placeholder.png"}
             alt={props.companyName}
             className="rounded-full"
             width={56}

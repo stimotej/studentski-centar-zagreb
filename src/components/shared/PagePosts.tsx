@@ -57,7 +57,7 @@ const PagePostCard: React.FC<PagePostCardProps> = (props) => {
       className="p-3 rounded-lg border border-primary/20 hover:border-primary/40 hover:bg-primary/5 flex gap-4"
     >
       <Image
-        src={props.image || "/slike/placeholder.png"}
+        src={props.image || "/sczg/slike/placeholder.png"}
         alt={clearHtmlFromString(props.title)}
         width={96}
         height={96}

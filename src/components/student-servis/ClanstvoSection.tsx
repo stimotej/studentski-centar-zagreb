@@ -18,7 +18,7 @@ const ClanstvoSection: React.FC<DigitalnoPotpisivanjeSectionProps> = (
       <div className="flex flex-col gap-12 lg:flex-row">
         <div className="flex-1">
           <Image
-            src="/slike/student-servis/clanstvo-u-student-servisu.png"
+            src="/sczg/slike/student-servis/clanstvo-u-student-servisu.png"
             alt="Članstvo u student servisu"
             width={400}
             height={360}
