@@ -40,7 +40,10 @@ const InfoPostPage = () => {
         }
       />
       <div className="my-16">
-        <DisplayHTML html={obavijest?.content.rendered || ""} />
+        <DisplayHTML
+          html={obavijest?.content.rendered || ""}
+          documents={obavijest?.meta.documents}
+        />
       </div>
     </Layout>
   );
