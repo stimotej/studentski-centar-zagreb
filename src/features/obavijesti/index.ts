@@ -1,3 +1,4 @@
+import { sliderCategoryId } from "@/utils/constants";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useRef } from "react";
@@ -69,7 +70,7 @@ export const useObavijestiHome = () => {
 export const useObavijestiPage = (category: number) => {
   const filtersPage = {
     per_page: 4,
-    orderby: "date",
+    orderby: "featured",
     order: "desc",
     categories: [category],
   };
@@ -79,5 +80,20 @@ export const useObavijestiPage = (category: number) => {
       params: filtersPage,
     });
     return response.data;
+  });
+};
+
+export const getSliderObavijesti = async () => {
+  const response = await axios.get<Post<ObavijestiMeta>[]>("/obavijesti", {
+    params: {
+      categories: [sliderCategoryId],
+    },
+  });
+  return response.data;
+};
+
+export const useSliderObavijesti = (initialData?: Post<ObavijestiMeta>[]) => {
+  return useQuery(obavijestiKeys.sliderObavijesti, getSliderObavijesti, {
+    initialData,
   });
 };

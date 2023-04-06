@@ -1,9 +1,13 @@
-import { type NextPage } from "next";
+import { type GetStaticProps, type NextPage } from "next";
 import Layout from "@/components/shared/Layout";
 import Slider from "@/components/elements/Slider";
 import LinkCards from "@/components/pocetna/LinkCards";
 import PostCard from "@/components/obavijesti/PostCard";
-import { useObavijestiHome } from "@/features/obavijesti";
+import {
+  getSliderObavijesti,
+  useObavijestiHome,
+  useSliderObavijesti,
+} from "@/features/obavijesti";
 import clearHtmlFromString from "@/utils/clearHtmlFromString";
 import GeneralInfoCard from "@/components/pocetna/GeneralInfoCard";
 import SidebarLinks from "@/components/pocetna/SidebarLinks";
@@ -15,10 +19,28 @@ import ButtonLink from "@/components/elements/ButtonLink";
 import { useJobsHome } from "@/features/jobs";
 import { useCalendarEvents } from "@/features/calendar";
 import dayjs from "dayjs";
-import { faqs, slides } from "@/utils/constants";
+import { faqs } from "@/utils/constants";
 import Spinner from "@/components/elements/Spinner";
+import type { ObavijestiMeta, Post } from "@/features/types";
 
-const Home: NextPage = () => {
+export const getStaticProps: GetStaticProps = async () => {
+  // get slider obavijesti
+  const sliderObavijesti = await getSliderObavijesti();
+
+  return {
+    props: {
+      sliderObavijesti,
+    },
+    revalidate: 60,
+  };
+};
+
+interface HomeProps {
+  sliderObavijesti: Post<ObavijestiMeta>[];
+}
+
+const Home: NextPage<HomeProps> = ({ sliderObavijesti }) => {
+  const { data: sliderPosts } = useSliderObavijesti(sliderObavijesti);
   const { data: obavijesti, isLoading: isLoadingObavijesti } =
     useObavijestiHome();
   const { data: jobs, isLoading: isLoadingJobs } = useJobsHome();
@@ -28,7 +50,20 @@ const Home: NextPage = () => {
   return (
     <Layout
       description="Studentski Centar u Zagrebu, Sveučilište u Zagrebu; Kultura, Prehrana, Smještaj, Student servis, Sport, Teatar &TD"
-      header={<Slider slides={slides} />}
+      header={
+        !!sliderPosts && (
+          <Slider
+            className="mt-[64px]"
+            slides={sliderPosts.map((slide) => ({
+              src: slide.image_url,
+              title: slide.title.rendered,
+              subtitle: slide.excerpt.rendered,
+              actionTitle: "Saznaj više",
+              actionHref: `/obavijesti/${slide.slug}`,
+            }))}
+          />
+        )
+      }
       bottomComponent={<HelpSection />}
     >
       <LinkCards />

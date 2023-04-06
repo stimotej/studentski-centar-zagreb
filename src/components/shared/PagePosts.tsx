@@ -1,5 +1,4 @@
 import { useObavijestiPage } from "@/features/obavijesti";
-import { usePosts } from "@/features/posts";
 import clearHtmlFromString from "@/utils/clearHtmlFromString";
 import clsx from "clsx";
 import dayjs from "dayjs";
@@ -34,6 +33,7 @@ const PagePosts: React.FC<PagePostsProps> = (props) => {
               excerpt={post.excerpt.rendered}
               slug={post.slug}
               date={post.date}
+              featured={post.meta.featured}
             />
           ))}
         </div>
@@ -48,13 +48,17 @@ interface PagePostCardProps {
   excerpt: string;
   date: string;
   slug: string;
+  featured: boolean;
 }
 
 const PagePostCard: React.FC<PagePostCardProps> = (props) => {
   return (
     <Link
       href={`/obavijesti/${props.slug}`}
-      className="p-3 rounded-lg border border-primary/20 hover:border-primary/40 hover:bg-primary/5 flex gap-4"
+      className={clsx(
+        "p-3 rounded-lg border border-primary/20 hover:border-primary/40 hover:bg-primary/5 flex gap-4",
+        props.featured && "ring-1 ring-primary/60"
+      )}
     >
       <Image
         src={props.image || "/sczg/slike/placeholder.png"}

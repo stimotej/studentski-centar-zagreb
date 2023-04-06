@@ -197,6 +197,15 @@ const ObavijestPage = () => {
             )}
         </div>
         <div className="w-full lg:w-[30%]">
+          {job.meta.image && (
+            <Image
+              src={job.meta.image}
+              alt={job.meta.title || ""}
+              className="rounded-lg w-full h-auto object-cover mb-6 mt-8 min-h-[200px]"
+              width={900}
+              height={600}
+            />
+          )}
           <Card className="w-full sticky top-20">
             <div className="flex flex-wrap gap-3 items-center">
               <Image

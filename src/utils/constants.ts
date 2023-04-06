@@ -1,3 +1,5 @@
+export const sliderCategoryId = 236;
+
 export const obavijestiCategoryId = 117;
 export const jobsCategoryId = 138;
 

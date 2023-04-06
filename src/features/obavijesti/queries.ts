@@ -2,6 +2,7 @@ import { ObavijestiFilters } from ".";
 
 const obavijestiKeys = {
   obavijesti: ["obavijesti"],
+  sliderObavijesti: ["obavijesti", "slider"],
   categories: ["categories"],
   obavijestiFiltered: (filters: ObavijestiFilters) => [
     ...obavijestiKeys.obavijesti,

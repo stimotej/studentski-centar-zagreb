@@ -1,9 +1,8 @@
 import Button from "@/components/elements/Button";
-import ButtonLink from "@/components/elements/ButtonLink";
 import DisplayHTML from "@/components/elements/DisplayHTML";
 import Spinner from "@/components/elements/Spinner";
-import ImageTitle from "@/components/shared/ImageTitle";
 import Layout from "@/components/shared/Layout";
+import PageTitle from "@/components/shared/PageTitle";
 import { useObavijest } from "@/features/obavijesti";
 import clearHtmlFromString from "@/utils/clearHtmlFromString";
 import { useRouter } from "next/router";
@@ -32,21 +31,22 @@ const ObavijestPage = () => {
     <Layout
       title={clearHtmlFromString(obavijest?.title.rendered || "")}
       description={clearHtmlFromString(obavijest?.excerpt.rendered || "")}
-      header={
-        !isLoading && (
-          <ImageTitle
-            image={obavijest?.image_url || ""}
-            title={obavijest?.title.rendered || ""}
-          />
-        )
-      }
+      // header={
+      //   !isLoading && (
+      //     <ImageTitle
+      //       image={obavijest?.image_url || ""}
+      //       title={obavijest?.title.rendered || ""}
+      //     />
+      //   )
+      // }
     >
+      <PageTitle title={clearHtmlFromString(obavijest?.title.rendered || "")} />
       <div className="py-12">
         {isLoading ? (
           <Spinner className="mx-auto mt-20" />
         ) : (
           <DisplayHTML
-            html={obavijest?.content.rendered || ""}
+            html={obavijest.content.rendered || ""}
             documents={obavijest.meta.documents}
           />
         )}

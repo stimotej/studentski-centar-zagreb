@@ -73,6 +73,7 @@ export type ObavijestiMeta = {
   show_always: boolean;
   event_date: string;
   documents: Document[];
+  featured: boolean;
 };
 
 export type PostsMeta = {
@@ -150,6 +151,7 @@ export type JobsMeta = {
   other_description: string;
   contact_student: string;
   contact_sc: string;
+  image: string;
   skills: string[];
   labels: string[];
 };

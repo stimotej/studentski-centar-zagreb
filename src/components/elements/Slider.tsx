@@ -101,9 +101,10 @@ export default function Slider({ slides, className }: SliderProps) {
 
   return (
     <div
-      className={`group relative h-[100svh] h-[100vh] overflow-hidden ${
-        className || ""
-      }`}
+      className={clsx(
+        "group relative h-[calc(75vh-64px)] h-[calc(75svh-64px)] overflow-hidden",
+        className
+      )}
     >
       {slides.map((slide, index) => (
         <div
@@ -131,15 +132,19 @@ export default function Slider({ slides, className }: SliderProps) {
             )}
           ></div>
           <div
-            className={`absolute top-1/2 left-1/2 z-20 transform-gpu text-center text-white [transition:transform_1s_ease,opacity_0.4s_ease] ${
+            className={`absolute top-1/2 left-6 right-6 md:left-28 md:right-28 z-20 transform-gpu text-center text-white [transition:transform_1s_ease,opacity_0.4s_ease] ${
               index === currentSlide
-                ? "-translate-x-1/2 -translate-y-1/2 opacity-100"
-                : " -translate-x-1/2 translate-y-full opacity-0"
+                ? "-translate-y-1/2 opacity-100"
+                : "translate-y-full opacity-0"
             }`}
           >
-            <h1 className="mb-6 text-3xl font-bold line-clamp-3">
-              {slide.title}
-            </h1>
+            <div className="mb-6">
+              <DisplayHTML
+                html={slide.title}
+                className="text-3xl font-bold line-clamp-3"
+              />
+            </div>
+
             <DisplayHTML html={slide.subtitle} className="line-clamp-3" />
             <div className="flex items-center justify-center mt-4">
               <a
@@ -153,13 +158,13 @@ export default function Slider({ slides, className }: SliderProps) {
         </div>
       ))}
       <button
-        className="absolute top-1/2 left-6 z-30 -translate-x-full transform-gpu text-4xl text-white opacity-0 transition-[transform,opacity] group-hover:translate-x-0 group-hover:opacity-100"
+        className="hidden md:block absolute top-1/2 left-6 z-30 -translate-x-full transform-gpu text-4xl text-white opacity-0 transition-[transform,opacity] group-hover:translate-x-0 group-hover:opacity-100"
         onClick={handlePrevSlide}
       >
         &#10094;
       </button>
       <button
-        className="absolute top-1/2 right-6 z-30 translate-x-full transform-gpu text-4xl text-white opacity-0 transition-[transform,opacity] group-hover:translate-x-0 group-hover:opacity-100"
+        className="hidden md:block absolute top-1/2 right-6 z-30 translate-x-full transform-gpu text-4xl text-white opacity-0 transition-[transform,opacity] group-hover:translate-x-0 group-hover:opacity-100"
         onClick={handleNextSlide}
       >
         &#10095;
