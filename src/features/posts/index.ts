@@ -47,11 +47,7 @@ export const getPosts = async (filters?: FiltersType) => {
 };
 
 export const usePosts = (filters?: FiltersType) => {
-  return useQuery(
-    postsKeys.postsFiltered({
-      ...defaultFilters,
-      ...filters,
-    }),
-    () => getPosts(filters)
+  return useQuery(postsKeys.postsFiltered(filters || {}), () =>
+    getPosts(filters)
   );
 };

@@ -13,8 +13,19 @@ export type ObavijestiFilters = {
   slug?: string;
 };
 
+const postsPerPage = 30;
+
+export const getInfiniteObavijesti = async () => {
+  const response = await axios.get<Post<ObavijestiMeta>[]>("/obavijesti", {
+    params: {
+      per_page: postsPerPage,
+      timestamp: new Date().getTime(),
+    },
+  });
+  return response.data;
+};
+
 export const useObavijesti = (filters: ObavijestiFilters) => {
-  const mediaPerPage = 30;
   const totalPages = useRef(0);
 
   return useInfiniteQuery(
@@ -22,7 +33,7 @@ export const useObavijesti = (filters: ObavijestiFilters) => {
     async ({ pageParam }) => {
       const response = await axios.get<Post<ObavijestiMeta>[]>("/obavijesti", {
         params: {
-          per_page: mediaPerPage,
+          per_page: postsPerPage,
           page: pageParam,
           timestamp: new Date().getTime(),
           ...filters,
@@ -56,31 +67,36 @@ const filters = {
   order: "desc",
 };
 
-export const getObavijesti = async () => {
+export const getObavijestiHome = async () => {
   const response = await axios.get<Post<ObavijestiMeta>[]>("/obavijesti", {
     params: filters,
   });
   return response.data;
 };
 
-export const useObavijestiHome = () => {
-  return useQuery(obavijestiKeys.obavijestiFiltered(filters), getObavijesti);
+export const useObavijestiHome = (initialData?: Post<ObavijestiMeta>[]) => {
+  return useQuery(obavijestiKeys.homeObavijesti, getObavijestiHome, {
+    initialData,
+  });
+};
+
+export const getObavijestiPage = async (category: number) => {
+  const response = await axios.get<Post<ObavijestiMeta>[]>("/obavijesti", {
+    params: {
+      per_page: 4,
+      orderby: "featured",
+      order: "desc",
+      categories: [category],
+    },
+  });
+  return response.data;
 };
 
 export const useObavijestiPage = (category: number) => {
-  const filtersPage = {
-    per_page: 4,
-    orderby: "featured",
-    order: "desc",
-    categories: [category],
-  };
-
-  return useQuery(obavijestiKeys.obavijestiFiltered(filtersPage), async () => {
-    const response = await axios.get<Post<ObavijestiMeta>[]>("/obavijesti", {
-      params: filtersPage,
-    });
-    return response.data;
-  });
+  return useQuery(
+    obavijestiKeys.obavijestiFiltered({ categories: [category] }),
+    () => getObavijestiPage(category)
+  );
 };
 
 export const getSliderObavijesti = async () => {

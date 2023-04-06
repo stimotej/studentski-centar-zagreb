@@ -10,15 +10,56 @@ import PageTitle from "@/components/shared/PageTitle";
 import PostSlider from "@/components/shared/PostSlider";
 import Section from "@/components/shared/Section";
 import SectionTitle from "@/components/shared/SectionTitle";
-import { usePosts } from "@/features/posts";
+import { getObavijestiPage } from "@/features/obavijesti";
+import obavijestiKeys from "@/features/obavijesti/queries";
+import { getPosts, usePosts } from "@/features/posts";
+import postsKeys from "@/features/posts/queries";
 import {
   faqPrehranaCategory,
   obavijestiPrehranaCategory,
   restaurantsCategoryId,
 } from "@/utils/constants";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
+import type { GetStaticProps, NextPage } from "next";
 import React from "react";
 
-const PrehranaPage = () => {
+export const getStaticProps: GetStaticProps = async () => {
+  const queryClient = new QueryClient();
+
+  const postsFilters = {
+    categories: [restaurantsCategoryId],
+    orderby: "order",
+  };
+
+  await queryClient.prefetchQuery(postsKeys.postsFiltered(postsFilters), () =>
+    getPosts(postsFilters)
+  );
+
+  const faqPostsFilters = {
+    categories: [faqPrehranaCategory],
+  };
+
+  await queryClient.prefetchQuery(
+    postsKeys.postsFiltered(faqPostsFilters),
+    () => getPosts(faqPostsFilters)
+  );
+
+  await queryClient.prefetchQuery(
+    obavijestiKeys.obavijestiFiltered({
+      categories: [obavijestiPrehranaCategory],
+    }),
+    () => getObavijestiPage(obavijestiPrehranaCategory)
+  );
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+    revalidate: 60 * 10,
+  };
+};
+
+const PrehranaPage: NextPage = () => {
   const { data: posts, isLoading } = usePosts({
     categories: [restaurantsCategoryId],
     orderby: "order",

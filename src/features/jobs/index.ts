@@ -11,8 +11,20 @@ export type JobsFilters = {
   search?: string;
 };
 
+const jobsPerPage = 30;
+
+export const getInfiniteJobs = async () => {
+  const response = await axios.get<Post<JobsMeta>[]>("/jobs", {
+    params: {
+      per_page: jobsPerPage,
+      timestamp: new Date().getTime(),
+      allowed_sc: true,
+    },
+  });
+  return response.data;
+};
+
 export const useJobs = (filters: JobsFilters) => {
-  const mediaPerPage = 30;
   const totalPages = useRef(0);
 
   return useInfiniteQuery(
@@ -20,7 +32,7 @@ export const useJobs = (filters: JobsFilters) => {
     async ({ pageParam }) => {
       const response = await axios.get<Post<JobsMeta>[]>("/jobs", {
         params: {
-          per_page: mediaPerPage,
+          per_page: jobsPerPage,
           page: pageParam,
           timestamp: new Date().getTime(),
           allowed_sc: true,
@@ -55,7 +67,7 @@ const filters = {
   allowed_sc: true,
 };
 
-export const getJobs = async () => {
+export const getJobsHome = async () => {
   const response = await axios.get<Post<JobsMeta>[]>("/jobs", {
     params: filters,
   });
@@ -63,5 +75,5 @@ export const getJobs = async () => {
 };
 
 export const useJobsHome = (initialData?: Post<JobsMeta>[]) => {
-  return useQuery(jobKeys.jobsFiltered(filters), getJobs, { initialData });
+  return useQuery(jobKeys.jobsHome, getJobsHome, { initialData });
 };

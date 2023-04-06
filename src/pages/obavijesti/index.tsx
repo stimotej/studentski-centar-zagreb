@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { type NextPage } from "next";
+import { type GetStaticProps, type NextPage } from "next";
 import PageTitle from "@/components/shared/PageTitle";
 import Layout from "@/components/shared/Layout";
-import { useObavijesti } from "@/features/obavijesti";
+import { getInfiniteObavijesti, useObavijesti } from "@/features/obavijesti";
 import Spinner from "@/components/elements/Spinner";
 import PostCard from "@/components/obavijesti/PostCard";
 import clearHtmlFromString from "@/utils/clearHtmlFromString";
@@ -10,8 +10,34 @@ import Button from "@/components/elements/Button";
 import TextInput from "@/components/elements/TextInput";
 import useDebounce from "@/hooks/useDebounce";
 import FilterSelect from "@/components/elements/FilterSelect";
-import { useCategories } from "@/features/categories";
+import { getCategories, useCategories } from "@/features/categories";
 import { obavijestiCategoryId } from "@/utils/constants";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
+import obavijestiKeys from "@/features/obavijesti/queries";
+import categoryKeys from "@/features/categories/queries";
+
+export const getStaticProps: GetStaticProps = async () => {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchInfiniteQuery(
+    obavijestiKeys.obavijestiFiltered({ search: "", categories: undefined }),
+    getInfiniteObavijesti
+  );
+  await queryClient.prefetchQuery(
+    categoryKeys.categoriesFiltered({ parent: obavijestiCategoryId }),
+    () => getCategories(obavijestiCategoryId)
+  );
+
+  // JSON parse and stringify -> solve [undefined] in pageParams for infinite query
+  return {
+    props: JSON.parse(
+      JSON.stringify({
+        dehydratedState: dehydrate(queryClient),
+      })
+    ) as { [key: string]: any },
+    revalidate: 60 * 10,
+  };
+};
 
 const ObavijestiPage: NextPage = () => {
   const [category, setCategory] = useState<number>(obavijestiCategoryId);
@@ -51,7 +77,7 @@ const ObavijestiPage: NextPage = () => {
                         key={obavijest.id}
                         slug={obavijest.slug}
                         title={clearHtmlFromString(obavijest.title.rendered)}
-                        category={obavijest.author_meta.display_name}
+                        category={obavijest.category}
                         date={obavijest.date}
                         excerpt={clearHtmlFromString(
                           obavijest.excerpt.rendered
@@ -83,7 +109,7 @@ const ObavijestiPage: NextPage = () => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Pretraži obavijesti..."
-            isSearch
+            type="search"
           />
           <FilterSelect
             value={category}

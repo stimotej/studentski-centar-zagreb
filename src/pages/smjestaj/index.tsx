@@ -12,7 +12,10 @@ import Section from "@/components/shared/Section";
 import SectionTitle from "@/components/shared/SectionTitle";
 import InfoToggles from "@/components/smjestaj/InfoToggles";
 import NatjecajCard from "@/components/smjestaj/NatjecajCard";
-import { usePosts } from "@/features/posts";
+import { getObavijestiPage } from "@/features/obavijesti";
+import obavijestiKeys from "@/features/obavijesti/queries";
+import { getPosts, usePosts } from "@/features/posts";
+import postsKeys from "@/features/posts/queries";
 import {
   faqSmjestajCategory,
   infoPostsCategoryId,
@@ -22,9 +25,37 @@ import {
   infoSmjestajInfoCategory,
   obavijestiSmjestajCategory,
 } from "@/utils/constants";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
+import type { GetStaticProps, NextPage } from "next";
 import React from "react";
 
-const SmjestajPage = () => {
+export const getStaticProps: GetStaticProps = async () => {
+  const queryClient = new QueryClient();
+
+  const postsFilters = {
+    categories: [infoPostsCategoryId, infoPostsSmjestaj, faqSmjestajCategory],
+  };
+
+  await queryClient.prefetchQuery(postsKeys.postsFiltered(postsFilters), () =>
+    getPosts(postsFilters)
+  );
+
+  await queryClient.prefetchQuery(
+    obavijestiKeys.obavijestiFiltered({
+      categories: [obavijestiSmjestajCategory],
+    }),
+    () => getObavijestiPage(obavijestiSmjestajCategory)
+  );
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+    revalidate: 60 * 10,
+  };
+};
+
+const SmjestajPage: NextPage = () => {
   const { data: posts, isLoading } = usePosts({
     categories: [infoPostsCategoryId, infoPostsSmjestaj, faqSmjestajCategory],
   });

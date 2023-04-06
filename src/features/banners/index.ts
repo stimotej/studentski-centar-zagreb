@@ -9,5 +9,5 @@ export const getBanners = async () => {
 };
 
 export const useBanners = () => {
-  return useQuery(bannerKeys.banners, () => getBanners());
+  return useQuery(bannerKeys.banners, getBanners);
 };

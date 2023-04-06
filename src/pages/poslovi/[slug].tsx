@@ -47,6 +47,16 @@ const ObavijestPage = () => {
             job?.meta.active_until
           ).format("DD.MM.YYYY")}`}</p>
 
+          {job.meta.image && (
+            <Image
+              src={job.meta.image}
+              alt={job.meta.title || ""}
+              className="lg:hidden rounded-lg w-full h-auto object-cover mb-6 mt-8 min-h-[200px]"
+              width={900}
+              height={600}
+            />
+          )}
+
           {!!job?.meta.description && (
             <>
               <h4 className="mt-12 mb-2 uppercase text-text text-sm tracking-wide font-medium">
@@ -201,7 +211,7 @@ const ObavijestPage = () => {
             <Image
               src={job.meta.image}
               alt={job.meta.title || ""}
-              className="rounded-lg w-full h-auto object-cover mb-6 mt-8 min-h-[200px]"
+              className="hidden lg:block rounded-lg w-full h-auto object-cover mb-6 mt-8 min-h-[200px]"
               width={900}
               height={600}
             />

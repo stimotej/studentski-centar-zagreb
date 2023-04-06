@@ -1,21 +1,53 @@
 import React, { useState } from "react";
-import { type NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 import PageTitle from "@/components/shared/PageTitle";
 import Layout from "@/components/shared/Layout";
 import Spinner from "@/components/elements/Spinner";
-import PostCard from "@/components/obavijesti/PostCard";
-import clearHtmlFromString from "@/utils/clearHtmlFromString";
 import Button from "@/components/elements/Button";
 import TextInput from "@/components/elements/TextInput";
 import useDebounce from "@/hooks/useDebounce";
 import FilterSelect from "@/components/elements/FilterSelect";
-import { useJobs } from "@/features/jobs";
+import { getInfiniteJobs, useJobs } from "@/features/jobs";
 import JobCard from "@/components/jobs/JobCard";
-import { useCategories } from "@/features/categories";
+import { getCategories, useCategories } from "@/features/categories";
 import { jobsCategoryId } from "@/utils/constants";
 import ObrasciSection from "@/components/jobs/ObrasciSection";
-import { useBanners } from "@/features/banners";
+import { useBanners, getBanners } from "@/features/banners";
 import Image from "next/image";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
+import jobKeys from "@/features/jobs/queries";
+import categoryKeys from "@/features/categories/queries";
+import bannerKeys from "@/features/banners/queries";
+
+export const getStaticProps: GetStaticProps = async () => {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchInfiniteQuery(
+    jobKeys.jobsFiltered({
+      search: "",
+      categories: undefined,
+      orderby: "featured",
+    }),
+    getInfiniteJobs
+  );
+
+  await queryClient.prefetchQuery(
+    categoryKeys.categoriesFiltered({ parent: jobsCategoryId }),
+    () => getCategories(jobsCategoryId)
+  );
+
+  await queryClient.prefetchQuery(bannerKeys.banners, getBanners);
+
+  // JSON parse and stringify -> solve [undefined] in pageParams for infinite query
+  return {
+    props: JSON.parse(
+      JSON.stringify({
+        dehydratedState: dehydrate(queryClient),
+      })
+    ) as { [key: string]: any },
+    revalidate: 60 * 10,
+  };
+};
 
 const PosloviPage: NextPage = () => {
   const [category, setCategory] = useState<number>(jobsCategoryId);
@@ -96,7 +128,7 @@ const PosloviPage: NextPage = () => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Pretraži poslove..."
-            isSearch
+            type="search"
           />
           <FilterSelect
             value={category || 0}

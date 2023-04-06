@@ -4,10 +4,12 @@ import Slider from "@/components/elements/Slider";
 import LinkCards from "@/components/pocetna/LinkCards";
 import PostCard from "@/components/obavijesti/PostCard";
 import {
+  getObavijestiHome,
   getSliderObavijesti,
   useObavijestiHome,
   useSliderObavijesti,
 } from "@/features/obavijesti";
+import { getCalendarEvents } from "@/features/calendar";
 import clearHtmlFromString from "@/utils/clearHtmlFromString";
 import GeneralInfoCard from "@/components/pocetna/GeneralInfoCard";
 import SidebarLinks from "@/components/pocetna/SidebarLinks";
@@ -16,36 +18,42 @@ import SectionTitle from "@/components/shared/SectionTitle";
 import FAQCards from "@/components/shared/FAQCards";
 import HelpSection from "@/components/pocetna/HelpSection";
 import ButtonLink from "@/components/elements/ButtonLink";
-import { useJobsHome } from "@/features/jobs";
+import { getJobsHome, useJobsHome } from "@/features/jobs";
 import { useCalendarEvents } from "@/features/calendar";
 import dayjs from "dayjs";
 import { faqs } from "@/utils/constants";
-import Spinner from "@/components/elements/Spinner";
-import type { ObavijestiMeta, Post } from "@/features/types";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
+import obavijestiKeys from "@/features/obavijesti/queries";
+import jobKeys from "@/features/jobs/queries";
+import calendarKeys from "@/features/calendar/queries";
 
 export const getStaticProps: GetStaticProps = async () => {
-  // get slider obavijesti
-  const sliderObavijesti = await getSliderObavijesti();
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery(
+    obavijestiKeys.sliderObavijesti,
+    getSliderObavijesti
+  );
+  await queryClient.prefetchQuery(
+    obavijestiKeys.homeObavijesti,
+    getObavijestiHome
+  );
+  await queryClient.prefetchQuery(jobKeys.jobsHome, getJobsHome);
+  await queryClient.prefetchQuery(calendarKeys.calendar, getCalendarEvents);
 
   return {
     props: {
-      sliderObavijesti,
+      dehydratedState: dehydrate(queryClient),
     },
-    revalidate: 60,
+    revalidate: 60 * 10,
   };
 };
 
-interface HomeProps {
-  sliderObavijesti: Post<ObavijestiMeta>[];
-}
-
-const Home: NextPage<HomeProps> = ({ sliderObavijesti }) => {
-  const { data: sliderPosts } = useSliderObavijesti(sliderObavijesti);
-  const { data: obavijesti, isLoading: isLoadingObavijesti } =
-    useObavijestiHome();
-  const { data: jobs, isLoading: isLoadingJobs } = useJobsHome();
-  const { data: calendarEvents, isLoading: isLoadingCalendarEvents } =
-    useCalendarEvents();
+const Home: NextPage = () => {
+  const { data: sliderPosts } = useSliderObavijesti();
+  const { data: obavijesti } = useObavijestiHome();
+  const { data: jobs } = useJobsHome();
+  const { data: calendarEvents } = useCalendarEvents();
 
   return (
     <Layout
@@ -70,29 +78,23 @@ const Home: NextPage<HomeProps> = ({ sliderObavijesti }) => {
       <div className="mt-6 flex flex-col gap-16 md:flex-row">
         <div className="w-full md:w-[70%]">
           <h2 className="text-2xl font-semibold">Obavijesti</h2>
-          {isLoadingObavijesti ? (
-            <div className="py-8">
-              <Spinner className="mx-auto" />
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-6">
-              {!!obavijesti && obavijesti?.length > 0 ? (
-                obavijesti?.map((obavijest) => (
-                  <PostCard
-                    key={obavijest.id}
-                    slug={obavijest.slug}
-                    title={clearHtmlFromString(obavijest.title.rendered)}
-                    category={obavijest.category}
-                    date={obavijest.date}
-                    excerpt={clearHtmlFromString(obavijest.excerpt.rendered)}
-                    image={obavijest.image_url}
-                  />
-                ))
-              ) : (
-                <div className="my-4 text-light">Nema obavijesti za prikaz</div>
-              )}
-            </div>
-          )}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-6">
+            {!!obavijesti && obavijesti?.length > 0 ? (
+              obavijesti?.map((obavijest) => (
+                <PostCard
+                  key={obavijest.id}
+                  slug={obavijest.slug}
+                  title={clearHtmlFromString(obavijest.title.rendered)}
+                  category={obavijest.category}
+                  date={obavijest.date}
+                  excerpt={clearHtmlFromString(obavijest.excerpt.rendered)}
+                  image={obavijest.image_url}
+                />
+              ))
+            ) : (
+              <div className="my-4 text-light">Nema obavijesti za prikaz</div>
+            )}
+          </div>
           <div className="flex justify-center mt-8">
             <ButtonLink href="/obavijesti" className="px-8 !rounded-full">
               Idi na obavijesti
@@ -107,7 +109,6 @@ const Home: NextPage<HomeProps> = ({ sliderObavijesti }) => {
           <SidebarLinks
             emptyText="Nema poslova za prikaz"
             className="mt-2"
-            loading={isLoadingJobs}
             items={
               jobs?.map((job) => ({
                 label: job.meta.company_name,
@@ -122,7 +123,6 @@ const Home: NextPage<HomeProps> = ({ sliderObavijesti }) => {
           <SidebarLinks
             emptyText="Nema evenata za prikaz"
             className="mt-2"
-            loading={isLoadingCalendarEvents}
             items={
               calendarEvents?.map((event) => ({
                 label:
@@ -142,7 +142,7 @@ const Home: NextPage<HomeProps> = ({ sliderObavijesti }) => {
         </div>
       </div>
       <SectionTitle title="Informacije" className="mt-20" />
-      <FAQCards items={faqs} loading={isLoadingObavijesti} />
+      <FAQCards items={faqs} />
     </Layout>
   );
 };

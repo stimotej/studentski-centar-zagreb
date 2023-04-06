@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "@/components/shared/Layout";
 import PageTitle from "@/components/shared/PageTitle";
-import { usePosts } from "@/features/posts";
+import { getPosts, usePosts } from "@/features/posts";
 import {
   infoPostsSS,
   infoSSPoslovniceCategory,
@@ -26,8 +26,39 @@ import SectionTitle from "@/components/shared/SectionTitle";
 import FAQCards from "@/components/shared/FAQCards";
 import ButtonLink from "@/components/elements/ButtonLink";
 import PagePosts from "@/components/shared/PagePosts";
+import type { GetStaticProps, NextPage } from "next";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
+import postsKeys from "@/features/posts/queries";
+import { getObavijestiPage } from "@/features/obavijesti";
+import obavijestiKeys from "@/features/obavijesti/queries";
 
-const StudentServisPage = () => {
+export const getStaticProps: GetStaticProps = async () => {
+  const queryClient = new QueryClient();
+
+  const postsFilters = {
+    categories: [infoPostsCategoryId, infoPostsSS, faqStudentServisCategory],
+  };
+
+  await queryClient.prefetchQuery(postsKeys.postsFiltered(postsFilters), () =>
+    getPosts(postsFilters)
+  );
+
+  await queryClient.prefetchQuery(
+    obavijestiKeys.obavijestiFiltered({
+      categories: [obavijestiStudentServisCategory],
+    }),
+    () => getObavijestiPage(obavijestiStudentServisCategory)
+  );
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+    revalidate: 60 * 10,
+  };
+};
+
+const StudentServisPage: NextPage = () => {
   const { data: posts, isLoading } = usePosts({
     categories: [infoPostsCategoryId, infoPostsSS, faqStudentServisCategory],
   });

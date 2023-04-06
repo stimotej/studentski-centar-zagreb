@@ -1,4 +1,3 @@
-import Button from "@/components/elements/Button";
 import ButtonLink from "@/components/elements/ButtonLink";
 import EventCards from "@/components/kultura/EventCards";
 import KlubSC from "@/components/kultura/KlubSC";
@@ -9,15 +8,49 @@ import Layout from "@/components/shared/Layout";
 import PagePosts from "@/components/shared/PagePosts";
 import PageTitle from "@/components/shared/PageTitle";
 import SectionTitle from "@/components/shared/SectionTitle";
-import { useNewEvents } from "@/features/events";
-import { usePosts } from "@/features/posts";
+import { getNewEvents, useNewEvents } from "@/features/events";
+import eventKeys from "@/features/events/queries";
+import { getObavijestiPage } from "@/features/obavijesti";
+import obavijestiKeys from "@/features/obavijesti/queries";
+import { getPosts, usePosts } from "@/features/posts";
+import postsKeys from "@/features/posts/queries";
 import {
   faqKulturaCategory,
   obavijestiKulturaCategory,
 } from "@/utils/constants";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
+import type { GetStaticProps, NextPage } from "next";
 import React from "react";
 
-const KulturaPage = () => {
+export const getStaticProps: GetStaticProps = async () => {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery(eventKeys.newEvents, getNewEvents);
+
+  const postsFilters = {
+    categories: [faqKulturaCategory],
+  };
+
+  await queryClient.prefetchQuery(postsKeys.postsFiltered(postsFilters), () =>
+    getPosts(postsFilters)
+  );
+
+  await queryClient.prefetchQuery(
+    obavijestiKeys.obavijestiFiltered({
+      categories: [obavijestiKulturaCategory],
+    }),
+    () => getObavijestiPage(obavijestiKulturaCategory)
+  );
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+    revalidate: 60 * 10,
+  };
+};
+
+const KulturaPage: NextPage = () => {
   const { data: events, isLoading } = useNewEvents();
 
   const { data: posts, isLoading: isLoadingPosts } = usePosts({

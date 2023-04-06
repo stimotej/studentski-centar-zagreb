@@ -10,8 +10,12 @@ import Section from "@/components/shared/Section";
 import SectionTitle from "@/components/shared/SectionTitle";
 import ImageGallery from "@/components/smjestaj/ImageGallery";
 import LinkCards from "@/components/sport/LinkCards";
-import { useCategories } from "@/features/categories";
-import { usePosts } from "@/features/posts";
+import { getCategories, useCategories } from "@/features/categories";
+import categoryKeys from "@/features/categories/queries";
+import { getObavijestiPage } from "@/features/obavijesti";
+import obavijestiKeys from "@/features/obavijesti/queries";
+import { getPosts, usePosts } from "@/features/posts";
+import postsKeys from "@/features/posts/queries";
 import {
   infoPostsSport,
   infoSportRekreacijskeCategory,
@@ -25,9 +29,48 @@ import {
   faqSportCategory,
   obavijestiSportCategory,
 } from "@/utils/constants";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
+import type { GetStaticProps, NextPage } from "next";
 import React from "react";
 
-const SportPage = () => {
+export const getStaticProps: GetStaticProps = async () => {
+  const queryClient = new QueryClient();
+
+  const postsFilters = {
+    categories: [
+      infoSportRekreacijskeCategory,
+      infoSportEdukacijskeCategory,
+      infoSportNatjecateljskeCategory,
+      infoSportZabavaCategory,
+      faqSportCategory,
+    ],
+  };
+
+  await queryClient.prefetchQuery(postsKeys.postsFiltered(postsFilters), () =>
+    getPosts(postsFilters)
+  );
+
+  await queryClient.prefetchQuery(
+    categoryKeys.categoriesFiltered({ parent: infoPostsSport }),
+    () => getCategories(infoPostsSport)
+  );
+
+  await queryClient.prefetchQuery(
+    obavijestiKeys.obavijestiFiltered({
+      categories: [obavijestiSportCategory],
+    }),
+    () => getObavijestiPage(obavijestiSportCategory)
+  );
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+    revalidate: 60 * 10,
+  };
+};
+
+const SportPage: NextPage = () => {
   const { data: posts, isLoading } = usePosts({
     categories: [
       infoSportRekreacijskeCategory,

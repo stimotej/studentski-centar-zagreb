@@ -18,21 +18,23 @@ const LoginInfoCard: React.FC<LoginInfoCardProps> = (props) => {
         html={props.title}
         className="text-xl font-medium text-text"
       />
-      <div className="mt-4">
+      <div className="mt-4 flex flex-col gap-4">
         {!!props.content && !!clearHtmlFromString(props.content || "") && (
           <DisplayHTML html={props.content} className="text-light" />
         )}
-        {!!props.documents &&
-          props.documents.length > 0 &&
-          props.documents.map((document) => (
-            <a
-              key={document.id}
-              href={document.source_url}
-              className="flex py-3 px-1 text-light font-medium border-b border-gray-200 hover:bg-gray-100"
-            >
-              <DisplayHTML html={document.title} className="text-light" />
-            </a>
-          ))}
+        <div>
+          {!!props.documents &&
+            props.documents.length > 0 &&
+            props.documents.map((document) => (
+              <a
+                key={document.id}
+                href={document.source_url}
+                className="flex py-3 px-1 text-light font-medium border-b border-gray-200 hover:bg-gray-100"
+              >
+                <DisplayHTML html={document.title} className="text-light" />
+              </a>
+            ))}
+        </div>
       </div>
     </Card>
   );

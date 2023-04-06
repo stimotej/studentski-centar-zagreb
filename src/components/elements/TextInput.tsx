@@ -4,7 +4,6 @@ import { MdSearch } from "react-icons/md";
 import Spinner from "./Spinner";
 
 type TextInputProps = {
-  isSearch?: boolean;
   loading?: boolean;
   className?: string;
   errorMessage?: string;
@@ -17,7 +16,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
         <div
           className={clsx(
             "border text-sm text-text focus-within:border-primary outline-none flex items-center",
-            props.isSearch
+            props.type === "search"
               ? "border-gray-400 rounded-xl"
               : "border-primary/40 bg-primary/5 rounded-lg",
             props.errorMessage &&
@@ -25,21 +24,21 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
             props.className
           )}
         >
+          {props.type === "search" ? (
+            props.loading ? (
+              <Spinner size={20} className="ml-3" />
+            ) : (
+              <MdSearch size={22} className="ml-3" />
+            )
+          ) : null}
           <input
             ref={ref}
             {...props}
             className={clsx(
               "outline-none py-3 px-4 rounded-xl w-full",
-              props.isSearch && "pl-4 pr-1"
+              props.type === "search" && "pl-r pl-1"
             )}
           />
-          {props.isSearch ? (
-            props.loading ? (
-              <Spinner size={20} className="mr-2" />
-            ) : (
-              <MdSearch size={22} className="mr-2" />
-            )
-          ) : null}
         </div>
         {props.errorMessage ? (
           <div className="mt-1 ml-2 text-sm text-red-500">

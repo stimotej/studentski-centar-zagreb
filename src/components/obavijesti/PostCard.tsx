@@ -19,6 +19,7 @@ const PostCard: React.FC<PostCardProps> = (props) => {
       <Image
         src={props.image || "/sczg/slike/placeholder.png"}
         alt={props.title}
+        priority
         width={355}
         height={250}
         className="object-cover w-full h-[200px] rounded-lg"

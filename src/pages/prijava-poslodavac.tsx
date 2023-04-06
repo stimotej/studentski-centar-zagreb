@@ -1,9 +1,9 @@
 import Spinner from "@/components/elements/Spinner";
 import LoginInfoCard from "@/components/login-poslodavac/LoginInfoCard";
-import LogInForm from "@/components/login/LogInForm";
 import Layout from "@/components/shared/Layout";
 import PageTitle from "@/components/shared/PageTitle";
-import { usePosts } from "@/features/posts";
+import { getPosts, usePosts } from "@/features/posts";
+import postsKeys from "@/features/posts/queries";
 import {
   infoPostsCategoryId,
   infoPostsSS,
@@ -11,8 +11,29 @@ import {
   infoSSPredajaOglasaPost,
   infoSSRegisterPost,
 } from "@/utils/constants";
-import { type NextPage } from "next";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
+import type { GetStaticProps, NextPage } from "next";
 import React from "react";
+
+export const getStaticProps: GetStaticProps = async () => {
+  const queryClient = new QueryClient();
+
+  const postsFilters = {
+    include: [infoSSRegisterPost, infoSSDocumentPost, infoSSPredajaOglasaPost],
+    categories: [infoPostsCategoryId, infoPostsSS],
+  };
+
+  await queryClient.prefetchQuery(postsKeys.postsFiltered(postsFilters), () =>
+    getPosts(postsFilters)
+  );
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+    revalidate: 60 * 10,
+  };
+};
 
 const CompanyLoginPage: NextPage = () => {
   const { data: posts, isLoading } = usePosts({

@@ -10,5 +10,5 @@ export const getCalendarEvents = async () => {
 };
 
 export const useCalendarEvents = (initialData?: CalendarEvent[]) => {
-  return useQuery(eventKeys.calendarKeys, getCalendarEvents, { initialData });
+  return useQuery(eventKeys.calendar, getCalendarEvents, { initialData });
 };

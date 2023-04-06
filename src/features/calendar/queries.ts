@@ -1,5 +1,5 @@
 const calendarKeys = {
-  calendarKeys: ["calendarKeys"],
+  calendar: ["calendar"],
 };
 
 export default calendarKeys;

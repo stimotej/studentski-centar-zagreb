@@ -9,9 +9,9 @@ export type CategoryFilters = {
   orderby?: string;
   order?: string;
   search?: string;
-  parent?: boolean;
-  post?: boolean;
-  slug?: boolean;
+  parent?: number;
+  post?: number;
+  slug?: string;
 };
 
 const filters = {
@@ -25,9 +25,11 @@ export const getCategories = async (parent?: number) => {
   return response.data;
 };
 
-export const useCategories = (parent?: number) => {
-  return useQuery(categoryKeys.categoriesFiltered(filters), () =>
-    getCategories(parent)
+export const useCategories = (parent?: number, initialData?: Category[]) => {
+  return useQuery(
+    categoryKeys.categoriesFiltered({ parent }),
+    () => getCategories(parent),
+    { initialData }
   );
 };
 

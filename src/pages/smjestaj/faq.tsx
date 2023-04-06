@@ -2,10 +2,31 @@ import Spinner from "@/components/elements/Spinner";
 import FAQCards from "@/components/shared/FAQCards";
 import Layout from "@/components/shared/Layout";
 import PageTitle from "@/components/shared/PageTitle";
-import { usePosts } from "@/features/posts";
+import { getPosts, usePosts } from "@/features/posts";
+import postsKeys from "@/features/posts/queries";
 import { faqSmjestajCategory } from "@/utils/constants";
-import { type NextPage } from "next";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
+import type { GetStaticProps, NextPage } from "next";
 import React from "react";
+
+export const getStaticProps: GetStaticProps = async () => {
+  const queryClient = new QueryClient();
+
+  const postsFilters = {
+    categories: [faqSmjestajCategory],
+  };
+
+  await queryClient.prefetchQuery(postsKeys.postsFiltered(postsFilters), () =>
+    getPosts(postsFilters)
+  );
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+    revalidate: 60 * 10,
+  };
+};
 
 const FAQPage: NextPage = () => {
   const { data: posts, isLoading } = usePosts({
