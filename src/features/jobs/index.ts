@@ -19,6 +19,9 @@ export const getInfiniteJobs = async () => {
       per_page: jobsPerPage,
       timestamp: new Date().getTime(),
       allowed_sc: true,
+      orderby: "featured",
+      search: "",
+      categories: undefined,
     },
   });
   return response.data;
@@ -36,6 +39,7 @@ export const useJobs = (filters: JobsFilters) => {
           page: pageParam,
           timestamp: new Date().getTime(),
           allowed_sc: true,
+          orderby: "featured",
           ...filters,
         },
       });

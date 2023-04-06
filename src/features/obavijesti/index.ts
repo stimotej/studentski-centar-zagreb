@@ -20,6 +20,8 @@ export const getInfiniteObavijesti = async () => {
     params: {
       per_page: postsPerPage,
       timestamp: new Date().getTime(),
+      search: "",
+      categories: undefined,
     },
   });
   return response.data;

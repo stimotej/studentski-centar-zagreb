@@ -26,7 +26,6 @@ export const getStaticProps: GetStaticProps = async () => {
     jobKeys.jobsFiltered({
       search: "",
       categories: undefined,
-      orderby: "featured",
     }),
     getInfiniteJobs
   );
@@ -63,7 +62,6 @@ const PosloviPage: NextPage = () => {
   } = useJobs({
     search: debouncedSearch,
     categories: category === jobsCategoryId ? undefined : [category],
-    orderby: "featured",
   });
 
   const { data: categories } = useCategories(jobsCategoryId);
