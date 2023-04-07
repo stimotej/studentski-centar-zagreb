@@ -3,12 +3,61 @@ import DisplayHTML from "@/components/elements/DisplayHTML";
 import Spinner from "@/components/elements/Spinner";
 import Layout from "@/components/shared/Layout";
 import PageTitle from "@/components/shared/PageTitle";
-import { useObavijest } from "@/features/obavijesti";
+import { getObavijest, useObavijest } from "@/features/obavijesti";
+import obavijestiKeys from "@/features/obavijesti/queries";
+import type { ObavijestiMeta, Post } from "@/features/types";
 import clearHtmlFromString from "@/utils/clearHtmlFromString";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
+import axios from "axios";
+import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import type { ParsedUrlQuery } from "querystring";
 import { useRouter } from "next/router";
 import React from "react";
 
-const ObavijestPage = () => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  const { data: obavijesti } = await axios.get<Post<ObavijestiMeta>[]>(
+    "/obavijesti",
+    {
+      params: {
+        per_page: 100,
+        orderby: "featured",
+        order: "desc",
+      },
+    }
+  );
+
+  const paths = obavijesti.map((obavijest) => ({
+    params: { slug: obavijest.slug },
+  }));
+
+  return {
+    paths,
+    fallback: true,
+  };
+};
+
+interface StaticPathParams extends ParsedUrlQuery {
+  slug: string;
+}
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const { slug } = params as StaticPathParams;
+
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery(obavijestiKeys.obavijest(slug), () =>
+    getObavijest(slug)
+  );
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+    revalidate: 60 * 10,
+  };
+};
+
+const ObavijestPage: NextPage = () => {
   const router = useRouter();
   const { slug } = router.query;
 

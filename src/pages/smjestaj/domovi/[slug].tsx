@@ -7,14 +7,56 @@ import PageTitle from "@/components/shared/PageTitle";
 import Section from "@/components/shared/Section";
 import SectionTitle from "@/components/shared/SectionTitle";
 import ImageGallery from "@/components/smjestaj/ImageGallery";
-import { usePost } from "@/features/posts";
+import { getPost, usePost } from "@/features/posts";
+import postsKeys from "@/features/posts/queries";
+import type { Post, PostsMeta } from "@/features/types";
 import clearHtmlFromString from "@/utils/clearHtmlFromString";
-import Image from "next/image";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
+import axios from "axios";
+import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useRouter } from "next/router";
+import type { ParsedUrlQuery } from "querystring";
 import React, { useRef } from "react";
-import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
-const DormitoryPage = () => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  const { data: posts } = await axios.get<Post<PostsMeta>[]>("/posts", {
+    params: {
+      per_page: 100,
+      orderby: "date",
+      order: "desc",
+    },
+  });
+
+  const paths = posts.map((post) => ({
+    params: { slug: post.slug },
+  }));
+
+  return {
+    paths,
+    fallback: true,
+  };
+};
+
+interface StaticPathParams extends ParsedUrlQuery {
+  slug: string;
+}
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const { slug } = params as StaticPathParams;
+
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery(postsKeys.post(slug), () => getPost(slug));
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+    revalidate: 60 * 10,
+  };
+};
+
+const DormitoryPage: NextPage = () => {
   const router = useRouter();
   const { slug } = router.query;
 

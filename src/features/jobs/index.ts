@@ -54,15 +54,17 @@ export const useJobs = (filters: JobsFilters) => {
   );
 };
 
-export const useJob = (slug: string) => {
-  return useQuery(jobKeys.job(slug), async () => {
-    const response = await axios.get<Post<JobsMeta>[]>("/jobs/", {
-      params: {
-        slug: slug,
-      },
-    });
-    return response.data[0];
+export const getJob = async (slug: string) => {
+  const response = await axios.get<Post<JobsMeta>[]>("/jobs", {
+    params: {
+      slug: slug,
+    },
   });
+  return response.data[0];
+};
+
+export const useJob = (slug: string) => {
+  return useQuery(jobKeys.job(slug), () => getJob(slug));
 };
 const filters = {
   per_page: 6,

@@ -6,23 +6,23 @@ html {
     @apply scroll-smooth;
 }
 
-.ql-editor a {
+.html-content a {
     @apply text-primary;
 }
 
-.white-links .ql-editor a {
-    @apply text-white underline;
+.white-links a {
+    @apply !text-white !underline;
 }
 
-.ql-editor iframe {
+.html-content iframe {
     @apply rounded-lg w-full h-[400px];
 }
 
-.ql-editor img {
+.html-content img {
     @apply rounded-lg;
 }
 
-.ql-editor ul {
+.html-content ul {
     @apply list-disc list-inside;
 }
 

@@ -4,10 +4,7 @@ import dynamic from "next/dynamic";
 import Spinner from "./Spinner";
 import type { Document } from "@/features/types";
 import { MdOutlineDescription, MdOutlineFileDownload } from "react-icons/md";
-const ReactQuill = dynamic(() => import("react-quill"), {
-  ssr: false,
-  loading: () => <Spinner size={18} className="mx-auto " />,
-});
+import DOMPurify from "isomorphic-dompurify";
 
 interface DisplayHTMLProps {
   html: string;
@@ -16,17 +13,17 @@ interface DisplayHTMLProps {
 }
 
 const DisplayHTML: React.FC<DisplayHTMLProps> = (props) => {
+  const cleanHtml = DOMPurify.sanitize(props.html, {
+    ADD_TAGS: ["iframe"],
+    ADD_ATTR: ["allow", "allowfullscreen", "frameborder", "scrolling"],
+  });
+
   return (
     <>
-      <ReactQuill
-        value={props.html}
-        className={clsx(
-          "!p-0 !m-0 [&>div>.ql-clipboard]:hidden",
-          props.className
-        )}
-        modules={{ toolbar: false }}
-        readOnly
-      />
+      <div
+        dangerouslySetInnerHTML={{ __html: cleanHtml }}
+        className={clsx("html-content", props.className)}
+      ></div>
       {!!props.documents && props.documents.length > 0 && (
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
           {props.documents?.map((document, index) => (

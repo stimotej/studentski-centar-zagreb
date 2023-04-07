@@ -1,4 +1,3 @@
-import { infoPostsCategoryId } from "@/utils/constants";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import type { Post, PostsMeta } from "../types";
@@ -12,15 +11,17 @@ export type PostsFilters = {
   slug?: string;
 };
 
-export const usePost = (slug: string) => {
-  return useQuery(postsKeys.post(slug), async () => {
-    const response = await axios.get<Post<PostsMeta>[]>("/posts/", {
-      params: {
-        slug: slug,
-      },
-    });
-    return response.data[0];
+export const getPost = async (slug: string) => {
+  const response = await axios.get<Post<PostsMeta>[]>("/posts", {
+    params: {
+      slug: slug,
+    },
   });
+  return response.data[0];
+};
+
+export const usePost = (slug: string) => {
+  return useQuery(postsKeys.post(slug), () => getPost(slug));
 };
 
 interface FiltersType {

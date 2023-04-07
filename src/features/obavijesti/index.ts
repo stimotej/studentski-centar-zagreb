@@ -52,15 +52,17 @@ export const useObavijesti = (filters: ObavijestiFilters) => {
   );
 };
 
-export const useObavijest = (slug: string) => {
-  return useQuery(obavijestiKeys.obavijest(slug), async () => {
-    const response = await axios.get<Post<ObavijestiMeta>[]>("/obavijesti/", {
-      params: {
-        slug: slug,
-      },
-    });
-    return response.data[0];
+export const getObavijest = async (slug: string) => {
+  const response = await axios.get<Post<ObavijestiMeta>[]>("/obavijesti", {
+    params: {
+      slug: slug,
+    },
   });
+  return response.data[0];
+};
+
+export const useObavijest = (slug: string) => {
+  return useQuery(obavijestiKeys.obavijest(slug), () => getObavijest(slug));
 };
 
 const filters = {

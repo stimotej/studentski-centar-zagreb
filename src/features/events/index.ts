@@ -3,15 +3,17 @@ import axios from "axios";
 import type { Event } from "../types";
 import eventKeys from "./queries";
 
-export const useEvent = (slug: string) => {
-  return useQuery(eventKeys.event(slug), async () => {
-    const response = await axios.get<Event>("/events/", {
-      params: {
-        slug: slug,
-      },
-    });
-    return response.data;
+export const getEvent = async (slug: string) => {
+  const response = await axios.get<Event>("/events", {
+    params: {
+      slug: slug,
+    },
   });
+  return response.data;
+};
+
+export const useEvent = (slug: string) => {
+  return useQuery(eventKeys.event(slug), () => getEvent(slug));
 };
 
 export const getEvents = async () => {

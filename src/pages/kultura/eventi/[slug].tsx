@@ -3,12 +3,56 @@ import DisplayHTML from "@/components/elements/DisplayHTML";
 import Spinner from "@/components/elements/Spinner";
 import ImageTitle from "@/components/shared/ImageTitle";
 import Layout from "@/components/shared/Layout";
-import { useEvent } from "@/features/events";
+import { getEvent, useEvent } from "@/features/events";
+import type { Event } from "@/features/types";
 import clearHtmlFromString from "@/utils/clearHtmlFromString";
+import axios from "axios";
+import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import type { ParsedUrlQuery } from "querystring";
 import { useRouter } from "next/router";
 import React from "react";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
+import eventKeys from "@/features/events/queries";
 
-const EventPage = () => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  const { data: events } = await axios.get<Event[]>("/events", {
+    params: {
+      per_page: 20,
+      orderby: "date",
+      order: "desc",
+    },
+  });
+
+  const paths = events.map((event) => ({
+    params: { slug: event.slug },
+  }));
+
+  return {
+    paths,
+    fallback: true,
+  };
+};
+
+interface StaticPathParams extends ParsedUrlQuery {
+  slug: string;
+}
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const { slug } = params as StaticPathParams;
+
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery(eventKeys.event(slug), () => getEvent(slug));
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+    revalidate: 60 * 10,
+  };
+};
+
+const EventPage: NextPage = () => {
   const router = useRouter();
   const { slug } = router.query;
 
