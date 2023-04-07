@@ -12,10 +12,12 @@ import { useRouter } from "next/router";
 import React from "react";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import postsKeys from "@/features/posts/queries";
+import { infoPostsCategoryId } from "@/utils/constants";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const { data: posts } = await axios.get<Post<PostsMeta>[]>("/posts", {
     params: {
+      categories: [infoPostsCategoryId],
       per_page: 100,
       orderby: "date",
       order: "desc",

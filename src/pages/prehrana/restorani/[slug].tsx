@@ -12,6 +12,7 @@ import { getPost, usePost } from "@/features/posts";
 import postsKeys from "@/features/posts/queries";
 import type { Post, PostsMeta } from "@/features/types";
 import clearHtmlFromString from "@/utils/clearHtmlFromString";
+import { restaurantsCategoryId } from "@/utils/constants";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import dayjs from "dayjs";
@@ -23,8 +24,9 @@ import React from "react";
 export const getStaticPaths: GetStaticPaths = async () => {
   const { data: posts } = await axios.get<Post<PostsMeta>[]>("/posts", {
     params: {
+      categories: [restaurantsCategoryId],
       per_page: 100,
-      orderby: "date",
+      orderby: "order",
       order: "desc",
     },
   });
