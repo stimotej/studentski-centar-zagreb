@@ -11,7 +11,7 @@ import { getPost, usePost } from "@/features/posts";
 import postsKeys from "@/features/posts/queries";
 import type { Post, PostsMeta } from "@/features/types";
 import clearHtmlFromString from "@/utils/clearHtmlFromString";
-import { infoPostsCategoryId, infoPostsSmjestaj } from "@/utils/constants";
+import { infoSmjestajDormitoriesCategory } from "@/utils/constants";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
@@ -22,7 +22,7 @@ import React, { useRef } from "react";
 export const getStaticPaths: GetStaticPaths = async () => {
   const { data: posts } = await axios.get<Post<PostsMeta>[]>("/posts", {
     params: {
-      categories: [infoPostsCategoryId, infoPostsSmjestaj],
+      categories: [infoSmjestajDormitoriesCategory],
       per_page: 100,
       orderby: "date",
       order: "desc",

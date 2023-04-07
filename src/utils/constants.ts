@@ -172,7 +172,6 @@ export const faqs = [
 <li><strong>Računovodstvo i financije</strong><br>Tel:<span>&nbsp;</span><a href="tel:4593 637">4593 637</a><br>Mail:<span>&nbsp;</span><a href="mailto:racunovodstvo-financije@sczg.hr">racunovodstvo-financije@sczg.hr</a></li>
 <li><strong>Služba općih poslova</strong><br>Tel:<span>&nbsp;</span><a href="tel:4593 629">4593 629</a><br>Mail:<span>&nbsp;</span><a href="mailto:opci@sczg.hr">opci@sczg.hr</a></li>
 <li><strong>Služba nabave</strong><br>Tel:<span>&nbsp;</span><a href="tel:4593 630">4593 630</a><br>Mail:<span>&nbsp;</span><a href="mailto:nabava@sczg.hr">nabava@sczg.hr</a></li>
-<li><strong>Knjižara</strong><br>Tel:<span>&nbsp;</span><a href="tel:4593 529">4593 529</a>,<span>&nbsp;</span><a href="tel:4593 543">4593 543</a></li>
 </ul>`,
   },
   {

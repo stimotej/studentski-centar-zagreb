@@ -132,7 +132,7 @@ const PosloviPage: NextPage = () => {
             value={category || 0}
             onChange={setCategory}
             title="Vrsta posla"
-            className="mt-8"
+            className="md:mt-8"
             items={
               categories
                 ? [

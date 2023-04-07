@@ -41,7 +41,7 @@ const JobCard: React.FC<JobCardProps> = (props) => {
           />
         </div>
         <div className="font-semibold text-primary my-4">
-          {props.paymentRate} €
+          {props.paymentRate}
         </div>
         <DisplayHTML
           html={props.description}

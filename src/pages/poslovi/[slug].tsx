@@ -16,6 +16,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import jobKeys from "@/features/jobs/queries";
 import type { JobsMeta, Post } from "@/features/types";
+import DocumentCard from "@/components/shared/DocumentCard";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const { data: jobs } = await axios.get<Post<JobsMeta>[]>("/jobs", {
@@ -109,7 +110,6 @@ const ObavijestPage: NextPage = () => {
               <DisplayHTML
                 html={job?.meta.description || ""}
                 className="text-light"
-                documents={job?.meta.documents}
               />
             </>
           )}
@@ -138,23 +138,19 @@ const ObavijestPage: NextPage = () => {
             </>
           )}
 
-          <div className="flex gap-12">
+          <div className="flex flex-col md:flex-row gap-8 md:gap-12">
             <div>
               <h4 className="mt-12 mb-2 uppercase text-text text-sm tracking-wide font-medium">
                 Početak rada
               </h4>
-              <p className="text-light">
-                {dayjs(job?.meta.work_start).format("DD/MM/YYYY")}
-              </p>
+              <p className="text-light">{job?.meta.work_start}</p>
             </div>
             {!!job?.meta.work_end && (
               <div>
                 <h4 className="mt-12 mb-2 uppercase text-text text-sm tracking-wide font-medium">
                   Očekivano trajanje posla
                 </h4>
-                <p className="text-light">
-                  {dayjs(job?.meta.work_end).format("DD/MM/YYYY")}
-                </p>
+                <p className="text-light">{job?.meta.work_end}</p>
               </div>
             )}
           </div>
@@ -163,7 +159,7 @@ const ObavijestPage: NextPage = () => {
               <h4 className="mb-2 uppercase text-text text-sm tracking-wide font-medium">
                 Satnica
               </h4>
-              <p className="text-light">{job?.meta.payment_rate} €</p>
+              <p className="text-light">{job?.meta.payment_rate}</p>
             </div>
             {!!job?.meta.city && (
               <div>
@@ -182,7 +178,7 @@ const ObavijestPage: NextPage = () => {
                 <h4 className="mb-2 uppercase text-text text-sm tracking-wide font-medium">
                   Druge naknade
                 </h4>
-                <p className="text-light">{job?.meta.payment_other} €</p>
+                <p className="text-light">{job?.meta.payment_other}</p>
               </div>
             )}
           </div>
@@ -191,9 +187,9 @@ const ObavijestPage: NextPage = () => {
               {!!job?.meta.work_hours && (
                 <div>
                   <h4 className="mb-2 uppercase text-text text-sm tracking-wide font-medium">
-                    Satnica
+                    Radno vrijeme
                   </h4>
-                  <p className="text-light">{job?.meta.work_hours} €</p>
+                  <p className="text-light">{job?.meta.work_hours}</p>
                 </div>
               )}
               {!!job?.meta.positions && (
@@ -259,6 +255,18 @@ const ObavijestPage: NextPage = () => {
               width={900}
               height={600}
             />
+          )}
+          {!!job.meta.documents.length && (
+            <div className="mb-6">
+              <h4 className="uppercase text-text text-sm tracking-wide font-medium">
+                Dokumenti
+              </h4>
+              <div className="flex flex-col gap-2 mt-2">
+                {job.meta.documents.map((document, index) => (
+                  <DocumentCard key={index} document={document} />
+                ))}
+              </div>
+            </div>
           )}
           <Card className="w-full sticky top-20">
             <div className="flex flex-wrap gap-3 items-center">

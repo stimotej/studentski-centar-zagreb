@@ -26,6 +26,18 @@ html {
     @apply list-disc list-inside;
 }
 
+.ql-align-center {
+    text-align: center;
+}
+
+.ql-align-right {
+    text-align: right;
+}
+
+.ql-align-justify {
+    text-align: justify;
+}
+
 .hide-scrollbar::-webkit-scrollbar {
     display: none;
 }
