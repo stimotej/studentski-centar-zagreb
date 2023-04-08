@@ -5,6 +5,7 @@ import postsKeys from "./queries";
 
 export type PostsFilters = {
   categories?: number[];
+  include?: number[];
   orderby?: string;
   order?: string;
   search?: string;

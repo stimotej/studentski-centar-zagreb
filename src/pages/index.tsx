@@ -21,11 +21,17 @@ import ButtonLink from "@/components/elements/ButtonLink";
 import { getJobsHome, useJobsHome } from "@/features/jobs";
 import { useCalendarEvents } from "@/features/calendar";
 import dayjs from "dayjs";
-import { faqs } from "@/utils/constants";
+import {
+  faqPocetnaCategory,
+  faqs,
+  pocetnaOpceInformacijePost,
+} from "@/utils/constants";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import obavijestiKeys from "@/features/obavijesti/queries";
 import jobKeys from "@/features/jobs/queries";
 import calendarKeys from "@/features/calendar/queries";
+import { getPosts, usePosts } from "@/features/posts";
+import postsKeys from "@/features/posts/queries";
 
 export const getStaticProps: GetStaticProps = async () => {
   const queryClient = new QueryClient();
@@ -41,6 +47,23 @@ export const getStaticProps: GetStaticProps = async () => {
   await queryClient.prefetchQuery(jobKeys.jobsHome, getJobsHome);
   await queryClient.prefetchQuery(calendarKeys.calendar, getCalendarEvents);
 
+  const faqPostsFilters = {
+    categories: [faqPocetnaCategory],
+  };
+
+  await queryClient.prefetchQuery(
+    postsKeys.postsFiltered(faqPostsFilters),
+    () => getPosts(faqPostsFilters)
+  );
+
+  const infoFilters = {
+    include: [pocetnaOpceInformacijePost],
+  };
+
+  await queryClient.prefetchQuery(postsKeys.postsFiltered(infoFilters), () =>
+    getPosts(infoFilters)
+  );
+
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
@@ -54,6 +77,12 @@ const Home: NextPage = () => {
   const { data: obavijesti } = useObavijestiHome();
   const { data: jobs } = useJobsHome();
   const { data: calendarEvents } = useCalendarEvents();
+  const { data: info } = usePosts({
+    include: [pocetnaOpceInformacijePost],
+  });
+  const { data: faqs, isLoading: isLoadingFaqs } = usePosts({
+    categories: [faqPocetnaCategory],
+  });
 
   return (
     <Layout
@@ -102,7 +131,11 @@ const Home: NextPage = () => {
           </div>
         </div>
         <div className="w-full md:w-[30%]">
-          <GeneralInfoCard />
+          <GeneralInfoCard
+            title={info?.[0].title.rendered || ""}
+            content={info?.[0].meta.sadrzaj || ""}
+            link={`/informacije/${info?.[0].slug}`}
+          />
           <h3 className="mt-6 font-medium text-lg">
             Oglas za popunu radnih mjesta
           </h3>
@@ -141,8 +174,30 @@ const Home: NextPage = () => {
           />
         </div>
       </div>
-      <SectionTitle title="Informacije" className="mt-20" />
-      <FAQCards items={faqs} />
+      {!!faqs?.filter((item) => item.categories.includes(faqPocetnaCategory))
+        .length && (
+        <div className="mt-32">
+          <SectionTitle title="Informacije" className="mt-20" />
+          <FAQCards
+            items={
+              faqs
+                .filter((item) => item.categories.includes(faqPocetnaCategory))
+                .slice(0, 8)
+                .map((item) => ({
+                  title: item.title.rendered,
+                  content: item.content.rendered,
+                })) || []
+            }
+            loading={isLoadingFaqs}
+          />
+          {faqs?.filter((item) => item.categories.includes(faqPocetnaCategory))
+            .length > 8 && (
+            <ButtonLink href="/faq" className="mx-auto mt-6">
+              Vidi sve
+            </ButtonLink>
+          )}
+        </div>
+      )}
     </Layout>
   );
 };

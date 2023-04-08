@@ -51,6 +51,7 @@ export const infoSportZabavaCategory = 256;
 
 export const faqCategory = 183;
 
+export const faqPocetnaCategory = 266;
 export const faqKulturaCategory = 184;
 export const faqPrehranaCategory = 185;
 export const faqSmjestajCategory = 186;
@@ -66,6 +67,8 @@ export const obavijestiKulturaCategory = 127;
 export const obavijestiPrehranaCategory = 164;
 
 // FOR HOME PAGE
+
+export const pocetnaOpceInformacijePost = 8585;
 
 export const slides = [
   {
