@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useState, useEffect, useRef } from "react";
 import DisplayHTML from "./DisplayHTML";
 
@@ -147,12 +148,12 @@ export default function Slider({ slides, className }: SliderProps) {
 
             <DisplayHTML html={slide.subtitle} className="line-clamp-3" />
             <div className="flex items-center justify-center mt-4">
-              <a
+              <Link
                 href={slide.actionHref}
                 className="w-fit rounded-full bg-white/20 px-4 py-3 font-semibold transition-colors hover:bg-primary"
               >
                 {slide.actionTitle}
-              </a>
+              </Link>
             </div>
           </div>
         </div>

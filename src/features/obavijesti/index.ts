@@ -22,6 +22,7 @@ export const getInfiniteObavijesti = async () => {
       timestamp: new Date().getTime(),
       search: "",
       categories: undefined,
+      filter_by_date: true,
     },
   });
   return response.data;
@@ -38,6 +39,7 @@ export const useObavijesti = (filters: ObavijestiFilters) => {
           per_page: postsPerPage,
           page: pageParam,
           timestamp: new Date().getTime(),
+          filter_by_date: true,
           ...filters,
         },
       });
@@ -69,6 +71,7 @@ const filters = {
   per_page: 6,
   orderby: "date",
   order: "desc",
+  filter_by_date: true,
 };
 
 export const getObavijestiHome = async () => {
@@ -90,6 +93,7 @@ export const getObavijestiPage = async (category: number) => {
       per_page: 4,
       orderby: "featured",
       order: "desc",
+      filter_by_date: true,
       categories: [category],
     },
   });
@@ -106,6 +110,7 @@ export const useObavijestiPage = (category: number) => {
 export const getSliderObavijesti = async () => {
   const response = await axios.get<Post<ObavijestiMeta>[]>("/obavijesti", {
     params: {
+      filter_by_date: true,
       categories: [sliderCategoryId],
     },
   });
