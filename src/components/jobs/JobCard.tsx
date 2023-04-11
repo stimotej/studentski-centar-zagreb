@@ -4,6 +4,7 @@ import Link from "next/link";
 import React from "react";
 import DisplayHTML from "../elements/DisplayHTML";
 import Card from "../shared/Card";
+import clearHtmlFromString from "@/utils/clearHtmlFromString";
 
 interface JobCardProps {
   title: string;
@@ -44,7 +45,7 @@ const JobCard: React.FC<JobCardProps> = (props) => {
           {props.paymentRate}
         </div>
         <DisplayHTML
-          html={props.description}
+          html={clearHtmlFromString(props.description)}
           className="text-light line-clamp-3"
         />
       </Card>
