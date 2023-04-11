@@ -202,48 +202,24 @@ const ObavijestPage: NextPage = () => {
               )}
             </div>
           )}
-          {!!job?.meta.skills &&
-            job.meta.skills.length > 0 &&
-            job.meta.skills[0] && (
-              <>
-                <h4 className="mt-12 mb-2 uppercase text-text text-sm tracking-wide font-medium">
-                  Potrebna znanja
-                </h4>
-                <div className="flex flwx-wrap gap-2">
-                  {job?.meta.skills.map((skill, index) =>
-                    skill ? (
-                      <div
-                        key={index}
-                        className="text-text bg-gray-100 py-2 px-4 rounded-full w-fit"
-                      >
-                        {skill}
-                      </div>
-                    ) : null
-                  )}
-                </div>
-              </>
-            )}
+          {!!job?.meta.skills && (
+            <div>
+              <h4 className="mt-12 mb-2 uppercase text-text text-sm tracking-wide font-medium">
+                Potrebna znanja
+              </h4>
+              <p className="text-light">{job?.meta.skills}</p>
+            </div>
+          )}
 
           {!!job?.meta.labels &&
             job.meta.labels.length > 0 &&
             job.meta.labels[0] && (
-              <>
+              <div>
                 <h4 className="mt-12 mb-2 uppercase text-text text-sm tracking-wide font-medium">
                   Poželjne vještine
                 </h4>
-                <div className="flex flwx-wrap gap-2">
-                  {job?.meta.labels.map((label, index) =>
-                    label ? (
-                      <div
-                        key={index}
-                        className="text-text bg-gray-100 py-2 px-4 rounded-full w-fit"
-                      >
-                        {label}
-                      </div>
-                    ) : null
-                  )}
-                </div>
-              </>
+                <p className="text-light">{job?.meta.labels}</p>
+              </div>
             )}
         </div>
         <div className="w-full lg:w-[30%]">

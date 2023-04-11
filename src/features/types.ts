@@ -152,8 +152,8 @@ export type JobsMeta = {
   contact_student: string;
   contact_sc: string;
   image: string;
-  skills: string[];
-  labels: string[];
+  skills: string;
+  labels: string;
 };
 
 export type MenuProduct = {
