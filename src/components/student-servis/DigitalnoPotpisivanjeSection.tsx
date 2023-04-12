@@ -21,17 +21,17 @@ const DigitalnoPotpisivanjeSection: React.FC<
           </h3>
           <div className="flex flex-col gap-8 mt-6">
             <SectionCard
-              image="/sczg/slike/student-servis/ikone/sinkronizacija.png"
+              image="/slike/student-servis/ikone/sinkronizacija.png"
               title="Sinkronizacija sa bazom podataka"
               description="Izvadite ugovor za poslodavca preko baze podataka aktivnih poslodavaca Studentskog centra u Zagrebu."
             />
             <SectionCard
-              image="/sczg/slike/student-servis/ikone/potpisivanje.png"
+              image="/slike/student-servis/ikone/potpisivanje.png"
               title="Digitalno potpisivanje"
               description="Potpišite ugovore digitalno putem mobitela kroz sigurnosni certifikat 4. razine. Brzo, jednostavno i sigurno."
             />
             <SectionCard
-              image="/sczg/slike/student-servis/ikone/pohrana.png"
+              image="/slike/student-servis/ikone/pohrana.png"
               title="Sinkronizacija sa bazom podataka"
               description="Svi ugovori su pohranjeni i zaštićeni vremenskim žigom. U bilo kojem trenutku pogledajte sve ugovore i statuse ugovora."
             />
@@ -39,7 +39,7 @@ const DigitalnoPotpisivanjeSection: React.FC<
         </div>
         <div className="flex-1">
           <Image
-            src="/sczg/slike/student-servis/digitalno-potpisivanje-ugovora.png"
+            src="/slike/student-servis/digitalno-potpisivanje-ugovora.png"
             alt="Digitalno potpisivanje ugovora"
             width={400}
             height={360}

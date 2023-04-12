@@ -247,10 +247,7 @@ const ObavijestPage: NextPage = () => {
           <Card className="w-full sticky top-20">
             <div className="flex flex-wrap gap-3 items-center">
               <Image
-                src={
-                  job?.company.image_url ||
-                  "/sczg/slike/company-placeholder.png"
-                }
+                src={job?.company.image_url || "/slike/company-placeholder.png"}
                 alt={job?.meta.company_name || ""}
                 className="rounded-full"
                 width={48}

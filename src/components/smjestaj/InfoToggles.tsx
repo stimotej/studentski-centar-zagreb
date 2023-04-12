@@ -11,7 +11,7 @@ interface InfoTogglesProps {
 const items = [
   {
     id: 1,
-    image: "/sczg/slike/smjestaj/ikone/prijava.png",
+    image: "/slike/smjestaj/ikone/prijava.png",
     title: "Prijava",
     content: `<p><b>Dobrodošli na web sustav Studentskog centra u Zagrebu koji je namijenjen studentima koji koriste usluge smještaja, rada putem Student servisa te sportske sadržaje Studentskog centra u Zagrebu. </b></p>
 <div>
@@ -29,7 +29,7 @@ const items = [
   },
   {
     id: 2,
-    image: "/sczg/slike/smjestaj/ikone/kontakti.png",
+    image: "/slike/smjestaj/ikone/kontakti.png",
     title: "Kontakti",
     content: `<h4><span style="color: #ffffff;"><strong>Poslovnica za smještaj studenata, turizam i sport (Savska cesta 25, u dvorištu)</strong></span></h4>
 <p><strong>Radno vrijeme sa strankama: ponedjeljak – petak, 8 – 15:00 h;</strong></p>
@@ -46,7 +46,7 @@ const items = [
   },
   {
     id: 3,
-    image: "/sczg/slike/smjestaj/ikone/cjenik.png",
+    image: "/slike/smjestaj/ikone/cjenik.png",
     title: "Cjenik",
     content: `<p>Cjenici smještaja:</p>
 <ul>
@@ -58,7 +58,7 @@ const items = [
   },
   {
     id: 4,
-    image: "/sczg/slike/smjestaj/ikone/pravilnici_za_natjecaj.png",
+    image: "/slike/smjestaj/ikone/pravilnici_za_natjecaj.png",
     title: "Pravilnici za natječaj",
     content: `<p align="center"><b>N A T J E Č A J</b></p>
 <p><b> </b></p>
@@ -75,7 +75,7 @@ const items = [
   },
   {
     id: 5,
-    image: "/sczg/slike/smjestaj/ikone/domski_internet.png",
+    image: "/slike/smjestaj/ikone/domski_internet.png",
     title: "Domski internet",
     content: `<p style="text-align: left;"><span style="color: #ffffff;"><strong><span color="green"><em>Pristup Domskom Internetu u studentskim naseljima</em></span></strong></span></p>
 <p><span style="color: #ffffff;"><em><strong><a target="_blank" href="http://www.eduroam.hr/installer.php" rel="noopener" style="color: #ffffff;"> eduroam installer</a></strong></em> </span>omogućuje krajnjim korisnicima jednostavno i pouzdano konfiguriranje uređaja (računala, prijenosnika, pametnog telefona) za pristup mreži po eduroam standardu.</p>

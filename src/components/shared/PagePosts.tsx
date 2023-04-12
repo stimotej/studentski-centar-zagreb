@@ -61,7 +61,7 @@ const PagePostCard: React.FC<PagePostCardProps> = (props) => {
       )}
     >
       <Image
-        src={props.image || "/sczg/slike/placeholder.png"}
+        src={props.image || "/slike/placeholder.png"}
         alt={clearHtmlFromString(props.title)}
         priority
         width={96}

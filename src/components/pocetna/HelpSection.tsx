@@ -9,7 +9,7 @@ const HelpSection = () => {
     <div className="flex flex-col-reverse z-[2] md:flex-row mt-28 gap-8 relative bg-gradient-to-b from-transparent to-blue-50">
       <div className="flex-1">
         <Image
-          src="/sczg/slike/pitanja-i-pomoc.png"
+          src="/slike/pitanja-i-pomoc.png"
           alt="Pitanja i pomoć"
           width={500}
           height={370}
@@ -47,7 +47,7 @@ const HelpSection = () => {
         </ButtonLink>
       </Section>
       <Image
-        src="/sczg/slike/pozadina-oblik-dno.svg"
+        src="/slike/pozadina-oblik-dno.svg"
         alt="Pozadinski oblik"
         width={1630}
         height={300}

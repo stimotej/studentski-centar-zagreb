@@ -11,7 +11,7 @@ const TeatarTDCard: React.FC<TeatarTDCardProps> = (props) => {
   return (
     <Card className={clsx("w-full", props.className)}>
       <Image
-        src="/sczg/slike/teatar-td-logo.jpg"
+        src="/slike/teatar-td-logo.jpg"
         alt="Teata&TD"
         width={200}
         height={200}

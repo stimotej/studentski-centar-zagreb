@@ -17,7 +17,7 @@ const PostCard: React.FC<PostCardProps> = (props) => {
   return (
     <Link href={"/obavijesti/" + props.slug}>
       <Image
-        src={props.image || "/sczg/slike/placeholder.png"}
+        src={props.image || "/slike/placeholder.png"}
         alt={props.title}
         priority
         width={355}

@@ -26,7 +26,7 @@ const LoginLinksSection: React.FC<LoginLinksSectionProps> = (props) => {
         </div>
         <div className="flex-1">
           <Image
-            src="/sczg/slike/student-servis/student-servis-prijava.png"
+            src="/slike/student-servis/student-servis-prijava.png"
             alt="Student servis"
             width={500}
             height={300}

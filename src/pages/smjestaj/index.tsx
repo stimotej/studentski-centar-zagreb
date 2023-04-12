@@ -143,7 +143,7 @@ const SmjestajPage: NextPage = () => {
 
             <div className="flex flex-col md:flex-row gap-6 my-12">
               <ContentCard
-                image="/sczg/slike/smjestaj/ikone/savjetovaliste.png"
+                image="/slike/smjestaj/ikone/savjetovaliste.png"
                 title="SAVJETOVALIŠTE"
                 content="U sklopu studentskog doma „Cvjetno naselje“ možete koristiti usluge BESPLATNOG savjetovanja. Savjetovanje će se održavati prema unaprijed dogovorenim terminima i dostupno je svim studentima korisnicima usluga Studentskog centra u Zagrebu, kao i radnicima Studentskog centra u Zagrebu."
                 imageClassName="w-[90px] h-[90px] object-contain"
@@ -151,7 +151,7 @@ const SmjestajPage: NextPage = () => {
               />
 
               <ContentCard
-                image="/sczg/slike/smjestaj/ikone/kontakt_i_podrska.png"
+                image="/slike/smjestaj/ikone/kontakt_i_podrska.png"
                 title="Sukladan preventivnim mjerama"
                 content={`Studenti dolaze uz prethodnu najavu i dogovor termina na kontakt brojeve telefona: 01 4593 660 i 091 4593 579. Termin možete dogovori pozivom ili na WhatsApp.</p><br>
 <p><strong>Radno vrijeme sa strankama: <br></strong>ponedjeljak - petak, 08:00 - 15:00 h;<strong><br></strong><strong>e-mail: <a href="mailto:poslovnica@sczg.hr">poslovnica@sczg.hr</a></strong></p>`}
@@ -187,7 +187,7 @@ const SmjestajPage: NextPage = () => {
       />
       <div className="flex flex-col md:flex-row gap-6 mt-6">
         <ContentCard
-          image="/sczg/slike/smjestaj/ikone/lijecnicki_pregled.png"
+          image="/slike/smjestaj/ikone/lijecnicki_pregled.png"
           title="Liječnički pregled za smještaj"
           content={`<div class="et_pb_blurb_description">Isti se provodi se u svrhu utvrđivanja zdravstvenih rizika za boravak u kolektivu. <b></b>Molimo studente da se na pregled u ambulantu naruče telefonski.
 <br><a href="/dokumenti/smjestaj/Raspored-ambulanti_2022.pdf">Raspored ambulanti</a></div>`}
@@ -195,14 +195,14 @@ const SmjestajPage: NextPage = () => {
           contentClassName="text-light leading-relaxed"
         />
         <ContentCard
-          image="/sczg/slike/smjestaj/ikone/samoizolacija.png"
+          image="/slike/smjestaj/ikone/samoizolacija.png"
           title="NE ZA SAMOIZOLACIJU"
           content={`<div class="et_pb_blurb_description"><p>Sukladno odluci Uprave za visoko obrazovanje MZO-a,&nbsp;<b>nije dozvoljeno korištenje studentskog doma za samoizolaciju.</b></p></div>`}
           imageClassName="w-[90px] h-[90px] object-contain"
           contentClassName="text-light leading-relaxed"
         />
         <ContentCard
-          image="/sczg/slike/smjestaj/ikone/mjere.png"
+          image="/slike/smjestaj/ikone/mjere.png"
           title="Sukladan preventivnim mjerama"
           content={`<div class="et_pb_blurb_description"><p>Boravak u studentskom domu mora biti sukladan propisanim preventivnim mjerama zaštite od COVIDa-19. <br><a href="/dokumenti/smjestaj/Preporuke-za-sve-odgojno-obrazovne-ustanove.pdf" target="_blank" rel="noopener">Preporuke Hrvatskog zavoda za javno zdravstvo</a></p></div>`}
           imageClassName="w-[90px] h-[90px] object-contain"

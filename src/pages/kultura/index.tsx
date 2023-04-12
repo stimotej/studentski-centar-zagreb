@@ -81,14 +81,14 @@ const KulturaPage: NextPage = () => {
       />
       <div className="flex flex-col lg:flex-row gap-6 mt-12">
         <ContentCard
-          image="/sczg/slike/teatar-td-logo.jpg"
+          image="/slike/teatar-td-logo.jpg"
           title="TEATAR &TD"
           content="Teatar &TD hrvatska je kazališna kuća iz Zagreba. Ima multifunkcionalan programski prostor otvoren za kazališna, koncertna, festivalska, izložbena te različita interdisciplinarna događanja i eksperimentiranja."
           action={{ title: "SAZNAJ VIŠE", href: "http://itd.sczg.hr/" }}
           className="flex-1"
         />
         <ContentCard
-          image="/sczg/slike/galerija-sc-logo.jpg"
+          image="/slike/galerija-sc-logo.jpg"
           title="GALERIJA SC"
           content="Izložbeni prostor u Savskoj 25. Podržava mlade autore/ice koji žele unutar svojih prijedloga iskoristiti interdisciplinarne mogućnosti prostora."
           action={{
@@ -98,7 +98,7 @@ const KulturaPage: NextPage = () => {
           className="flex-1"
         />
         <ContentCard
-          image="/sczg/slike/kino-forum-logo.jpg"
+          image="/slike/kino-forum-logo.jpg"
           title="SKUC - PAUK / KINO FORUM"
           content="U studentskom domu Stjepan Radić pronaći ćete Kino Forum!"
           action={{
