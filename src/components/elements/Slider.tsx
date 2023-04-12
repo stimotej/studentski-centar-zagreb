@@ -123,6 +123,7 @@ export default function Slider({ slides, className }: SliderProps) {
               "absolute inset-0 h-full w-full object-cover object-center opacity-0 transition-opacity duration-300",
               index === currentSlide && "z-[1] opacity-100"
             )}
+            priority
             width={1600}
             height={900}
           />
