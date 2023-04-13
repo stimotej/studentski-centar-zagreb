@@ -119,7 +119,7 @@ const Filters: React.FC<FiltersProps> = (props) => {
               props.onChange(item.value);
             }}
             className={clsx(
-              "flex items-center justify-between text-sm text-left p-4 text-text border-b border-gray-100",
+              "flex include-filters items-center justify-between text-sm text-left p-4 text-text border-b border-gray-100",
               item.value === props.value
                 ? "bg-primary/5 border-b-primary/25"
                 : "hover:bg-gray-50"

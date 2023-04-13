@@ -23,6 +23,8 @@ export const infoSSRegisterPost = 7631;
 export const infoSSPoslovniceCategory = 171;
 export const infoSSInfoCategory = 181;
 
+export const jobsObrasciPostId = 8861;
+
 // smjestaj
 
 export const infoPostsSmjestaj = 176;

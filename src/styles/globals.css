@@ -46,3 +46,36 @@ html {
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
+
+.underline-links a {
+    @apply underline;
+}
+
+.contrast-filter .bg-primary,
+.contrast-filter .ring-primary,
+.contrast-filter .bg-orange-400,
+.contrast-filter .bg-gradient-to-b,
+.grayscale-filter .bg-gradient-to-l,
+.contrast-filter .border,
+.contrast-filter img,
+.contrast-filter iframe,
+.contrast-filter .text-primary,
+.contrast-filter .include-filters,
+.contrast-filter .text-sc {
+    filter: contrast(200%);
+}
+
+.grayscale-filter .bg-primary,
+.grayscale-filter .ring-primary,
+.grayscale-filter .bg-orange-400,
+.grayscale-filter .bg-gradient-to-b,
+.grayscale-filter .bg-gradient-to-l,
+.grayscale-filter .border,
+.grayscale-filter img,
+.grayscale-filter iframe,
+.grayscale-filter .text-primary,
+.grayscale-filter .include-filters,
+.grayscale-filter .text-sc {
+    filter: grayscale(100%);
+} 
+   

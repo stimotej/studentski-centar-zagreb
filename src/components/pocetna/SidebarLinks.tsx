@@ -15,7 +15,7 @@ const SidebarLinks: React.FC<SidebarLinksProps> = (props) => {
   return (
     <div
       className={clsx(
-        "flex flex-col divide-y-[1px] divide-white/20",
+        "flex flex-col divide-y-[1px] divide-white/20 include-filters",
         props.className
       )}
     >

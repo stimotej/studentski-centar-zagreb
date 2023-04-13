@@ -22,6 +22,7 @@ export const getInfiniteJobs = async () => {
       orderby: "featured",
       search: "",
       categories: undefined,
+      filter_by_date: true,
     },
   });
   return response.data;
@@ -40,6 +41,7 @@ export const useJobs = (filters: JobsFilters) => {
           timestamp: new Date().getTime(),
           allowed_sc: true,
           orderby: "featured",
+          filter_by_date: true,
           ...filters,
         },
       });
@@ -71,6 +73,7 @@ const filters = {
   orderby: "featured",
   order: "desc",
   allowed_sc: true,
+  filter_by_date: true,
 };
 
 export const getJobsHome = async () => {

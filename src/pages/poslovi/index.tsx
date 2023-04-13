@@ -10,14 +10,16 @@ import FilterSelect from "@/components/elements/FilterSelect";
 import { getInfiniteJobs, useJobs } from "@/features/jobs";
 import JobCard from "@/components/jobs/JobCard";
 import { getCategories, useCategories } from "@/features/categories";
-import { jobsCategoryId } from "@/utils/constants";
-import ObrasciSection from "@/components/jobs/ObrasciSection";
+import { jobsCategoryId, jobsObrasciPostId } from "@/utils/constants";
 import { useBanners, getBanners } from "@/features/banners";
 import Image from "next/image";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import jobKeys from "@/features/jobs/queries";
 import categoryKeys from "@/features/categories/queries";
 import bannerKeys from "@/features/banners/queries";
+import { getPosts, usePosts } from "@/features/posts";
+import LoginInfoCard from "@/components/login-poslodavac/LoginInfoCard";
+import postsKeys from "@/features/posts/queries";
 
 export const getStaticProps: GetStaticProps = async () => {
   const queryClient = new QueryClient();
@@ -28,6 +30,14 @@ export const getStaticProps: GetStaticProps = async () => {
       categories: undefined,
     }),
     getInfiniteJobs
+  );
+
+  const postsFilters = {
+    include: [jobsObrasciPostId],
+  };
+
+  await queryClient.prefetchQuery(postsKeys.postsFiltered(postsFilters), () =>
+    getPosts(postsFilters)
   );
 
   await queryClient.prefetchQuery(
@@ -62,6 +72,10 @@ const PosloviPage: NextPage = () => {
   } = useJobs({
     search: debouncedSearch,
     categories: category === jobsCategoryId ? undefined : [category],
+  });
+
+  const { data: postObrasci } = usePosts({
+    include: [jobsObrasciPostId],
   });
 
   const { data: categories } = useCategories(jobsCategoryId);
@@ -145,7 +159,12 @@ const PosloviPage: NextPage = () => {
                 : [{ title: "Svi poslovi", value: jobsCategoryId }]
             }
           />
-          <ObrasciSection className="mt-6 hidden md:block" />
+          <LoginInfoCard
+            title="Obrasci"
+            content={postObrasci?.[0].content.rendered || ""}
+            documents={postObrasci?.[0].meta.documents || []}
+            className="mt-6 hidden md:block !p-0 !bg-transparent !shadow-none [&>div>div>p]:!text-sm"
+          />
           {!!banners?.length && (
             <div className="hidden md:grid grid-cols-2 sm:grid-cols-3 md:grid-cols-1 gap-6 mt-8">
               {banners?.map((banner) => (
@@ -163,7 +182,12 @@ const PosloviPage: NextPage = () => {
           )}
         </div>
       </div>
-      <ObrasciSection className="mt-6 md:hidden" />
+      <LoginInfoCard
+        title="Obrasci"
+        content={postObrasci?.[0].content.rendered || ""}
+        documents={postObrasci?.[0].meta.documents || []}
+        className="mt-6 md:hidden !p-0 !bg-transparent !shadow-none [&>div>div>p]:!text-sm"
+      />
       {!!banners?.length && (
         <div className="grid md:hidden grid-cols-2 sm:grid-cols-3 md:grid-cols-1 gap-6 my-8">
           {banners?.map((banner) => (

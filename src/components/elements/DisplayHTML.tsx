@@ -23,7 +23,7 @@ const DisplayHTML: React.FC<DisplayHTMLProps> = (props) => {
     <>
       <div
         dangerouslySetInnerHTML={{ __html: cleanHtml }}
-        className={clsx("html-content", props.className)}
+        className={clsx("html-content include-filters", props.className)}
       ></div>
       {!!props.documents && props.documents.length > 0 && (
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">

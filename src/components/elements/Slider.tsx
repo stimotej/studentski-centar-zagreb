@@ -151,7 +151,7 @@ export default function Slider({ slides, className }: SliderProps) {
             <div className="flex items-center justify-center mt-4">
               <Link
                 href={slide.actionHref}
-                className="w-fit rounded-full bg-white/20 px-4 py-3 font-semibold transition-colors hover:bg-primary"
+                className="w-fit rounded-full include-filters bg-white/20 px-4 py-3 font-semibold transition-colors hover:bg-primary"
               >
                 {slide.actionTitle}
               </Link>

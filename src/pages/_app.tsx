@@ -7,6 +7,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
+import AccessibilitySettings from "@/components/shared/AccessibilitySettings";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,7 +23,9 @@ export default function App({ Component, pageProps }: AppProps) {
       <Hydrate state={pageProps.dehydratedState}>
         <AuthProvider>
           <AnimatePresence mode="wait">
-            <Component {...pageProps} />
+            <AccessibilitySettings>
+              <Component {...pageProps} />
+            </AccessibilitySettings>
           </AnimatePresence>
         </AuthProvider>
       </Hydrate>
