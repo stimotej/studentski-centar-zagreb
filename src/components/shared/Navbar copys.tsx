@@ -7,13 +7,14 @@ import { MdMenu, MdExpandMore } from "react-icons/md";
 import { useAuth } from "@/providers/auth";
 import { useScrollPosition } from "@/hooks/useScrollPosition";
 import { AnimatePresence, motion } from "framer-motion";
+import { FaFacebookSquare, FaInstagram } from "react-icons/fa";
 
 const navLinks = [
   { name: "Početna", href: "/", protected: false },
   { name: "Obavijesti", href: "/obavijesti", protected: false },
   { name: "Kultura", href: "/kultura", protected: false },
   { name: "Student servis", href: "/student-servis", protected: false },
-  { name: "Poslovi", href: "/poslovi", protected: true },
+  { name: "Poslovi", href: "/poslovi", protected: false },
   { name: "Prehrana", href: "/prehrana", protected: false },
   { name: "Smještaj", href: "/smjestaj", protected: false },
   { name: "Sport", href: "/sport", protected: false },
@@ -35,50 +36,28 @@ const Navbar = () => {
     >
       <div className="flex items-center gap-4">
         <Link href="/">
-          <Image src="/sc-logo.svg" alt="SC Logo" width={56} height={56} />
+          <Image
+            src="/sc-logo.svg"
+            alt="SC Logo"
+            priority
+            width={56}
+            height={56}
+          />
         </Link>
-        <div className="hidden [@media(min-width:360px)]:flex [@media(min-width:880px)]:hidden lg:!flex flex-col text-sm font-medium">
+        <div className="flex flex-col text-sm font-medium">
           <span>Sveučilište u Zagrebu</span>
           <span className="text-sc">Studentski centar u Zagrebu</span>
         </div>
       </div>
-      <nav className="hidden items-center gap-5 [@media(min-width:880px)]:flex">
-        {navLinks.map((link) =>
-          link.protected ? (
-            user ? (
-              <NavLink key={link.name} title={link.name} href={link.href} />
-            ) : null
-          ) : (
-            <NavLink key={link.name} title={link.name} href={link.href} />
-          )
-        )}
-        {user ? (
-          <Dropdown title={user.displayName || ""}>
-            <button
-              onClick={logout}
-              className={clsx(
-                "px-6 py-3 text-sm hover:bg-gray-100 last:rounded-b-lg text-gray-500 first:rounded-t-lg whitespace-nowrap"
-              )}
-            >
-              Odjava
-            </button>
-          </Dropdown>
-        ) : (
-          <Dropdown title="Prijava">
-            <NavLink
-              title="Prijava student"
-              href="https://natjecaj.sczg.hr/student/Application"
-              isDropdownItem
-            />
-            <NavLink
-              title="Prijava poslodavac"
-              href="/prijava-poslodavac"
-              isDropdownItem
-            />
-          </Dropdown>
-        )}
-      </nav>
-      <div className="py-3 [@media(min-width:880px)]:hidden">
+      <div className="py-3 flex items-center gap-3">
+        <div className="hidden sm:flex items-center gap-3 text-light">
+          <a href="https://www.instagram.com/sczagreb/">
+            <FaInstagram size={24} />
+          </a>
+          <a href="https://www.facebook.com/sczg.unizg">
+            <FaFacebookSquare size={24} />
+          </a>
+        </div>
         <button
           className="rounded-full p-2 hover:bg-gray-200 active:bg-gray-300"
           onClick={() => setOpened((isOpened) => !isOpened)}
@@ -93,7 +72,7 @@ const Navbar = () => {
             initial={{ scaleY: 0, opacity: 0, transformOrigin: "top" }}
             animate={{ scaleY: 1, opacity: 1 }}
             exit={{ scaleY: 0, opacity: 0 }}
-            className="[@media(min-width:880px)]:hidden shadow-xl fixed top-16 left-6 right-6 rounded-lg bg-white z-50"
+            className="shadow-xl fixed top-16 left-6 right-6 rounded-lg bg-white z-50"
           >
             <div className="flex flex-col ">
               {navLinks.map((link) =>
@@ -136,7 +115,7 @@ const Navbar = () => {
                   </div>
                   <NavLink
                     title="Prijava student"
-                    href="/prijava-student"
+                    href="https://natjecaj.sczg.hr/student/Application"
                     isDropdownItem
                     className="ml-12 last:rounded-br-lg"
                   />
