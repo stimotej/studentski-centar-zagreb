@@ -24,7 +24,6 @@ const ClanstvoSection: React.FC<DigitalnoPotpisivanjeSectionProps> = (
             height={360}
             className="w-full h-auto object-cover"
           />
-          <UnderConstructionTag className="mx-auto mt-6" />
         </div>
         <div className="flex-1">
           <h5 className="text-primary text-sm font-medium tracking-wider uppercase">

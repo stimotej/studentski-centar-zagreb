@@ -18,7 +18,6 @@ import LoginLinksSection from "@/components/student-servis/LoginLinksSection";
 import IconCardsSection from "@/components/student-servis/IconCardsSection";
 import UgovaranjePoslaSection from "@/components/student-servis/UgovaranjePoslaSection";
 import BlueCard from "@/components/shared/BlueCard";
-import UnderConstructionTag from "@/components/shared/UnderConstructionTag";
 import DavanjaPoslodavcaSection from "@/components/student-servis/DavanjaPoslodavcaSection";
 import DigitalnoPotpisivanjeSection from "@/components/student-servis/DigitalnoPotpisivanjeSection";
 import ClanstvoSection from "@/components/student-servis/ClanstvoSection";
@@ -181,9 +180,7 @@ const StudentServisPage: NextPage = () => {
           href: "/prijava-poslodavac",
         }}
         className="mb-12"
-      >
-        <UnderConstructionTag className="mx-auto mt-8" white />
-      </BlueCard>
+      ></BlueCard>
     </Layout>
   );
 };
