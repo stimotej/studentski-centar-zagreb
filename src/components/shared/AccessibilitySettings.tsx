@@ -5,6 +5,9 @@ import {
   MdFilterBAndW,
   MdFormatSize,
   MdLink,
+  MdOutlineLightbulb,
+  MdReplay,
+  MdTextFormat,
 } from "react-icons/md";
 import { AnimatePresence, motion } from "framer-motion";
 import clsx from "clsx";
@@ -19,7 +22,9 @@ const AccessibilitySettings: React.FC<AccessibilitySettingsProps> = (props) => {
   const [largeText, setLargeText] = useState(false);
   const [highContrast, setHighContrast] = useState(false);
   const [grayScale, setGrayScale] = useState(false);
+  const [readableFont, setReadableFont] = useState(false);
   const [underlineLinks, setUnderlineLinks] = useState(false);
+  const [lightBackground, setLightBackground] = useState(false);
 
   const handleLargeTextToggle = () => {
     setLargeText(!largeText);
@@ -37,13 +42,32 @@ const AccessibilitySettings: React.FC<AccessibilitySettingsProps> = (props) => {
     setUnderlineLinks(!underlineLinks);
   };
 
+  const handleReadableFontToggle = () => {
+    setReadableFont(!readableFont);
+  };
+
+  const handleLightBackgroundToggle = () => {
+    setLightBackground(!lightBackground);
+  };
+
+  const handleResetSettings = () => {
+    setLargeText(false);
+    setHighContrast(false);
+    setGrayScale(false);
+    setReadableFont(false);
+    setUnderlineLinks(false);
+    setLightBackground(false);
+  };
+
   return (
     <div
       className={clsx(
         underlineLinks ? "underline-links" : "",
         highContrast ? "contrast-filter" : "",
         grayScale ? "grayscale-filter" : "",
-        largeText ? "text-[22px]" : ""
+        readableFont ? "readable-font" : "",
+        largeText ? "large-text" : "",
+        lightBackground ? "light-background" : ""
       )}
     >
       {props.children}
@@ -84,10 +108,27 @@ const AccessibilitySettings: React.FC<AccessibilitySettingsProps> = (props) => {
                     active={grayScale}
                   />
                   <ButtonToggle
+                    onClick={handleReadableFontToggle}
+                    label="Čitljiv font"
+                    icon={<MdTextFormat />}
+                    active={readableFont}
+                  />
+                  <ButtonToggle
                     onClick={handleUnderlineLinksToggle}
                     label="Podcrtaj poveznice"
                     icon={<MdLink />}
                     active={underlineLinks}
+                  />
+                  <ButtonToggle
+                    onClick={handleLightBackgroundToggle}
+                    label="Svijetla pozadina"
+                    icon={<MdOutlineLightbulb />}
+                    active={lightBackground}
+                  />
+                  <ButtonToggle
+                    onClick={handleResetSettings}
+                    label="Obriši odabir"
+                    icon={<MdReplay />}
                   />
                 </div>
               </div>
@@ -103,7 +144,7 @@ interface ButtonToggleProps {
   icon: React.ReactNode;
   label: string;
   onClick: () => void;
-  active: boolean;
+  active?: boolean;
 }
 
 const ButtonToggle: React.FC<ButtonToggleProps> = (props) => {
@@ -113,7 +154,7 @@ const ButtonToggle: React.FC<ButtonToggleProps> = (props) => {
       className={clsx(
         "px-2 py-1 rounded flex gap-2 items-center w-full focus:ring-1 ring-primary ring-offset-1",
         props.active
-          ? "bg-primary hover:bg-primary/80 text-white"
+          ? "bg-primary hover:bg-primary/80 text-white accessibility-active"
           : "hover:bg-gray-100"
       )}
     >

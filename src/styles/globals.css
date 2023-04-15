@@ -92,3 +92,30 @@ html {
 .negative-contrast .text-sc {
     filter: invert(100%);
 }
+
+.large-text {
+    font-size: 22px !important;
+}
+
+.large-text .text-sm {
+    font-size: 18px !important;
+}
+
+.readable-font main  {
+    font-family: Verdana, Arial, Helvetica, sans-serif !important;
+}
+
+.light-background [class^="bg-"], .light-background [class*=" bg-"] {
+    @apply !bg-white !text-black !border;
+}
+
+.light-background .accessibility-active {
+    @apply !bg-gray-200 !border-none;
+}
+
+.light-background [class^="bg-"],
+.light-background [class*=" bg-"],
+.light-background [class^="text-"],
+.light-background [class*=" text-"] {
+    @apply !text-black;
+}
