@@ -47,7 +47,7 @@ const AccessibilitySettings: React.FC<AccessibilitySettingsProps> = (props) => {
       )}
     >
       {props.children}
-      <div className="fixed top-1/3 right-0 flex items-start z-50">
+      <div className="fixed top-1/4 right-0 flex items-start z-50">
         <button
           onClick={() => setOpened(!opened)}
           className="bg-primary text-white p-2 rounded-l-lg"

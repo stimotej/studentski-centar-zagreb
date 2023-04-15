@@ -8,6 +8,7 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import AccessibilitySettings from "@/components/shared/AccessibilitySettings";
+import ScrollToTop from "@/components/shared/ScrollToTop";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -25,6 +26,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <AnimatePresence mode="wait">
             <AccessibilitySettings>
               <Component {...pageProps} />
+              <ScrollToTop />
             </AccessibilitySettings>
           </AnimatePresence>
         </AuthProvider>

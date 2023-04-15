@@ -77,5 +77,18 @@ html {
 .grayscale-filter .include-filters,
 .grayscale-filter .text-sc {
     filter: grayscale(100%);
-} 
-   
+}
+
+.negative-contrast .bg-primary,
+.negative-contrast .ring-primary,
+.negative-contrast .bg-orange-400,
+.negative-contrast .bg-gradient-to-b,
+.negative-contrast .bg-gradient-to-l,
+.negative-contrast .border,
+.negative-contrast img,
+.negative-contrast iframe,
+.negative-contrast .text-primary,
+.negative-contrast .include-filters,
+.negative-contrast .text-sc {
+    filter: invert(100%);
+}

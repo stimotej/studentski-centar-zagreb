@@ -138,50 +138,60 @@ const ObavijestPage: NextPage = () => {
             </>
           )}
 
-          <div className="flex flex-col md:flex-row gap-8 md:gap-12">
-            <div>
-              <h4 className="mt-12 mb-2 uppercase text-text text-sm tracking-wide font-medium">
-                Početak rada
-              </h4>
-              <p className="text-light">{job?.meta.work_start}</p>
+          {(!!job?.meta.work_start || !!job?.meta.work_end) && (
+            <div className="flex flex-col md:flex-row gap-8 md:gap-12">
+              {!!job?.meta.work_start && (
+                <div>
+                  <h4 className="mt-12 mb-2 uppercase text-text text-sm tracking-wide font-medium">
+                    Početak rada
+                  </h4>
+                  <p className="text-light">{job?.meta.work_start}</p>
+                </div>
+              )}
+              {!!job?.meta.work_end && (
+                <div>
+                  <h4 className="mt-12 mb-2 uppercase text-text text-sm tracking-wide font-medium">
+                    Očekivano trajanje posla
+                  </h4>
+                  <p className="text-light">{job?.meta.work_end}</p>
+                </div>
+              )}
             </div>
-            {!!job?.meta.work_end && (
-              <div>
-                <h4 className="mt-12 mb-2 uppercase text-text text-sm tracking-wide font-medium">
-                  Očekivano trajanje posla
-                </h4>
-                <p className="text-light">{job?.meta.work_end}</p>
-              </div>
-            )}
-          </div>
-          <div className="flex flex-col md:flex-row gap-8 md:gap-12 mt-12">
-            <div>
-              <h4 className="mb-2 uppercase text-text text-sm tracking-wide font-medium">
-                Satnica
-              </h4>
-              <p className="text-light">{job?.meta.payment_rate}</p>
+          )}
+          {(!!job?.meta.payment_rate ||
+            !!job?.meta.city ||
+            !!job?.meta.payment_other) && (
+            <div className="flex flex-col md:flex-row gap-8 md:gap-12 mt-12">
+              {!!job?.meta.payment_rate && (
+                <div>
+                  <h4 className="mb-2 uppercase text-text text-sm tracking-wide font-medium">
+                    Satnica
+                  </h4>
+                  <p className="text-light">{job?.meta.payment_rate}</p>
+                </div>
+              )}
+              {!!job?.meta.city && (
+                <div>
+                  <h4 className="mb-2 uppercase text-text text-sm tracking-wide font-medium">
+                    Lokacija
+                  </h4>
+                  <p className="text-light">
+                    {job?.meta.city === "FROM_HOME"
+                      ? "Rad od doma"
+                      : job.meta.city}
+                  </p>
+                </div>
+              )}
+              {!!job?.meta.payment_other && (
+                <div>
+                  <h4 className="mb-2 uppercase text-text text-sm tracking-wide font-medium">
+                    Druge naknade
+                  </h4>
+                  <p className="text-light">{job?.meta.payment_other}</p>
+                </div>
+              )}
             </div>
-            {!!job?.meta.city && (
-              <div>
-                <h4 className="mb-2 uppercase text-text text-sm tracking-wide font-medium">
-                  Lokacija
-                </h4>
-                <p className="text-light">
-                  {job?.meta.city === "FROM_HOME"
-                    ? "Rad od doma"
-                    : job.meta.city}
-                </p>
-              </div>
-            )}
-            {!!job?.meta.payment_other && (
-              <div>
-                <h4 className="mb-2 uppercase text-text text-sm tracking-wide font-medium">
-                  Druge naknade
-                </h4>
-                <p className="text-light">{job?.meta.payment_other}</p>
-              </div>
-            )}
-          </div>
+          )}
           {(!!job?.meta.work_hours || !!job?.meta.positions) && (
             <div className="flex flex-col md:flex-row gap-8 md:gap-12 mt-12">
               {!!job?.meta.work_hours && (

@@ -19,7 +19,6 @@ import IconCardsSection from "@/components/student-servis/IconCardsSection";
 import UgovaranjePoslaSection from "@/components/student-servis/UgovaranjePoslaSection";
 import BlueCard from "@/components/shared/BlueCard";
 import DavanjaPoslodavcaSection from "@/components/student-servis/DavanjaPoslodavcaSection";
-import DigitalnoPotpisivanjeSection from "@/components/student-servis/DigitalnoPotpisivanjeSection";
 import ClanstvoSection from "@/components/student-servis/ClanstvoSection";
 import SectionTitle from "@/components/shared/SectionTitle";
 import FAQCards from "@/components/shared/FAQCards";
@@ -166,8 +165,6 @@ const StudentServisPage: NextPage = () => {
       )}
 
       <DavanjaPoslodavcaSection className="mb-24" />
-
-      <DigitalnoPotpisivanjeSection className="mb-24" />
 
       <div id="clanstvo"></div>
       <ClanstvoSection className="mb-24" />
