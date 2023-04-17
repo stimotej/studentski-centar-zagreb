@@ -49,6 +49,7 @@ const ContentCard: React.FC<ContentCardProps> = (props) => {
           href={props.action.href}
           className="!rounded-full w-fit mx-auto"
           isRegularLink={props.action.isRegularLink}
+          outlined
         >
           {props.action.title}
         </ButtonLink>

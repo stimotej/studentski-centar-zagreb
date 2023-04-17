@@ -1,16 +1,15 @@
 import ButtonLink from "@/components/elements/ButtonLink";
-import EventCards from "@/components/kultura/EventCards";
-import KlubSC from "@/components/kultura/KlubSC";
-import BlueCard from "@/components/shared/BlueCard";
+import EventCards, { EventCard } from "@/components/kultura/EventCards";
+import KulturaSlider from "@/components/kultura/KulturaSlider";
+import UlazniceZaTD from "@/components/kultura/UlazniceZaTD";
 import ContentCard from "@/components/shared/ContentCard";
 import FAQCards from "@/components/shared/FAQCards";
 import Layout from "@/components/shared/Layout";
-import PagePosts from "@/components/shared/PagePosts";
 import PageTitle from "@/components/shared/PageTitle";
 import SectionTitle from "@/components/shared/SectionTitle";
 import { getNewEvents, useNewEvents } from "@/features/events";
 import eventKeys from "@/features/events/queries";
-import { getObavijestiPage } from "@/features/obavijesti";
+import { getObavijestiPage, useObavijestiPage } from "@/features/obavijesti";
 import obavijestiKeys from "@/features/obavijesti/queries";
 import { getPosts, usePosts } from "@/features/posts";
 import postsKeys from "@/features/posts/queries";
@@ -19,6 +18,7 @@ import {
   obavijestiKulturaCategory,
 } from "@/utils/constants";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
+import dayjs from "dayjs";
 import type { GetStaticProps, NextPage } from "next";
 import React from "react";
 
@@ -57,34 +57,72 @@ const KulturaPage: NextPage = () => {
     categories: [faqKulturaCategory],
   });
 
+  const { data: obavijestiPage } = useObavijestiPage(obavijestiKulturaCategory);
+
+  const todaysEvents = events?.filter((event) =>
+    dayjs(event.event_date).isSame(dayjs(), "day")
+  );
+
   return (
     <Layout
       title="Kultura"
       description="Kultura; Studentski centar u Zagrebu; Sveučilište u Zagrebu"
     >
-      <PageTitle
-        title="Kultura"
-        action={{
-          title: "Kalendar Evenata",
-          href: "#kalendar-evenata",
-          isRegularLink: true,
-        }}
-      />
+      <PageTitle title="Kultura" />
 
-      <PagePosts category={obavijestiKulturaCategory} className="mt-12" />
+      <div className="flex flex-col md:flex-row gap-8 mt-12">
+        <KulturaSlider
+          className="md:flex-1"
+          slides={
+            obavijestiPage?.map((slide) => ({
+              src: slide.image_url,
+              title: slide.title.rendered,
+              subtitle: slide.excerpt.rendered,
+              actionTitle: "Saznaj više",
+              actionHref: `/obavijesti/${slide.slug}`,
+            })) || []
+          }
+        />
+        <div className="flex-1 flex flex-col gap-3">
+          <h3 className="text-xl font-semibold">Danas</h3>
+          {!!todaysEvents && todaysEvents?.length <= 0 ? (
+            <div className="mt-2">
+              <div className="text-light">Nema evenata na današnji dan</div>
+              <ButtonLink
+                href="#kalendar-evenata"
+                className="mt-6"
+                isRegularLink
+                outlined
+              >
+                Kalendar evenata
+              </ButtonLink>
+            </div>
+          ) : (
+            todaysEvents
+              ?.slice(0, 4)
+              .map((event) => (
+                <EventCard
+                  key={event.slug}
+                  date={event.event_date}
+                  image={event.image}
+                  link={`/kultura/eventi/${event.slug}`}
+                  location={event.location}
+                  title={event.title}
+                  withoutTimeline
+                  dense
+                />
+              ))
+          )}
+        </div>
+      </div>
 
-      <BlueCard
-        title="Ulaznice za &TD dostupne i u online prodaji!"
-        description="Ulaznice za predstave Teatra &TD, koncerte i određene filmske projekcije u SC-u, osim na našim blagajnama možete kupiti i putem online platforme za prodaju ulaznica Ulaznice.hr te na njihovim prodajnim mjestima."
-        action={{ title: "ULAZNICE.HR", href: "https://www.ulaznice.hr/web/" }}
-        className="mt-20"
-      />
+      <UlazniceZaTD className="my-12" />
+
       <div className="flex flex-col lg:flex-row gap-6 mt-12">
         <ContentCard
           image="/slike/teatar-td-logo.jpg"
           title="TEATAR &TD"
           content="Teatar &TD hrvatska je kazališna kuća iz Zagreba. Ima multifunkcionalan programski prostor otvoren za kazališna, koncertna, festivalska, izložbena te različita interdisciplinarna događanja i eksperimentiranja."
-          action={{ title: "SAZNAJ VIŠE", href: "http://itd.sczg.hr/" }}
           className="flex-1"
         />
         <ContentCard
@@ -135,16 +173,11 @@ const KulturaPage: NextPage = () => {
         <ContentCard
           title="MM CENTAR"
           content="MM centar, osnovan sredinom 1970-ih, od svojih se začetaka bavio intermedijalnim i multimedijalnim strujanjima i umjetničkim praksama kao i prezentacijom nekomercijalne filmske umjetnosti, naginjući eksperimentalnom i umjetničkom filmu."
-          action={{ title: "SAZNAJ VIŠE", href: "http://itd.sczg.hr/" }}
           className="flex-1"
         />
         <ContentCard
           title="KINO SC"
           content={`<strong>29., 30. i 31.1.&nbsp;</strong>/ F. Šovagović: <br></span><a href="http://itd.sczg.hr/events/f-sovagovic-zena-popularnog-pokojnika/" mce_href="/events/f-sovagovic-zena-popularnog-pokojnika/"><em>ŽENA POPULARNOG POKOJNIKA<br></em>&nbsp;</a><span>19:30,&nbsp;Kino SC, Velika &amp;TD, Francuski paviljon</span>`}
-          action={{
-            title: "SAZNAJ VIŠE",
-            href: "http://itd.sczg.hr/events/f-sovagovic-zena-popularnog-pokojnika/",
-          }}
           className="flex-1"
         />
         <ContentCard

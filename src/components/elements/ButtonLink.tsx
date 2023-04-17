@@ -8,11 +8,15 @@ type ButtonLinkProps = {
   className?: string;
   children?: React.ReactNode;
   isRegularLink?: boolean;
+  outlined?: boolean;
 };
 
 const ButtonLink: React.FC<ButtonLinkProps> = (props) => {
   const styles = clsx(
-    "flex w-fit text-center items-center gap-1 bg-primary hover:bg-primary/90 rounded-full uppercase text-white tracking-widest text-xs py-4 px-8 font-semibold",
+    "flex w-fit text-center items-center gap-1 rounded-full uppercase tracking-widest transition-colors text-xs py-4 px-8 font-semibold",
+    props.outlined
+      ? "bg-white text-primary hover:bg-primary hover:text-white border border-primary"
+      : "text-white bg-primary hover:bg-primary/90",
     props.className
   );
 

@@ -55,33 +55,41 @@ interface EventCardProps {
   image: string;
   link: string;
   reverse?: boolean;
+  withoutTimeline?: boolean;
+  dense?: boolean;
 }
 
-const EventCard: React.FC<EventCardProps> = (props) => {
+export const EventCard: React.FC<EventCardProps> = (props) => {
   return (
     <div
       className={clsx(
-        "relative p-3 border-gray-200 w-full lg:w-1/2",
-        props.reverse
+        "relative w-full",
+        props.withoutTimeline ? "p-0" : "p-3 border-gray-200 lg:w-1/2",
+        props.withoutTimeline
+          ? ""
+          : props.reverse
           ? "border-l-2 lg:border-l-0 lg:border-r-2 lg:ml-px"
           : "border-l-2 ml-0 lg:ml-auto lg:mr-px"
       )}
     >
-      <div
-        className={clsx(
-          "w-3 h-3 bg-gray-200 rounded-full absolute top-1/2 transform -translate-y-1/2",
-          props.reverse
-            ? "-left-[7px] lg:left-auto lg:-right-[7px]"
-            : "-left-[7px]"
-        )}
-      ></div>
+      {!props.withoutTimeline && (
+        <div
+          className={clsx(
+            "w-3 h-3 bg-gray-200 rounded-full absolute top-1/2 transform -translate-y-1/2",
+            props.reverse
+              ? "-left-[7px] lg:left-auto lg:-right-[7px]"
+              : "-left-[7px]"
+          )}
+        ></div>
+      )}
       <Link href={props.link}>
         <Card
           className={clsx(
             props.reverse
               ? "flex-row lg:flex-row-reverse text-left lg:text-right"
               : "flex-row",
-            "flex gap-4 !p-4"
+            "flex gap-4 !p-4",
+            props.dense ? "!py-2" : "py-4"
           )}
         >
           <Image
@@ -89,15 +97,25 @@ const EventCard: React.FC<EventCardProps> = (props) => {
             alt={props.title}
             width={60}
             height={60}
-            className="w-[60px] h-[60px] rounded-lg object-cover"
+            className={clsx(
+              "rounded-lg object-cover",
+              props.dense ? "w-[50px] h-[50px]" : "w-[60px] h-[60px]"
+            )}
           />
-          <div className="flex flex-col gap-2">
-            <div className="text-light">{`${dayjs(props.date).format(
-              "DD.MM.YYYY [u] HH:mm[h]"
-            )}, ${props.location}`}</div>
+          <div
+            className={clsx("flex flex-col", props.dense ? "gap-1" : "gap-2")}
+          >
+            <div
+              className={clsx(
+                "text-light",
+                props.dense ? "text-sm" : "text-base"
+              )}
+            >{`${dayjs(props.date).format("DD.MM.YYYY [u] HH:mm[h]")}, ${
+              props.location
+            }`}</div>
             <DisplayHTML
               html={props.title}
-              className="text-text text-lg font-semibold"
+              className={clsx("text-text font-semibold text-lg")}
             />
           </div>
         </Card>
