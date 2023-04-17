@@ -53,5 +53,5 @@ export const getCourses = async () => {
 };
 
 export const useCourses = () => {
-  return useQuery(eventKeys.sliderEvents, getCourses);
+  return useQuery(eventKeys.courses, getCourses);
 };

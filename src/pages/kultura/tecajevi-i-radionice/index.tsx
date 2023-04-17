@@ -1,13 +1,8 @@
-import Spinner from "@/components/elements/Spinner";
 import EventCards from "@/components/kultura/EventCards";
-import FAQCards from "@/components/shared/FAQCards";
 import Layout from "@/components/shared/Layout";
 import PageTitle from "@/components/shared/PageTitle";
 import { getCourses, useCourses } from "@/features/events";
 import eventKeys from "@/features/events/queries";
-import { getPosts, usePosts } from "@/features/posts";
-import postsKeys from "@/features/posts/queries";
-import { faqKulturaCategory } from "@/utils/constants";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import type { GetStaticProps, NextPage } from "next";
 import React from "react";
