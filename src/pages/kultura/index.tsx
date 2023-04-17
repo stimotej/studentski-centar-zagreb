@@ -6,8 +6,14 @@ import ContentCard from "@/components/shared/ContentCard";
 import FAQCards from "@/components/shared/FAQCards";
 import Layout from "@/components/shared/Layout";
 import PageTitle from "@/components/shared/PageTitle";
+import PagePosts from "@/components/shared/PagePosts";
 import SectionTitle from "@/components/shared/SectionTitle";
-import { getNewEvents, useNewEvents } from "@/features/events";
+import {
+  getNewEvents,
+  getSliderEvents,
+  useNewEvents,
+  useSliderEvents,
+} from "@/features/events";
 import eventKeys from "@/features/events/queries";
 import { getObavijestiPage, useObavijestiPage } from "@/features/obavijesti";
 import obavijestiKeys from "@/features/obavijesti/queries";
@@ -21,11 +27,13 @@ import { dehydrate, QueryClient } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import type { GetStaticProps, NextPage } from "next";
 import React from "react";
+import clearHtmlFromString from "@/utils/clearHtmlFromString";
 
 export const getStaticProps: GetStaticProps = async () => {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery(eventKeys.newEvents, getNewEvents);
+  await queryClient.prefetchQuery(eventKeys.sliderEvents, getSliderEvents);
 
   const postsFilters = {
     categories: [faqKulturaCategory],
@@ -52,12 +60,11 @@ export const getStaticProps: GetStaticProps = async () => {
 
 const KulturaPage: NextPage = () => {
   const { data: events, isLoading } = useNewEvents();
+  const { data: sliderEvents } = useSliderEvents();
 
   const { data: posts, isLoading: isLoadingPosts } = usePosts({
     categories: [faqKulturaCategory],
   });
-
-  const { data: obavijestiPage } = useObavijestiPage(obavijestiKulturaCategory);
 
   const todaysEvents = events?.filter((event) =>
     dayjs(event.event_date).isSame(dayjs(), "day")
@@ -74,12 +81,12 @@ const KulturaPage: NextPage = () => {
         <KulturaSlider
           className="md:flex-1"
           slides={
-            obavijestiPage?.map((slide) => ({
-              src: slide.image_url,
-              title: slide.title.rendered,
-              subtitle: slide.excerpt.rendered,
+            sliderEvents?.map((slide) => ({
+              src: slide.image,
+              title: slide.title,
+              subtitle: clearHtmlFromString(slide.content),
               actionTitle: "Saznaj više",
-              actionHref: `/obavijesti/${slide.slug}`,
+              actionHref: `/kultura/eventi/${slide.slug}`,
             })) || []
           }
         />
@@ -107,6 +114,7 @@ const KulturaPage: NextPage = () => {
                   image={event.image}
                   link={`/kultura/eventi/${event.slug}`}
                   location={event.location}
+                  type={event.type}
                   title={event.title}
                   withoutTimeline
                   dense
@@ -115,6 +123,8 @@ const KulturaPage: NextPage = () => {
           )}
         </div>
       </div>
+
+      <PagePosts category={obavijestiKulturaCategory} className="mt-12" />
 
       <UlazniceZaTD className="my-12" />
 
@@ -147,11 +157,11 @@ const KulturaPage: NextPage = () => {
         />
       </div>
       <ContentCard
-        title="UPIŠITE ŠKOLU PLESA STUDENTSKOGA CENTRA!"
-        content="Nakon duge stanke, Studentski Centar u Zagrebu ponovno postaje rasplesan; Plesna škola SC-a otvorit će vrata za sve zaljubljenike u ples i one koji će to tek postati, za one koji misle da imaju „dvije lijeve“ kao i za one s nešto više iskustva. Od polaznika se očekuje samo dobra volja, a od iskusnog instruktora da ih poduči vještinama standardnih i latinsko-američkih plesova te egzotične salse."
+        title="Tečajevi i radionice"
+        content="Studentski centar u Zagrebu nudi širok izbor tečajeva i radionica za sve zainteresirane. Bez obzira na vaše iskustvo ili interese, imamo nešto za svakoga. Pridružite nam se i istražite što sve možete naučiti!"
         action={{
-          title: "SAZNAJ VIŠE",
-          href: "/obavijesti/upisite-skolu-plesa-studentskoga-centra/",
+          title: "Idi na popis",
+          href: "/kultura/tecajevi-i-radionice/",
         }}
         className="flex-1 mt-12"
       />

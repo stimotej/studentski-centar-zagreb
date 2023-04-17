@@ -38,9 +38,14 @@ const EventCards: React.FC<EventCardsProps> = (props) => {
           key={event.slug + event.event_date}
           title={event.title}
           location={event.location}
+          type={event.type}
           date={event.event_date}
           image={event.image}
-          link={`/kultura/eventi/${event.slug}`}
+          link={
+            event.is_course
+              ? `/kultura/tecajevi-i-radionice/${event.slug}`
+              : `/kultura/eventi/${event.slug}`
+          }
           reverse={index % 2 === 0}
         />
       ))}
@@ -52,6 +57,7 @@ interface EventCardProps {
   title: string;
   date: string;
   location: string;
+  type: string;
   image: string;
   link: string;
   reverse?: boolean;
@@ -110,8 +116,12 @@ export const EventCard: React.FC<EventCardProps> = (props) => {
                 "text-light",
                 props.dense ? "text-sm" : "text-base"
               )}
-            >{`${dayjs(props.date).format("DD.MM.YYYY [u] HH:mm[h]")}, ${
-              props.location
+            >{`${
+              props.date
+                ? dayjs(props.date).format("DD.MM.YYYY [u] HH:mm[h]")
+                : ""
+            }${props.type ? `, ${props.type}` : ""}${
+              props.location ? `, ${props.location}` : ""
             }`}</div>
             <DisplayHTML
               html={props.title}

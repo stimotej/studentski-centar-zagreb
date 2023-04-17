@@ -65,6 +65,8 @@ export type Event = {
   show_always: boolean;
   documents: Document[];
   type: string;
+  show_on_slider: boolean;
+  is_course: boolean;
 };
 
 export type ObavijestiMeta = {

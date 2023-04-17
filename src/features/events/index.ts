@@ -35,3 +35,23 @@ export const getNewEvents = async () => {
 export const useNewEvents = () => {
   return useQuery(eventKeys.newEvents, getNewEvents);
 };
+
+export const getSliderEvents = async () => {
+  const response = await axios.get<Event[]>("/events/slider");
+
+  return response.data;
+};
+
+export const useSliderEvents = () => {
+  return useQuery(eventKeys.sliderEvents, getSliderEvents);
+};
+
+export const getCourses = async () => {
+  const response = await axios.get<Event[]>("/events/courses");
+
+  return response.data;
+};
+
+export const useCourses = () => {
+  return useQuery(eventKeys.sliderEvents, getCourses);
+};
