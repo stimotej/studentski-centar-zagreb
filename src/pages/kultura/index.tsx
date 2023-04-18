@@ -133,6 +133,7 @@ const KulturaPage: NextPage = () => {
           image="/slike/teatar-td-logo.jpg"
           title="TEATAR &TD"
           content="Teatar &TD hrvatska je kazališna kuća iz Zagreba. Ima multifunkcionalan programski prostor otvoren za kazališna, koncertna, festivalska, izložbena te različita interdisciplinarna događanja i eksperimentiranja."
+          action={{ title: "SAZNAJ VIŠE", href: "http://itd.sczg.hr/" }}
           className="flex-1"
         />
         <ContentCard
@@ -183,11 +184,16 @@ const KulturaPage: NextPage = () => {
         <ContentCard
           title="MM CENTAR"
           content="MM centar, osnovan sredinom 1970-ih, od svojih se začetaka bavio intermedijalnim i multimedijalnim strujanjima i umjetničkim praksama kao i prezentacijom nekomercijalne filmske umjetnosti, naginjući eksperimentalnom i umjetničkom filmu."
+          action={{ title: "SAZNAJ VIŠE", href: "http://mmcentar.sczg.hr/" }}
           className="flex-1"
         />
         <ContentCard
           title="KINO SC"
           content={`<strong>29., 30. i 31.1.&nbsp;</strong>/ F. Šovagović: <br></span><a href="http://itd.sczg.hr/events/f-sovagovic-zena-popularnog-pokojnika/" mce_href="/events/f-sovagovic-zena-popularnog-pokojnika/"><em>ŽENA POPULARNOG POKOJNIKA<br></em>&nbsp;</a><span>19:30,&nbsp;Kino SC, Velika &amp;TD, Francuski paviljon</span>`}
+          action={{
+            title: "SAZNAJ VIŠE",
+            href: "http://itd.sczg.hr/events/f-sovagovic-zena-popularnog-pokojnika/",
+          }}
           className="flex-1"
         />
         <ContentCard
