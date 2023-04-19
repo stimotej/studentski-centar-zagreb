@@ -154,6 +154,18 @@ const Home: NextPage = () => {
                 title: "Pomoćni radnik u kuhinji - nepuno radno vrijeme",
                 link: "/dokumenti/oglas-za-popunu-radnih-mjesta/pomocni_radnik_u_kuhinji.pdf",
               },
+              {
+                title: "Spremačica sobarica",
+                link: "/dokumenti/oglas-za-popunu-radnih-mjesta/Spremačica-Sobarica.pdf",
+              },
+              {
+                title: "Monter centralnog grijanja",
+                link: "/dokumenti/oglas-za-popunu-radnih-mjesta/Monter-centralnog-grijanja.pdf",
+              },
+              {
+                title: "Samostalni referent za smještaj studenata",
+                link: "/dokumenti/oglas-za-popunu-radnih-mjesta/Samostalni-referent-za-smjestaj-studenata.pdf",
+              },
             ]}
           />
           <h3 className="mt-6 font-medium text-lg">Teatar &TD</h3>
