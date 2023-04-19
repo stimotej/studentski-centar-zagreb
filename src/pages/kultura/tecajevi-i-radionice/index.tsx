@@ -27,16 +27,16 @@ const FAQPage: NextPage = () => {
     <Layout title="Tečajevi i radionice">
       <PageTitle title="Tečajevi i radionice" />
 
-      <div className="flex gap-6 my-12">
+      <div className="flex flex-col lg:flex-row gap-6 my-12">
         <EventCards
           events={courses}
           loading={isLoading}
           emptyMessage="Nema tečajeva/radionica za prikaz."
-          className="w-2/3"
+          className="w-full lg:w-2/3"
           classNameLoading="mt-12 w-2/3"
           classNameEmpty="mt-12 w-2/3"
         />
-        <div className="w-1/3"></div>
+        <div className="w-full lg:w-1/3"></div>
       </div>
     </Layout>
   );

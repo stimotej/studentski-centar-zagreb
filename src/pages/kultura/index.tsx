@@ -169,14 +169,14 @@ const KulturaPage: NextPage = () => {
       />
       <div id="kalendar-evenata" className="py-12">
         <SectionTitle title="Kalendar evenata" className="mt-12 mb-8" />
-        <div className="flex gap-6">
+        <div className="flex flex-col lg:flex-row gap-6">
           <EventCards
             events={events}
             loading={isLoading}
             emptyMessage="Nema novih evenata za prikaz"
-            className="w-2/3"
+            className="w-full lg:w-2/3"
           />
-          <div className="w-1/3"></div>
+          <div className="w-full lg:w-1/3"></div>
         </div>
         <ButtonLink
           href="/kultura/eventi"
