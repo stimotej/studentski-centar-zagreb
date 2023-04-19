@@ -28,7 +28,7 @@ const EventCards: React.FC<EventCardsProps> = (props) => {
       <Spinner />
     </div>
   ) : props.events && props.events.length <= 0 ? (
-    <div className={clsx("text-light text-center", props.classNameEmpty)}>
+    <div className={clsx("text-light", props.classNameEmpty)}>
       {props.emptyMessage || "Nema evenata za prikaz"}
     </div>
   ) : (
@@ -46,7 +46,7 @@ const EventCards: React.FC<EventCardsProps> = (props) => {
               ? `/kultura/tecajevi-i-radionice/${event.slug}`
               : `/kultura/eventi/${event.slug}`
           }
-          reverse={index % 2 === 0}
+          reverse={false}
         />
       ))}
     </div>
@@ -70,12 +70,14 @@ export const EventCard: React.FC<EventCardProps> = (props) => {
     <div
       className={clsx(
         "relative w-full",
-        props.withoutTimeline ? "p-0" : "p-3 border-gray-200 lg:w-1/2",
+        props.withoutTimeline ? "p-0" : "p-3 border-gray-200",
+        // props.withoutTimeline ? "p-0" : "p-3 border-gray-200 lg:w-1/2",
         props.withoutTimeline
           ? ""
           : props.reverse
           ? "border-l-2 lg:border-l-0 lg:border-r-2 lg:ml-px"
-          : "border-l-2 ml-0 lg:ml-auto lg:mr-px"
+          : "border-l-2 ml-0 lg:mr-px"
+        // : "border-l-2 ml-0 lg:ml-auto lg:mr-px"
       )}
     >
       {!props.withoutTimeline && (

@@ -18,17 +18,14 @@ import SectionTitle from "@/components/shared/SectionTitle";
 import FAQCards from "@/components/shared/FAQCards";
 import HelpSection from "@/components/pocetna/HelpSection";
 import ButtonLink from "@/components/elements/ButtonLink";
-import { getJobsHome, useJobsHome } from "@/features/jobs";
 import { useCalendarEvents } from "@/features/calendar";
 import dayjs from "dayjs";
 import {
   faqPocetnaCategory,
-  faqs,
   pocetnaOpceInformacijePost,
 } from "@/utils/constants";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import obavijestiKeys from "@/features/obavijesti/queries";
-import jobKeys from "@/features/jobs/queries";
 import calendarKeys from "@/features/calendar/queries";
 import { getPosts, usePosts } from "@/features/posts";
 import postsKeys from "@/features/posts/queries";
@@ -44,7 +41,6 @@ export const getStaticProps: GetStaticProps = async () => {
     obavijestiKeys.homeObavijesti,
     getObavijestiHome
   );
-  await queryClient.prefetchQuery(jobKeys.jobsHome, getJobsHome);
   await queryClient.prefetchQuery(calendarKeys.calendar, getCalendarEvents);
 
   const faqPostsFilters = {
@@ -75,7 +71,6 @@ export const getStaticProps: GetStaticProps = async () => {
 const Home: NextPage = () => {
   const { data: sliderPosts } = useSliderObavijesti();
   const { data: obavijesti } = useObavijestiHome();
-  const { data: jobs } = useJobsHome();
   const { data: calendarEvents } = useCalendarEvents();
   const { data: info } = usePosts({
     include: [pocetnaOpceInformacijePost],
@@ -142,13 +137,24 @@ const Home: NextPage = () => {
           <SidebarLinks
             emptyText="Nema poslova za prikaz"
             className="mt-2"
-            items={
-              jobs?.map((job) => ({
-                label: job.meta.company_name,
-                title: clearHtmlFromString(job.title.rendered),
-                link: `/poslovi/${job.slug}`,
-              })) || []
-            }
+            items={[
+              {
+                title: "Majstor svjetla",
+                link: "/dokumenti/oglas-za-popunu-radnih-mjesta/majstor-svjetla.pdf",
+              },
+              {
+                title: "Konobar II",
+                link: "/dokumenti/oglas-za-popunu-radnih-mjesta/konobar_II.pdf",
+              },
+              {
+                title: "Pomoćni radnik u kuhinji",
+                link: "/dokumenti/oglas-za-popunu-radnih-mjesta/Pom_radnik_u_kuhinji.pdf",
+              },
+              {
+                title: "Pomoćni radnik u kuhinji - nepuno radno vrijeme",
+                link: "/dokumenti/oglas-za-popunu-radnih-mjesta/pomocni_radnik_u_kuhinji.pdf",
+              },
+            ]}
           />
           <h3 className="mt-6 font-medium text-lg">Teatar &TD</h3>
           <TeatarTDCard className="mt-2" />

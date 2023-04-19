@@ -9,6 +9,7 @@ interface ContentCardProps {
   image?: string;
   title: string;
   content: string;
+  titleClassName?: string;
   imageClassName?: string;
   contentClassName?: string;
   action?: { title: string; href: string; isRegularLink?: boolean };
@@ -36,7 +37,12 @@ const ContentCard: React.FC<ContentCardProps> = (props) => {
         />
       )}
       <div className="flex flex-col gap-2">
-        <h4 className="text-sm uppercase text-text tracking-wide font-medium">
+        <h4
+          className={clsx(
+            "text-sm uppercase text-text tracking-wide font-medium",
+            props.titleClassName
+          )}
+        >
           {props.title}
         </h4>
         <DisplayHTML

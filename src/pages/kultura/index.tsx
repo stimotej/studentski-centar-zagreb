@@ -159,6 +159,7 @@ const KulturaPage: NextPage = () => {
       </div>
       <ContentCard
         title="Tečajevi i radionice"
+        titleClassName="!text-xl !text-blue-600 include-filters"
         content="Studentski centar u Zagrebu nudi širok izbor tečajeva i radionica za sve zainteresirane. Bez obzira na vaše iskustvo ili interese, imamo nešto za svakoga. Pridružite nam se i istražite što sve možete naučiti!"
         action={{
           title: "Idi na popis",
@@ -168,11 +169,15 @@ const KulturaPage: NextPage = () => {
       />
       <div id="kalendar-evenata" className="py-12">
         <SectionTitle title="Kalendar evenata" className="mt-12 mb-8" />
-        <EventCards
-          events={events}
-          loading={isLoading}
-          emptyMessage="Nema novih evenata za prikaz"
-        />
+        <div className="flex gap-6">
+          <EventCards
+            events={events}
+            loading={isLoading}
+            emptyMessage="Nema novih evenata za prikaz"
+            className="w-2/3"
+          />
+          <div className="w-1/3"></div>
+        </div>
         <ButtonLink
           href="/kultura/eventi"
           className="mx-auto mt-8 !rounded-full"
@@ -183,12 +188,14 @@ const KulturaPage: NextPage = () => {
       <div className="flex flex-col lg:flex-row gap-6 my-12">
         <ContentCard
           title="MM CENTAR"
+          image="/slike/kultura/logo_mm.png"
           content="MM centar, osnovan sredinom 1970-ih, od svojih se začetaka bavio intermedijalnim i multimedijalnim strujanjima i umjetničkim praksama kao i prezentacijom nekomercijalne filmske umjetnosti, naginjući eksperimentalnom i umjetničkom filmu."
           action={{ title: "SAZNAJ VIŠE", href: "http://mmcentar.sczg.hr/" }}
           className="flex-1"
         />
         <ContentCard
           title="KINO SC"
+          image="/slike/kultura/KINO_SC_LOGO.jpg"
           content={`<strong>29., 30. i 31.1.&nbsp;</strong>/ F. Šovagović: <br></span><a href="http://itd.sczg.hr/events/f-sovagovic-zena-popularnog-pokojnika/" mce_href="/events/f-sovagovic-zena-popularnog-pokojnika/"><em>ŽENA POPULARNOG POKOJNIKA<br></em>&nbsp;</a><span>19:30,&nbsp;Kino SC, Velika &amp;TD, Francuski paviljon</span>`}
           action={{
             title: "SAZNAJ VIŠE",
@@ -198,7 +205,12 @@ const KulturaPage: NextPage = () => {
         />
         <ContentCard
           title="FRANCUSKI PAVILJON"
+          image="/slike/kultura/FRANCUSKI_PAVILJON.jpg"
           content="Francuski paviljon, zaštićeno kulturno dobro, nalazi se u Studentskom centru Sveučilišta u Zagrebu, Savska cesta 25. Izgrađen je 1937.godine u sklopu tadašnjeg Zagrebačkog zbora kao izložbeni paviljon Republike Francuske."
+          action={{
+            title: "SAZNAJ VIŠE",
+            href: "http://www.sczg.unizg.hr/informacije/francuski-paviljon",
+          }}
           className="flex-1"
         />
       </div>

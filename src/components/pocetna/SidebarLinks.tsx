@@ -5,7 +5,7 @@ import DisplayHTML from "../elements/DisplayHTML";
 import Spinner from "../elements/Spinner";
 
 interface SidebarLinksProps {
-  items: { label: string; title: string; link: string }[];
+  items: { label?: string; title: string; link: string }[];
   emptyText?: string;
   className?: string;
   loading?: boolean;
@@ -40,7 +40,7 @@ const SidebarLinks: React.FC<SidebarLinksProps> = (props) => {
 };
 
 interface LinkCardProps {
-  label: string;
+  label?: string;
   title: string;
   link: string;
 }
@@ -51,9 +51,11 @@ const LinkCard: React.FC<LinkCardProps> = (props) => {
       href={props.link}
       className="first:rounded-t-lg last:rounded-b-lg py-3 px-6 bg-[#4c5c67]"
     >
-      <span className="upperase font-semibold text-sm text-white/60 line-clamp-1 mb-1">
-        {props.label}
-      </span>
+      {!!props.label && (
+        <span className="upperase font-semibold text-sm text-white/60 line-clamp-1 mb-1">
+          {props.label}
+        </span>
+      )}
       <DisplayHTML
         html={props.title}
         className="text-white line-clamp-2 font-medium leading-5"
