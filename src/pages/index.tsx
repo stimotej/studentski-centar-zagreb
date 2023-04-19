@@ -22,6 +22,7 @@ import { useCalendarEvents } from "@/features/calendar";
 import dayjs from "dayjs";
 import {
   faqPocetnaCategory,
+  pocetnaOglasZaPopunuRadnihMjestaPost,
   pocetnaOpceInformacijePost,
 } from "@/utils/constants";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
@@ -29,6 +30,7 @@ import obavijestiKeys from "@/features/obavijesti/queries";
 import calendarKeys from "@/features/calendar/queries";
 import { getPosts, usePosts } from "@/features/posts";
 import postsKeys from "@/features/posts/queries";
+import DisplayHTML from "@/components/elements/DisplayHTML";
 
 export const getStaticProps: GetStaticProps = async () => {
   const queryClient = new QueryClient();
@@ -53,7 +55,7 @@ export const getStaticProps: GetStaticProps = async () => {
   );
 
   const infoFilters = {
-    include: [pocetnaOpceInformacijePost],
+    include: [pocetnaOpceInformacijePost, pocetnaOglasZaPopunuRadnihMjestaPost],
   };
 
   await queryClient.prefetchQuery(postsKeys.postsFiltered(infoFilters), () =>
@@ -73,11 +75,19 @@ const Home: NextPage = () => {
   const { data: obavijesti } = useObavijestiHome();
   const { data: calendarEvents } = useCalendarEvents();
   const { data: info } = usePosts({
-    include: [pocetnaOpceInformacijePost],
+    include: [pocetnaOpceInformacijePost, pocetnaOglasZaPopunuRadnihMjestaPost],
   });
   const { data: faqs, isLoading: isLoadingFaqs } = usePosts({
     categories: [faqPocetnaCategory],
   });
+
+  const opceInformacijePost = info?.find(
+    (post) => post.id === pocetnaOpceInformacijePost
+  );
+
+  const oglasZaPopunuRadnihMjestaPost = info?.find(
+    (post) => post.id === pocetnaOglasZaPopunuRadnihMjestaPost
+  );
 
   return (
     <Layout
@@ -127,46 +137,23 @@ const Home: NextPage = () => {
         </div>
         <div className="w-full md:w-[30%]">
           <GeneralInfoCard
-            title={info?.[0].title.rendered || ""}
-            content={info?.[0].meta.sadrzaj || ""}
-            link={`/informacije/${info?.[0].slug}`}
+            title={opceInformacijePost?.title.rendered || ""}
+            content={opceInformacijePost?.meta.sadrzaj || ""}
+            link={`/informacije/${opceInformacijePost?.slug}`}
           />
-          <h3 className="mt-6 font-medium text-lg">
-            Oglas za popunu radnih mjesta
-          </h3>
+          <DisplayHTML
+            html={oglasZaPopunuRadnihMjestaPost?.title.rendered || ""}
+            className="mt-6 font-medium text-lg"
+          />
           <SidebarLinks
             emptyText="Nema poslova za prikaz"
             className="mt-2"
-            items={[
-              {
-                title: "Majstor svjetla",
-                link: "/dokumenti/oglas-za-popunu-radnih-mjesta/majstor-svjetla.pdf",
-              },
-              {
-                title: "Konobar II",
-                link: "/dokumenti/oglas-za-popunu-radnih-mjesta/konobar_II.pdf",
-              },
-              {
-                title: "Pomoćni radnik u kuhinji",
-                link: "/dokumenti/oglas-za-popunu-radnih-mjesta/Pom_radnik_u_kuhinji.pdf",
-              },
-              {
-                title: "Pomoćni radnik u kuhinji - nepuno radno vrijeme",
-                link: "/dokumenti/oglas-za-popunu-radnih-mjesta/pomocni_radnik_u_kuhinji.pdf",
-              },
-              {
-                title: "Spremačica sobarica",
-                link: "/dokumenti/oglas-za-popunu-radnih-mjesta/Spremačica-Sobarica.pdf",
-              },
-              {
-                title: "Monter centralnog grijanja",
-                link: "/dokumenti/oglas-za-popunu-radnih-mjesta/Monter-centralnog-grijanja.pdf",
-              },
-              {
-                title: "Samostalni referent za smještaj studenata",
-                link: "/dokumenti/oglas-za-popunu-radnih-mjesta/Samostalni-referent-za-smjestaj-studenata.pdf",
-              },
-            ]}
+            items={
+              oglasZaPopunuRadnihMjestaPost?.meta.documents.map((file) => ({
+                title: file.title,
+                link: file.source_url,
+              })) || []
+            }
           />
           <h3 className="mt-6 font-medium text-lg">Teatar &TD</h3>
           <TeatarTDCard className="mt-2" />

@@ -3,6 +3,7 @@ import Image from "next/image";
 import dayjs from "dayjs";
 import Link from "next/link";
 import DisplayHTML from "../elements/DisplayHTML";
+import clearHtmlFromString from "@/utils/clearHtmlFromString";
 
 interface PostCardProps {
   image: string;
@@ -33,7 +34,10 @@ const PostCard: React.FC<PostCardProps> = (props) => {
           {props.category}
           {props.date && ` | ${dayjs(props.date).format("DD.MM.YYYY.")}`}
         </span>
-        <DisplayHTML html={props.excerpt} className="text-sm line-clamp-5" />
+        <DisplayHTML
+          html={clearHtmlFromString(props.excerpt)}
+          className="text-sm line-clamp-5"
+        />
       </div>
     </Link>
   );

@@ -71,6 +71,7 @@ export const obavijestiPrehranaCategory = 164;
 // FOR HOME PAGE
 
 export const pocetnaOpceInformacijePost = 8585;
+export const pocetnaOglasZaPopunuRadnihMjestaPost = 9416;
 
 export const slides = [
   {
