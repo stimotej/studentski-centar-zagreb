@@ -62,7 +62,7 @@ export const getJob = async (slug: string) => {
       slug: slug,
     },
   });
-  return response.data[0];
+  return response.data[0] || null;
 };
 
 export const useJob = (slug: string) => {

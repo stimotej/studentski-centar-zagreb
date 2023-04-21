@@ -56,7 +56,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   };
 };
 
-const ObavijestPage: NextPage = () => {
+const JobPage: NextPage = () => {
   const router = useRouter();
   const { slug } = router.query;
 
@@ -282,4 +282,4 @@ const ObavijestPage: NextPage = () => {
   );
 };
 
-export default ObavijestPage;
+export default JobPage;
