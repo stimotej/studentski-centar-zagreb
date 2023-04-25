@@ -37,14 +37,13 @@ const ContentCard: React.FC<ContentCardProps> = (props) => {
         />
       )}
       <div className="flex flex-col gap-2">
-        <h4
+        <DisplayHTML
+          html={props.title}
           className={clsx(
             "text-sm uppercase text-text tracking-wide font-medium",
             props.titleClassName
           )}
-        >
-          {props.title}
-        </h4>
+        />
         <DisplayHTML
           html={props.content}
           className={clsx("text-light text-sm", props.contentClassName)}

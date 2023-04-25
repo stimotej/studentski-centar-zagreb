@@ -126,6 +126,7 @@ export type PostsMeta = {
   radno_vrijeme_blagajni: string;
   lokacija: string;
   image_groups: ImageGroup[];
+  link: string;
 };
 
 export type JobsMeta = {
@@ -156,6 +157,7 @@ export type JobsMeta = {
   image: string;
   skills: string;
   labels: string;
+  link: string;
 };
 
 export type MenuProduct = {

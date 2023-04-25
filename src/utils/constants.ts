@@ -33,6 +33,12 @@ export const infoSmjestajInfoCategory = 264;
 export const infoSmjestajForeignStudentsCategory = 237;
 export const infoSmjestajDormitoriesCategory = 125;
 
+// kultura
+
+export const infoPostsKultura = 173;
+
+export const infoKulturaLokacijeCategory = 280;
+
 // sport
 
 export const infoPostsSport = 177;

@@ -21,6 +21,7 @@ import { getPosts, usePosts } from "@/features/posts";
 import postsKeys from "@/features/posts/queries";
 import {
   faqKulturaCategory,
+  infoKulturaLokacijeCategory,
   obavijestiKulturaCategory,
 } from "@/utils/constants";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
@@ -28,6 +29,7 @@ import dayjs from "dayjs";
 import type { GetStaticProps, NextPage } from "next";
 import React from "react";
 import clearHtmlFromString from "@/utils/clearHtmlFromString";
+import Spinner from "@/components/elements/Spinner";
 
 export const getStaticProps: GetStaticProps = async () => {
   const queryClient = new QueryClient();
@@ -41,6 +43,15 @@ export const getStaticProps: GetStaticProps = async () => {
 
   await queryClient.prefetchQuery(postsKeys.postsFiltered(postsFilters), () =>
     getPosts(postsFilters)
+  );
+
+  const locationsFilters = {
+    categories: [infoKulturaLokacijeCategory],
+  };
+
+  await queryClient.prefetchQuery(
+    postsKeys.postsFiltered(locationsFilters),
+    () => getPosts(locationsFilters)
   );
 
   await queryClient.prefetchQuery(
@@ -64,6 +75,10 @@ const KulturaPage: NextPage = () => {
 
   const { data: posts, isLoading: isLoadingPosts } = usePosts({
     categories: [faqKulturaCategory],
+  });
+
+  const { data: locations, isLoading: isLoadingLocations } = usePosts({
+    categories: [infoKulturaLokacijeCategory],
   });
 
   const todaysEvents = events?.filter((event) =>
@@ -128,38 +143,25 @@ const KulturaPage: NextPage = () => {
 
       <UlazniceZaTD className="my-12" />
 
-      <div className="flex flex-col lg:flex-row gap-6 mt-12">
-        <ContentCard
-          image="/slike/teatar-td-logo.jpg"
-          title="TEATAR &TD"
-          content="Teatar &TD hrvatska je kazališna kuća iz Zagreba. Ima multifunkcionalan programski prostor otvoren za kazališna, koncertna, festivalska, izložbena te različita interdisciplinarna događanja i eksperimentiranja."
-          action={{ title: "SAZNAJ VIŠE", href: "http://itd.sczg.hr/" }}
-          className="flex-1"
-        />
-        <ContentCard
-          image="/slike/galerija-sc-logo.jpg"
-          title="GALERIJA SC"
-          content="Izložbeni prostor u Savskoj 25. Podržava mlade autore/ice koji žele unutar svojih prijedloga iskoristiti interdisciplinarne mogućnosti prostora."
-          action={{
-            title: "SAZNAJ VIŠE",
-            href: "https://www.facebook.com/galerijasczg",
-          }}
-          className="flex-1"
-        />
-        <ContentCard
-          image="/slike/kino-forum-logo.jpg"
-          title="SKUC - PAUK / KINO FORUM"
-          content="U studentskom domu Stjepan Radić pronaći ćete Kino Forum!"
-          action={{
-            title: "SAZNAJ VIŠE",
-            href: "https://www.facebook.com/skucpauk.kinoforum",
-          }}
-          className="flex-1"
-        />
-      </div>
+      {isLoadingLocations ? (
+        <Spinner className="mx-auto mb-12" />
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+          {locations?.map((location) => (
+            <ContentCard
+              key={location.id}
+              image={location.image_url}
+              title={clearHtmlFromString(location.title.rendered)}
+              content={location.excerpt.rendered}
+              action={{ title: "SAZNAJ VIŠE", href: location.meta.link }}
+              className="flex-1"
+            />
+          ))}
+        </div>
+      )}
       <ContentCard
         title="Tečajevi i radionice"
-        titleClassName="!text-xl !text-blue-600 include-filters"
+        titleClassName="!text-xl md:!text-2xl font-semibold !text-blue-600 include-filters"
         content="Studentski centar u Zagrebu nudi širok izbor tečajeva i radionica za sve zainteresirane. Bez obzira na vaše iskustvo ili interese, imamo nešto za svakoga. Pridružite nam se i istražite što sve možete naučiti!"
         action={{
           title: "Idi na popis",
@@ -174,9 +176,10 @@ const KulturaPage: NextPage = () => {
             events={events}
             loading={isLoading}
             emptyMessage="Nema novih evenata za prikaz"
-            className="w-full lg:w-2/3"
+            className="w-full"
+            // className="w-full lg:w-2/3"
           />
-          <div className="w-full lg:w-1/3"></div>
+          {/* <div className="w-full lg:w-1/3"></div> */}
         </div>
         <ButtonLink
           href="/kultura/eventi"
@@ -184,35 +187,6 @@ const KulturaPage: NextPage = () => {
         >
           Vidi sve
         </ButtonLink>
-      </div>
-      <div className="flex flex-col lg:flex-row gap-6 my-12">
-        <ContentCard
-          title="MM CENTAR"
-          image="/slike/kultura/logo_mm.png"
-          content="MM centar, osnovan sredinom 1970-ih, od svojih se začetaka bavio intermedijalnim i multimedijalnim strujanjima i umjetničkim praksama kao i prezentacijom nekomercijalne filmske umjetnosti, naginjući eksperimentalnom i umjetničkom filmu."
-          action={{ title: "SAZNAJ VIŠE", href: "http://mmcentar.sczg.hr/" }}
-          className="flex-1"
-        />
-        <ContentCard
-          title="KINO SC"
-          image="/slike/kultura/KINO_SC_LOGO.jpg"
-          content={`<strong>29., 30. i 31.1.&nbsp;</strong>/ F. Šovagović: <br></span><a href="http://itd.sczg.hr/events/f-sovagovic-zena-popularnog-pokojnika/" mce_href="/events/f-sovagovic-zena-popularnog-pokojnika/"><em>ŽENA POPULARNOG POKOJNIKA<br></em>&nbsp;</a><span>19:30,&nbsp;Kino SC, Velika &amp;TD, Francuski paviljon</span>`}
-          action={{
-            title: "SAZNAJ VIŠE",
-            href: "http://itd.sczg.hr/events/f-sovagovic-zena-popularnog-pokojnika/",
-          }}
-          className="flex-1"
-        />
-        <ContentCard
-          title="FRANCUSKI PAVILJON"
-          image="/slike/kultura/FRANCUSKI_PAVILJON.jpg"
-          content="Francuski paviljon, zaštićeno kulturno dobro, nalazi se u Studentskom centru Sveučilišta u Zagrebu, Savska cesta 25. Izgrađen je 1937.godine u sklopu tadašnjeg Zagrebačkog zbora kao izložbeni paviljon Republike Francuske."
-          action={{
-            title: "SAZNAJ VIŠE",
-            href: "http://www.sczg.unizg.hr/informacije/francuski-paviljon",
-          }}
-          className="flex-1"
-        />
       </div>
       {!!posts?.filter((item) => item.categories.includes(faqKulturaCategory))
         .length && (

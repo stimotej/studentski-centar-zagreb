@@ -32,7 +32,7 @@ const EventCards: React.FC<EventCardsProps> = (props) => {
       {props.emptyMessage || "Nema evenata za prikaz"}
     </div>
   ) : (
-    <div className={props.className}>
+    <div className={clsx("grid grid-cols-1 lg:grid-cols-2", props.className)}>
       {props.events?.map((event, index) => (
         <EventCard
           key={event.slug + event.event_date}
@@ -46,7 +46,7 @@ const EventCards: React.FC<EventCardsProps> = (props) => {
               ? `/kultura/tecajevi-i-radionice/${event.slug}`
               : `/kultura/eventi/${event.slug}`
           }
-          reverse={false}
+          reverse={index % 2 === 0}
         />
       ))}
     </div>
@@ -70,23 +70,22 @@ export const EventCard: React.FC<EventCardProps> = (props) => {
     <div
       className={clsx(
         "relative w-full",
-        props.withoutTimeline ? "p-0" : "p-3 border-gray-200",
-        // props.withoutTimeline ? "p-0" : "p-3 border-gray-200 lg:w-1/2",
+        // props.withoutTimeline ? "p-0" : "p-3 border-gray-200",
+        props.withoutTimeline
+          ? "p-0"
+          : "p-3 border-gray-200 border-l-2 ml-0 lg:ml-auto lg:mr-px",
         props.withoutTimeline
           ? ""
           : props.reverse
           ? "border-l-2 lg:border-l-0 lg:border-r-2 lg:ml-px"
-          : "border-l-2 ml-0 lg:mr-px"
-        // : "border-l-2 ml-0 lg:ml-auto lg:mr-px"
+          : "border-l-2 lg:border-l-0 ml-0 lg:mr-px"
       )}
     >
       {!props.withoutTimeline && (
         <div
           className={clsx(
             "w-3 h-3 bg-gray-200 rounded-full absolute top-1/2 transform -translate-y-1/2",
-            props.reverse
-              ? "-left-[7px] lg:left-auto lg:-right-[7px]"
-              : "-left-[7px]"
+            props.reverse ? "-left-[7px] lg:hidden" : "-left-[7px]"
           )}
         ></div>
       )}

@@ -25,16 +25,16 @@ const EventsPage = () => {
   return (
     <Layout title="Eventi">
       <PageTitle title="Kalendar evenata" />
-      <div className="flex flex-col lg:flex-row gap-6 my-12">
-        <EventCards
-          events={events}
-          loading={isLoading}
-          className="w-full lg:w-2/3"
-          classNameLoading="mt-12 w-2/3"
-          classNameEmpty="mt-12 w-2/3"
-        />
-        <div className="w-full lg:w-1/3"></div>
-      </div>
+      {/* <div className="flex flex-col lg:flex-row gap-6 my-12"> */}
+      <EventCards
+        events={events}
+        loading={isLoading}
+        className="w-full my-12"
+        classNameLoading="mt-12"
+        classNameEmpty="mt-12"
+      />
+      {/* <div className="w-full lg:w-1/3"></div> */}
+      {/* </div> */}
     </Layout>
   );
 };

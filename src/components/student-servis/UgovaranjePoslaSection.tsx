@@ -43,7 +43,7 @@ Upozoravamo studente da nikome, nikad ništa ne <strong>potpisuju unaprijed</str
           <SectionCard
             image="/slike/student-servis/ikone/isplate-naknada.png"
             title="ISPLATE NAKNADA"
-            content="Isplate se obavljaju nakon što poslodavac - naručitelj posla plati račun Studentskom centru u Zagrebu. Isplate se vrše na <strong>žiro račun</strong> studente otvorenog u bilo kojoj banci na teritoriju Republike Hrvatske."
+            content="Isplate se obavljaju nakon što poslodavac - naručitelj posla plati račun Studentskom centru u Zagrebu. Isplate se vrše na <strong>osobni žiro ili tekući račun</strong> studente otvorenog u bilo kojoj banci na teritoriju Republike Hrvatske."
           />
         </div>
         <div className="transform lg:-translate-y-24 flex-1">
