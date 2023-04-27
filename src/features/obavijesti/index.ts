@@ -1,4 +1,7 @@
-import { sliderCategoryId } from "@/utils/constants";
+import {
+  obavijestiPocetnaStranicaCategory,
+  sliderCategoryId,
+} from "@/utils/constants";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useRef } from "react";
@@ -23,6 +26,7 @@ export const getInfiniteObavijesti = async () => {
       search: "",
       categories: undefined,
       filter_by_date: true,
+      categories_exclude: [obavijestiPocetnaStranicaCategory],
     },
   });
   return response.data;
@@ -40,6 +44,7 @@ export const useObavijesti = (filters: ObavijestiFilters) => {
           page: pageParam,
           timestamp: new Date().getTime(),
           filter_by_date: true,
+          categories_exclude: [obavijestiPocetnaStranicaCategory],
           ...filters,
         },
       });

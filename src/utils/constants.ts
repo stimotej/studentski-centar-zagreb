@@ -73,6 +73,7 @@ export const obavijestiSmjestajCategory = 139;
 export const obavijestiSportCategory = 165;
 export const obavijestiKulturaCategory = 127;
 export const obavijestiPrehranaCategory = 164;
+export const obavijestiPocetnaStranicaCategory = 270;
 
 // FOR HOME PAGE
 

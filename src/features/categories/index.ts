@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import type { Category } from "../types";
 import categoryKeys from "./queries";
+import { obavijestiPocetnaStranicaCategory } from "@/utils/constants";
 
 export type CategoryFilters = {
   page?: number;
@@ -16,6 +17,7 @@ export type CategoryFilters = {
 
 const filters = {
   per_page: 100,
+  exclude: [obavijestiPocetnaStranicaCategory],
 };
 
 export const getCategories = async (parent?: number) => {
