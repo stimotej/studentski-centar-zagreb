@@ -77,6 +77,7 @@ const filters = {
   orderby: "date",
   order: "desc",
   filter_by_date: true,
+  categories_exclude: [obavijestiPocetnaStranicaCategory],
 };
 
 export const getObavijestiHome = async () => {
