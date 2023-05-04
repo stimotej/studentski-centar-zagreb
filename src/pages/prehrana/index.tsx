@@ -24,6 +24,7 @@ import {
 } from "@/utils/constants";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import type { GetStaticProps, NextPage } from "next";
+import Image from "next/image";
 import React from "react";
 
 export const getStaticProps: GetStaticProps = async () => {
@@ -150,22 +151,32 @@ const PrehranaPage: NextPage = () => {
         }}
       />
 
-      <div className="flex flex-col md:flex-row gap-6 mt-8">
-        <Card>
-          <p className="text-light mb-2 font-medium">
+      <div className="flex flex-col items-start md:flex-row gap-6 mt-8">
+        <div className="flex flex-col gap-2 flex-1 items-start">
+          <p className="text-light font-medium">
             Podaci o studentskim pravima i akademskim karticama
           </p>
-          <a
-            href="https://issp.srce.hr/account/loginaai"
-            className="text-xl font-medium text-primary underline uppercase"
-          >
-            STUDENTI
-          </a>
-          <p className="text-light mt-2">
-            prijava pomoću AAI@EduHr korisničkog računa
-          </p>
-        </Card>
-        <Card className="flex flex-col gap-3 text-primary">
+          <div className="bg-[#bfc946] p-3 include-filters relative overflow-hidden rounded-sm">
+            <Image
+              width={128}
+              height={128}
+              src="/slike/prehrana/student.png"
+              alt="Student - prijava u issp.srce.hr"
+              className="mx-auto"
+            />
+            <h4 className="uppercase text-[22px] text-center my-2">STUDENTI</h4>
+            <a
+              href="https://issp.srce.hr/account/loginaai"
+              className="flex rounded-sm transition-[shadow,colors] hover:text-[#212529] hover:animate-pulse hover:shadow-[0_5px_11px_0_rgba(0,0,0,.18),0_4px_15px_0_rgba(0,0,0,.15)] shadow-[0_2px_5px_0_rgba(0,0,0,.16),0_2px_10px_0_rgba(0,0,0,.12)] w-full p-3 px-6 font-semibold text-white bg-[#63681e]"
+            >
+              Prijava u sustav
+            </a>
+            <div className="p-10 pb-1 absolute -top-[10px] text-sm -left-14 transform -rotate-45 bg-[#444444] text-center text-white">
+              AAI@EduHr
+            </div>
+          </div>
+        </div>
+        <Card className="flex flex-col gap-3 text-primary flex-1">
           {isLoadingLinksPost ? (
             <Spinner className="mx-auto my-6" />
           ) : (
