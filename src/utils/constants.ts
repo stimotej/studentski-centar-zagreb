@@ -55,6 +55,10 @@ export const infoSportRekreacijskePovremeneCategory = 258;
 
 export const infoSportZabavaCategory = 256;
 
+// Prehrana
+
+export const prehranaLinksPostId = 10328;
+
 // FAQ
 
 export const faqCategory = 183;

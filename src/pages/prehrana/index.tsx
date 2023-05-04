@@ -1,4 +1,6 @@
 import ButtonLink from "@/components/elements/ButtonLink";
+import DisplayHTML from "@/components/elements/DisplayHTML";
+import Spinner from "@/components/elements/Spinner";
 import HelpSection from "@/components/prehrana/HelpSection";
 import KvalitetaPrehraneSection from "@/components/prehrana/KvalitetaPrehraneSection";
 import WeapayBanner from "@/components/prehrana/WeapayBanner";
@@ -17,6 +19,7 @@ import postsKeys from "@/features/posts/queries";
 import {
   faqPrehranaCategory,
   obavijestiPrehranaCategory,
+  prehranaLinksPostId,
   restaurantsCategoryId,
 } from "@/utils/constants";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
@@ -44,6 +47,15 @@ export const getStaticProps: GetStaticProps = async () => {
     () => getPosts(faqPostsFilters)
   );
 
+  const linksPostsFilters = {
+    include: [prehranaLinksPostId],
+  };
+
+  await queryClient.prefetchQuery(
+    postsKeys.postsFiltered(linksPostsFilters),
+    () => getPosts(linksPostsFilters)
+  );
+
   await queryClient.prefetchQuery(
     obavijestiKeys.obavijestiFiltered({
       categories: [obavijestiPrehranaCategory],
@@ -67,6 +79,10 @@ const PrehranaPage: NextPage = () => {
 
   const { data: faqs, isLoading: isLoadingFaqs } = usePosts({
     categories: [faqPrehranaCategory],
+  });
+
+  const { data: linksPost, isLoading: isLoadingLinksPost } = usePosts({
+    include: [prehranaLinksPostId],
   });
 
   return (
@@ -136,9 +152,11 @@ const PrehranaPage: NextPage = () => {
 
       <div className="flex flex-col md:flex-row gap-6 mt-8">
         <Card>
-          <p className="text-light mb-2">Klikni na poveznicu:</p>
+          <p className="text-light mb-2 font-medium">
+            Podaci o studentskim pravima i akademskim karticama
+          </p>
           <a
-            href="https://issp.srce.hr/"
+            href="https://issp.srce.hr/account/loginaai"
             className="text-xl font-medium text-primary underline uppercase"
           >
             STUDENTI
@@ -148,15 +166,14 @@ const PrehranaPage: NextPage = () => {
           </p>
         </Card>
         <Card className="flex flex-col gap-3 text-primary">
-          <a href="https://gov.hr/hr/subvencionirana-prehrana/1066">
-            e-Građani - Subvencionirana prehrana
-          </a>
-          <a href="https://www.srce.unizg.hr/studentski-standard/">
-            Studentski standard
-          </a>
-          <a href="https://issp.srce.hr/home/popisjela">
-            Popis jela ISSP i cjenik
-          </a>
+          {isLoadingLinksPost ? (
+            <Spinner className="mx-auto my-6" />
+          ) : (
+            <DisplayHTML
+              html={linksPost?.[0].excerpt.rendered || ""}
+              className="leading-7"
+            />
+          )}
         </Card>
       </div>
 
