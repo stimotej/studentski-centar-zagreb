@@ -13,7 +13,7 @@ const DavanjaPoslodavcaSection: React.FC<DavanjaPoslodavcaSectionProps> = (
       <div className="text-center">
         <h5 className="text-primary text-sm font-medium tracking-wider uppercase">
           DAVANJA POSLODAVCA STUDENT SERVISU IZNOSE 18,00% NA NETO ZARADU
-          STUDENTE
+          STUDENATA
         </h5>
         <h3 className="text-[42px] text-text font-semibold leading-normal">
           Kako se koristi naknada od 18,00%?
