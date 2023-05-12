@@ -96,9 +96,7 @@ const RestaurantPage: NextPage = () => {
     >
       <div className="flex flex-col md:flex-row gap-12">
         <PageTitle
-          title={
-            "Restoran " + clearHtmlFromString(restaurant?.title.rendered || "")
-          }
+          title={clearHtmlFromString(restaurant?.title.rendered || "")}
           subtitle={
             <div>
               <p className="font-semibold text-light underline">
