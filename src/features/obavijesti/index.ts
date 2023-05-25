@@ -96,7 +96,7 @@ export const useObavijestiHome = (initialData?: Post<ObavijestiMeta>[]) => {
 export const getObavijestiPage = async (category: number) => {
   const response = await axios.get<Post<ObavijestiMeta>[]>("/obavijesti", {
     params: {
-      per_page: 4,
+      per_page: 100,
       orderby: "featured",
       order: "desc",
       filter_by_date: true,
