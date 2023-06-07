@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 interface WeapayBannerProps {
@@ -14,13 +15,15 @@ const WeapayBanner: React.FC<WeapayBannerProps> = (props) => {
         props.className
       )}
     >
-      <Image
-        src="/slike/prehrana/weapay_logo.png"
-        alt="Weapay logo"
-        width={100}
-        height={74}
-        className="w-[100px] h-auto object-cover"
-      />
+      <Link href="https://weapay.hr/">
+        <Image
+          src="/slike/prehrana/weapay_logo.png"
+          alt="Weapay logo"
+          width={100}
+          height={74}
+          className="w-[100px] h-auto object-cover"
+        />
+      </Link>
       <div>
         <h5 className="text-3xl uppercase font-bold tracking-wide text-white">
           PLATI BRŽE, UŽIVAJ DUŽE.
