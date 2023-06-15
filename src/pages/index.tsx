@@ -31,6 +31,7 @@ import calendarKeys from "@/features/calendar/queries";
 import { getPosts, usePosts } from "@/features/posts";
 import postsKeys from "@/features/posts/queries";
 import DisplayHTML from "@/components/elements/DisplayHTML";
+import Image from "next/image";
 
 export const getStaticProps: GetStaticProps = async () => {
   const queryClient = new QueryClient();
@@ -134,6 +135,14 @@ const Home: NextPage = () => {
               Idi na obavijesti
             </ButtonLink>
           </div>
+
+          <Image
+            src="/slike/YOUniversity_vizual_SC_FB_1200x630px.jpg"
+            alt="YOUniversity_vizual_SC_FB"
+            width={1200}
+            height={630}
+            className="w-full h-auto object-cover rounded-lg mt-16"
+          />
         </div>
         <div className="w-full md:w-[30%]">
           <GeneralInfoCard
