@@ -3,52 +3,59 @@
 @tailwind utilities;
 
 html {
-    @apply scroll-smooth;
+  @apply scroll-smooth;
 }
 
 .html-content a {
-    @apply text-primary;
+  @apply text-primary;
 }
 
 .white-links a {
-    @apply !text-white !underline;
+  @apply !text-white !underline;
 }
 
 .html-content iframe {
-    @apply rounded-lg w-full h-[400px];
+  @apply rounded-lg w-full h-[400px];
 }
 
 .html-content img {
-    @apply rounded-lg;
+  @apply rounded-lg;
 }
 
 .html-content ul {
-    @apply list-disc list-inside;
+  @apply list-disc list-inside;
 }
 
 .ql-align-center {
-    text-align: center;
+  text-align: center;
 }
 
 .ql-align-right {
-    text-align: right;
+  text-align: right;
 }
 
 .ql-align-justify {
-    text-align: justify;
+  text-align: justify;
 }
 
 .hide-scrollbar::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 .hide-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .underline-links a {
-    @apply underline;
+  @apply underline;
+}
+
+blockquote {
+  border-left: 5px solid #2b76df;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  padding-left: 16px;
 }
 
 .contrast-filter .bg-primary,
@@ -62,7 +69,7 @@ html {
 .contrast-filter .text-primary,
 .contrast-filter .include-filters,
 .contrast-filter .text-sc {
-    filter: contrast(200%);
+  filter: contrast(200%);
 }
 
 .grayscale-filter .bg-primary,
@@ -76,7 +83,7 @@ html {
 .grayscale-filter .text-primary,
 .grayscale-filter .include-filters,
 .grayscale-filter .text-sc {
-    filter: grayscale(100%);
+  filter: grayscale(100%);
 }
 
 .negative-contrast .bg-primary,
@@ -90,32 +97,33 @@ html {
 .negative-contrast .text-primary,
 .negative-contrast .include-filters,
 .negative-contrast .text-sc {
-    filter: invert(100%);
+  filter: invert(100%);
 }
 
 .large-text {
-    font-size: 22px !important;
+  font-size: 22px !important;
 }
 
 .large-text .text-sm {
-    font-size: 18px !important;
+  font-size: 18px !important;
 }
 
-.readable-font main  {
-    font-family: Verdana, Arial, Helvetica, sans-serif !important;
+.readable-font main {
+  font-family: Verdana, Arial, Helvetica, sans-serif !important;
 }
 
-.light-background [class^="bg-"], .light-background [class*=" bg-"] {
-    @apply !bg-white !text-black !border;
+.light-background [class^="bg-"],
+.light-background [class*=" bg-"] {
+  @apply !bg-white !text-black !border;
 }
 
 .light-background .accessibility-active {
-    @apply !bg-gray-200 !border-none;
+  @apply !bg-gray-200 !border-none;
 }
 
 .light-background [class^="bg-"],
 .light-background [class*=" bg-"],
 .light-background [class^="text-"],
 .light-background [class*=" text-"] {
-    @apply !text-black;
+  @apply !text-black;
 }
