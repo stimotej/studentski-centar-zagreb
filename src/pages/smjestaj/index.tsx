@@ -23,6 +23,7 @@ import {
   infoSmjestajDormitoriesCategory,
   infoSmjestajForeignStudentsCategory,
   infoSmjestajInfoCategory,
+  infoSmjestajNatjecajCategory,
   obavijestiSmjestajCategory,
 } from "@/utils/constants";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
@@ -130,7 +131,7 @@ const SmjestajPage: NextPage = () => {
               </div>
             )}
 
-            <BlueCard
+            {/* <BlueCard
               title="Natječaj za smještaj 2022/2023"
               description="Za prijavu na natječaj za studentski smještaj prijavite se putem linka  nastavku."
               className="mt-12"
@@ -139,7 +140,7 @@ const SmjestajPage: NextPage = () => {
                 href: "https://natjecaj.sczg.hr/student",
                 isRegularLink: true,
               }}
-            />
+            /> */}
 
             <div className="flex flex-col md:flex-row gap-6 my-12">
               <ContentCard
@@ -173,10 +174,26 @@ const SmjestajPage: NextPage = () => {
         }}
       />
 
-      <PagePosts category={obavijestiSmjestajCategory} className="mt-12" />
+      <PagePosts category={obavijestiSmjestajCategory} className="my-12" />
 
       <div id="natjecaj"></div>
-      <NatjecajCard className="mt-24" />
+      {isLoading ? (
+        <Spinner className="mt-12 mx-auto" />
+      ) : (
+        posts
+          ?.filter((post) =>
+            post.categories.includes(infoSmjestajNatjecajCategory)
+          )
+          .map((post) => (
+            <NatjecajCard
+              key={post.id}
+              title={post.title.rendered}
+              excerpt={post.excerpt.rendered}
+              link={`/informacije/${post.slug}`}
+              // className="mt-24"
+            />
+          ))
+      )}
 
       <InfoToggles className="mt-12" />
 

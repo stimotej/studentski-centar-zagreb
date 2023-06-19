@@ -32,6 +32,7 @@ export const infoPostsSmjestaj = 176;
 export const infoSmjestajInfoCategory = 264;
 export const infoSmjestajForeignStudentsCategory = 237;
 export const infoSmjestajDormitoriesCategory = 125;
+export const infoSmjestajNatjecajCategory = 283;
 
 // kultura
 
