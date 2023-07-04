@@ -45,25 +45,25 @@ const items = [
 <p style="text-align: justify;"><span>Subvencionirani cjenik smještaja odnosi se na studente-stanare koji su ostvarili pravo na smještaj putem Natječaja&nbsp;za raspodjelu mjesta redovitim studentima za subvencionirano stanovanje u studentske domove Studentskog centra u Zagrebu&nbsp;ili putem posebnih odluka Ministarstva znanosti i obrazovanja te time stekli pravo na subvenciju troškova smještaja u studentskom domu Studentskog centra u Zagrebu.<o:p></o:p></span></p>
 <p style="text-align: justify;"><span>Nesubvencionirani cjenik primjenjuje se prilikom naplate smještaja studenata koji ne ostvaruju pravo na subvenciju stanarine od strane Ministarstva znanosti i obrazovanja, npr. dolaze u sklopu međunarodne (Erasmus, fakultetska bilateralna razmjena…) ili međusveučilišne razmjene. </span></p>`,
   },
+  //   {
+  //     id: 4,
+  //     image: "/slike/smjestaj/ikone/pravilnici_za_natjecaj.png",
+  //     title: "Pravilnici za natječaj",
+  //     content: `<p align="center"><b>N A T J E Č A J</b></p>
+  // <p><b> </b></p>
+  // <p align="center"><b>za raspodjelu mjesta redovitim studentima za subvencionirano stanovanje u studentske domove Studentskog centra u Zagrebu u akademskoj godini 2021./2022.</b></p>
+  // <p align="center"><b>I OPĆE ODREDBE</b></p>
+  // <p><b> </b></p>
+  // <p>Pravo na subvencionirani smještaj u studentskom domu u akademskoj 2021./2022. godini imaju:</p>
+  // <ol>
+  // <li>redoviti studenti, državljani Republike Hrvatske,</li>
+  // <li>redoviti studenti, državljani zemalja članica EU s prijavljenim boravkom u RH,</li>
+  // <li>osobe sukladno Zakonu o međunarodnoj i privremenoj zaštiti, koje su upisane na visokim učilištima u RH,</li>
+  // <li>studenti s invaliditetom poslijediplomskih sveučilišnih studija.</li>
+  // </ol>`,
+  //   },
   {
     id: 4,
-    image: "/slike/smjestaj/ikone/pravilnici_za_natjecaj.png",
-    title: "Pravilnici za natječaj",
-    content: `<p align="center"><b>N A T J E Č A J</b></p>
-<p><b> </b></p>
-<p align="center"><b>za raspodjelu mjesta redovitim studentima za subvencionirano stanovanje u studentske domove Studentskog centra u Zagrebu u akademskoj godini 2021./2022.</b></p>
-<p align="center"><b>I OPĆE ODREDBE</b></p>
-<p><b> </b></p>
-<p>Pravo na subvencionirani smještaj u studentskom domu u akademskoj 2021./2022. godini imaju:</p>
-<ol>
-<li>redoviti studenti, državljani Republike Hrvatske,</li>
-<li>redoviti studenti, državljani zemalja članica EU s prijavljenim boravkom u RH,</li>
-<li>osobe sukladno Zakonu o međunarodnoj i privremenoj zaštiti, koje su upisane na visokim učilištima u RH,</li>
-<li>studenti s invaliditetom poslijediplomskih sveučilišnih studija.</li>
-</ol>`,
-  },
-  {
-    id: 5,
     image: "/slike/smjestaj/ikone/domski_internet.png",
     title: "Domski internet",
     content: `<p style="text-align: left;"><span style="color: #ffffff;"><strong><span color="green"><em>Pristup Domskom Internetu u studentskim naseljima</em></span></strong></span></p>
@@ -77,7 +77,7 @@ const InfoToggles: React.FC<InfoTogglesProps> = (props) => {
 
   return (
     <BlueCard className={props.className}>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {items.map((item) => (
           <ToggleCard
             key={item.id}

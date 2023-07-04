@@ -136,13 +136,13 @@ const Home: NextPage = () => {
             </ButtonLink>
           </div>
 
-          <Image
+          {/* <Image
             src="/slike/YOUniversity_vizual_SC_FB_1200x630px.jpg"
             alt="YOUniversity_vizual_SC_FB"
             width={1200}
             height={630}
             className="w-full h-auto object-cover rounded-lg mt-16"
-          />
+          /> */}
         </div>
         <div className="w-full md:w-[30%]">
           <GeneralInfoCard
