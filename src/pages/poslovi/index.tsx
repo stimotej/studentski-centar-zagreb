@@ -87,14 +87,7 @@ const PosloviPage: NextPage = () => {
       title="Poslovi"
       description="Ponuda poslova; Studentski centar u Zagrebu; Sveučilište u Zagrebu"
     >
-      <PageTitle
-        title="Poslovi"
-        subtitle="Za pregled poslova objavljenih na staroj stranici pritisni na link pretraži poslove"
-        action={{
-          title: "Pretraži poslove",
-          href: "http://161.53.174.9/student-servis/ponuda-poslova/",
-        }}
-      />
+      <PageTitle title="Poslovi" />
       <div className="mt-12 flex flex-col-reverse gap-12 md:flex-row pb-12">
         <div className="w-full md:w-[75%]">
           {isLoading ? (
