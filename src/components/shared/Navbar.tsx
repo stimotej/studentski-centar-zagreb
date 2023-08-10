@@ -11,11 +11,11 @@ import { AnimatePresence, motion } from "framer-motion";
 const navLinks = [
   { name: "Početna", href: "/", protected: false },
   { name: "Obavijesti", href: "/obavijesti", protected: false },
-  { name: "Kultura", href: "/kultura", protected: false },
   { name: "Student servis", href: "/student-servis", protected: false },
   { name: "Poslovi", href: "/poslovi", protected: false },
   { name: "Prehrana", href: "/prehrana", protected: false },
   { name: "Smještaj", href: "/smjestaj", protected: false },
+  { name: "Kultura", href: "/kultura", protected: false },
   { name: "Sport", href: "/sport", protected: false },
 ];
 
