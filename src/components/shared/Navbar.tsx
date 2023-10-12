@@ -17,6 +17,7 @@ const navLinks = [
   { name: "Smještaj", href: "/smjestaj", protected: false },
   { name: "Kultura", href: "/kultura", protected: false },
   { name: "Sport", href: "/sport", protected: false },
+  { name: "Mediji", href: "/mediji", protected: false },
 ];
 
 const Navbar = () => {
@@ -43,12 +44,12 @@ const Navbar = () => {
             height={56}
           />
         </Link>
-        <div className="hidden [@media(min-width:360px)]:flex [@media(min-width:880px)]:hidden lg:!flex flex-col text-sm font-medium">
+        <div className="hidden [@media(min-width:360px)]:flex [@media(min-width:900px)]:hidden lg:!flex flex-col text-sm font-medium">
           <span>Sveučilište u Zagrebu</span>
           <span className="text-sc">Studentski centar u Zagrebu</span>
         </div>
       </div>
-      <nav className="hidden items-center gap-5 [@media(min-width:880px)]:flex">
+      <nav className="hidden items-center gap-5 [@media(min-width:900px)]:flex">
         {navLinks.map((link) =>
           link.protected ? (
             user ? (
@@ -84,7 +85,7 @@ const Navbar = () => {
           </Dropdown>
         )}
       </nav>
-      <div className="py-3 [@media(min-width:880px)]:hidden">
+      <div className="py-3 [@media(min-width:900px)]:hidden">
         <button
           className="rounded-full p-2 hover:bg-gray-200 active:bg-gray-300"
           onClick={() => setOpened((isOpened) => !isOpened)}
@@ -99,7 +100,7 @@ const Navbar = () => {
             initial={{ scaleY: 0, opacity: 0, transformOrigin: "top" }}
             animate={{ scaleY: 1, opacity: 1 }}
             exit={{ scaleY: 0, opacity: 0 }}
-            className="[@media(min-width:880px)]:hidden shadow-xl fixed top-16 left-6 right-6 rounded-lg bg-white z-50"
+            className="[@media(min-width:900px)]:hidden shadow-xl fixed top-16 left-6 right-6 rounded-lg bg-white z-50"
           >
             <div className="flex flex-col ">
               {navLinks.map((link) =>
