@@ -1,6 +1,9 @@
+import DisplayHTML from "@/components/elements/DisplayHTML";
+import LoginInfoCard from "@/components/login-poslodavac/LoginInfoCard";
 import IzdavanjeUgovoraCard from "@/components/login-student/IzdavanjeUgovoraCard";
 import UclanjivanjeCard from "@/components/login-student/UclanjivanjeCard";
 import LogInForm from "@/components/login/LogInForm";
+import Card from "@/components/shared/Card";
 import Layout from "@/components/shared/Layout";
 import PageTitle from "@/components/shared/PageTitle";
 import { getPosts, usePosts } from "@/features/posts";
@@ -48,11 +51,19 @@ const StudentLoginPage: NextPage = () => {
       description="Prijava studenata - Studentski centar u Zagrebu"
     >
       <PageTitle title="Prijava studenata članova Student servisa za korištenje usluga" />
+
       <div className="flex flex-col gap-8 items-start md:flex-row my-12">
         <div className="md:w-[65%]">
-          <LogInForm className="mb-4" />
-          <UclanjivanjeCard />
+          {posts && posts[0] ? (
+            <LoginInfoCard
+              title={posts[0]?.title.rendered || ""}
+              content={posts[0]?.content.rendered || ""}
+              documents={posts[0]?.meta.documents || []}
+            />
+          ) : null}
+          <UclanjivanjeCard className="mt-8" />
         </div>
+
         <IzdavanjeUgovoraCard className="md:w-[35%]" />
       </div>
     </Layout>

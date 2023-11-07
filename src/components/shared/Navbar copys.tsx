@@ -115,7 +115,7 @@ const Navbar = () => {
                   </div>
                   <NavLink
                     title="Prijava student"
-                    href="https://natjecaj.sczg.hr/student"
+                    href="/prijava-student"
                     isDropdownItem
                     className="ml-12 last:rounded-br-lg"
                   />

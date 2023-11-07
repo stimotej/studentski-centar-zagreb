@@ -39,7 +39,7 @@ const LoginLinksSection: React.FC<LoginLinksSectionProps> = (props) => {
           title="STUDENT"
           description="Korisnički profil studenta omogućuje uređivanje profila studenta, pretraživanje poslova, izdavanje ugovora, statuse isplata, ažuriranje podataka i korisničku podršku."
           link={{
-            href: "https://natjecaj.sczg.hr/student",
+            href: "/prijava-student",
             title: "PRIJAVA STUDENT",
             isRegularLink: true,
           }}

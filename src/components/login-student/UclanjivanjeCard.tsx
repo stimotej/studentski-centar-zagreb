@@ -9,7 +9,7 @@ interface UclanjivanjeCardProps {
 const UclanjivanjeCard: React.FC<UclanjivanjeCardProps> = (props) => {
   return (
     <Card className={props.className}>
-      <h4 className="text-2xl font-medium text-text">Učlanjivanje</h4>
+      <h4 className="text-xl font-medium text-text">Učlanjivanje</h4>
       <p className="mt-4 text-light">
         Prije učlanjenja potrebno je provjeriti imate li osnovno zdravstveno
         osiguranje.
