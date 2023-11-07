@@ -1,9 +1,6 @@
 import clsx from "clsx";
 import React from "react";
-import dynamic from "next/dynamic";
-import Spinner from "./Spinner";
 import type { Document } from "@/features/types";
-import { MdOutlineDescription, MdOutlineFileDownload } from "react-icons/md";
 import DOMPurify from "isomorphic-dompurify";
 import DocumentCard from "../shared/DocumentCard";
 

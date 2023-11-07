@@ -3,10 +3,45 @@ import UclanjivanjeCard from "@/components/login-student/UclanjivanjeCard";
 import LogInForm from "@/components/login/LogInForm";
 import Layout from "@/components/shared/Layout";
 import PageTitle from "@/components/shared/PageTitle";
-import { type NextPage } from "next";
+import { getPosts, usePosts } from "@/features/posts";
+import postsKeys from "@/features/posts/queries";
+import {
+  infoPostsCategoryId,
+  infoPostsSS,
+  infoSSStudentLoginPost,
+} from "@/utils/constants";
+import { QueryClient, dehydrate } from "@tanstack/react-query";
+import { GetStaticProps, type NextPage } from "next";
 import React from "react";
 
+export const getStaticProps: GetStaticProps = async () => {
+  const queryClient = new QueryClient();
+
+  const postsFilters = {
+    include: [infoSSStudentLoginPost],
+    categories: [infoPostsCategoryId, infoPostsSS],
+  };
+
+  await queryClient.prefetchQuery(postsKeys.postsFiltered(postsFilters), () =>
+    getPosts(postsFilters)
+  );
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+    revalidate: 60 * 10,
+  };
+};
+
 const StudentLoginPage: NextPage = () => {
+  const { data: posts, isLoading } = usePosts({
+    include: [infoSSStudentLoginPost],
+    categories: [infoPostsCategoryId, infoPostsSS],
+  });
+
+  console.log(posts);
+
   return (
     <Layout
       title="Prijava"
