@@ -19,7 +19,7 @@ export const infoSSAboutPost = 7317;
 export const infoSSDocumentPost = 7633;
 export const infoSSPredajaOglasaPost = 7635;
 export const infoSSRegisterPost = 7631;
-export const infoSSStudentLoginPost = 17043;
+export const infoSSStudentLoginPost = 17080;
 
 export const infoSSPoslovniceCategory = 171;
 export const infoSSInfoCategory = 181;

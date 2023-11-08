@@ -38,12 +38,10 @@ export const getStaticProps: GetStaticProps = async () => {
 };
 
 const StudentLoginPage: NextPage = () => {
-  const { data: posts, isLoading } = usePosts({
+  const { data: posts } = usePosts({
     include: [infoSSStudentLoginPost],
     categories: [infoPostsCategoryId, infoPostsSS],
   });
-
-  console.log(posts);
 
   return (
     <Layout
