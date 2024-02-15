@@ -4,7 +4,11 @@ import type { Banner } from "../types";
 import bannerKeys from "./queries";
 
 export const getBanners = async () => {
-  const response = await axios.get<Banner[]>("/banners");
+  const response = await axios.get<Banner[]>("/banners", {
+    params: {
+      timestamp: new Date().getTime(),
+    },
+  });
   return response.data;
 };
 

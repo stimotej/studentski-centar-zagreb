@@ -60,6 +60,7 @@ export const getJob = async (slug: string) => {
   const response = await axios.get<Post<JobsMeta>[]>("/jobs", {
     params: {
       slug: slug,
+      timestamp: new Date().getTime(),
     },
   });
   return response.data[0] || null;
@@ -74,6 +75,7 @@ const filters = {
   order: "desc",
   allowed_sc: true,
   filter_by_date: true,
+  timestamp: new Date().getTime(),
 };
 
 export const getJobsHome = async () => {

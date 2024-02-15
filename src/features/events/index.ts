@@ -7,6 +7,7 @@ export const getEvent = async (slug: string) => {
   const response = await axios.get<Event>("/events", {
     params: {
       slug: slug,
+      timestamp: new Date().getTime(),
     },
   });
   return response.data;
@@ -17,7 +18,11 @@ export const useEvent = (slug: string) => {
 };
 
 export const getEvents = async () => {
-  const response = await axios.get<Event[]>("/events");
+  const response = await axios.get<Event[]>("/events", {
+    params: {
+      timestamp: new Date().getTime(),
+    },
+  });
 
   return response.data;
 };
@@ -27,7 +32,11 @@ export const useEvents = () => {
 };
 
 export const getNewEvents = async () => {
-  const response = await axios.get<Event[]>("/events/new");
+  const response = await axios.get<Event[]>("/events/new", {
+    params: {
+      timestamp: new Date().getTime(),
+    },
+  });
 
   return response.data;
 };
@@ -37,7 +46,11 @@ export const useNewEvents = () => {
 };
 
 export const getSliderEvents = async () => {
-  const response = await axios.get<Event[]>("/events/slider");
+  const response = await axios.get<Event[]>("/events/slider", {
+    params: {
+      timestamp: new Date().getTime(),
+    },
+  });
 
   return response.data;
 };
@@ -47,7 +60,11 @@ export const useSliderEvents = () => {
 };
 
 export const getCourses = async () => {
-  const response = await axios.get<Event[]>("/events/courses");
+  const response = await axios.get<Event[]>("/events/courses", {
+    params: {
+      timestamp: new Date().getTime(),
+    },
+  });
 
   return response.data;
 };

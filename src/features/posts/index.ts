@@ -16,6 +16,7 @@ export const getPost = async (slug: string) => {
   const response = await axios.get<Post<PostsMeta>[]>("/posts", {
     params: {
       slug: slug,
+      timestamp: new Date().getTime(),
     },
   });
   return response.data[0];
@@ -36,6 +37,7 @@ const defaultFilters = {
   per_page: 100,
   orderby: "date",
   order: "asc",
+  timestamp: new Date().getTime(),
 };
 
 export const getPosts = async (filters?: FiltersType) => {

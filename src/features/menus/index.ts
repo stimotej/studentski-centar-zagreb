@@ -15,6 +15,7 @@ const defaultFilters = {
   per_page: 100,
   orderby: "date",
   order: "asc",
+  timestamp: new Date().getTime(),
 };
 
 export const getMenus = async (filters: MenuFilters) => {

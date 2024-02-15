@@ -4,7 +4,11 @@ import type { CalendarEvent } from "../types";
 import eventKeys from "./queries";
 
 export const getCalendarEvents = async () => {
-  const response = await axios.get<CalendarEvent[]>("/calendar");
+  const response = await axios.get<CalendarEvent[]>("/calendar", {
+    params: {
+      timestamp: new Date().getTime(),
+    },
+  });
 
   return response.data;
 };

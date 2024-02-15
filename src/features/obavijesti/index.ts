@@ -63,6 +63,7 @@ export const getObavijest = async (slug: string) => {
   const response = await axios.get<Post<ObavijestiMeta>[]>("/obavijesti", {
     params: {
       slug: slug,
+      timestamp: new Date().getTime(),
     },
   });
   return response.data[0];
@@ -78,6 +79,7 @@ const filters = {
   order: "desc",
   filter_by_date: true,
   categories_exclude: [obavijestiPocetnaStranicaCategory],
+  timestamp: new Date().getTime(),
 };
 
 export const getObavijestiHome = async () => {
