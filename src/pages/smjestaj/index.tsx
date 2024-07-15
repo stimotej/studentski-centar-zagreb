@@ -176,7 +176,7 @@ const SmjestajPage: NextPage = () => {
 
       <PagePosts category={obavijestiSmjestajCategory} className="my-12" />
 
-      <div id="natjecaj"></div>
+      {/* <div id="natjecaj"></div>
       {isLoading ? (
         <Spinner className="mt-12 mx-auto" />
       ) : (
@@ -193,7 +193,7 @@ const SmjestajPage: NextPage = () => {
               // className="mt-24"
             />
           ))
-      )}
+      )} */}
 
       <InfoToggles className="mt-12" />
 
