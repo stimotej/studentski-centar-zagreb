@@ -13,6 +13,8 @@ export const infoPostsCategoryId = 169;
 
 // student servis
 
+export const jobsPageId = 4757;
+
 export const infoPostsSS = 170;
 
 export const infoSSAboutPost = 7317;

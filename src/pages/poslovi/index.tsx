@@ -7,7 +7,12 @@ import Button from "@/components/elements/Button";
 import TextInput from "@/components/elements/TextInput";
 import useDebounce from "@/hooks/useDebounce";
 import FilterSelect from "@/components/elements/FilterSelect";
-import { getInfiniteJobs, useJobs } from "@/features/jobs";
+import {
+  getInfiniteJobs,
+  getJobPage,
+  useJobPage,
+  useJobs,
+} from "@/features/jobs";
 import JobCard from "@/components/jobs/JobCard";
 import { getCategories, useCategories } from "@/features/categories";
 import { jobsCategoryId, jobsObrasciPostId } from "@/utils/constants";
@@ -20,6 +25,7 @@ import bannerKeys from "@/features/banners/queries";
 import { getPosts, usePosts } from "@/features/posts";
 import LoginInfoCard from "@/components/login-poslodavac/LoginInfoCard";
 import postsKeys from "@/features/posts/queries";
+import clearHtmlFromString from "@/utils/clearHtmlFromString";
 
 export const getStaticProps: GetStaticProps = async () => {
   const queryClient = new QueryClient();
@@ -39,6 +45,8 @@ export const getStaticProps: GetStaticProps = async () => {
   await queryClient.prefetchQuery(postsKeys.postsFiltered(postsFilters), () =>
     getPosts(postsFilters)
   );
+
+  await queryClient.prefetchQuery(jobKeys.jobPage, getJobPage);
 
   await queryClient.prefetchQuery(
     categoryKeys.categoriesFiltered({ parent: jobsCategoryId }),
@@ -78,16 +86,21 @@ const PosloviPage: NextPage = () => {
     include: [jobsObrasciPostId],
   });
 
+  const { data: jobPage } = useJobPage();
+
   const { data: categories } = useCategories(jobsCategoryId);
 
   const { data: banners } = useBanners();
 
   return (
     <Layout
-      title="Poslovi"
+      title={clearHtmlFromString(jobPage?.title.rendered ?? "Poslovi")}
       description="Ponuda poslova; Studentski centar u Zagrebu; Sveučilište u Zagrebu"
     >
-      <PageTitle title="Poslovi" />
+      <PageTitle
+        title={jobPage?.title.rendered ?? "Poslovi"}
+        subtitle={jobPage?.excerpt.rendered}
+      />
       <div className="mt-12 flex flex-col-reverse gap-12 md:flex-row pb-12">
         <div className="w-full md:w-[75%]">
           {isLoading ? (

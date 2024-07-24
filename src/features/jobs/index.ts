@@ -3,6 +3,7 @@ import axios from "axios";
 import { useRef } from "react";
 import type { JobsMeta, Post } from "../types";
 import jobKeys from "./queries";
+import { jobsPageId } from "@/utils/constants";
 
 export type JobsFilters = {
   categories?: number[];
@@ -87,4 +88,15 @@ export const getJobsHome = async () => {
 
 export const useJobsHome = (initialData?: Post<JobsMeta>[]) => {
   return useQuery(jobKeys.jobsHome, getJobsHome, { initialData });
+};
+
+export const getJobPage = async () => {
+  const response = await axios.get<Post<JobsMeta>>(`/pages/${jobsPageId}`, {
+    params: filters,
+  });
+  return response.data;
+};
+
+export const useJobPage = () => {
+  return useQuery(jobKeys.jobPage, getJobPage);
 };
