@@ -31,7 +31,6 @@ import calendarKeys from "@/features/calendar/queries";
 import { getPosts, usePosts } from "@/features/posts";
 import postsKeys from "@/features/posts/queries";
 import DisplayHTML from "@/components/elements/DisplayHTML";
-import Image from "next/image";
 
 export const getStaticProps: GetStaticProps = async () => {
   const queryClient = new QueryClient();
