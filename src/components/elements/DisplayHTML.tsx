@@ -19,7 +19,7 @@ const DisplayHTML: React.FC<DisplayHTMLProps> = (props) => {
   const replaceImageUrls = (html: string) => {
     return html.replaceAll(
       "http://161.53.174.14/wp-content/uploads",
-      "https://161.53.174.14/wp-content/uploads" // Change http to https
+      "/api/images" // Change http to https
     );
   };
 

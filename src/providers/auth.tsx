@@ -16,7 +16,9 @@ const userSchema = z.object({
 type User = z.infer<typeof userSchema>;
 
 axios.defaults.baseURL =
-  typeof window === "undefined" ? process.env.NEXT_PUBLIC_SC_API_URL : "/api";
+  typeof window === "undefined"
+    ? process.env.NEXT_PUBLIC_SC_API_URL
+    : "/api/data";
 
 interface AuthContextData {
   user: User | null;
