@@ -16,10 +16,16 @@ const DisplayHTML: React.FC<DisplayHTMLProps> = (props) => {
     ADD_ATTR: ["allow", "allowfullscreen", "frameborder", "scrolling"],
   });
 
+  const replaceImageUrls = (html: string) => {
+    return html.replaceAll(`src="https`, `src="http`);
+  };
+
+  const modifiedHtml = replaceImageUrls(cleanHtml);
+
   return (
     <>
       <div
-        dangerouslySetInnerHTML={{ __html: cleanHtml }}
+        dangerouslySetInnerHTML={{ __html: modifiedHtml }}
         className={clsx("html-content include-filters", props.className)}
       ></div>
       {!!props.documents && props.documents.length > 0 && (
