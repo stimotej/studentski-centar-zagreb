@@ -17,12 +17,9 @@ const DisplayHTML: React.FC<DisplayHTMLProps> = (props) => {
   });
 
   const replaceImageUrls = (html: string) => {
-    return html.replace(
-      /<img[^>]+src=["'](http:\/\/[^"']+)["'][^>]*>/g,
-      (match, url) => {
-        const secureUrl = url.replace(/^http:\/\//, "https://");
-        return match.replace(url, secureUrl);
-      }
+    return html.replaceAll(
+      "http://161.53.174.14/wp-content/uploads",
+      "https://161.53.174.14/wp-content/uploads" // Change http to https
     );
   };
 
