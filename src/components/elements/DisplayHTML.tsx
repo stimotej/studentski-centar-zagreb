@@ -17,7 +17,13 @@ const DisplayHTML: React.FC<DisplayHTMLProps> = (props) => {
   });
 
   const replaceImageUrls = (html: string) => {
-    return html.replaceAll(`src="https`, `src="http`);
+    return html.replace(
+      /<img[^>]+src=["'](http:\/\/[^"']+)["'][^>]*>/g,
+      (match, url) => {
+        const secureUrl = url.replace(/^http:\/\//, "https://");
+        return match.replace(url, secureUrl);
+      }
+    );
   };
 
   const modifiedHtml = replaceImageUrls(cleanHtml);
