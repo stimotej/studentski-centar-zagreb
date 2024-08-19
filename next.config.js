@@ -7,6 +7,9 @@ const nextConfig = {
 
     domains: ["localhost", "161.53.174.14"],
   },
+  api: {
+    responseLimit: false,
+  },
 };
 
 module.exports = nextConfig;
