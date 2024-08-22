@@ -19,6 +19,10 @@ export default async function handler(
       headers: req.headers,
     });
 
+    Object.entries(response.headers).forEach(([key, value]) => {
+      res.setHeader(key, value as string);
+    });
+
     res.status(response.status).json(response.data);
   } catch (error) {
     res
