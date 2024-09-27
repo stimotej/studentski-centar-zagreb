@@ -3,7 +3,6 @@ import DisplayHTML from "@/components/elements/DisplayHTML";
 import Spinner from "@/components/elements/Spinner";
 import HelpSection from "@/components/prehrana/HelpSection";
 import KvalitetaPrehraneSection from "@/components/prehrana/KvalitetaPrehraneSection";
-import WeapayBanner from "@/components/prehrana/WeapayBanner";
 import Card from "@/components/shared/Card";
 import FAQCards from "@/components/shared/FAQCards";
 import Layout from "@/components/shared/Layout";
@@ -25,7 +24,6 @@ import {
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import type { GetStaticProps, NextPage } from "next";
 import Image from "next/image";
-import React from "react";
 
 export const getStaticProps: GetStaticProps = async () => {
   const queryClient = new QueryClient();
@@ -186,9 +184,9 @@ const PrehranaPage: NextPage = () => {
 
           <KvalitetaPrehraneSection className="mb-12" />
 
-          <Section className="mt-24">
+          {/* <Section className="mt-24">
             <WeapayBanner />
-          </Section>
+          </Section> */}
 
           <div id="pitanja-i-pomoc"></div>
           <HelpSection />
