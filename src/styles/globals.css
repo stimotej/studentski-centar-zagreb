@@ -10,6 +10,14 @@ html {
   @apply text-primary;
 }
 
+.mediji-content h2 {
+  @apply !text-2xl !font-medium;
+}
+
+.mediji-content h6 {
+  @apply !text-sm !uppercase;
+}
+
 .white-links a {
   @apply !text-white !underline;
 }

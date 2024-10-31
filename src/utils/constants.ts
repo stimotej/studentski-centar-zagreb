@@ -83,6 +83,10 @@ export const obavijestiKulturaCategory = 127;
 export const obavijestiPrehranaCategory = 164;
 export const obavijestiPocetnaStranicaCategory = 270;
 
+// MEDIJI
+
+export const medijiPost = 30690;
+
 // FOR HOME PAGE
 
 export const pocetnaOpceInformacijePost = 8585;

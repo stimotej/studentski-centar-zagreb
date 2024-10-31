@@ -26,6 +26,15 @@ export const usePost = (slug: string) => {
   return useQuery(postsKeys.post(slug), () => getPost(slug));
 };
 
+export const getPostById = async (id: number) => {
+  const response = await axios.get<Post<PostsMeta>>(`/posts/${id}`);
+  return response.data;
+};
+
+export const usePostById = (id: number) => {
+  return useQuery(postsKeys.postById(id), () => getPostById(id));
+};
+
 interface FiltersType {
   categories?: number[];
   include?: number[];
