@@ -39,8 +39,8 @@ const items = [
     title: "Cjenik",
     content: `<p>Cjenici smještaja:</p>
 <ul>
-<li><a href="http://161.53.174.14/wp-content/uploads/2022/09/subvencionirani-cjenik-2022.pdf">Subvencionirani smještaj</a></li>
-<li><a target="_blank" href="http://161.53.174.14/wp-content/uploads/2022/09/nesubvencionirani-cjenik-2022.pdf" rel="noopener">Nesubvencionirani smještaj</a></li>
+<li><a href="https://www.sczg.unizg.hr/wp-content/uploads/2022/09/subvencionirani-cjenik-2022.pdf">Subvencionirani smještaj</a></li>
+<li><a target="_blank" href="https://www.sczg.unizg.hr/wp-content/uploads/2022/09/nesubvencionirani-cjenik-2022.pdf" rel="noopener">Nesubvencionirani smještaj</a></li>
 </ul>
 <p style="text-align: justify;"><span>Subvencionirani cjenik smještaja odnosi se na studente-stanare koji su ostvarili pravo na smještaj putem Natječaja&nbsp;za raspodjelu mjesta redovitim studentima za subvencionirano stanovanje u studentske domove Studentskog centra u Zagrebu&nbsp;ili putem posebnih odluka Ministarstva znanosti i obrazovanja te time stekli pravo na subvenciju troškova smještaja u studentskom domu Studentskog centra u Zagrebu.<o:p></o:p></span></p>
 <p style="text-align: justify;"><span>Nesubvencionirani cjenik primjenjuje se prilikom naplate smještaja studenata koji ne ostvaruju pravo na subvenciju stanarine od strane Ministarstva znanosti i obrazovanja, npr. dolaze u sklopu međunarodne (Erasmus, fakultetska bilateralna razmjena…) ili međusveučilišne razmjene. </span></p>`,

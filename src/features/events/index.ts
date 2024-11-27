@@ -10,7 +10,13 @@ export const getEvent = async (slug: string) => {
       timestamp: new Date().getTime(),
     },
   });
-  return response.data;
+  return {
+    ...response.data,
+    image: (response.data.image || "").replace(
+      "161.53.174.14",
+      "www.sczg.unizg.hr"
+    ),
+  };
 };
 
 export const useEvent = (slug: string) => {
@@ -24,7 +30,10 @@ export const getEvents = async () => {
     },
   });
 
-  return response.data;
+  return response.data.map((event) => ({
+    ...event,
+    image: (event.image || "").replace("161.53.174.14", "www.sczg.unizg.hr"),
+  }));
 };
 
 export const useEvents = () => {
@@ -38,7 +47,10 @@ export const getNewEvents = async () => {
     },
   });
 
-  return response.data;
+  return response.data.map((event) => ({
+    ...event,
+    image: (event.image || "").replace("161.53.174.14", "www.sczg.unizg.hr"),
+  }));
 };
 
 export const useNewEvents = () => {
@@ -52,7 +64,10 @@ export const getSliderEvents = async () => {
     },
   });
 
-  return response.data;
+  return response.data.map((event) => ({
+    ...event,
+    image: (event.image || "").replace("161.53.174.14", "www.sczg.unizg.hr"),
+  }));
 };
 
 export const useSliderEvents = () => {
@@ -66,7 +81,10 @@ export const getCourses = async () => {
     },
   });
 
-  return response.data;
+  return response.data.map((event) => ({
+    ...event,
+    image: (event.image || "").replace("161.53.174.14", "www.sczg.unizg.hr"),
+  }));
 };
 
 export const useCourses = () => {

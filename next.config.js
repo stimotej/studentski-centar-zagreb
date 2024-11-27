@@ -2,10 +2,10 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    loader: "custom",
-    loaderFile: "./image-loader.ts",
+    // loader: "custom",
+    // loaderFile: "./image-loader.ts",
 
-    domains: ["localhost", "161.53.174.14"],
+    domains: ["localhost", "161.53.174.14", "www.sczg.unizg.hr"],
   },
 };
 

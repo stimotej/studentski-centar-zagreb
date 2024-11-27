@@ -10,7 +10,10 @@ export const getCalendarEvents = async () => {
     },
   });
 
-  return response.data;
+  return response.data.map((event) => ({
+    ...event,
+    image: (event.image || "").replace("161.53.174.14", "www.sczg.unizg.hr"),
+  }));
 };
 
 export const useCalendarEvents = (initialData?: CalendarEvent[]) => {

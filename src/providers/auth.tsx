@@ -15,10 +15,10 @@ const userSchema = z.object({
 
 type User = z.infer<typeof userSchema>;
 
-axios.defaults.baseURL =
-  typeof window === "undefined"
-    ? process.env.NEXT_PUBLIC_SC_API_URL
-    : "/api/data";
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_SC_API_URL;
+// typeof window === "undefined"
+//   ? process.env.NEXT_PUBLIC_SC_API_URL
+//   : "/api/data";
 
 interface AuthContextData {
   user: User | null;
@@ -47,7 +47,7 @@ const AuthProvider: React.FC<AuthProviderProps> = (props) => {
       const token = localStorage.getItem("access-token");
       try {
         const response = await axios.post<ValidateTokenResponse>(
-          "http://161.53.174.14/wp-json/jwt-auth/v1/token/validate",
+          "https://www.sczg.unizg.hr/wp-json/jwt-auth/v1/token/validate",
           {},
           {
             headers: {
@@ -70,7 +70,7 @@ const AuthProvider: React.FC<AuthProviderProps> = (props) => {
   const login = async (username: string, password: string) => {
     try {
       const response = await axios.post<LoginResponse>(
-        "http://161.53.174.14/wp-json/jwt-auth/v1/token",
+        "https://www.sczg.unizg.hr/wp-json/jwt-auth/v1/token",
         {
           username,
           password,

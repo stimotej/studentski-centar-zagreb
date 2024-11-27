@@ -9,7 +9,13 @@ export const getBanners = async () => {
       timestamp: new Date().getTime(),
     },
   });
-  return response.data;
+  return response.data.map((banner) => ({
+    ...banner,
+    image_url: (banner.image_url || "").replace(
+      "161.53.174.14",
+      "www.sczg.unizg.hr"
+    ),
+  }));
 };
 
 export const useBanners = () => {
