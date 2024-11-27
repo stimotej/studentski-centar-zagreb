@@ -92,7 +92,7 @@ const JobPage: NextPage = () => {
             job?.meta.active_until
           ).format("DD.MM.YYYY")}`}</p>
 
-          {job.meta.image && (
+          {job?.meta.image ? (
             <Image
               src={job.meta.image}
               alt={job.meta.title || ""}
@@ -100,7 +100,7 @@ const JobPage: NextPage = () => {
               width={900}
               height={600}
             />
-          )}
+          ) : null}
 
           {!!job?.meta.description && (
             <>
@@ -233,7 +233,7 @@ const JobPage: NextPage = () => {
             )}
         </div>
         <div className="w-full lg:w-[30%]">
-          {job.meta.image && (
+          {job?.meta.image ? (
             <Image
               src={job.meta.image}
               alt={job.meta.title || ""}
@@ -241,8 +241,8 @@ const JobPage: NextPage = () => {
               width={900}
               height={600}
             />
-          )}
-          {!!job.meta.documents.length && (
+          ) : null}
+          {!!job?.meta.documents.length ? (
             <div className="mb-6">
               <h4 className="uppercase text-text text-sm tracking-wide font-medium">
                 Dokumenti
@@ -253,7 +253,7 @@ const JobPage: NextPage = () => {
                 ))}
               </div>
             </div>
-          )}
+          ) : null}
           <Card className="w-full sticky top-20">
             <div className="flex flex-wrap gap-3 items-center">
               <Image
