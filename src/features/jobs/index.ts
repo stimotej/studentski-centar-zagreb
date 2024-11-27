@@ -26,13 +26,7 @@ export const getInfiniteJobs = async () => {
       filter_by_date: true,
     },
   });
-  return response.data.map((post) => ({
-    ...post,
-    image_url: (post.image_url || "").replace(
-      "161.53.174.14",
-      "www.sczg.unizg.hr"
-    ),
-  }));
+  return response.data;
 };
 
 export const useJobs = (filters: JobsFilters) => {
@@ -53,16 +47,7 @@ export const useJobs = (filters: JobsFilters) => {
         },
       });
       totalPages.current = response.headers?.["x-wp-totalpages"];
-      return response.data.map((post) => {
-        const imageUrl = (post.image_url || "").replace(
-          "161.53.174.14",
-          "www.sczg.unizg.hr"
-        );
-        return {
-          ...post,
-          image_url: imageUrl,
-        };
-      });
+      return response.data;
     },
     {
       getNextPageParam: (lastPage, pages) => {
@@ -79,15 +64,7 @@ export const getJob = async (slug: string) => {
       timestamp: new Date().getTime(),
     },
   });
-  return response.data[0]
-    ? {
-        ...response.data[0],
-        image_url: (response.data[0].image_url || "").replace(
-          "161.53.174.14",
-          "www.sczg.unizg.hr"
-        ),
-      }
-    : null;
+  return response.data[0] || null;
 };
 
 export const useJob = (slug: string) => {
@@ -106,13 +83,7 @@ export const getJobsHome = async () => {
   const response = await axios.get<Post<JobsMeta>[]>("/jobs", {
     params: filters,
   });
-  return response.data.map((post) => ({
-    ...post,
-    image_url: (post.image_url || "").replace(
-      "161.53.174.14",
-      "www.sczg.unizg.hr"
-    ),
-  }));
+  return response.data;
 };
 
 export const useJobsHome = (initialData?: Post<JobsMeta>[]) => {
@@ -123,13 +94,7 @@ export const getJobPage = async () => {
   const response = await axios.get<Post<JobsMeta>>(`/pages/${jobsPageId}`, {
     params: filters,
   });
-  return {
-    ...response.data,
-    image_url: (response.data.image_url || "").replace(
-      "161.53.174.14",
-      "www.sczg.unizg.hr"
-    ),
-  };
+  return response.data;
 };
 
 export const useJobPage = () => {

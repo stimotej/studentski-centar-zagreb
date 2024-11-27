@@ -19,13 +19,7 @@ export const getPost = async (slug: string) => {
       timestamp: new Date().getTime(),
     },
   });
-  return {
-    ...response.data[0],
-    image_url: (response.data[0].image_url || "").replace(
-      "161.53.174.14",
-      "www.sczg.unizg.hr"
-    ),
-  };
+  return response.data[0];
 };
 
 export const usePost = (slug: string) => {
@@ -34,13 +28,7 @@ export const usePost = (slug: string) => {
 
 export const getPostById = async (id: number) => {
   const response = await axios.get<Post<PostsMeta>>(`/posts/${id}`);
-  return {
-    ...response.data,
-    image_url: (response.data.image_url || "").replace(
-      "161.53.174.14",
-      "www.sczg.unizg.hr"
-    ),
-  };
+  return response.data;
 };
 
 export const usePostById = (id: number) => {
@@ -68,13 +56,7 @@ export const getPosts = async (filters?: FiltersType) => {
       ...filters,
     },
   });
-  return response.data.map((post) => ({
-    ...post,
-    image_url: (post.image_url || "").replace(
-      "161.53.174.14",
-      "www.sczg.unizg.hr"
-    ),
-  }));
+  return response.data;
 };
 
 export const usePosts = (filters?: FiltersType) => {

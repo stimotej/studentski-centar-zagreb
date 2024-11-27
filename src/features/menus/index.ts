@@ -25,13 +25,7 @@ export const getMenus = async (filters: MenuFilters) => {
       ...filters,
     },
   });
-  return response.data.map((post) => ({
-    ...post,
-    image_url: (post.image_url || "").replace(
-      "161.53.174.14",
-      "www.sczg.unizg.hr"
-    ),
-  }));
+  return response.data;
 };
 
 export const useMenus = (

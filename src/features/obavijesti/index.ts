@@ -29,13 +29,7 @@ export const getInfiniteObavijesti = async () => {
       categories_exclude: [obavijestiPocetnaStranicaCategory],
     },
   });
-  return response.data.map((post) => ({
-    ...post,
-    image_url: (post.image_url || "").replace(
-      "161.53.174.14",
-      "www.sczg.unizg.hr"
-    ),
-  }));
+  return response.data;
 };
 
 export const useObavijesti = (filters: ObavijestiFilters) => {
@@ -55,16 +49,7 @@ export const useObavijesti = (filters: ObavijestiFilters) => {
         },
       });
       totalPages.current = response.headers?.["x-wp-totalpages"];
-      return response.data.map((post) => {
-        const imageUrl = (post.image_url || "").replace(
-          "161.53.174.14",
-          "www.sczg.unizg.hr"
-        );
-        return {
-          ...post,
-          image_url: imageUrl,
-        };
-      });
+      return response.data;
     },
     {
       getNextPageParam: (lastPage, pages) => {
@@ -101,13 +86,7 @@ export const getObavijestiHome = async () => {
   const response = await axios.get<Post<ObavijestiMeta>[]>("/obavijesti", {
     params: filters,
   });
-  return response.data.map((post) => ({
-    ...post,
-    image_url: (post.image_url || "").replace(
-      "161.53.174.14",
-      "www.sczg.unizg.hr"
-    ),
-  }));
+  return response.data;
 };
 
 export const useObavijestiHome = (initialData?: Post<ObavijestiMeta>[]) => {
@@ -126,13 +105,7 @@ export const getObavijestiPage = async (category: number) => {
       categories: [category],
     },
   });
-  return response.data.map((post) => ({
-    ...post,
-    image_url: (post.image_url || "").replace(
-      "161.53.174.14",
-      "www.sczg.unizg.hr"
-    ),
-  }));
+  return response.data;
 };
 
 export const useObavijestiPage = (category: number) => {
@@ -149,13 +122,7 @@ export const getSliderObavijesti = async () => {
       categories: [sliderCategoryId],
     },
   });
-  return response.data.map((post) => ({
-    ...post,
-    image_url: (post.image_url || "").replace(
-      "161.53.174.14",
-      "www.sczg.unizg.hr"
-    ),
-  }));
+  return response.data;
 };
 
 export const useSliderObavijesti = (initialData?: Post<ObavijestiMeta>[]) => {
