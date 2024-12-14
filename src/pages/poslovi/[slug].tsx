@@ -51,18 +51,18 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
+      slug,
     },
     revalidate: 60 * 10,
   };
 };
 
-const JobPage: NextPage = () => {
+const JobPage: NextPage<{
+  slug: string;
+}> = ({ slug }) => {
   const router = useRouter();
-  const { slug } = router.query;
 
-  const { data: job, isLoading } = useJob(
-    (Array.isArray(slug) ? slug[0] : slug) || ""
-  );
+  const { data: job, isLoading } = useJob(slug);
 
   if (!isLoading && !job)
     return (

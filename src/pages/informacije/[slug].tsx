@@ -48,18 +48,18 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
+      slug,
     },
     revalidate: 60 * 10,
   };
 };
 
-const InfoPostPage: NextPage = () => {
+const InfoPostPage: NextPage<{
+  slug: string;
+}> = ({ slug }) => {
   const router = useRouter();
-  const { slug } = router.query;
 
-  const { data: obavijest, isLoading } = usePost(
-    (Array.isArray(slug) ? slug[0] : slug) || ""
-  );
+  const { data: obavijest, isLoading } = usePost(slug);
 
   if (!isLoading && !obavijest)
     return (

@@ -52,18 +52,18 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
+      slug,
     },
     revalidate: 60 * 10,
   };
 };
 
-const ObavijestPage: NextPage = () => {
+const ObavijestPage: NextPage<{
+  slug: string;
+}> = ({ slug }) => {
   const router = useRouter();
-  const { slug } = router.query;
 
-  const { data: obavijest, isLoading } = useObavijest(
-    (Array.isArray(slug) ? slug[0] : slug) || ""
-  );
+  const { data: obavijest, isLoading } = useObavijest(slug);
 
   if (!isLoading && !obavijest)
     return (
