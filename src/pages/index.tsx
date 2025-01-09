@@ -205,7 +205,7 @@ const Home: NextPage = () => {
           />
           {faqs?.filter((item) => item.categories.includes(faqPocetnaCategory))
             .length > 8 && (
-            <ButtonLink href="/faq" className="mx-auto mt-6">
+            <ButtonLink href="/informacije" className="mx-auto mt-6">
               Vidi sve
             </ButtonLink>
           )}
