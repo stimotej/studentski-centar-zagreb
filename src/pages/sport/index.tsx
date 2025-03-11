@@ -444,8 +444,8 @@ const SportPage: NextPage = () => {
       }
     >
       <PageTitle
-        title="Sport"
-        subtitle="U ponudi rekreativnih aktivnosti koje su dostupne svim studentima Sveučilišta u Zagrebu, najviše je zanimanja za programe: fitness, aerobik, zumba fitness, funkcionalno-kondicijski trening."
+        title="SPORT"
+        // subtitle="U ponudi rekreativnih aktivnosti koje su dostupne svim studentima Sveučilišta u Zagrebu, najviše je zanimanja za programe: fitness, aerobik, zumba fitness, funkcionalno-kondicijski trening."
       />
 
       <PagePosts category={obavijestiSportCategory} className="mt-12" />

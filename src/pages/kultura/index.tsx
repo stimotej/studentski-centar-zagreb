@@ -15,7 +15,7 @@ import {
   useSliderEvents,
 } from "@/features/events";
 import eventKeys from "@/features/events/queries";
-import { getObavijestiPage, useObavijestiPage } from "@/features/obavijesti";
+import { getObavijestiPage } from "@/features/obavijesti";
 import obavijestiKeys from "@/features/obavijesti/queries";
 import { getPosts, usePosts } from "@/features/posts";
 import postsKeys from "@/features/posts/queries";

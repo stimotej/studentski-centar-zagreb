@@ -45,7 +45,7 @@ interface FiltersType {
 const defaultFilters = {
   per_page: 100,
   orderby: "date",
-  order: "asc",
+  order: "desc",
   timestamp: new Date().getTime(),
 };
 
