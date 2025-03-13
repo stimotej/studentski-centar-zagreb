@@ -1,6 +1,5 @@
 import ButtonLink from "@/components/elements/ButtonLink";
 import Spinner from "@/components/elements/Spinner";
-import BlueCard from "@/components/shared/BlueCard";
 import ContentCard from "@/components/shared/ContentCard";
 import FAQCards from "@/components/shared/FAQCards";
 import InfoPostCard from "@/components/shared/InfoPostCard";
@@ -11,7 +10,6 @@ import PostSlider from "@/components/shared/PostSlider";
 import Section from "@/components/shared/Section";
 import SectionTitle from "@/components/shared/SectionTitle";
 import InfoToggles from "@/components/smjestaj/InfoToggles";
-import NatjecajCard from "@/components/smjestaj/NatjecajCard";
 import { getObavijestiPage } from "@/features/obavijesti";
 import obavijestiKeys from "@/features/obavijesti/queries";
 import { getPosts, usePosts } from "@/features/posts";
@@ -23,12 +21,10 @@ import {
   infoSmjestajDormitoriesCategory,
   infoSmjestajForeignStudentsCategory,
   infoSmjestajInfoCategory,
-  infoSmjestajNatjecajCategory,
   obavijestiSmjestajCategory,
 } from "@/utils/constants";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import type { GetStaticProps, NextPage } from "next";
-import React from "react";
 
 export const getStaticProps: GetStaticProps = async () => {
   const queryClient = new QueryClient();

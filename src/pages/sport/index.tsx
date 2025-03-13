@@ -37,6 +37,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const queryClient = new QueryClient();
 
   const postsFilters = {
+    order: "desc",
     categories: [
       infoSportRekreacijskeCategory,
       infoSportEdukacijskeCategory,
@@ -72,6 +73,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
 const SportPage: NextPage = () => {
   const { data: posts, isLoading } = usePosts({
+    order: "desc",
     categories: [
       infoSportRekreacijskeCategory,
       infoSportEdukacijskeCategory,
