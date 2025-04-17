@@ -31,7 +31,7 @@ import calendarKeys from "@/features/calendar/queries";
 import { getPosts, usePosts } from "@/features/posts";
 import postsKeys from "@/features/posts/queries";
 import DisplayHTML from "@/components/elements/DisplayHTML";
-import OTPBanner from "@/components/ads/OTPBanner";
+// import OTPBanner from "@/components/ads/OTPBanner";
 
 export const getStaticProps: GetStaticProps = async () => {
   const queryClient = new QueryClient();
@@ -109,7 +109,7 @@ const Home: NextPage = () => {
       }
       bottomComponent={<HelpSection />}
     >
-      <OTPBanner />
+      {/* <OTPBanner /> */}
       <LinkCards />
       <div className="mt-6 flex flex-col gap-16 md:flex-row">
         <div className="w-full md:w-[70%]">
