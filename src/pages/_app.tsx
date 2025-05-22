@@ -9,6 +9,8 @@ import {
 } from "@tanstack/react-query";
 import AccessibilitySettings from "@/components/shared/AccessibilitySettings";
 import ScrollToTop from "@/components/shared/ScrollToTop";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -19,6 +21,12 @@ const queryClient = new QueryClient({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
+  const router = useRouter();
+
+  useEffect(() => {
+    sessionStorage.setItem("lastPage", router.pathname);
+  }, [router.pathname]);
+
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>

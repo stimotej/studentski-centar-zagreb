@@ -15,6 +15,7 @@ import { obavijestiCategoryId } from "@/utils/constants";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import obavijestiKeys from "@/features/obavijesti/queries";
 import categoryKeys from "@/features/categories/queries";
+import { useScrollRestoration } from "@/hooks/useScrollRestoration";
 
 export const getStaticProps: GetStaticProps = async () => {
   const queryClient = new QueryClient();
@@ -56,6 +57,8 @@ const ObavijestiPage: NextPage = () => {
   });
 
   const { data: categories } = useCategories(obavijestiCategoryId);
+
+  useScrollRestoration();
 
   return (
     <Layout

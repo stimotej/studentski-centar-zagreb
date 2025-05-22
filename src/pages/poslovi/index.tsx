@@ -26,6 +26,7 @@ import { getPosts, usePosts } from "@/features/posts";
 import LoginInfoCard from "@/components/login-poslodavac/LoginInfoCard";
 import postsKeys from "@/features/posts/queries";
 import clearHtmlFromString from "@/utils/clearHtmlFromString";
+import { useScrollRestoration } from "@/hooks/useScrollRestoration";
 
 export const getStaticProps: GetStaticProps = async () => {
   const queryClient = new QueryClient();
@@ -91,6 +92,8 @@ const PosloviPage: NextPage = () => {
   const { data: categories } = useCategories(jobsCategoryId);
 
   const { data: banners } = useBanners();
+
+  useScrollRestoration();
 
   return (
     <Layout
