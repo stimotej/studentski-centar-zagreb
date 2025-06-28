@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import type { GetStaticProps, NextPage } from "next";
 import PageTitle from "@/components/shared/PageTitle";
 import Layout from "@/components/shared/Layout";
@@ -27,6 +27,7 @@ import LoginInfoCard from "@/components/login-poslodavac/LoginInfoCard";
 import postsKeys from "@/features/posts/queries";
 import clearHtmlFromString from "@/utils/clearHtmlFromString";
 import { useScrollRestoration } from "@/hooks/useScrollRestoration";
+import { useRouter } from "next/router";
 
 export const getStaticProps: GetStaticProps = async () => {
   const queryClient = new QueryClient();
@@ -68,8 +69,22 @@ export const getStaticProps: GetStaticProps = async () => {
 };
 
 const PosloviPage: NextPage = () => {
-  const [category, setCategory] = useState<number>(jobsCategoryId);
+  const router = useRouter();
+
+  const category = router.query.category
+    ? Number(router.query.category)
+    : jobsCategoryId;
+
+  const searchQuery = router.query.q
+    ? Array.isArray(router.query.q)
+      ? router.query.q[0]
+      : router.query.q
+    : "";
+
   const [search, setSearch] = useState("");
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const isDefaultSearchSet = useRef(false);
+
   const debouncedSearch = useDebounce(search, 300);
 
   const {
@@ -81,6 +96,7 @@ const PosloviPage: NextPage = () => {
   } = useJobs({
     search: debouncedSearch,
     categories: category === jobsCategoryId ? undefined : [category],
+    orderby: category === jobsCategoryId ? "date" : "featured",
   });
 
   const { data: postObrasci } = usePosts({
@@ -94,6 +110,67 @@ const PosloviPage: NextPage = () => {
   const { data: banners } = useBanners();
 
   useScrollRestoration();
+
+  const handleChangeCategory = (value: number) => {
+    const routerQuery = router.query;
+
+    if (value === jobsCategoryId) {
+      delete routerQuery.category;
+    } else {
+      routerQuery.category = value.toString();
+    }
+
+    router.push(
+      {
+        query: routerQuery,
+      },
+      undefined,
+      { shallow: true }
+    );
+  };
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+
+    setSearch(value);
+
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
+    timeoutRef.current = setTimeout(() => {
+      const routerQuery = router.query;
+
+      if (value) {
+        routerQuery.q = value;
+      } else {
+        delete routerQuery.q;
+      }
+
+      router.replace(
+        {
+          query: routerQuery,
+        },
+        undefined,
+        { shallow: true }
+      );
+    }, 500);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (searchQuery && !isDefaultSearchSet.current) {
+      setSearch(searchQuery);
+      isDefaultSearchSet.current = true;
+    }
+  }, [searchQuery]);
 
   return (
     <Layout
@@ -147,13 +224,13 @@ const PosloviPage: NextPage = () => {
         <div className="w-full md:w-[25%]">
           <TextInput
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={handleSearch}
             placeholder="Pretraži poslove..."
             type="search"
           />
           <FilterSelect
             value={category || 0}
-            onChange={setCategory}
+            onChange={handleChangeCategory}
             title="Vrsta posla"
             className="md:mt-8"
             items={
