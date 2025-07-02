@@ -17,7 +17,6 @@ import axios from "axios";
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useRouter } from "next/router";
 import type { ParsedUrlQuery } from "querystring";
-import React, { useRef } from "react";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const { data: posts } = await axios.get<Post<PostsMeta>[]>("/posts", {
@@ -66,15 +65,15 @@ const DormitoryPage: NextPage<{
 
   const { data: obavijest, isLoading } = usePost(slug);
 
-  const postCardRefs = useRef<Array<HTMLDivElement | null>>([]);
-  const postsContainerRefs = useRef<Array<HTMLDivElement | null>>([]);
+  // const postCardRefs = useRef<Array<HTMLDivElement | null>>([]);
+  // const postsContainerRefs = useRef<Array<HTMLDivElement | null>>([]);
 
-  const handleScrollPosts = (scrollBy: number, index: number) => {
-    postsContainerRefs.current[index]?.scrollBy({
-      left: scrollBy,
-      behavior: "smooth",
-    });
-  };
+  // const handleScrollPosts = (scrollBy: number, index: number) => {
+  //   postsContainerRefs.current[index]?.scrollBy({
+  //     left: scrollBy,
+  //     behavior: "smooth",
+  //   });
+  // };
 
   if (!isLoading && !obavijest)
     return (
@@ -107,12 +106,12 @@ const DormitoryPage: NextPage<{
             </div>
 
             <BlueCard
-              title="Natječaj za smještaj 2022/2023"
+              title="Natječaj za smještaj 2025/2026"
               description="Za prijavu na natječaj za studentski smještaj prijavite se putem linka  nastavku."
               className="my-12"
               action={{
                 title: "Prijava za natječaj",
-                href: "https://natjecaj.sczg.hr/student",
+                href: "https://www.sczg.unizg.hr/wp-content/uploads/2025/06/Natjecaj-S-B-2025_2026-3.pdf",
                 isRegularLink: true,
               }}
             />

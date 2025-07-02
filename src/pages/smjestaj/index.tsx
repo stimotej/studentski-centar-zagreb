@@ -203,7 +203,7 @@ const SmjestajPage: NextPage = () => {
           image="/slike/smjestaj/ikone/lijecnicki_pregled.png"
           title="Liječnički pregled za smještaj"
           content={`<div class="et_pb_blurb_description">Isti se provodi se u svrhu utvrđivanja zdravstvenih rizika za boravak u kolektivu. <b></b>Molimo studente da se na pregled u ambulantu naruče telefonski.
-<br><a href="/dokumenti/smjestaj/Nadlezni-lijecnici-2023.pdf">Raspored ambulanti</a></div>`}
+<br><a href="https://www.sczg.unizg.hr/wp-content/uploads/2025/06/raspored-timova-novi.pdf">Raspored ambulanti</a></div>`}
           imageClassName="w-[90px] h-[90px] object-contain"
           contentClassName="text-light leading-relaxed"
         />

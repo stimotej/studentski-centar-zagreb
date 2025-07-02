@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className="bg-[#222222] text-light">
       <div className="flex items-center flex-wrap gap-3 justify-between container md:max-w-[80%] mx-auto px-6 py-4 md:px-0">
         <span>
-          Studentski centar u Zagrebu | 2023 | Izradio{" "}
+          Studentski centar u Zagrebu | {new Date().getFullYear()} | Izradio{" "}
           <a
             href="https://refresh.hr/"
             className="hover:text-white/80 active:text-white/60 hover:underline"
