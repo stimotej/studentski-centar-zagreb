@@ -1,5 +1,6 @@
 import {
   obavijestiPocetnaStranicaCategory,
+  obavijestiTeatarTdCategoryId,
   sliderCategoryId,
 } from "@/utils/constants";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
@@ -26,7 +27,10 @@ export const getInfiniteObavijesti = async () => {
       search: "",
       categories: undefined,
       filter_by_date: true,
-      categories_exclude: [obavijestiPocetnaStranicaCategory],
+      categories_exclude: [
+        obavijestiPocetnaStranicaCategory,
+        obavijestiTeatarTdCategoryId,
+      ],
     },
   });
   return response.data;
@@ -44,7 +48,10 @@ export const useObavijesti = (filters: ObavijestiFilters) => {
           page: pageParam,
           timestamp: new Date().getTime(),
           filter_by_date: true,
-          categories_exclude: [obavijestiPocetnaStranicaCategory],
+          categories_exclude: [
+            obavijestiPocetnaStranicaCategory,
+            obavijestiTeatarTdCategoryId,
+          ],
           ...filters,
         },
       });
@@ -78,7 +85,10 @@ const filters = {
   orderby: "date",
   order: "desc",
   filter_by_date: true,
-  categories_exclude: [obavijestiPocetnaStranicaCategory],
+  categories_exclude: [
+    obavijestiPocetnaStranicaCategory,
+    obavijestiTeatarTdCategoryId,
+  ],
   timestamp: new Date().getTime(),
 };
 
