@@ -82,7 +82,7 @@ export const obavijestiSportCategory = 165;
 export const obavijestiKulturaCategory = 127;
 export const obavijestiPrehranaCategory = 164;
 export const obavijestiPocetnaStranicaCategory = 270;
-export const obavijestiTeatarTdCategoryId = 315;
+export const obavijestiTeatarTdCategoryId = 317;
 
 // MEDIJI
 
