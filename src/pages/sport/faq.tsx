@@ -1,46 +1,35 @@
-import Spinner from "@/components/elements/Spinner";
 import FAQCards from "@/components/shared/FAQCards";
 import Layout from "@/components/shared/Layout";
 import PageTitle from "@/components/shared/PageTitle";
-import { getPosts, usePosts } from "@/features/posts";
-import postsKeys from "@/features/posts/queries";
-import { faqSportCategory } from "@/utils/constants";
-import { dehydrate, QueryClient } from "@tanstack/react-query";
-import type { GetStaticProps, NextPage } from "next";
-import React from "react";
+import { getPosts } from "@/features/posts";
+import type { Post, PostsMeta } from "@/features/types";
+import { faqSportCategory, revalidateTime } from "@/utils/constants";
+import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
 
-export const getStaticProps: GetStaticProps = async () => {
-  const queryClient = new QueryClient();
-
-  const postsFilters = {
-    categories: [faqSportCategory],
-  };
-
-  await queryClient.prefetchQuery(postsKeys.postsFiltered(postsFilters), () =>
-    getPosts(postsFilters)
-  );
-
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-    },
-    revalidate: 60 * 10,
-  };
+type SportFaq = {
+  posts: Post<PostsMeta>[];
 };
 
-const FAQPage: NextPage = () => {
-  const { data: posts, isLoading } = usePosts({
+export const getStaticProps: GetStaticProps<SportFaq> = async () => {
+  const posts = await getPosts({
     categories: [faqSportCategory],
   });
 
+  return {
+    props: {
+      posts,
+    },
+    revalidate: revalidateTime,
+  };
+};
+
+const FAQPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
+  posts,
+}) => {
   return (
     <Layout title="Često postavljana pitanja">
       <PageTitle title="Često postavljana pitanja" />
-      {isLoading ? (
-        <div className="py-24">
-          <Spinner className="mx-auto" />
-        </div>
-      ) : !posts?.length ? (
+      {posts.length <= 0 ? (
         <p className="text-center text-light my-24">Nema pitanja za prikaz</p>
       ) : (
         <FAQCards
@@ -50,7 +39,6 @@ const FAQPage: NextPage = () => {
               content: item.content.rendered,
             })) || []
           }
-          loading={isLoading}
           className="my-12"
         />
       )}

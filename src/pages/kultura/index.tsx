@@ -8,79 +8,61 @@ import Layout from "@/components/shared/Layout";
 import PageTitle from "@/components/shared/PageTitle";
 import PagePosts from "@/components/shared/PagePosts";
 import SectionTitle from "@/components/shared/SectionTitle";
-import {
-  getNewEvents,
-  getSliderEvents,
-  useNewEvents,
-  useSliderEvents,
-} from "@/features/events";
-import eventKeys from "@/features/events/queries";
+import { getNewEvents, getSliderEvents } from "@/features/events";
 import { getObavijestiPage } from "@/features/obavijesti";
-import obavijestiKeys from "@/features/obavijesti/queries";
-import { getPosts, usePosts } from "@/features/posts";
-import postsKeys from "@/features/posts/queries";
+import { getPosts } from "@/features/posts";
 import {
   faqKulturaCategory,
   infoKulturaLokacijeCategory,
   obavijestiKulturaCategory,
+  revalidateTime,
 } from "@/utils/constants";
-import { dehydrate, QueryClient } from "@tanstack/react-query";
 import dayjs from "dayjs";
-import type { GetStaticProps, NextPage } from "next";
-import React from "react";
+import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
 import clearHtmlFromString from "@/utils/clearHtmlFromString";
-import Spinner from "@/components/elements/Spinner";
+import type { ObavijestiMeta, Post, PostsMeta, Event } from "@/features/types";
 
-export const getStaticProps: GetStaticProps = async () => {
-  const queryClient = new QueryClient();
+type KulturaProps = {
+  events: Event[];
+  sliderEvents: Event[];
+  posts: Post<PostsMeta>[];
+  locations: Post<PostsMeta>[];
+  obavijesti: Post<ObavijestiMeta>[];
+};
 
-  await queryClient.prefetchQuery(eventKeys.newEvents, getNewEvents);
-  await queryClient.prefetchQuery(eventKeys.sliderEvents, getSliderEvents);
+export const getStaticProps: GetStaticProps<KulturaProps> = async () => {
+  const events = await getNewEvents();
+  const sliderEvents = await getSliderEvents();
 
-  const postsFilters = {
+  const posts = await getPosts({
     categories: [faqKulturaCategory],
-  };
+  });
 
-  await queryClient.prefetchQuery(postsKeys.postsFiltered(postsFilters), () =>
-    getPosts(postsFilters)
-  );
-
-  const locationsFilters = {
+  const locations = await getPosts({
     categories: [infoKulturaLokacijeCategory],
-  };
+  });
 
-  await queryClient.prefetchQuery(
-    postsKeys.postsFiltered(locationsFilters),
-    () => getPosts(locationsFilters)
-  );
-
-  await queryClient.prefetchQuery(
-    obavijestiKeys.obavijestiFiltered({
-      categories: [obavijestiKulturaCategory],
-    }),
-    () => getObavijestiPage(obavijestiKulturaCategory)
-  );
+  const obavijesti = await getObavijestiPage(obavijestiKulturaCategory);
 
   return {
     props: {
-      dehydratedState: dehydrate(queryClient),
+      events,
+      sliderEvents,
+      locations,
+      posts,
+      obavijesti,
     },
-    revalidate: 60 * 10,
+    revalidate: revalidateTime,
   };
 };
 
-const KulturaPage: NextPage = () => {
-  const { data: events, isLoading } = useNewEvents();
-  const { data: sliderEvents } = useSliderEvents();
-
-  const { data: posts, isLoading: isLoadingPosts } = usePosts({
-    categories: [faqKulturaCategory],
-  });
-
-  const { data: locations, isLoading: isLoadingLocations } = usePosts({
-    categories: [infoKulturaLokacijeCategory],
-  });
-
+const KulturaPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
+  events,
+  sliderEvents,
+  locations,
+  posts,
+  obavijesti,
+}) => {
   const todaysEvents = events?.filter((event) =>
     dayjs(event.event_date).isSame(dayjs(), "day")
   );
@@ -139,26 +121,22 @@ const KulturaPage: NextPage = () => {
         </div>
       </div>
 
-      <PagePosts category={obavijestiKulturaCategory} className="mt-12" />
+      <PagePosts posts={obavijesti} className="mt-12" />
 
       <UlazniceZaTD className="my-12" />
 
-      {isLoadingLocations ? (
-        <Spinner className="mx-auto mb-12" />
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
-          {locations?.map((location) => (
-            <ContentCard
-              key={location.id}
-              image={location.image_url}
-              title={clearHtmlFromString(location.title.rendered)}
-              content={location.excerpt.rendered}
-              action={{ title: "SAZNAJ VIŠE", href: location.meta.link }}
-              className="flex-1"
-            />
-          ))}
-        </div>
-      )}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+        {locations?.map((location) => (
+          <ContentCard
+            key={location.id}
+            image={location.image_url}
+            title={clearHtmlFromString(location.title.rendered)}
+            content={location.excerpt.rendered}
+            action={{ title: "SAZNAJ VIŠE", href: location.meta.link }}
+            className="flex-1"
+          />
+        ))}
+      </div>
       <ContentCard
         title="Tečajevi i radionice"
         titleClassName="!text-xl md:!text-2xl font-semibold !text-blue-600 include-filters"
@@ -174,9 +152,9 @@ const KulturaPage: NextPage = () => {
         <div className="flex flex-col lg:flex-row gap-6">
           <EventCards
             events={events}
-            loading={isLoading}
             emptyMessage="Nema novih evenata za prikaz"
             className="w-full"
+            loading={false}
             // className="w-full lg:w-2/3"
           />
           {/* <div className="w-full lg:w-1/3"></div> */}
@@ -202,7 +180,6 @@ const KulturaPage: NextPage = () => {
                   content: item.content.rendered,
                 })) || []
             }
-            loading={isLoadingPosts}
           />
           {posts?.filter((item) => item.categories.includes(faqKulturaCategory))
             .length > 8 && (

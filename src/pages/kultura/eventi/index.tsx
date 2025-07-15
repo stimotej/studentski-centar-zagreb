@@ -1,34 +1,36 @@
 import EventCards from "@/components/kultura/EventCards";
 import Layout from "@/components/shared/Layout";
 import PageTitle from "@/components/shared/PageTitle";
-import { getEvents, useEvents } from "@/features/events";
-import eventKeys from "@/features/events/queries";
-import { dehydrate, QueryClient } from "@tanstack/react-query";
-import { type GetStaticProps } from "next";
-import React from "react";
+import { getEvents } from "@/features/events";
+import type { Event } from "@/features/types";
+import { revalidateTime } from "@/utils/constants";
+import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
 
-export const getStaticProps: GetStaticProps = async () => {
-  const queryClient = new QueryClient();
+type EventsProps = {
+  events: Event[];
+};
 
-  await queryClient.prefetchQuery(eventKeys.events, getEvents);
+export const getStaticProps: GetStaticProps<EventsProps> = async () => {
+  const events = await getEvents();
 
   return {
     props: {
-      dehydratedState: dehydrate(queryClient),
+      events,
     },
-    revalidate: 60 * 10,
+    revalidate: revalidateTime,
   };
 };
 
-const EventsPage = () => {
-  const { data: events, isLoading } = useEvents();
+const EventsPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
+  events,
+}) => {
   return (
     <Layout title="Eventi">
       <PageTitle title="Kalendar evenata" />
       {/* <div className="flex flex-col lg:flex-row gap-6 my-12"> */}
       <EventCards
         events={events}
-        loading={isLoading}
+        loading={false}
         className="w-full my-12"
         classNameLoading="mt-12"
         classNameEmpty="mt-12"

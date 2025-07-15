@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { type GetStaticProps, type NextPage } from "next";
+import React, { useEffect, useRef, useState } from "react";
+import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
 import PageTitle from "@/components/shared/PageTitle";
 import Layout from "@/components/shared/Layout";
 import { getInfiniteObavijesti, useObavijesti } from "@/features/obavijesti";
@@ -8,42 +8,51 @@ import PostCard from "@/components/obavijesti/PostCard";
 import clearHtmlFromString from "@/utils/clearHtmlFromString";
 import Button from "@/components/elements/Button";
 import TextInput from "@/components/elements/TextInput";
-import useDebounce from "@/hooks/useDebounce";
 import FilterSelect from "@/components/elements/FilterSelect";
-import { getCategories, useCategories } from "@/features/categories";
-import { obavijestiCategoryId } from "@/utils/constants";
-import { dehydrate, QueryClient } from "@tanstack/react-query";
-import obavijestiKeys from "@/features/obavijesti/queries";
-import categoryKeys from "@/features/categories/queries";
+import { getCategories } from "@/features/categories";
+import { obavijestiCategoryId, revalidateTime } from "@/utils/constants";
 import { useScrollRestoration } from "@/hooks/useScrollRestoration";
+import type { Category, ObavijestiMeta, Post } from "@/features/types";
+import { useRouter } from "next/router";
 
-export const getStaticProps: GetStaticProps = async () => {
-  const queryClient = new QueryClient();
+type ObavijestiProps = {
+  initialObavijesti: Post<ObavijestiMeta>[];
+  totalPages: number;
+  categories: Category[];
+};
 
-  await queryClient.prefetchInfiniteQuery(
-    obavijestiKeys.obavijestiFiltered({ search: "", categories: undefined }),
-    getInfiniteObavijesti
-  );
-  await queryClient.prefetchQuery(
-    categoryKeys.categoriesFiltered({ parent: obavijestiCategoryId }),
-    () => getCategories(obavijestiCategoryId)
-  );
+export const getStaticProps: GetStaticProps<ObavijestiProps> = async () => {
+  const initialObavijestiRes = await getInfiniteObavijesti();
+  const categories = await getCategories(obavijestiCategoryId);
 
-  // JSON parse and stringify -> solve [undefined] in pageParams for infinite query
   return {
-    props: JSON.parse(
-      JSON.stringify({
-        dehydratedState: dehydrate(queryClient),
-      })
-    ) as { [key: string]: any },
-    revalidate: 60 * 10,
+    props: {
+      initialObavijesti: initialObavijestiRes.data,
+      totalPages: initialObavijestiRes.totalPages,
+      categories,
+    },
+    revalidate: revalidateTime,
   };
 };
 
-const ObavijestiPage: NextPage = () => {
-  const [category, setCategory] = useState<number>(obavijestiCategoryId);
+const ObavijestiPage: NextPage<
+  InferGetStaticPropsType<typeof getStaticProps>
+> = ({ initialObavijesti, totalPages, categories }) => {
+  const router = useRouter();
+
+  const category = router.query.category
+    ? Number(router.query.category)
+    : obavijestiCategoryId;
+
+  const searchQuery = router.query.q
+    ? Array.isArray(router.query.q)
+      ? router.query.q[0]
+      : router.query.q
+    : "";
+
   const [search, setSearch] = useState("");
-  const debouncedSearch = useDebounce(search, 300);
+  const isDefaultSearchSet = useRef(false);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const {
     data: obavijesti,
@@ -51,14 +60,71 @@ const ObavijestiPage: NextPage = () => {
     hasNextPage,
     fetchNextPage,
     isFetchingNextPage,
-  } = useObavijesti({
-    search: debouncedSearch,
+  } = useObavijesti(initialObavijesti, totalPages, {
+    search: searchQuery,
     categories: category === obavijestiCategoryId ? undefined : [category],
   });
 
-  const { data: categories } = useCategories(obavijestiCategoryId);
-
   useScrollRestoration();
+
+  const handleChangeCategory = (value: number) => {
+    const routerQuery = router.query;
+
+    if (value === obavijestiCategoryId) {
+      delete routerQuery.category;
+    } else {
+      routerQuery.category = value.toString();
+    }
+
+    router.push(
+      {
+        query: routerQuery,
+      },
+      undefined,
+      { shallow: true }
+    );
+  };
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+
+    setSearch(value);
+
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
+    timeoutRef.current = setTimeout(() => {
+      const routerQuery = router.query;
+
+      if (value) {
+        routerQuery.q = value;
+      } else {
+        delete routerQuery.q;
+      }
+
+      router.replace(
+        {
+          query: routerQuery,
+        },
+        undefined,
+        { shallow: true }
+      );
+    }, 1000);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (searchQuery && !isDefaultSearchSet.current) {
+      setSearch(searchQuery);
+      isDefaultSearchSet.current = true;
+    }
+  }, [searchQuery]);
 
   return (
     <Layout
@@ -70,12 +136,12 @@ const ObavijestiPage: NextPage = () => {
         <div className="w-full md:w-[75%]">
           {isLoading ? (
             <Spinner className="mx-auto" />
-          ) : obavijesti?.pages && obavijesti?.pages[0].length > 0 ? (
+          ) : obavijesti?.pages && obavijesti?.pages[0].data.length > 0 ? (
             <>
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 {obavijesti?.pages?.map((obavijestGroup, index) => (
                   <React.Fragment key={index}>
-                    {obavijestGroup.map((obavijest) => (
+                    {obavijestGroup.data.map((obavijest) => (
                       <PostCard
                         key={obavijest.id}
                         slug={obavijest.slug}
@@ -110,13 +176,13 @@ const ObavijestiPage: NextPage = () => {
         <div className="w-full md:w-[25%]">
           <TextInput
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={handleSearch}
             placeholder="Pretraži obavijesti..."
             type="search"
           />
           <FilterSelect
             value={category}
-            onChange={setCategory}
+            onChange={handleChangeCategory}
             title="Kategorije"
             className="mt-8"
             items={

@@ -1,3 +1,5 @@
+export const revalidateTime = 60;
+
 export const sliderCategoryId = 236;
 
 export const obavijestiCategoryId = 117;

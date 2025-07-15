@@ -1,74 +1,75 @@
 import React, { useEffect, useRef, useState } from "react";
-import type { GetStaticProps, NextPage } from "next";
+import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
 import PageTitle from "@/components/shared/PageTitle";
 import Layout from "@/components/shared/Layout";
 import Spinner from "@/components/elements/Spinner";
 import Button from "@/components/elements/Button";
 import TextInput from "@/components/elements/TextInput";
-import useDebounce from "@/hooks/useDebounce";
 import FilterSelect from "@/components/elements/FilterSelect";
-import {
-  getInfiniteJobs,
-  getJobPage,
-  useJobPage,
-  useJobs,
-} from "@/features/jobs";
+import { getInfiniteJobs, getJobPage, useJobs } from "@/features/jobs";
 import JobCard from "@/components/jobs/JobCard";
-import { getCategories, useCategories } from "@/features/categories";
-import { jobsCategoryId, jobsObrasciPostId } from "@/utils/constants";
-import { useBanners, getBanners } from "@/features/banners";
+import { getCategories } from "@/features/categories";
+import {
+  jobsCategoryId,
+  jobsObrasciPostId,
+  revalidateTime,
+} from "@/utils/constants";
+import { getBanners } from "@/features/banners";
 import Image from "next/image";
-import { dehydrate, QueryClient } from "@tanstack/react-query";
-import jobKeys from "@/features/jobs/queries";
-import categoryKeys from "@/features/categories/queries";
-import bannerKeys from "@/features/banners/queries";
-import { getPosts, usePosts } from "@/features/posts";
+import { getPosts } from "@/features/posts";
 import LoginInfoCard from "@/components/login-poslodavac/LoginInfoCard";
-import postsKeys from "@/features/posts/queries";
 import clearHtmlFromString from "@/utils/clearHtmlFromString";
 import { useScrollRestoration } from "@/hooks/useScrollRestoration";
 import { useRouter } from "next/router";
+import type {
+  Banner,
+  Category,
+  JobsMeta,
+  Post,
+  PostsMeta,
+} from "@/features/types";
 
-export const getStaticProps: GetStaticProps = async () => {
-  const queryClient = new QueryClient();
+type JobsProps = {
+  initialJobs: Post<JobsMeta>[];
+  totalPages: number;
+  postObrasci: Post<PostsMeta>[];
+  jobPage: Post<JobsMeta>;
+  categories: Category[];
+  banners: Banner[];
+};
 
-  await queryClient.prefetchInfiniteQuery(
-    jobKeys.jobsFiltered({
-      search: "",
-      categories: undefined,
-    }),
-    getInfiniteJobs
-  );
+export const getStaticProps: GetStaticProps<JobsProps> = async () => {
+  const initialJobsRes = await getInfiniteJobs();
 
-  const postsFilters = {
+  const postObrasci = await getPosts({
     include: [jobsObrasciPostId],
-  };
+  });
 
-  await queryClient.prefetchQuery(postsKeys.postsFiltered(postsFilters), () =>
-    getPosts(postsFilters)
-  );
+  const jobPage = await getJobPage();
+  const categories = await getCategories(jobsCategoryId);
+  const banners = await getBanners();
 
-  await queryClient.prefetchQuery(jobKeys.jobPage, getJobPage);
-
-  await queryClient.prefetchQuery(
-    categoryKeys.categoriesFiltered({ parent: jobsCategoryId }),
-    () => getCategories(jobsCategoryId)
-  );
-
-  await queryClient.prefetchQuery(bannerKeys.banners, getBanners);
-
-  // JSON parse and stringify -> solve [undefined] in pageParams for infinite query
   return {
-    props: JSON.parse(
-      JSON.stringify({
-        dehydratedState: dehydrate(queryClient),
-      })
-    ) as { [key: string]: any },
-    revalidate: 60 * 10,
+    props: {
+      initialJobs: initialJobsRes.data,
+      totalPages: initialJobsRes.totalPages,
+      postObrasci,
+      jobPage,
+      categories,
+      banners,
+    },
+    revalidate: revalidateTime,
   };
 };
 
-const PosloviPage: NextPage = () => {
+const PosloviPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
+  initialJobs,
+  totalPages,
+  postObrasci,
+  jobPage,
+  categories,
+  banners,
+}) => {
   const router = useRouter();
 
   const category = router.query.category
@@ -82,10 +83,8 @@ const PosloviPage: NextPage = () => {
     : "";
 
   const [search, setSearch] = useState("");
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const isDefaultSearchSet = useRef(false);
-
-  const debouncedSearch = useDebounce(search, 300);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const {
     data: jobs,
@@ -93,21 +92,11 @@ const PosloviPage: NextPage = () => {
     hasNextPage,
     fetchNextPage,
     isFetchingNextPage,
-  } = useJobs({
-    search: debouncedSearch,
+  } = useJobs(initialJobs, totalPages, {
+    search: searchQuery,
     categories: category === jobsCategoryId ? undefined : [category],
     orderby: category === jobsCategoryId ? "date" : "featured",
   });
-
-  const { data: postObrasci } = usePosts({
-    include: [jobsObrasciPostId],
-  });
-
-  const { data: jobPage } = useJobPage();
-
-  const { data: categories } = useCategories(jobsCategoryId);
-
-  const { data: banners } = useBanners();
 
   useScrollRestoration();
 
@@ -154,14 +143,12 @@ const PosloviPage: NextPage = () => {
         undefined,
         { shallow: true }
       );
-    }, 500);
+    }, 1000);
   };
 
   useEffect(() => {
     return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
   }, []);
 
@@ -185,12 +172,12 @@ const PosloviPage: NextPage = () => {
         <div className="w-full md:w-[75%]">
           {isLoading ? (
             <Spinner className="mx-auto" />
-          ) : jobs?.pages && jobs?.pages[0].length > 0 ? (
+          ) : jobs?.pages && jobs?.pages[0].data.length > 0 ? (
             <>
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 {jobs?.pages?.map((jobsGroup, index) => (
                   <React.Fragment key={index}>
-                    {jobsGroup.map((job) => (
+                    {jobsGroup.data.map((job) => (
                       <JobCard
                         key={job.id}
                         title={job.meta.title}

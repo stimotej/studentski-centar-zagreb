@@ -1,6 +1,5 @@
 import ButtonLink from "@/components/elements/ButtonLink";
 import DisplayHTML from "@/components/elements/DisplayHTML";
-import Spinner from "@/components/elements/Spinner";
 import HelpSection from "@/components/prehrana/HelpSection";
 import KvalitetaPrehraneSection from "@/components/prehrana/KvalitetaPrehraneSection";
 import Card from "@/components/shared/Card";
@@ -12,78 +11,55 @@ import PostSlider from "@/components/shared/PostSlider";
 import Section from "@/components/shared/Section";
 import SectionTitle from "@/components/shared/SectionTitle";
 import { getObavijestiPage } from "@/features/obavijesti";
-import obavijestiKeys from "@/features/obavijesti/queries";
-import { getPosts, usePosts } from "@/features/posts";
-import postsKeys from "@/features/posts/queries";
+import { getPosts } from "@/features/posts";
+import type { ObavijestiMeta, Post, PostsMeta } from "@/features/types";
 import {
   faqPrehranaCategory,
   obavijestiPrehranaCategory,
   prehranaLinksPostId,
   restaurantsCategoryId,
+  revalidateTime,
 } from "@/utils/constants";
-import { dehydrate, QueryClient } from "@tanstack/react-query";
-import type { GetStaticProps, NextPage } from "next";
+import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
 import Image from "next/image";
 
-export const getStaticProps: GetStaticProps = async () => {
-  const queryClient = new QueryClient();
+type PrehranaProps = {
+  posts: Post<PostsMeta>[];
+  faqs: Post<PostsMeta>[];
+  linksPost: Post<PostsMeta>[];
+  obavijesti: Post<ObavijestiMeta>[];
+};
 
-  const postsFilters = {
+export const getStaticProps: GetStaticProps<PrehranaProps> = async () => {
+  const posts = await getPosts({
     categories: [restaurantsCategoryId],
     orderby: "order",
-  };
+  });
 
-  await queryClient.prefetchQuery(postsKeys.postsFiltered(postsFilters), () =>
-    getPosts(postsFilters)
-  );
-
-  const faqPostsFilters = {
+  const faqs = await getPosts({
     categories: [faqPrehranaCategory],
-  };
+  });
 
-  await queryClient.prefetchQuery(
-    postsKeys.postsFiltered(faqPostsFilters),
-    () => getPosts(faqPostsFilters)
-  );
-
-  const linksPostsFilters = {
+  const linksPost = await getPosts({
     include: [prehranaLinksPostId],
-  };
+  });
 
-  await queryClient.prefetchQuery(
-    postsKeys.postsFiltered(linksPostsFilters),
-    () => getPosts(linksPostsFilters)
-  );
-
-  await queryClient.prefetchQuery(
-    obavijestiKeys.obavijestiFiltered({
-      categories: [obavijestiPrehranaCategory],
-    }),
-    () => getObavijestiPage(obavijestiPrehranaCategory)
-  );
+  const obavijesti = await getObavijestiPage(obavijestiPrehranaCategory);
 
   return {
     props: {
-      dehydratedState: dehydrate(queryClient),
+      posts,
+      faqs,
+      linksPost,
+      obavijesti,
     },
-    revalidate: 60 * 10,
+    revalidate: revalidateTime,
   };
 };
 
-const PrehranaPage: NextPage = () => {
-  const { data: posts, isLoading } = usePosts({
-    categories: [restaurantsCategoryId],
-    orderby: "order",
-  });
-
-  const { data: faqs, isLoading: isLoadingFaqs } = usePosts({
-    categories: [faqPrehranaCategory],
-  });
-
-  const { data: linksPost, isLoading: isLoadingLinksPost } = usePosts({
-    include: [prehranaLinksPostId],
-  });
-
+const PrehranaPage: NextPage<
+  InferGetStaticPropsType<typeof getStaticProps>
+> = ({ posts, faqs, linksPost, obavijesti }) => {
   return (
     <Layout
       title="Prehrana"
@@ -96,7 +72,6 @@ const PrehranaPage: NextPage = () => {
             // subtitle="Restorani Studentskog Centra u Zagrebu"
             className="my-14"
             posts={posts}
-            loading={isLoading}
           />
 
           <Section>
@@ -136,21 +111,14 @@ const PrehranaPage: NextPage = () => {
                 </div>
               </div>
               <Card className="flex flex-col gap-3 text-primary flex-1">
-                {isLoadingLinksPost ? (
-                  <Spinner className="mx-auto my-6" />
-                ) : (
-                  <DisplayHTML
-                    html={linksPost?.[0].excerpt.rendered || ""}
-                    className="leading-7"
-                  />
-                )}
+                <DisplayHTML
+                  html={linksPost?.[0].excerpt.rendered || ""}
+                  className="leading-7"
+                />
               </Card>
             </div>
 
-            <PagePosts
-              category={obavijestiPrehranaCategory}
-              className="mt-12"
-            />
+            <PagePosts posts={obavijesti} className="mt-12" />
 
             {!!faqs?.filter((item) =>
               item.categories.includes(faqPrehranaCategory)
@@ -169,7 +137,6 @@ const PrehranaPage: NextPage = () => {
                         content: item.content.rendered,
                       })) || []
                   }
-                  loading={isLoadingFaqs}
                 />
                 {faqs?.filter((item) =>
                   item.categories.includes(faqPrehranaCategory)

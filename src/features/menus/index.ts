@@ -30,7 +30,7 @@ export const getMenus = async (filters: MenuFilters) => {
 
 export const useMenus = (
   filters: MenuFilters,
-  { enabled }: { enabled?: boolean }
+  options?: { enabled?: boolean }
 ) => {
   return useQuery(
     menuKeys.menusFiltered({
@@ -39,7 +39,7 @@ export const useMenus = (
     }),
     () => getMenus(filters),
     {
-      enabled: enabled,
+      enabled: options?.enabled,
     }
   );
 };

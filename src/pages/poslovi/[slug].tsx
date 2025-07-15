@@ -4,28 +4,25 @@ import Spinner from "@/components/elements/Spinner";
 import Card from "@/components/shared/Card";
 import Layout from "@/components/shared/Layout";
 import PageTitle from "@/components/shared/PageTitle";
-import { getJob, useJob } from "@/features/jobs";
+import { getJob } from "@/features/jobs";
 import clearHtmlFromString from "@/utils/clearHtmlFromString";
-import { dehydrate, QueryClient } from "@tanstack/react-query";
-import axios from "axios";
 import dayjs from "dayjs";
-import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import type {
+  GetStaticPaths,
+  GetStaticProps,
+  InferGetStaticPropsType,
+  NextPage,
+} from "next";
 import Image from "next/image";
 import type { ParsedUrlQuery } from "querystring";
 import { useRouter } from "next/router";
-import React from "react";
-import jobKeys from "@/features/jobs/queries";
 import type { JobsMeta, Post } from "@/features/types";
 import DocumentCard from "@/components/shared/DocumentCard";
+import { revalidateTime } from "@/utils/constants";
+import { getJobsPaths } from "@/features/paths";
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const { data: jobs } = await axios.get<Post<JobsMeta>[]>("/jobs", {
-    params: {
-      per_page: 100,
-      orderby: "featured",
-      order: "desc",
-    },
-  });
+  const jobs = await getJobsPaths();
 
   const paths = jobs.map((job) => ({
     params: { slug: job.slug },
@@ -41,30 +38,36 @@ interface StaticPathParams extends ParsedUrlQuery {
   slug: string;
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+type JobProps = {
+  job: Post<JobsMeta>;
+};
+
+export const getStaticProps: GetStaticProps<JobProps> = async ({ params }) => {
   const { slug } = params as StaticPathParams;
 
-  const queryClient = new QueryClient();
-
-  await queryClient.prefetchQuery(jobKeys.job(slug), () => getJob(slug));
+  const job = await getJob(slug);
 
   return {
     props: {
-      dehydratedState: dehydrate(queryClient),
-      slug,
+      job,
     },
-    revalidate: 60 * 10,
+    revalidate: revalidateTime,
   };
 };
 
-const JobPage: NextPage<{
-  slug: string;
-}> = ({ slug }) => {
+const JobPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
+  job,
+}) => {
   const router = useRouter();
 
-  const { data: job, isLoading } = useJob(slug);
+  if (router.isFallback)
+    return (
+      <Layout>
+        <Spinner className="mx-auto mt-20" />
+      </Layout>
+    );
 
-  if (!isLoading && !job)
+  if (!job)
     return (
       <Layout>
         <div className="flex flex-col gap-12 items-center justify-center mt-20">
@@ -73,13 +76,6 @@ const JobPage: NextPage<{
             Povratak
           </Button>
         </div>
-      </Layout>
-    );
-
-  if (isLoading)
-    return (
-      <Layout>
-        <Spinner className="mx-auto mt-20" />
       </Layout>
     );
 

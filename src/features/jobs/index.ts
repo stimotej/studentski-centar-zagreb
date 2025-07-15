@@ -1,6 +1,6 @@
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import type { JobsMeta, Post } from "../types";
 import jobKeys from "./queries";
 import { jobsPageId } from "@/utils/constants";
@@ -26,11 +26,22 @@ export const getInfiniteJobs = async () => {
       filter_by_date: true,
     },
   });
-  return response.data;
+  return {
+    data: response.data,
+    totalPages: response.headers?.["x-wp-totalpages"],
+  };
 };
 
-export const useJobs = (filters: JobsFilters) => {
-  const totalPages = useRef(0);
+export const useJobs = (
+  initialData: Post<JobsMeta>[],
+  initialTotalPages: number,
+  filters: JobsFilters
+) => {
+  const initialRun = useRef(true);
+
+  useEffect(() => {
+    initialRun.current = false;
+  }, []);
 
   return useInfiniteQuery(
     jobKeys.jobsFiltered(filters),
@@ -46,12 +57,25 @@ export const useJobs = (filters: JobsFilters) => {
           ...filters,
         },
       });
-      totalPages.current = response.headers?.["x-wp-totalpages"];
-      return response.data;
+      return {
+        data: response.data,
+        totalPages: Number(response.headers?.["x-wp-totalpages"]),
+      };
     },
     {
+      initialData: initialRun.current
+        ? {
+            pageParams: [undefined, 1],
+            pages: [
+              {
+                data: initialData,
+                totalPages: initialTotalPages,
+              },
+            ],
+          }
+        : undefined,
       getNextPageParam: (lastPage, pages) => {
-        if (pages.length + 1 <= totalPages.current) return pages.length + 1;
+        if (pages.length + 1 <= lastPage.totalPages) return pages.length + 1;
       },
     }
   );

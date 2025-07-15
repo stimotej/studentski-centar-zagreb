@@ -1,5 +1,4 @@
 import ButtonLink from "@/components/elements/ButtonLink";
-import Spinner from "@/components/elements/Spinner";
 import ContentCard from "@/components/shared/ContentCard";
 import FAQCards from "@/components/shared/FAQCards";
 import InfoPostCard from "@/components/shared/InfoPostCard";
@@ -11,9 +10,8 @@ import Section from "@/components/shared/Section";
 import SectionTitle from "@/components/shared/SectionTitle";
 import InfoToggles from "@/components/smjestaj/InfoToggles";
 import { getObavijestiPage } from "@/features/obavijesti";
-import obavijestiKeys from "@/features/obavijesti/queries";
-import { getPosts, usePosts } from "@/features/posts";
-import postsKeys from "@/features/posts/queries";
+import { getPosts } from "@/features/posts";
+import type { ObavijestiMeta, Post, PostsMeta } from "@/features/types";
 import {
   faqSmjestajCategory,
   infoPostsCategoryId,
@@ -22,41 +20,34 @@ import {
   infoSmjestajForeignStudentsCategory,
   infoSmjestajInfoCategory,
   obavijestiSmjestajCategory,
+  revalidateTime,
 } from "@/utils/constants";
-import { dehydrate, QueryClient } from "@tanstack/react-query";
-import type { GetStaticProps, NextPage } from "next";
+import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
 
-export const getStaticProps: GetStaticProps = async () => {
-  const queryClient = new QueryClient();
-
-  const postsFilters = {
-    categories: [infoPostsCategoryId, infoPostsSmjestaj, faqSmjestajCategory],
-  };
-
-  await queryClient.prefetchQuery(postsKeys.postsFiltered(postsFilters), () =>
-    getPosts(postsFilters)
-  );
-
-  await queryClient.prefetchQuery(
-    obavijestiKeys.obavijestiFiltered({
-      categories: [obavijestiSmjestajCategory],
-    }),
-    () => getObavijestiPage(obavijestiSmjestajCategory)
-  );
-
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-    },
-    revalidate: 60 * 10,
-  };
+type SmjestajProps = {
+  posts: Post<PostsMeta>[];
+  obavijesti: Post<ObavijestiMeta>[];
 };
 
-const SmjestajPage: NextPage = () => {
-  const { data: posts, isLoading } = usePosts({
+export const getStaticProps: GetStaticProps<SmjestajProps> = async () => {
+  const posts = await getPosts({
     categories: [infoPostsCategoryId, infoPostsSmjestaj, faqSmjestajCategory],
   });
 
+  const obavijesti = await getObavijestiPage(obavijestiSmjestajCategory);
+
+  return {
+    props: {
+      posts,
+      obavijesti,
+    },
+    revalidate: revalidateTime,
+  };
+};
+
+const SmjestajPage: NextPage<
+  InferGetStaticPropsType<typeof getStaticProps>
+> = ({ posts, obavijesti }) => {
   return (
     <Layout
       title="Smještaj"
@@ -71,32 +62,25 @@ const SmjestajPage: NextPage = () => {
             posts={posts?.filter((post) =>
               post.categories.includes(infoSmjestajDormitoriesCategory)
             )}
-            loading={isLoading}
           />
 
           <Section>
             <SectionTitle title="Foreign Students" />
 
-            {isLoading ? (
-              <Spinner className="mx-auto" />
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-                {posts
-                  ?.filter((post) =>
-                    post.categories.includes(
-                      infoSmjestajForeignStudentsCategory
-                    )
-                  )
-                  .map((post) => (
-                    <InfoPostCard
-                      key={post.id}
-                      title={post.title.rendered}
-                      excerpt={post.excerpt.rendered}
-                      link={`/informacije/${post.slug}`}
-                    />
-                  ))}
-              </div>
-            )}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+              {posts
+                ?.filter((post) =>
+                  post.categories.includes(infoSmjestajForeignStudentsCategory)
+                )
+                .map((post) => (
+                  <InfoPostCard
+                    key={post.id}
+                    title={post.title.rendered}
+                    excerpt={post.excerpt.rendered}
+                    link={`/informacije/${post.slug}`}
+                  />
+                ))}
+            </div>
 
             {!!posts?.filter((item) =>
               item.categories.includes(faqSmjestajCategory)
@@ -115,7 +99,6 @@ const SmjestajPage: NextPage = () => {
                         content: item.content.rendered,
                       })) || []
                   }
-                  loading={isLoading}
                 />
                 {posts?.filter((item) =>
                   item.categories.includes(faqSmjestajCategory)
@@ -170,7 +153,7 @@ const SmjestajPage: NextPage = () => {
         }}
       />
 
-      <PagePosts category={obavijestiSmjestajCategory} className="my-12" />
+      <PagePosts posts={obavijesti} className="my-12" />
 
       {/* <div id="natjecaj"></div>
       {isLoading ? (
@@ -243,24 +226,18 @@ const SmjestajPage: NextPage = () => {
         contentClassName="text-light leading-relaxed"
       />
 
-      {isLoading ? (
-        <Spinner className="mt-12 mx-auto" />
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-          {posts
-            ?.filter((post) =>
-              post.categories.includes(infoSmjestajInfoCategory)
-            )
-            .map((post) => (
-              <InfoPostCard
-                key={post.id}
-                title={post.title.rendered}
-                excerpt={post.excerpt.rendered}
-                link={`/informacije/${post.slug}`}
-              />
-            ))}
-        </div>
-      )}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+        {posts
+          ?.filter((post) => post.categories.includes(infoSmjestajInfoCategory))
+          .map((post) => (
+            <InfoPostCard
+              key={post.id}
+              title={post.title.rendered}
+              excerpt={post.excerpt.rendered}
+              link={`/informacije/${post.slug}`}
+            />
+          ))}
+      </div>
     </Layout>
   );
 };

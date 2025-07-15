@@ -1,4 +1,3 @@
-import { useObavijestiPage } from "@/features/obavijesti";
 import clearHtmlFromString from "@/utils/clearHtmlFromString";
 import clsx from "clsx";
 import dayjs from "dayjs";
@@ -7,18 +6,22 @@ import Link from "next/link";
 import React from "react";
 import DisplayHTML from "../elements/DisplayHTML";
 import Spinner from "../elements/Spinner";
+import type { ObavijestiMeta, Post } from "@/features/types";
 
 interface PagePostsProps {
   className?: string;
-  category: number;
+  posts: Post<ObavijestiMeta>[] | undefined;
+  isLoading?: boolean;
 }
 
-const PagePosts: React.FC<PagePostsProps> = (props) => {
-  const { data: posts, isLoading } = useObavijestiPage(props.category);
-
+const PagePosts: React.FC<PagePostsProps> = ({
+  className,
+  posts,
+  isLoading,
+}) => {
   if (!posts && !isLoading) return null;
   return (
-    <section className={clsx(props.className)}>
+    <section className={className}>
       {isLoading ? (
         <div className="py-12">
           <Spinner className="mx-auto" />

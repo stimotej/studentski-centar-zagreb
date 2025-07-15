@@ -1,14 +1,9 @@
-import { type GetStaticProps, type NextPage } from "next";
+import type { GetStaticProps, NextPage, InferGetStaticPropsType } from "next";
 import Layout from "@/components/shared/Layout";
 import Slider from "@/components/elements/Slider";
 import LinkCards from "@/components/pocetna/LinkCards";
 import PostCard from "@/components/obavijesti/PostCard";
-import {
-  getObavijestiHome,
-  getSliderObavijesti,
-  useObavijestiHome,
-  useSliderObavijesti,
-} from "@/features/obavijesti";
+import { getObavijestiHome, getSliderObavijesti } from "@/features/obavijesti";
 import { getCalendarEvents } from "@/features/calendar";
 import clearHtmlFromString from "@/utils/clearHtmlFromString";
 import GeneralInfoCard from "@/components/pocetna/GeneralInfoCard";
@@ -18,68 +13,43 @@ import SectionTitle from "@/components/shared/SectionTitle";
 import FAQCards from "@/components/shared/FAQCards";
 import HelpSection from "@/components/pocetna/HelpSection";
 import ButtonLink from "@/components/elements/ButtonLink";
-import { useCalendarEvents } from "@/features/calendar";
 import dayjs from "dayjs";
 import {
   faqPocetnaCategory,
   pocetnaOglasZaPopunuRadnihMjestaPost,
   pocetnaOpceInformacijePost,
+  revalidateTime,
 } from "@/utils/constants";
-import { dehydrate, QueryClient } from "@tanstack/react-query";
-import obavijestiKeys from "@/features/obavijesti/queries";
-import calendarKeys from "@/features/calendar/queries";
-import { getPosts, usePosts } from "@/features/posts";
-import postsKeys from "@/features/posts/queries";
+import { getPosts } from "@/features/posts";
 import DisplayHTML from "@/components/elements/DisplayHTML";
+import type {
+  CalendarEvent,
+  ObavijestiMeta,
+  Post,
+  PostsMeta,
+} from "@/features/types";
+
 // import OTPBanner from "@/components/ads/OTPBanner";
 
-export const getStaticProps: GetStaticProps = async () => {
-  const queryClient = new QueryClient();
-
-  await queryClient.prefetchQuery(
-    obavijestiKeys.sliderObavijesti,
-    getSliderObavijesti
-  );
-  await queryClient.prefetchQuery(
-    obavijestiKeys.homeObavijesti,
-    getObavijestiHome
-  );
-  await queryClient.prefetchQuery(calendarKeys.calendar, getCalendarEvents);
-
-  const faqPostsFilters = {
-    categories: [faqPocetnaCategory],
-  };
-
-  await queryClient.prefetchQuery(
-    postsKeys.postsFiltered(faqPostsFilters),
-    () => getPosts(faqPostsFilters)
-  );
-
-  const infoFilters = {
-    include: [pocetnaOpceInformacijePost, pocetnaOglasZaPopunuRadnihMjestaPost],
-  };
-
-  await queryClient.prefetchQuery(postsKeys.postsFiltered(infoFilters), () =>
-    getPosts(infoFilters)
-  );
-
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-    },
-    revalidate: 60 * 10,
-  };
+type HomeProps = {
+  sliderPosts: Post<ObavijestiMeta>[];
+  obavijesti: Post<ObavijestiMeta>[];
+  calendarEvents: CalendarEvent[];
+  faqs: Post<PostsMeta>[];
+  opceInformacijePost: Post<PostsMeta> | undefined;
+  oglasZaPopunuRadnihMjestaPost: Post<PostsMeta> | undefined;
 };
 
-const Home: NextPage = () => {
-  const { data: sliderPosts } = useSliderObavijesti();
-  const { data: obavijesti } = useObavijestiHome();
-  const { data: calendarEvents } = useCalendarEvents();
-  const { data: info } = usePosts({
-    include: [pocetnaOpceInformacijePost, pocetnaOglasZaPopunuRadnihMjestaPost],
-  });
-  const { data: faqs, isLoading: isLoadingFaqs } = usePosts({
+export const getStaticProps: GetStaticProps<HomeProps> = async () => {
+  const sliderPosts = await getSliderObavijesti();
+  const obavijesti = await getObavijestiHome();
+  const calendarEvents = await getCalendarEvents();
+  const faqs = await getPosts({
     categories: [faqPocetnaCategory],
+  });
+
+  const info = await getPosts({
+    include: [pocetnaOpceInformacijePost, pocetnaOglasZaPopunuRadnihMjestaPost],
   });
 
   const opceInformacijePost = info?.find(
@@ -90,6 +60,27 @@ const Home: NextPage = () => {
     (post) => post.id === pocetnaOglasZaPopunuRadnihMjestaPost
   );
 
+  return {
+    props: {
+      sliderPosts,
+      obavijesti,
+      calendarEvents,
+      faqs,
+      opceInformacijePost,
+      oglasZaPopunuRadnihMjestaPost,
+    },
+    revalidate: revalidateTime,
+  };
+};
+
+const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
+  sliderPosts,
+  obavijesti,
+  calendarEvents,
+  faqs,
+  opceInformacijePost,
+  oglasZaPopunuRadnihMjestaPost,
+}) => {
   return (
     <Layout
       description="Studentski Centar u Zagrebu, Sveučilište u Zagrebu; Kultura, Prehrana, Smještaj, Student servis, Sport, Teatar &TD"
@@ -203,7 +194,7 @@ const Home: NextPage = () => {
                   content: item.content.rendered,
                 })) || []
             }
-            loading={isLoadingFaqs}
+            // loading={isLoadingFaqs}
           />
           {faqs?.filter((item) => item.categories.includes(faqPocetnaCategory))
             .length > 8 && (

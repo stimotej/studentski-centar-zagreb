@@ -1,5 +1,6 @@
 import Button from "@/components/elements/Button";
 import DisplayHTML from "@/components/elements/DisplayHTML";
+import Spinner from "@/components/elements/Spinner";
 import BlueCard from "@/components/shared/BlueCard";
 import Card from "@/components/shared/Card";
 import Layout from "@/components/shared/Layout";
@@ -7,26 +8,26 @@ import PageTitle from "@/components/shared/PageTitle";
 import Section from "@/components/shared/Section";
 import SectionTitle from "@/components/shared/SectionTitle";
 import ImageGallery from "@/components/smjestaj/ImageGallery";
-import { getPost, usePost } from "@/features/posts";
-import postsKeys from "@/features/posts/queries";
+import { getDomoviPaths } from "@/features/paths";
+import { getPost } from "@/features/posts";
 import type { Post, PostsMeta } from "@/features/types";
 import clearHtmlFromString from "@/utils/clearHtmlFromString";
-import { infoSmjestajDormitoriesCategory } from "@/utils/constants";
-import { dehydrate, QueryClient } from "@tanstack/react-query";
+import {
+  infoSmjestajDormitoriesCategory,
+  revalidateTime,
+} from "@/utils/constants";
 import axios from "axios";
-import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import type {
+  GetStaticPaths,
+  GetStaticProps,
+  InferGetStaticPropsType,
+  NextPage,
+} from "next";
 import { useRouter } from "next/router";
 import type { ParsedUrlQuery } from "querystring";
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const { data: posts } = await axios.get<Post<PostsMeta>[]>("/posts", {
-    params: {
-      categories: [infoSmjestajDormitoriesCategory],
-      per_page: 100,
-      orderby: "date",
-      order: "desc",
-    },
-  });
+  const posts = await getDomoviPaths();
 
   const paths = posts.map((post) => ({
     params: { slug: post.slug },
@@ -42,28 +43,27 @@ interface StaticPathParams extends ParsedUrlQuery {
   slug: string;
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+type DomProps = {
+  obavijest: Post<PostsMeta>;
+};
+
+export const getStaticProps: GetStaticProps<DomProps> = async ({ params }) => {
   const { slug } = params as StaticPathParams;
 
-  const queryClient = new QueryClient();
-
-  await queryClient.prefetchQuery(postsKeys.post(slug), () => getPost(slug));
+  const obavijest = await getPost(slug);
 
   return {
     props: {
-      dehydratedState: dehydrate(queryClient),
-      slug,
+      obavijest,
     },
-    revalidate: 60 * 10,
+    revalidate: revalidateTime,
   };
 };
 
-const DormitoryPage: NextPage<{
-  slug: string;
-}> = ({ slug }) => {
+const DormitoryPage: NextPage<
+  InferGetStaticPropsType<typeof getStaticProps>
+> = ({ obavijest }) => {
   const router = useRouter();
-
-  const { data: obavijest, isLoading } = usePost(slug);
 
   // const postCardRefs = useRef<Array<HTMLDivElement | null>>([]);
   // const postsContainerRefs = useRef<Array<HTMLDivElement | null>>([]);
@@ -75,7 +75,13 @@ const DormitoryPage: NextPage<{
   //   });
   // };
 
-  if (!isLoading && !obavijest)
+  if (router.isFallback)
+    return (
+      <Layout>
+        <Spinner className="mx-auto mt-20" />
+      </Layout>
+    );
+  if (!obavijest)
     return (
       <Layout>
         <div className="flex flex-col gap-12 items-center justify-center mt-20">

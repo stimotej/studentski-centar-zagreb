@@ -1,48 +1,39 @@
-import DisplayHTML from "@/components/elements/DisplayHTML";
 import LoginInfoCard from "@/components/login-poslodavac/LoginInfoCard";
 import IzdavanjeUgovoraCard from "@/components/login-student/IzdavanjeUgovoraCard";
 import UclanjivanjeCard from "@/components/login-student/UclanjivanjeCard";
-import LogInForm from "@/components/login/LogInForm";
-import Card from "@/components/shared/Card";
 import Layout from "@/components/shared/Layout";
 import PageTitle from "@/components/shared/PageTitle";
-import { getPosts, usePosts } from "@/features/posts";
-import postsKeys from "@/features/posts/queries";
+import { getPosts } from "@/features/posts";
 import {
   infoPostsCategoryId,
   infoPostsSS,
   infoSSStudentLoginPost,
+  revalidateTime,
 } from "@/utils/constants";
-import { QueryClient, dehydrate } from "@tanstack/react-query";
-import { GetStaticProps, type NextPage } from "next";
-import React from "react";
+import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
+import type { Post, PostsMeta } from "@/features/types";
 
-export const getStaticProps: GetStaticProps = async () => {
-  const queryClient = new QueryClient();
-
-  const postsFilters = {
-    include: [infoSSStudentLoginPost],
-    categories: [infoPostsCategoryId, infoPostsSS],
-  };
-
-  await queryClient.prefetchQuery(postsKeys.postsFiltered(postsFilters), () =>
-    getPosts(postsFilters)
-  );
-
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-    },
-    revalidate: 60 * 10,
-  };
+type PrijavaProps = {
+  studentLoginPost: Post<PostsMeta> | undefined;
 };
 
-const StudentLoginPage: NextPage = () => {
-  const { data: posts } = usePosts({
+export const getStaticProps: GetStaticProps<PrijavaProps> = async () => {
+  const posts = await getPosts({
     include: [infoSSStudentLoginPost],
     categories: [infoPostsCategoryId, infoPostsSS],
   });
 
+  return {
+    props: {
+      studentLoginPost: posts[0],
+    },
+    revalidate: revalidateTime,
+  };
+};
+
+const StudentLoginPage: NextPage<
+  InferGetStaticPropsType<typeof getStaticProps>
+> = ({ studentLoginPost }) => {
   return (
     <Layout
       title="Prijava"
@@ -52,11 +43,11 @@ const StudentLoginPage: NextPage = () => {
 
       <div className="flex flex-col gap-8 items-start md:flex-row my-12">
         <div className="md:w-[65%]">
-          {posts && posts[0] ? (
+          {studentLoginPost ? (
             <LoginInfoCard
-              title={posts[0]?.title.rendered || ""}
-              content={posts[0]?.content.rendered || ""}
-              documents={posts[0]?.meta.documents || []}
+              title={studentLoginPost.title.rendered || ""}
+              content={studentLoginPost.content.rendered || ""}
+              documents={studentLoginPost.meta.documents || []}
             />
           ) : null}
           <UclanjivanjeCard className="mt-8" />

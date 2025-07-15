@@ -1,6 +1,7 @@
 import Button from "@/components/elements/Button";
 import ButtonLink from "@/components/elements/ButtonLink";
 import DisplayHTML from "@/components/elements/DisplayHTML";
+import Spinner from "@/components/elements/Spinner";
 import DnevniMenuSection from "@/components/prehrana/DnevniMenuSection";
 import RestoranJelaSection from "@/components/prehrana/RestoranJelaSection";
 import Card from "@/components/shared/Card";
@@ -8,28 +9,24 @@ import Layout from "@/components/shared/Layout";
 import PageTitle from "@/components/shared/PageTitle";
 import SectionTitle from "@/components/shared/SectionTitle";
 import { useMenus } from "@/features/menus";
-import { getPost, usePost } from "@/features/posts";
-import postsKeys from "@/features/posts/queries";
+import { getRestaurantsPaths } from "@/features/paths";
+import { getPost } from "@/features/posts";
 import type { Post, PostsMeta } from "@/features/types";
 import clearHtmlFromString from "@/utils/clearHtmlFromString";
-import { restaurantsCategoryId } from "@/utils/constants";
-import { dehydrate, QueryClient } from "@tanstack/react-query";
+import { restaurantsCategoryId, revalidateTime } from "@/utils/constants";
 import axios from "axios";
 import dayjs from "dayjs";
-import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import type {
+  GetStaticPaths,
+  GetStaticProps,
+  InferGetStaticPropsType,
+  NextPage,
+} from "next";
 import { useRouter } from "next/router";
 import type { ParsedUrlQuery } from "querystring";
-import React from "react";
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const { data: posts } = await axios.get<Post<PostsMeta>[]>("/posts", {
-    params: {
-      categories: [restaurantsCategoryId],
-      per_page: 100,
-      orderby: "order",
-      order: "desc",
-    },
-  });
+  const posts = await getRestaurantsPaths();
 
   const paths = posts.map((post) => ({
     params: { slug: post.slug },
@@ -45,26 +42,29 @@ interface StaticPathParams extends ParsedUrlQuery {
   slug: string;
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+type RestoranProps = {
+  restaurant: Post<PostsMeta>;
+};
+
+export const getStaticProps: GetStaticProps<RestoranProps> = async ({
+  params,
+}) => {
   const { slug } = params as StaticPathParams;
 
-  const queryClient = new QueryClient();
-
-  await queryClient.prefetchQuery(postsKeys.post(slug), () => getPost(slug));
+  const restaurant = await getPost(slug);
 
   return {
     props: {
-      dehydratedState: dehydrate(queryClient),
-      slug,
+      restaurant,
     },
-    revalidate: 60 * 10,
+    revalidate: revalidateTime,
   };
 };
 
-const RestaurantPage: NextPage<{ slug: string }> = ({ slug }) => {
+const RestaurantPage: NextPage<
+  InferGetStaticPropsType<typeof getStaticProps>
+> = ({ restaurant }) => {
   const router = useRouter();
-
-  const { data: restaurant, isLoading } = usePost(slug);
 
   const { data: menus, isInitialLoading: isLoadingMenus } = useMenus(
     {
@@ -76,7 +76,13 @@ const RestaurantPage: NextPage<{ slug: string }> = ({ slug }) => {
     }
   );
 
-  if (!isLoading && !restaurant)
+  if (router.isFallback)
+    return (
+      <Layout>
+        <Spinner className="mx-auto mt-20" />
+      </Layout>
+    );
+  if (!restaurant)
     return (
       <Layout>
         <div className="flex flex-col gap-12 items-center justify-center mt-20">

@@ -1,31 +1,30 @@
 import DisplayHTML from "@/components/elements/DisplayHTML";
 import Layout from "@/components/shared/Layout";
 import PageTitle from "@/components/shared/PageTitle";
-import { getPostById, usePostById } from "@/features/posts";
-import postsKeys from "@/features/posts/queries";
+import { getPostById } from "@/features/posts";
+import type { Post, PostsMeta } from "@/features/types";
 import clearHtmlFromString from "@/utils/clearHtmlFromString";
-import { medijiPost } from "@/utils/constants";
-import { dehydrate, QueryClient } from "@tanstack/react-query";
-import { GetStaticProps, NextPage } from "next";
+import { medijiPost, revalidateTime } from "@/utils/constants";
+import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
 
-export const getStaticProps: GetStaticProps = async () => {
-  const queryClient = new QueryClient();
+type MedijiProps = {
+  data: Post<PostsMeta>;
+};
 
-  await queryClient.prefetchQuery(postsKeys.postById(medijiPost), () =>
-    getPostById(medijiPost)
-  );
+export const getStaticProps: GetStaticProps<MedijiProps> = async () => {
+  const data = await getPostById(medijiPost);
 
   return {
     props: {
-      dehydratedState: dehydrate(queryClient),
+      data,
     },
-    revalidate: 60 * 10,
+    revalidate: revalidateTime,
   };
 };
 
-export const MeidjiPage: NextPage = () => {
-  const { data } = usePostById(medijiPost);
-
+export const MeidjiPage: NextPage<
+  InferGetStaticPropsType<typeof getStaticProps>
+> = ({ data }) => {
   return (
     <Layout title={clearHtmlFromString(data?.title.rendered ?? "")}>
       <PageTitle title={clearHtmlFromString(data?.title.rendered ?? "")} />

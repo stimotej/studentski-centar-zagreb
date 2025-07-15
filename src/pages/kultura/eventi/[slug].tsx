@@ -3,25 +3,22 @@ import DisplayHTML from "@/components/elements/DisplayHTML";
 import Spinner from "@/components/elements/Spinner";
 import ImageTitle from "@/components/shared/ImageTitle";
 import Layout from "@/components/shared/Layout";
-import { getEvent, useEvent } from "@/features/events";
+import { getEventsPaths } from "@/features/paths";
+import { getEvent } from "@/features/events";
 import type { Event } from "@/features/types";
 import clearHtmlFromString from "@/utils/clearHtmlFromString";
-import axios from "axios";
-import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import type {
+  GetStaticPaths,
+  GetStaticProps,
+  InferGetStaticPropsType,
+  NextPage,
+} from "next";
 import type { ParsedUrlQuery } from "querystring";
 import { useRouter } from "next/router";
-import React from "react";
-import { dehydrate, QueryClient } from "@tanstack/react-query";
-import eventKeys from "@/features/events/queries";
+import { revalidateTime } from "@/utils/constants";
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const { data: events } = await axios.get<Event[]>("/events", {
-    params: {
-      per_page: 20,
-      orderby: "date",
-      order: "desc",
-    },
-  });
+  const events = await getEventsPaths();
 
   const paths = events.map((event) => ({
     params: { slug: event.slug },
@@ -37,30 +34,38 @@ interface StaticPathParams extends ParsedUrlQuery {
   slug: string;
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+type EventProps = {
+  event: Event;
+};
+
+export const getStaticProps: GetStaticProps<EventProps> = async ({
+  params,
+}) => {
   const { slug } = params as StaticPathParams;
 
-  const queryClient = new QueryClient();
-
-  await queryClient.prefetchQuery(eventKeys.event(slug), () => getEvent(slug));
+  const event = await getEvent(slug);
 
   return {
     props: {
-      dehydratedState: dehydrate(queryClient),
+      event,
     },
-    revalidate: 60 * 10,
+    revalidate: revalidateTime,
   };
 };
 
-const EventPage: NextPage = () => {
+const EventPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
+  event,
+}) => {
   const router = useRouter();
-  const { slug } = router.query;
 
-  const { data: event, isLoading } = useEvent(
-    (Array.isArray(slug) ? slug[0] : slug) || ""
-  );
+  if (router.isFallback)
+    return (
+      <Layout>
+        <Spinner className="mx-auto mt-20" />
+      </Layout>
+    );
 
-  if (!isLoading && !event)
+  if (!event)
     return (
       <Layout>
         <div className="flex flex-col gap-12 items-center justify-center mt-20">
@@ -76,20 +81,11 @@ const EventPage: NextPage = () => {
       title={clearHtmlFromString(event?.title || "")}
       description={clearHtmlFromString(event?.content || "")}
       header={
-        !isLoading && (
-          <ImageTitle image={event?.image || ""} title={event?.title || ""} />
-        )
+        <ImageTitle image={event?.image || ""} title={event?.title || ""} />
       }
     >
       <div className="py-12">
-        {isLoading ? (
-          <Spinner className="mx-auto mt-20" />
-        ) : (
-          <DisplayHTML
-            html={event?.content || ""}
-            documents={event.documents}
-          />
-        )}
+        <DisplayHTML html={event?.content || ""} documents={event.documents} />
       </div>
     </Layout>
   );

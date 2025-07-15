@@ -5,7 +5,7 @@ import {
 } from "@/utils/constants";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import type { ObavijestiMeta, Post } from "../types";
 import obavijestiKeys from "./queries";
 
@@ -33,11 +33,22 @@ export const getInfiniteObavijesti = async () => {
       ],
     },
   });
-  return response.data;
+  return {
+    data: response.data,
+    totalPages: response.headers?.["x-wp-totalpages"],
+  };
 };
 
-export const useObavijesti = (filters: ObavijestiFilters) => {
-  const totalPages = useRef(0);
+export const useObavijesti = (
+  initialData: Post<ObavijestiMeta>[],
+  initialTotalPages: number,
+  filters: ObavijestiFilters
+) => {
+  const initialRun = useRef(true);
+
+  useEffect(() => {
+    initialRun.current = false;
+  }, []);
 
   return useInfiniteQuery(
     obavijestiKeys.obavijestiFiltered(filters),
@@ -55,12 +66,25 @@ export const useObavijesti = (filters: ObavijestiFilters) => {
           ...filters,
         },
       });
-      totalPages.current = response.headers?.["x-wp-totalpages"];
-      return response.data;
+      return {
+        data: response.data,
+        totalPages: Number(response.headers?.["x-wp-totalpages"]),
+      };
     },
     {
+      initialData: initialRun.current
+        ? {
+            pageParams: [undefined, 1],
+            pages: [
+              {
+                data: initialData,
+                totalPages: initialTotalPages,
+              },
+            ],
+          }
+        : undefined,
       getNextPageParam: (lastPage, pages) => {
-        if (pages.length + 1 <= totalPages.current) return pages.length + 1;
+        if (pages.length + 1 <= lastPage.totalPages) return pages.length + 1;
       },
     }
   );

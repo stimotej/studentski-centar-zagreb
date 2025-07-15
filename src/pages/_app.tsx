@@ -15,6 +15,11 @@ import { useEffect } from "react";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
+      staleTime: Infinity,
+      cacheTime: Infinity,
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
       retry: 1,
     },
   },

@@ -1,28 +1,29 @@
 import EventCards from "@/components/kultura/EventCards";
 import Layout from "@/components/shared/Layout";
 import PageTitle from "@/components/shared/PageTitle";
-import { getCourses, useCourses } from "@/features/events";
-import eventKeys from "@/features/events/queries";
-import { dehydrate, QueryClient } from "@tanstack/react-query";
-import type { GetStaticProps, NextPage } from "next";
-import React from "react";
+import { getCourses } from "@/features/events";
+import type { Event } from "@/features/types";
+import { revalidateTime } from "@/utils/constants";
+import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
 
-export const getStaticProps: GetStaticProps = async () => {
-  const queryClient = new QueryClient();
+type TecajeviProps = {
+  courses: Event[];
+};
 
-  await queryClient.prefetchQuery(eventKeys.courses, getCourses);
+export const getStaticProps: GetStaticProps<TecajeviProps> = async () => {
+  const courses = await getCourses();
 
   return {
     props: {
-      dehydratedState: dehydrate(queryClient),
+      courses,
     },
-    revalidate: 60 * 10,
+    revalidate: revalidateTime,
   };
 };
 
-const FAQPage: NextPage = () => {
-  const { data: courses, isLoading } = useCourses();
-
+const FAQPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
+  courses,
+}) => {
   return (
     <Layout title="Tečajevi i radionice">
       <PageTitle title="Tečajevi i radionice" />
@@ -30,7 +31,7 @@ const FAQPage: NextPage = () => {
       {/* <div className="flex flex-col lg:flex-row gap-6 my-12"> */}
       <EventCards
         events={courses}
-        loading={isLoading}
+        loading={false}
         emptyMessage="Nema tečajeva/radionica za prikaz."
         className="w-full my-12"
         classNameLoading="mt-12 w-2/3"
