@@ -1,4 +1,4 @@
-export const revalidateTime = 6000;
+export const revalidateTime = 10;
 
 export const sliderCategoryId = 236;
 
