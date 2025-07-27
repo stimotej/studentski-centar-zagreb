@@ -16,6 +16,7 @@ import type {
 import type { ParsedUrlQuery } from "querystring";
 import { useRouter } from "next/router";
 import { revalidateTime } from "@/utils/constants";
+import Embeds from "@/scripts/embeds";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const events = await getEventsPaths();
@@ -87,6 +88,7 @@ const EventPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
       <div className="py-12">
         <DisplayHTML html={event?.content || ""} documents={event.documents} />
       </div>
+      <Embeds />
     </Layout>
   );
 };

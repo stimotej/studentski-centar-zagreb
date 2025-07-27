@@ -12,11 +12,7 @@ import { getDomoviPaths } from "@/features/paths";
 import { getPost } from "@/features/posts";
 import type { Post, PostsMeta } from "@/features/types";
 import clearHtmlFromString from "@/utils/clearHtmlFromString";
-import {
-  infoSmjestajDormitoriesCategory,
-  revalidateTime,
-} from "@/utils/constants";
-import axios from "axios";
+import { revalidateTime } from "@/utils/constants";
 import type {
   GetStaticPaths,
   GetStaticProps,

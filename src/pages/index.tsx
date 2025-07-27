@@ -28,8 +28,7 @@ import type {
   Post,
   PostsMeta,
 } from "@/features/types";
-
-// import OTPBanner from "@/components/ads/OTPBanner";
+import OTPBanner from "@/components/ads/OTPBanner";
 
 type HomeProps = {
   sliderPosts: Post<ObavijestiMeta>[];
@@ -100,7 +99,7 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
       }
       bottomComponent={<HelpSection />}
     >
-      {/* <OTPBanner /> */}
+      <OTPBanner />
       <LinkCards />
       <div className="mt-6 flex flex-col gap-16 md:flex-row">
         <div className="w-full md:w-[70%]">

@@ -20,6 +20,7 @@ import type { JobsMeta, Post } from "@/features/types";
 import DocumentCard from "@/components/shared/DocumentCard";
 import { revalidateTime } from "@/utils/constants";
 import { getJobsPaths } from "@/features/paths";
+import Embeds from "@/scripts/embeds";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const jobs = await getJobsPaths();
@@ -274,6 +275,7 @@ const JobPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
           </Card>
         </div>
       </div>
+      <Embeds />
     </Layout>
   );
 };

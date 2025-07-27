@@ -1,5 +1,6 @@
-import banner1 from "../../../public/slike/otp/OTP_e-indeks_Studentski_970x250.jpg";
-import banner2 from "../../../public/slike/otp/OTP_e-indeks_Studentski_1200x200.jpg";
+// import banner1 from "../../../public/slike/otp/OTP_e-indeks_Studentski_970x250.jpg";
+// import banner2 from "../../../public/slike/otp/OTP_e-indeks_Studentski_1200x200.jpg";
+import banner from "../../../public/slike/otp/OTP_Bank_eIndeks_Banner.jpg";
 import { useMemo, useState } from "react";
 import { MdClose } from "react-icons/md";
 import Image from "next/image";
@@ -8,7 +9,8 @@ export default function OTPBanner() {
   const [isOpen, setIsOpen] = useState(true);
 
   const randomImage = useMemo(() => {
-    const images = [banner1, banner2];
+    // const images = [banner1, banner2];
+    const images = [banner];
     return images[Math.floor(Math.random() * images.length)];
   }, []);
 
@@ -30,6 +32,8 @@ export default function OTPBanner() {
         <button
           className="absolute right-4 top-4"
           onClick={() => setIsOpen(false)}
+          title="Zatvori oglas"
+          aria-label="Zatvori oglas"
         >
           <MdClose size={24} className="text-white" />
         </button>

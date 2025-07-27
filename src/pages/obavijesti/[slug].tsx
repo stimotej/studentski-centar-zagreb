@@ -16,6 +16,7 @@ import { useRouter } from "next/router";
 import { revalidateTime } from "@/utils/constants";
 import Spinner from "@/components/elements/Spinner";
 import { getObavijestiPaths } from "@/features/paths";
+import Embeds from "@/scripts/embeds";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const obavijesti = await getObavijestiPaths();
@@ -93,6 +94,7 @@ const ObavijestPage: NextPage<
           />
         )}
       </div>
+      <Embeds />
     </Layout>
   );
 };

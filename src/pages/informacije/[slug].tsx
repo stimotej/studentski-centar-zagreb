@@ -16,6 +16,7 @@ import { useRouter } from "next/router";
 import { revalidateTime } from "@/utils/constants";
 import Spinner from "@/components/elements/Spinner";
 import { getInformacijePaths } from "@/features/paths";
+import Embeds from "@/scripts/embeds";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await getInformacijePaths();
@@ -94,6 +95,7 @@ const InfoPostPage: NextPage<
           documents={obavijest?.meta.documents}
         />
       </div>
+      <Embeds />
     </Layout>
   );
 };
