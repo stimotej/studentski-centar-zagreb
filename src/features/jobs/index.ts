@@ -20,7 +20,7 @@ export const getInfiniteJobs = async () => {
       per_page: jobsPerPage,
       timestamp: new Date().getTime(),
       allowed_sc: true,
-      orderby: "featured",
+      orderby: "date",
       search: "",
       categories: undefined,
       filter_by_date: true,
