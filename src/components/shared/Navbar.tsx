@@ -1,32 +1,42 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { MdMenu, MdExpandMore } from "react-icons/md";
-import { useAuth } from "@/providers/auth";
 import { useScrollPosition } from "@/hooks/useScrollPosition";
 import { AnimatePresence, motion } from "framer-motion";
 
 const navLinks = [
-  { name: "Početna", href: "/", protected: false },
-  { name: "Obavijesti", href: "/obavijesti", protected: false },
-  { name: "Student servis", href: "/student-servis", protected: false },
-  { name: "Poslovi", href: "/poslovi", protected: false },
-  { name: "Prehrana", href: "/prehrana", protected: false },
-  { name: "Smještaj", href: "/smjestaj", protected: false },
-  { name: "Kultura", href: "/kultura", protected: false },
-  { name: "Sport", href: "/sport", protected: false },
-  { name: "Mediji", href: "/mediji", protected: false },
-  { name: "Francuski paviljon", href: "/francuski-paviljon", protected: false },
+  { title: "Početna", href: "/" },
+  { title: "Obavijesti", href: "/obavijesti" },
+  { title: "Student servis", href: "/student-servis" },
+  { title: "Poslovi", href: "/poslovi" },
+  { title: "Prehrana", href: "/prehrana" },
+  {
+    title: "Smještaj",
+    items: [
+      { title: "Studentski", href: "/smjestaj" },
+      { title: "Turistički", href: "/turizam" },
+    ],
+  },
+  { title: "Kultura", href: "/kultura" },
+  { title: "Sport", href: "/sport" },
+  { title: "Mediji", href: "/mediji" },
+  { title: "Francuski paviljon", href: "/francuski-paviljon" },
+  {
+    title: "Prijava",
+    items: [
+      { title: "Prijava student", href: "/prijava-student" },
+      { title: "Prijava poslodavac", href: "/prijava-poslodavac" },
+    ],
+  },
 ];
 
 const Navbar = () => {
   const scrollY = useScrollPosition();
 
   const [opened, setOpened] = useState(false);
-
-  const { user, logout } = useAuth();
 
   return (
     <div
@@ -51,39 +61,21 @@ const Navbar = () => {
         </div>
       </div>
       <nav className="hidden items-center gap-5 [@media(min-width:1000px)]:flex">
-        {navLinks.map((link) =>
-          link.protected ? (
-            user ? (
-              <NavLink key={link.name} title={link.name} href={link.href} />
-            ) : null
+        {navLinks.map((link, index) =>
+          link.items ? (
+            <Dropdown key={index} title={link.title}>
+              {link.items.map((item) => (
+                <NavLink
+                  key={item.href}
+                  title={item.title}
+                  href={item.href}
+                  isDropdownItem
+                />
+              ))}
+            </Dropdown>
           ) : (
-            <NavLink key={link.name} title={link.name} href={link.href} />
+            <NavLink key={link.href} title={link.title} href={link.href} />
           )
-        )}
-        {user ? (
-          <Dropdown title={user.displayName || ""}>
-            <button
-              onClick={logout}
-              className={clsx(
-                "px-6 py-3 text-sm hover:bg-gray-100 last:rounded-b-lg text-gray-500 first:rounded-t-lg whitespace-nowrap"
-              )}
-            >
-              Odjava
-            </button>
-          </Dropdown>
-        ) : (
-          <Dropdown title="Prijava">
-            <NavLink
-              title="Prijava student"
-              href="/prijava-student"
-              isDropdownItem
-            />
-            <NavLink
-              title="Prijava poslodavac"
-              href="/prijava-poslodavac"
-              isDropdownItem
-            />
-          </Dropdown>
         )}
       </nav>
       <div className="py-3 [@media(min-width:1000px)]:hidden">
@@ -105,56 +97,29 @@ const Navbar = () => {
           >
             <div className="flex flex-col ">
               {navLinks.map((link) =>
-                link.protected ? (
-                  user ? (
-                    <NavLink
-                      key={link.name}
-                      title={link.name}
-                      href={link.href}
-                      isDropdownItem
-                    />
-                  ) : null
+                link.items ? (
+                  <Fragment key={link.title}>
+                    <div className="px-6 py-3 cursor-default text-sm text-text bg-gray-100">
+                      {link.title}
+                    </div>
+                    {link.items.map((item) => (
+                      <NavLink
+                        key={item.href}
+                        title={item.title}
+                        href={item.href}
+                        isDropdownItem
+                        className="ml-12 last:rounded-br-lg"
+                      />
+                    ))}
+                  </Fragment>
                 ) : (
                   <NavLink
-                    key={link.name}
-                    title={link.name}
+                    key={link.title}
+                    title={link.title}
                     href={link.href}
                     isDropdownItem
                   />
                 )
-              )}
-              {user ? (
-                <>
-                  <div className="px-6 py-3 cursor-default text-sm text-text bg-gray-100">
-                    {user.displayName}
-                  </div>
-                  <button
-                    onClick={logout}
-                    className={clsx(
-                      "text-sm text-left px-6 py-3 text-gray-500 ml-12 hover:bg-gray-100 last:rounded-br-lg whitespace-nowrap"
-                    )}
-                  >
-                    Odjava
-                  </button>
-                </>
-              ) : (
-                <>
-                  <div className="px-6 py-3 cursor-default text-sm text-text bg-gray-100">
-                    Prijava
-                  </div>
-                  <NavLink
-                    title="Prijava student"
-                    href="/prijava-student"
-                    isDropdownItem
-                    className="ml-12 last:rounded-br-lg"
-                  />
-                  <NavLink
-                    title="Prijava poslodavac"
-                    href="/prijava-poslodavac"
-                    isDropdownItem
-                    className="ml-12 last:!rounded-bl-none last:!rounded-br-lg"
-                  />
-                </>
               )}
             </div>
           </motion.div>
