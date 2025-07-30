@@ -10,6 +10,9 @@ import AccessibilitySettings from "@/components/shared/AccessibilitySettings";
 import ScrollToTop from "@/components/shared/ScrollToTop";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import axios from "axios";
+
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_SC_API_URL;
 
 const queryClient = new QueryClient({
   defaultOptions: {
