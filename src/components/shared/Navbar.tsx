@@ -69,7 +69,7 @@ export default function Navbar() {
             height={56}
           />
         </Link>
-        <div className="hidden [@media(min-width:360px)]:flex [@media(min-width:800px)]:hidden [@media(min-width:1200px)]:!flex flex-col text-sm font-medium">
+        <div className="hidden [@media(min-width:400px)]:flex [@media(min-width:1024px)]:!hidden [@media(min-width:1220px)]:!flex flex-col text-sm font-medium">
           <span>Sveučilište u Zagrebu</span>
           <span className="text-sc">Studentski centar u Zagrebu</span>
         </div>
