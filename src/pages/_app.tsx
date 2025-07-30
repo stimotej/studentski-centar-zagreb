@@ -1,7 +1,6 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { AnimatePresence } from "framer-motion";
-import AuthProvider from "@/providers/auth";
 import {
   Hydrate,
   QueryClient,
@@ -35,14 +34,12 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
-        <AuthProvider>
-          <AnimatePresence mode="wait">
-            <AccessibilitySettings>
-              <Component {...pageProps} />
-              <ScrollToTop />
-            </AccessibilitySettings>
-          </AnimatePresence>
-        </AuthProvider>
+        <AnimatePresence mode="wait">
+          <AccessibilitySettings>
+            <Component {...pageProps} />
+            <ScrollToTop />
+          </AccessibilitySettings>
+        </AnimatePresence>
       </Hydrate>
     </QueryClientProvider>
   );
