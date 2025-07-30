@@ -16,7 +16,7 @@ export default function OTPBanner() {
 
   if (!isOpen) return null;
   return (
-    <div className="z-[9999] fixed left-0 right-0 bottom-0 animate-slide-in h-auto bg-black/50 backdrop-blur-2xl">
+    <div className="z-[49] fixed left-0 right-0 bottom-0 animate-slide-in h-auto bg-black/50 backdrop-blur-2xl">
       <div className="relative container md:max-w-[80%] mx-auto px-6 md:px-0">
         <a
           target="_blank"
