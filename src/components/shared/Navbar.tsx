@@ -69,7 +69,7 @@ export default function Navbar() {
             height={56}
           />
         </Link>
-        <div className="hidden [@media(min-width:400px)]:flex [@media(min-width:1024px)]:!hidden [@media(min-width:1220px)]:!flex flex-col text-sm font-medium">
+        <div className="hidden [@media(min-width:350px)]:flex [@media(min-width:1024px)]:!hidden [@media(min-width:1220px)]:!flex flex-col text-sm font-medium">
           <span>Sveučilište u Zagrebu</span>
           <span className="text-sc">Studentski centar u Zagrebu</span>
         </div>
@@ -128,7 +128,7 @@ export default function Navbar() {
                       <Link
                         href={link.href}
                         className={clsx(
-                          "text-sm px-6 py-3 hover:bg-gray-100 w-full border-gray-100",
+                          "text-sm px-6 py-3 hover:bg-gray-100 flex border-gray-100",
                           router.pathname == link.href
                             ? "text-sc"
                             : "text-gray-500"
