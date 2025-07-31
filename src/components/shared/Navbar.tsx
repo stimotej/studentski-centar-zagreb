@@ -21,6 +21,12 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@radix-ui/react-navigation-menu";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@radix-ui/react-collapsible";
+import { FaChevronDown } from "react-icons/fa";
 
 const navLinks = [
   { title: "Početna", href: "/" },
@@ -99,28 +105,41 @@ export default function Navbar() {
               {navLinks.map((link) =>
                 "items" in link ? (
                   <li key={link.title}>
-                    <div className="px-6 py-3 cursor-default text-sm text-text bg-gray-100">
-                      {link.title}
-                    </div>
-                    <ul>
-                      {link.items.map((item) => (
-                        <li key={item.href} className="w-full">
-                          <SheetClose asChild>
-                            <Link
-                              href={item.href}
-                              className={clsx(
-                                "ml-8 text-sm px-6 py-3 hover:bg-gray-100 flex",
-                                router.pathname == item.href
-                                  ? "text-sc"
-                                  : "text-gray-500"
-                              )}
-                            >
-                              {item.title}
-                            </Link>
-                          </SheetClose>
-                        </li>
-                      ))}
-                    </ul>
+                    <Collapsible
+                      defaultOpen={link.items.some(
+                        (i) => i.href === router.pathname
+                      )}
+                    >
+                      <CollapsibleTrigger className="flex items-center justify-between gap-2 w-full px-6 py-3 cursor-default text-sm text-gray-500 hover:cursor-pointer hover:bg-gray-100 data-[state=open]:bg-gray-100 [&[data-state=open]>svg]:rotate-180 data-[state=open]:text-black">
+                        {link.title}
+                        <FaChevronDown
+                          aria-hidden={true}
+                          size={12}
+                          className="text-gray-500 transition-transform"
+                        />
+                      </CollapsibleTrigger>
+                      <CollapsibleContent>
+                        <ul>
+                          {link.items.map((item) => (
+                            <li key={item.href} className="w-full">
+                              <SheetClose asChild>
+                                <Link
+                                  href={item.href}
+                                  className={clsx(
+                                    "ml-8 text-sm px-6 py-3 hover:bg-gray-100 flex",
+                                    router.pathname == item.href
+                                      ? "text-sc"
+                                      : "text-gray-500"
+                                  )}
+                                >
+                                  {item.title}
+                                </Link>
+                              </SheetClose>
+                            </li>
+                          ))}
+                        </ul>
+                      </CollapsibleContent>
+                    </Collapsible>
                   </li>
                 ) : (
                   <li key={link.title} className="w-full">
