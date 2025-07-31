@@ -176,7 +176,7 @@ export default function Navbar() {
                 <NavigationMenuTrigger
                   className={clsx(
                     "cursor-default text-sm flex gap-1 items-center py-6",
-                    router.pathname.includes(link.title.toLocaleLowerCase())
+                    link.items.some((i) => i.href === router.pathname)
                       ? "text-sc"
                       : "text-gray-500"
                   )}
@@ -211,7 +211,12 @@ export default function Navbar() {
                 <NavigationMenuLink asChild>
                   <Link
                     href={link.href}
-                    className="text-sm py-6 text-gray-500 hover:text-gray-400"
+                    className={clsx(
+                      "text-sm py-6",
+                      router.pathname == link.href
+                        ? "text-sc"
+                        : "text-gray-500 hover:text-gray-400"
+                    )}
                   >
                     {link.title}
                   </Link>
