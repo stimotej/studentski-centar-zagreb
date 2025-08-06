@@ -1,6 +1,7 @@
 import {
   obavijestiPocetnaStranicaCategory,
   obavijestiTeatarTdCategoryId,
+  obavijestiTurizamCategoryId,
   sliderCategoryId,
 } from "@/utils/constants";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
@@ -30,6 +31,7 @@ export const getInfiniteObavijesti = async () => {
       categories_exclude: [
         obavijestiPocetnaStranicaCategory,
         obavijestiTeatarTdCategoryId,
+        obavijestiTurizamCategoryId,
       ],
     },
   });
@@ -62,6 +64,7 @@ export const useObavijesti = (
           categories_exclude: [
             obavijestiPocetnaStranicaCategory,
             obavijestiTeatarTdCategoryId,
+            obavijestiTurizamCategoryId,
           ],
           ...filters,
         },
@@ -112,6 +115,7 @@ const filters = {
   categories_exclude: [
     obavijestiPocetnaStranicaCategory,
     obavijestiTeatarTdCategoryId,
+    obavijestiTurizamCategoryId,
   ],
   timestamp: new Date().getTime(),
 };
