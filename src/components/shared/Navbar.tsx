@@ -66,7 +66,7 @@ export default function Navbar() {
       )}
     >
       <div className="flex items-center gap-4">
-        <Link href="/">
+        <Link href="/" aria-label="Idi na početnu stranicu">
           <Image
             src="/sc-logo.svg"
             alt="SC Logo"

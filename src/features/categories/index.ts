@@ -5,6 +5,7 @@ import categoryKeys from "./queries";
 import {
   obavijestiPocetnaStranicaCategory,
   obavijestiTeatarTdCategoryId,
+  obavijestiTurizamCategoryId,
 } from "@/utils/constants";
 
 export type CategoryFilters = {
@@ -20,7 +21,11 @@ export type CategoryFilters = {
 
 const filters = {
   per_page: 100,
-  exclude: [obavijestiPocetnaStranicaCategory, obavijestiTeatarTdCategoryId],
+  exclude: [
+    obavijestiPocetnaStranicaCategory,
+    obavijestiTeatarTdCategoryId,
+    obavijestiTurizamCategoryId,
+  ],
 };
 
 export const getCategories = async (parent?: number) => {
