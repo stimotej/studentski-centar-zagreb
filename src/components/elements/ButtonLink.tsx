@@ -1,6 +1,6 @@
 import React from "react";
 import clsx from "clsx";
-import { LinkProps } from "next/link";
+import type { LinkProps } from "next/link";
 import CustomLink from "./CustomLink";
 
 type ButtonLinkProps = {

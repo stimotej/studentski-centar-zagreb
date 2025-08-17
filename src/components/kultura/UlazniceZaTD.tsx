@@ -1,7 +1,6 @@
 import React from "react";
 import Card from "../shared/Card";
 import Image from "next/image";
-import Link from "next/link";
 
 interface UlazniceZaTDProps {
   className?: string;

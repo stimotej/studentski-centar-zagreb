@@ -1,7 +1,7 @@
-import NextLink from "next/link";
 import React from "react";
 import { MdChevronRight } from "react-icons/md";
 import Card from "../shared/Card";
+import CustomLink from "../elements/CustomLink";
 
 const slides = [
   {
@@ -64,14 +64,14 @@ const SingleCard = ({ title, links }: SingleCardProps) => {
       <h3 className="text-sm font-bold uppercase tracking-wider">{title}</h3>
       <div className="mt-4 flex flex-col">
         {links.map((link, index) => (
-          <NextLink
+          <CustomLink
             key={index}
             href={link.href}
             className="flex items-center whitespace-nowrap justify-between border-b border-primary/10 py-3 px-2 font-medium text-light last:border-none  hover:bg-light/5"
           >
             {link.title}
             <MdChevronRight size={24} className="text-primary" />
-          </NextLink>
+          </CustomLink>
         ))}
       </div>
     </Card>
