@@ -1,8 +1,8 @@
 import React from "react";
-import Link from "next/link";
 import clsx from "clsx";
 import DisplayHTML from "../elements/DisplayHTML";
 import Spinner from "../elements/Spinner";
+import CustomLink from "../elements/CustomLink";
 
 interface SidebarLinksProps {
   items: { label?: string; title: string; link: string }[];
@@ -47,7 +47,7 @@ interface LinkCardProps {
 
 const LinkCard: React.FC<LinkCardProps> = (props) => {
   return (
-    <Link
+    <CustomLink
       href={props.link}
       className="first:rounded-t-lg last:rounded-b-lg py-3 px-6 bg-[#4c5c67]"
     >
@@ -60,7 +60,7 @@ const LinkCard: React.FC<LinkCardProps> = (props) => {
         html={props.title}
         className="text-white line-clamp-2 font-medium leading-5"
       />
-    </Link>
+    </CustomLink>
   );
 };
 

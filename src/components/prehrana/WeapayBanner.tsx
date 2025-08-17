@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import Image from "next/image";
-import Link from "next/link";
 import React from "react";
+import CustomLink from "../elements/CustomLink";
 
 interface WeapayBannerProps {
   className?: string;
@@ -15,7 +15,7 @@ const WeapayBanner: React.FC<WeapayBannerProps> = (props) => {
         props.className
       )}
     >
-      <Link href="https://weapay.hr/">
+      <CustomLink href="https://weapay.hr/">
         <Image
           src="/slike/prehrana/weapay_logo.png"
           alt="Weapay logo"
@@ -23,7 +23,7 @@ const WeapayBanner: React.FC<WeapayBannerProps> = (props) => {
           height={74}
           className="w-[100px] h-auto object-cover"
         />
-      </Link>
+      </CustomLink>
       <div>
         <h5 className="text-3xl uppercase font-bold tracking-wide text-white">
           PLATI BRŽE, UŽIVAJ DUŽE.

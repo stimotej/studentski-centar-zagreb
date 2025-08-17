@@ -1,8 +1,8 @@
-import Link from "next/link";
 import React from "react";
 import { MdChevronRight } from "react-icons/md";
 import DisplayHTML from "../elements/DisplayHTML";
 import Card from "../shared/Card";
+import CustomLink from "../elements/CustomLink";
 
 interface GeneralInfoCardProps {
   title: string;
@@ -19,13 +19,13 @@ const GeneralInfoCard: React.FC<GeneralInfoCardProps> = (props) => {
       />
       <DisplayHTML html={props.content} />
       <p className="mt-4">
-        <Link
+        <CustomLink
           href={props.link}
           className="text-primary flex items-center gap-1"
         >
           Saznaj više
           <MdChevronRight size={16} />
-        </Link>
+        </CustomLink>
       </p>
     </Card>
   );

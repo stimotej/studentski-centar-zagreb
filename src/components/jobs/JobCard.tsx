@@ -1,10 +1,10 @@
 import clsx from "clsx";
 import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 import DisplayHTML from "../elements/DisplayHTML";
 import Card from "../shared/Card";
 import clearHtmlFromString from "@/utils/clearHtmlFromString";
+import CustomLink from "../elements/CustomLink";
 
 interface JobCardProps {
   title: string;
@@ -19,7 +19,7 @@ interface JobCardProps {
 
 const JobCard: React.FC<JobCardProps> = (props) => {
   return (
-    <Link
+    <CustomLink
       href={"/poslovi/" + props.slug}
       className={clsx(
         "w-full rounded-xl",
@@ -49,7 +49,7 @@ const JobCard: React.FC<JobCardProps> = (props) => {
           className="text-light line-clamp-3"
         />
       </Card>
-    </Link>
+    </CustomLink>
   );
 };
 

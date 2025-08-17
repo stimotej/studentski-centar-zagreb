@@ -1,6 +1,5 @@
 import clsx from "clsx";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { MdMenu, MdExpandMore } from "react-icons/md";
 import { useScrollPosition } from "@/hooks/useScrollPosition";
@@ -27,6 +26,7 @@ import {
   CollapsibleTrigger,
 } from "@radix-ui/react-collapsible";
 import { FaChevronDown } from "react-icons/fa";
+import CustomLink from "../elements/CustomLink";
 
 const navLinks = [
   { title: "Početna", href: "/" },
@@ -66,7 +66,7 @@ export default function Navbar() {
       )}
     >
       <div className="flex items-center gap-4">
-        <Link href="/" aria-label="Idi na početnu stranicu">
+        <CustomLink href="/" aria-label="Idi na početnu stranicu">
           <Image
             src="/sc-logo.svg"
             alt="SC Logo"
@@ -74,7 +74,7 @@ export default function Navbar() {
             width={56}
             height={56}
           />
-        </Link>
+        </CustomLink>
         <div className="hidden [@media(min-width:350px)]:flex [@media(min-width:1024px)]:!hidden [@media(min-width:1220px)]:!flex flex-col text-sm font-medium">
           <span>Sveučilište u Zagrebu</span>
           <span className="text-sc">Studentski centar u Zagrebu</span>
@@ -123,7 +123,7 @@ export default function Navbar() {
                           {link.items.map((item) => (
                             <li key={item.href} className="w-full">
                               <SheetClose asChild>
-                                <Link
+                                <CustomLink
                                   href={item.href}
                                   className={clsx(
                                     "ml-8 text-sm px-6 py-3 hover:bg-gray-100 flex",
@@ -133,7 +133,7 @@ export default function Navbar() {
                                   )}
                                 >
                                   {item.title}
-                                </Link>
+                                </CustomLink>
                               </SheetClose>
                             </li>
                           ))}
@@ -144,7 +144,7 @@ export default function Navbar() {
                 ) : (
                   <li key={link.title} className="w-full">
                     <SheetClose asChild>
-                      <Link
+                      <CustomLink
                         href={link.href}
                         className={clsx(
                           "text-sm px-6 py-3 hover:bg-gray-100 flex border-gray-100",
@@ -154,7 +154,7 @@ export default function Navbar() {
                         )}
                       >
                         {link.title}
-                      </Link>
+                      </CustomLink>
                     </SheetClose>
                   </li>
                 )
@@ -191,7 +191,7 @@ export default function Navbar() {
                   )}
                 >
                   {link.items.map((item) => (
-                    <Link
+                    <CustomLink
                       key={item.href}
                       href={item.href}
                       className={clsx(
@@ -202,14 +202,14 @@ export default function Navbar() {
                       )}
                     >
                       {item.title}
-                    </Link>
+                    </CustomLink>
                   ))}
                 </NavigationMenuContent>
               </NavigationMenuItem>
             ) : (
               <NavigationMenuItem key={index}>
                 <NavigationMenuLink asChild>
-                  <Link
+                  <CustomLink
                     href={link.href}
                     className={clsx(
                       "text-sm py-6",
@@ -219,7 +219,7 @@ export default function Navbar() {
                     )}
                   >
                     {link.title}
-                  </Link>
+                  </CustomLink>
                 </NavigationMenuLink>
               </NavigationMenuItem>
             )

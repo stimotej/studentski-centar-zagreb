@@ -1,9 +1,9 @@
 import clsx from "clsx";
 import Image from "next/image";
-import Link from "next/link";
 import React, { useState, useEffect, useRef } from "react";
 import DisplayHTML from "../elements/DisplayHTML";
 import { MdChevronRight } from "react-icons/md";
+import CustomLink from "../elements/CustomLink";
 
 interface Slide {
   src: string;
@@ -153,13 +153,13 @@ export default function KulturaSlider({ slides, className }: SliderProps) {
               className="line-clamp-2 text-sm"
             />
 
-            <Link
+            <CustomLink
               href={slide.actionHref}
               className="flex items-center gap-1 w-fit font-semibold mt-4 mx-auto"
             >
               {slide.actionTitle}
               <MdChevronRight size={22} />
-            </Link>
+            </CustomLink>
           </div>
         </div>
       ))}

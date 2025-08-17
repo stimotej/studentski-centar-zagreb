@@ -1,10 +1,10 @@
 import clsx from "clsx";
-import Link from "next/link";
 import React from "react";
 import { MdArrowRightAlt } from "react-icons/md";
 import DisplayHTML from "../elements/DisplayHTML";
 import Card from "./Card";
 import clearHtmlFromString from "@/utils/clearHtmlFromString";
+import CustomLink from "../elements/CustomLink";
 
 interface InfoPostCardProps {
   title: string;
@@ -42,7 +42,7 @@ const InfoPostCard: React.FC<InfoPostCardProps> = (props) => {
                 : "line-clamp-3"
             )}
           />
-          <Link
+          <CustomLink
             href={props.link}
             className={clsx(
               "text-primary text-xs font-semibold uppercase tracking-wider flex items-center gap-2",
@@ -52,7 +52,7 @@ const InfoPostCard: React.FC<InfoPostCardProps> = (props) => {
             )}
           >
             Saznaj više <MdArrowRightAlt size={18} />
-          </Link>
+          </CustomLink>
         </>
       ) : (
         <DisplayHTML

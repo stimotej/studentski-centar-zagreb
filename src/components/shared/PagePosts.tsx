@@ -2,11 +2,11 @@ import clearHtmlFromString from "@/utils/clearHtmlFromString";
 import clsx from "clsx";
 import dayjs from "dayjs";
 import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 import DisplayHTML from "../elements/DisplayHTML";
 import Spinner from "../elements/Spinner";
 import type { ObavijestiMeta, Post } from "@/features/types";
+import CustomLink from "../elements/CustomLink";
 
 interface PagePostsProps {
   className?: string;
@@ -56,7 +56,7 @@ interface PagePostCardProps {
 
 const PagePostCard: React.FC<PagePostCardProps> = (props) => {
   return (
-    <Link
+    <CustomLink
       href={`/obavijesti/${props.slug}`}
       className={clsx(
         "p-3 rounded-lg border border-primary/20 hover:border-primary/40 hover:bg-primary/5 flex gap-4",
@@ -84,7 +84,7 @@ const PagePostCard: React.FC<PagePostCardProps> = (props) => {
           {dayjs(props.date).format("DD.MM.YYYY")}
         </div>
       </div>
-    </Link>
+    </CustomLink>
   );
 };
 

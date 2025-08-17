@@ -1,9 +1,9 @@
 import React from "react";
 import Image from "next/image";
 import dayjs from "dayjs";
-import Link from "next/link";
 import DisplayHTML from "../elements/DisplayHTML";
 import clearHtmlFromString from "@/utils/clearHtmlFromString";
+import CustomLink from "../elements/CustomLink";
 
 interface PostCardProps {
   image: string;
@@ -16,7 +16,7 @@ interface PostCardProps {
 
 const PostCard: React.FC<PostCardProps> = (props) => {
   return (
-    <Link href={"/obavijesti/" + props.slug}>
+    <CustomLink href={"/obavijesti/" + props.slug}>
       <Image
         src={props.image || "/slike/placeholder.png"}
         alt={props.title}
@@ -39,7 +39,7 @@ const PostCard: React.FC<PostCardProps> = (props) => {
           className="text-sm line-clamp-5"
         />
       </div>
-    </Link>
+    </CustomLink>
   );
 };
 

@@ -1,12 +1,12 @@
-import type { Post, Event } from "@/features/types";
+import type { Event } from "@/features/types";
 import clsx from "clsx";
 import dayjs from "dayjs";
 import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 import DisplayHTML from "../elements/DisplayHTML";
 import Spinner from "../elements/Spinner";
 import Card from "../shared/Card";
+import CustomLink from "../elements/CustomLink";
 
 interface EventCardsProps {
   events: Event[] | undefined;
@@ -89,7 +89,7 @@ export const EventCard: React.FC<EventCardProps> = (props) => {
           )}
         ></div>
       )}
-      <Link href={props.link}>
+      <CustomLink href={props.link}>
         <Card
           className={clsx(
             props.reverse
@@ -130,7 +130,7 @@ export const EventCard: React.FC<EventCardProps> = (props) => {
             />
           </div>
         </Card>
-      </Link>
+      </CustomLink>
     </div>
   );
 };

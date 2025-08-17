@@ -9,6 +9,7 @@ import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import DisplayHTML from "../elements/DisplayHTML";
 import Spinner from "../elements/Spinner";
 import SectionTitle from "./SectionTitle";
+import CustomLink from "../elements/CustomLink";
 
 interface PostSliderProps {
   title?: string;
@@ -84,7 +85,7 @@ interface PostCardProps {
 
 const PostCard: React.FC<PostCardProps> = (props) => {
   return (
-    <Link
+    <CustomLink
       href={
         props.isRestaurant
           ? `/prehrana/restorani/${props.post.slug}`
@@ -127,7 +128,7 @@ const PostCard: React.FC<PostCardProps> = (props) => {
           />
         )}
       </div>
-    </Link>
+    </CustomLink>
   );
 };
 

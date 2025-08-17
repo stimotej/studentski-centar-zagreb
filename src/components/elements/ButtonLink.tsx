@@ -1,6 +1,7 @@
 import React from "react";
 import clsx from "clsx";
-import Link, { LinkProps } from "next/link";
+import { LinkProps } from "next/link";
+import CustomLink from "./CustomLink";
 
 type ButtonLinkProps = {
   href: LinkProps["href"];
@@ -29,10 +30,10 @@ const ButtonLink: React.FC<ButtonLinkProps> = (props) => {
     );
   } else {
     return (
-      <Link href={props.href} className={styles}>
+      <CustomLink href={props.href} className={styles}>
         {props.children}
         {props.icon}
-      </Link>
+      </CustomLink>
     );
   }
 };
