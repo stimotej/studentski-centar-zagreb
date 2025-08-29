@@ -217,10 +217,10 @@ const SmjestajPage: NextPage<
       />
       <ContentCard
         title="Domski red"
-        content="Na snagu su stupile izmjene Pravilnika o domskom redu i uvjetima boravka studenata u studentskim domovima Studentskog centra u Zagrebu kojima se reguliraju obveze stanara studentskih domova, a tiču se postupanja stanara u izvanrednim okolnostima te je opisan način naplate stanarine koji stupa na snagu sa početkom nove akademske godine (1. rujan 2020.). Navedene izmjene donesene su kao zaključak dogovora Zajednice studentskih centara RH kako bi se ujednačio način naplate stanarine u svim studentskim domovima u Republici Hrvatskoj."
+        content="Na snagu su stupile izmjene Pravilnika o domskom redu i uvjetima boravka studenata u studentskim domovima Studentskog centra u Zagrebu kojima se reguliraju obveze stanara studentskih domova, a tiču se postupanja stanara u izvanrednim okolnostima te je opisan način naplate stanarine koji stupa na snagu sa početkom nove akademske godine (22. rujna 2023.). Navedene izmjene donesene su kao zaključak dogovora Zajednice studentskih centara RH kako bi se ujednačio način naplate stanarine u svim studentskim domovima u Republici Hrvatskoj."
         action={{
           title: "Otvori domski red",
-          href: "/dokumenti/smjestaj/domski_red_2020.pdf",
+          href: "/dokumenti/smjestaj/Pravilnik-o-domskom-redu-i-uvjetima-boravka-studenata-2023.pdf",
         }}
         className="mt-8"
         contentClassName="text-light leading-relaxed"
