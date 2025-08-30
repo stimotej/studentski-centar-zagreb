@@ -1,4 +1,6 @@
 import {
+  obavijestiCateringCategoryId,
+  obavijestiEventiCategoryId,
   obavijestiPocetnaStranicaCategory,
   obavijestiTeatarTdCategoryId,
   obavijestiTurizamCategoryId,
@@ -32,6 +34,8 @@ export const getInfiniteObavijesti = async () => {
         obavijestiPocetnaStranicaCategory,
         obavijestiTeatarTdCategoryId,
         obavijestiTurizamCategoryId,
+        obavijestiEventiCategoryId,
+        obavijestiCateringCategoryId,
       ],
     },
   });
@@ -65,6 +69,8 @@ export const useObavijesti = (
             obavijestiPocetnaStranicaCategory,
             obavijestiTeatarTdCategoryId,
             obavijestiTurizamCategoryId,
+            obavijestiEventiCategoryId,
+            obavijestiCateringCategoryId,
           ],
           ...filters,
         },
@@ -116,6 +122,8 @@ const filters = {
     obavijestiPocetnaStranicaCategory,
     obavijestiTeatarTdCategoryId,
     obavijestiTurizamCategoryId,
+    obavijestiEventiCategoryId,
+    obavijestiCateringCategoryId,
   ],
   timestamp: new Date().getTime(),
 };

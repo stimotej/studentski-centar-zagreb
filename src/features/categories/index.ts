@@ -3,6 +3,8 @@ import axios from "axios";
 import type { Category } from "../types";
 import categoryKeys from "./queries";
 import {
+  obavijestiCateringCategoryId,
+  obavijestiEventiCategoryId,
   obavijestiPocetnaStranicaCategory,
   obavijestiTeatarTdCategoryId,
   obavijestiTurizamCategoryId,
@@ -25,6 +27,8 @@ const filters = {
     obavijestiPocetnaStranicaCategory,
     obavijestiTeatarTdCategoryId,
     obavijestiTurizamCategoryId,
+    obavijestiEventiCategoryId,
+    obavijestiCateringCategoryId,
   ],
 };
 

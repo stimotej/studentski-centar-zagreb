@@ -86,6 +86,8 @@ export const obavijestiPrehranaCategory = 164;
 export const obavijestiPocetnaStranicaCategory = 270;
 export const obavijestiTeatarTdCategoryId = 317;
 export const obavijestiTurizamCategoryId = 321;
+export const obavijestiEventiCategoryId = 332;
+export const obavijestiCateringCategoryId = 333;
 
 // MEDIJI
 
