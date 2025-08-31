@@ -43,7 +43,7 @@ const Layout = ({
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
         >
-          <div className="!min-h-[calc(100vh-56px)]">
+          <div className="!min-h-[calc(100vh-56px)] max-w-screen-2xl mx-auto">
             {header}
             {children ? (
               <div
