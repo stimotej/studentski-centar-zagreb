@@ -129,15 +129,6 @@ const SmjestajPage: NextPage<
                 imageClassName="w-[90px] h-[90px] object-contain"
                 contentClassName="text-light leading-relaxed"
               />
-
-              <ContentCard
-                image="/slike/smjestaj/ikone/kontakt_i_podrska.png"
-                title="Sukladan preventivnim mjerama"
-                content={`Studenti dolaze uz prethodnu najavu i dogovor termina na kontakt brojeve telefona: 01 4593 660 i 091 4593 579. Termin možete dogovori pozivom ili na WhatsApp.</p><br>
-<p><strong>Radno vrijeme sa strankama: <br></strong>ponedjeljak - petak, 08:00 - 15:00 h;<strong><br></strong><strong>e-mail: <a href="mailto:poslovnica@sczg.hr">poslovnica@sczg.hr</a></strong></p>`}
-                imageClassName="w-[90px] h-[90px] object-contain"
-                contentClassName="text-light leading-relaxed"
-              />
             </div>
           </Section>
         </>
@@ -178,7 +169,7 @@ const SmjestajPage: NextPage<
 
       <SectionTitle
         title="Boravak u studentskome domu"
-        subtitle="Poštovani budući stanari studentskih domova, za boravak u studentskome domu potrebno je ispuniti slijedeća 3 kriterija:"
+        subtitle="Poštovani budući stanari studentskih domova, za boravak u studentskome domu potrebno je ispuniti slijedeći kriteriji:"
         className="mt-24"
       />
       <div className="flex flex-col md:flex-row gap-6 mt-6">
@@ -187,20 +178,6 @@ const SmjestajPage: NextPage<
           title="Liječnički pregled za smještaj"
           content={`<div class="et_pb_blurb_description">Isti se provodi se u svrhu utvrđivanja zdravstvenih rizika za boravak u kolektivu. <b></b>Molimo studente da se na pregled u ambulantu naruče telefonski.
 <br><a href="https://www.sczg.unizg.hr/wp-content/uploads/2025/06/raspored-timova-novi.pdf">Raspored ambulanti</a></div>`}
-          imageClassName="w-[90px] h-[90px] object-contain"
-          contentClassName="text-light leading-relaxed"
-        />
-        <ContentCard
-          image="/slike/smjestaj/ikone/samoizolacija.png"
-          title="NE ZA SAMOIZOLACIJU"
-          content={`<div class="et_pb_blurb_description"><p>Sukladno odluci Uprave za visoko obrazovanje MZO-a,&nbsp;<b>nije dozvoljeno korištenje studentskog doma za samoizolaciju.</b></p></div>`}
-          imageClassName="w-[90px] h-[90px] object-contain"
-          contentClassName="text-light leading-relaxed"
-        />
-        <ContentCard
-          image="/slike/smjestaj/ikone/mjere.png"
-          title="Sukladan preventivnim mjerama"
-          content={`<div class="et_pb_blurb_description"><p>Boravak u studentskom domu mora biti sukladan propisanim preventivnim mjerama zaštite od COVIDa-19. <br><a href="/dokumenti/smjestaj/Preporuke-za-sve-odgojno-obrazovne-ustanove.pdf" target="_blank" rel="noopener">Preporuke Hrvatskog zavoda za javno zdravstvo</a></p></div>`}
           imageClassName="w-[90px] h-[90px] object-contain"
           contentClassName="text-light leading-relaxed"
         />
