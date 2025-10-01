@@ -15,6 +15,7 @@ const banners = [
     id: 2,
     img: bannerSamsung,
     alt: "Samsung YOUniversity",
+    url: "https://hr.youniversity.club/",
   },
 ];
 
