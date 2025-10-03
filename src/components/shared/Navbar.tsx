@@ -29,34 +29,39 @@ import { FaChevronDown } from "react-icons/fa";
 import CustomLink from "../elements/CustomLink";
 
 const navLinks = [
-  { title: "Početna", href: "/" },
-  { title: "Obavijesti", href: "/obavijesti" },
-  { title: "Student servis", href: "/student-servis" },
-  { title: "Poslovi", href: "/poslovi" },
-  { title: "Prehrana", href: "/prehrana" },
   {
-    title: "Smještaj",
+    key: "komercijalni",
+    desktopOrder: 1,
+    mobileOrder: 2,
     items: [
-      { title: "Studentski", href: "/smjestaj" },
-      { title: "Turistički", href: "/turizam" },
-    ],
-  },
-  { title: "Kultura", href: "/kultura" },
-  { title: "Sport", href: "/sport" },
-  { title: "Francuski paviljon", href: "/francuski-paviljon" },
-  {
-    title: "Ostalo",
-    items: [
-      { title: "Mediji", href: "/mediji" },
-      { title: "Najam prostora", href: "/eventi" },
+      { title: "Teatar &td", href: "/teatar-td" },
+      { title: "Francuski paviljon", href: "/francuski-paviljon" },
+      { title: "Kultura", href: "/kultura" },
+      { title: "Turizam", href: "/turizam" },
       { title: "Catering", href: "/catering" },
+      { title: "Najam prostora", href: "/eventi" },
+      { title: "Mediji", href: "/mediji" },
     ],
   },
   {
-    title: "Prijava",
+    key: "subvencionirani",
+    desktopOrder: 2,
+    mobileOrder: 1,
     items: [
-      { title: "Prijava student", href: "/prijava-student" },
-      { title: "Prijava poslodavac", href: "/prijava-poslodavac" },
+      { title: "Početna", href: "/" },
+      { title: "Obavijesti", href: "/obavijesti" },
+      { title: "Student servis", href: "/student-servis" },
+      { title: "Poslovi", href: "/poslovi" },
+      { title: "Prehrana", href: "/prehrana" },
+      { title: "Smještaj", href: "/smjestaj" },
+      { title: "Sport", href: "/sport" },
+      {
+        title: "Prijava",
+        items: [
+          { title: "Prijava student", href: "/prijava-student" },
+          { title: "Prijava poslodavac", href: "/prijava-poslodavac" },
+        ],
+      },
     ],
   },
 ] as const;
@@ -109,65 +114,69 @@ export default function Navbar() {
             </SheetHeader>
 
             <nav aria-label="Glavna navigacija" dir="ltr">
-              <ul className="flex flex-col p-4">
-                {navLinks.map((link) =>
-                  "items" in link ? (
-                    <li key={link.title}>
-                      <Collapsible
-                        defaultOpen={link.items.some(
-                          (i) => i.href === router.pathname
-                        )}
-                      >
-                        <CollapsibleTrigger className="flex items-center justify-between gap-2 w-full px-6 py-3 cursor-default text-sm text-gray-500 hover:cursor-pointer hover:bg-gray-100 data-[state=open]:bg-gray-100 [&[data-state=open]>svg]:rotate-180 data-[state=open]:text-black">
-                          {link.title}
-                          <FaChevronDown
-                            aria-hidden={true}
-                            size={12}
-                            className="text-gray-500 transition-transform"
-                          />
-                        </CollapsibleTrigger>
-                        <CollapsibleContent>
-                          <ul>
-                            {link.items.map((item) => (
-                              <li key={item.href} className="w-full">
-                                <SheetClose asChild>
-                                  <CustomLink
-                                    href={item.href}
-                                    className={clsx(
-                                      "ml-8 text-sm px-6 py-3 hover:bg-gray-100 flex",
-                                      router.pathname == item.href
-                                        ? "text-sc"
-                                        : "text-gray-500"
-                                    )}
-                                  >
-                                    {item.title}
-                                  </CustomLink>
-                                </SheetClose>
-                              </li>
-                            ))}
-                          </ul>
-                        </CollapsibleContent>
-                      </Collapsible>
-                    </li>
-                  ) : (
-                    <li key={link.title} className="w-full">
-                      <SheetClose asChild>
-                        <CustomLink
-                          href={link.href}
-                          className={clsx(
-                            "text-sm px-6 py-3 hover:bg-gray-100 flex border-gray-100",
-                            router.pathname == link.href
-                              ? "text-sc"
-                              : "text-gray-500"
-                          )}
-                        >
-                          {link.title}
-                        </CustomLink>
-                      </SheetClose>
-                    </li>
-                  )
-                )}
-              </ul>
+              {navLinks
+                .toSorted((a, b) => a.mobileOrder - b.mobileOrder)
+                .map((group) => (
+                  <ul key={group.key} className="flex flex-col p-4">
+                    {group.items.map((link) =>
+                      "items" in link ? (
+                        <li key={link.title}>
+                          <Collapsible
+                            defaultOpen={link.items.some(
+                              (i) => i.href === router.pathname
+                            )}
+                          >
+                            <CollapsibleTrigger className="flex items-center justify-between gap-2 w-full px-6 py-3 cursor-default text-sm text-gray-500 hover:cursor-pointer hover:bg-gray-100 data-[state=open]:bg-gray-100 [&[data-state=open]>svg]:rotate-180 data-[state=open]:text-black">
+                              {link.title}
+                              <FaChevronDown
+                                aria-hidden={true}
+                                size={12}
+                                className="text-gray-500 transition-transform"
+                              />
+                            </CollapsibleTrigger>
+                            <CollapsibleContent>
+                              <ul>
+                                {link.items.map((item) => (
+                                  <li key={item.href} className="w-full">
+                                    <SheetClose asChild>
+                                      <CustomLink
+                                        href={item.href}
+                                        className={clsx(
+                                          "ml-8 text-sm px-6 py-3 hover:bg-gray-100 flex",
+                                          router.pathname == item.href
+                                            ? "text-sc"
+                                            : "text-gray-500"
+                                        )}
+                                      >
+                                        {item.title}
+                                      </CustomLink>
+                                    </SheetClose>
+                                  </li>
+                                ))}
+                              </ul>
+                            </CollapsibleContent>
+                          </Collapsible>
+                        </li>
+                      ) : (
+                        <li key={link.title} className="w-full">
+                          <SheetClose asChild>
+                            <CustomLink
+                              href={link.href}
+                              className={clsx(
+                                "text-sm px-6 py-3 hover:bg-gray-100 flex border-gray-100",
+                                router.pathname == link.href
+                                  ? "text-sc"
+                                  : "text-gray-500"
+                              )}
+                            >
+                              {link.title}
+                            </CustomLink>
+                          </SheetClose>
+                        </li>
+                      )
+                    )}
+                  </ul>
+                ))}
             </nav>
           </SheetContent>
         </Sheet>
@@ -175,64 +184,71 @@ export default function Navbar() {
         {/* DESKTOP NAVIGATION */}
         <NavigationMenu
           aria-label="Glavna navigacija"
-          className="hidden [@media(min-width:1110px)]:block"
+          className="hidden [@media(min-width:1110px)]:flex flex-col justify-center items-end"
         >
-          <NavigationMenuList className="flex items-center gap-5 justify-center">
-            {navLinks.map((link, index) =>
-              "items" in link ? (
-                <NavigationMenuItem key={index} className="relative">
-                  <NavigationMenuTrigger
-                    className={clsx(
-                      "cursor-default text-sm flex gap-1 items-center py-6",
-                      link.items.some((i) => i.href === router.pathname)
-                        ? "text-sc"
-                        : "text-gray-500"
-                    )}
-                  >
-                    {link.title}
-                    <MdExpandMore aria-hidden={true} size={16} />
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent
-                    className={clsx(
-                      "absolute top-full right-0 rounded-lg shadow-lg bg-white flex flex-col",
-                      "data-[state=open]:animate-in data-[state=open]:fade-in data-[state=closed]:animate-out data-[state=closed]:fade-out"
-                    )}
-                  >
-                    {link.items.map((item) => (
-                      <CustomLink
-                        key={item.href}
-                        href={item.href}
+          {navLinks
+            .toSorted((a, b) => a.desktopOrder - b.desktopOrder)
+            .map((group) => (
+              <NavigationMenuList
+                key={group.key}
+                className="flex items-center justify-center h-8"
+              >
+                {group.items.map((link, index) =>
+                  "items" in link ? (
+                    <NavigationMenuItem key={index} className="relative">
+                      <NavigationMenuTrigger
                         className={clsx(
-                          "text-sm px-6 py-3 hover:bg-gray-100 last:rounded-b-lg first:rounded-t-lg whitespace-nowrap",
-                          router.pathname == item.href
+                          "cursor-default text-sm flex gap-1 items-center px-3 py-2 h-8 flex-shrink-0",
+                          link.items.some((i) => i.href === router.pathname)
                             ? "text-sc"
                             : "text-gray-500"
                         )}
                       >
-                        {item.title}
-                      </CustomLink>
-                    ))}
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-              ) : (
-                <NavigationMenuItem key={index}>
-                  <NavigationMenuLink asChild>
-                    <CustomLink
-                      href={link.href}
-                      className={clsx(
-                        "text-sm py-6",
-                        router.pathname == link.href
-                          ? "text-sc"
-                          : "text-gray-500 hover:text-gray-400"
-                      )}
-                    >
-                      {link.title}
-                    </CustomLink>
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-              )
-            )}
-          </NavigationMenuList>
+                        {link.title}
+                        <MdExpandMore aria-hidden={true} size={16} />
+                      </NavigationMenuTrigger>
+                      <NavigationMenuContent
+                        className={clsx(
+                          "absolute top-full right-0 rounded-lg shadow-lg z-50 bg-white flex flex-col",
+                          "data-[state=open]:animate-in data-[state=open]:fade-in data-[state=closed]:animate-out data-[state=closed]:fade-out"
+                        )}
+                      >
+                        {link.items.map((item) => (
+                          <CustomLink
+                            key={item.href}
+                            href={item.href}
+                            className={clsx(
+                              "text-sm px-6 py-3 hover:bg-gray-100 last:rounded-b-lg first:rounded-t-lg whitespace-nowrap",
+                              router.pathname == item.href
+                                ? "text-sc"
+                                : "text-gray-500"
+                            )}
+                          >
+                            {item.title}
+                          </CustomLink>
+                        ))}
+                      </NavigationMenuContent>
+                    </NavigationMenuItem>
+                  ) : (
+                    <NavigationMenuItem key={index}>
+                      <NavigationMenuLink asChild>
+                        <CustomLink
+                          href={link.href}
+                          className={clsx(
+                            "text-sm px-3 py-2 h-8 flex-shrink-0",
+                            router.pathname == link.href
+                              ? "text-sc"
+                              : "text-gray-500 hover:text-gray-400"
+                          )}
+                        >
+                          {link.title}
+                        </CustomLink>
+                      </NavigationMenuLink>
+                    </NavigationMenuItem>
+                  )
+                )}
+              </NavigationMenuList>
+            ))}
         </NavigationMenu>
       </div>
     </div>
