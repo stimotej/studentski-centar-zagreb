@@ -64,7 +64,7 @@ const navLinks = [
       },
     ],
   },
-] as const;
+];
 
 export default function Navbar() {
   const scrollY = useScrollPosition();
@@ -115,14 +115,14 @@ export default function Navbar() {
 
             <nav aria-label="Glavna navigacija" dir="ltr">
               {navLinks
-                .toSorted((a, b) => a.mobileOrder - b.mobileOrder)
+                .sort((a, b) => a.mobileOrder - b.mobileOrder)
                 .map((group) => (
                   <ul key={group.key} className="flex flex-col p-4">
                     {group.items.map((link) =>
                       "items" in link ? (
                         <li key={link.title}>
                           <Collapsible
-                            defaultOpen={link.items.some(
+                            defaultOpen={link.items!.some(
                               (i) => i.href === router.pathname
                             )}
                           >
@@ -136,7 +136,7 @@ export default function Navbar() {
                             </CollapsibleTrigger>
                             <CollapsibleContent>
                               <ul>
-                                {link.items.map((item) => (
+                                {link.items!.map((item) => (
                                   <li key={item.href} className="w-full">
                                     <SheetClose asChild>
                                       <CustomLink
@@ -187,7 +187,7 @@ export default function Navbar() {
           className="hidden [@media(min-width:1110px)]:flex flex-col justify-center items-end"
         >
           {navLinks
-            .toSorted((a, b) => a.desktopOrder - b.desktopOrder)
+            .sort((a, b) => a.desktopOrder - b.desktopOrder)
             .map((group) => (
               <NavigationMenuList
                 key={group.key}
@@ -199,7 +199,7 @@ export default function Navbar() {
                       <NavigationMenuTrigger
                         className={clsx(
                           "cursor-default text-sm flex gap-1 items-center px-3 py-2 h-8 flex-shrink-0",
-                          link.items.some((i) => i.href === router.pathname)
+                          link.items!.some((i) => i.href === router.pathname)
                             ? "text-sc"
                             : "text-gray-500"
                         )}
@@ -213,7 +213,7 @@ export default function Navbar() {
                           "data-[state=open]:animate-in data-[state=open]:fade-in data-[state=closed]:animate-out data-[state=closed]:fade-out"
                         )}
                       >
-                        {link.items.map((item) => (
+                        {link.items!.map((item) => (
                           <CustomLink
                             key={item.href}
                             href={item.href}
