@@ -34,7 +34,7 @@ const navLinks = [
     desktopOrder: 1,
     mobileOrder: 2,
     items: [
-      { title: "Teatar &td", href: "/teatar-td" },
+      { title: "Teatar &TD", href: "/teatar-td" },
       { title: "Francuski paviljon", href: "/francuski-paviljon" },
       { title: "Kultura", href: "/kultura" },
       { title: "Turizam", href: "/turizam" },
