@@ -1,5 +1,5 @@
 import bannerOtp from "../../../public/slike/otp/OTP_Bank_eIndeks_Banner.jpg";
-// import bannerSamsung from "../../../public/slike/samsung/Samsung YOUniversity Banner.jpg";
+import bannerZaba from "../../../public/slike/mstudent/970x250px_mstudent_pop_up_banner_web.jpg";
 import { useEffect, useState } from "react";
 import { MdClose } from "react-icons/md";
 import Image from "next/image";
@@ -11,12 +11,12 @@ const banners = [
     alt: "OTP e-Index studentski paket",
     url: "https://www.otpbanka.hr/digitalni-paket/e-indeks/",
   },
-  // {
-  //   id: 2,
-  //   img: bannerSamsung,
-  //   alt: "Samsung YOUniversity",
-  //   url: "https://hr.youniversity.club/",
-  // },
+  {
+    id: 2,
+    img: bannerZaba,
+    alt: "Zagrebačka banka m-student",
+    url: "https://www.zaba.hr/home/m-student",
+  },
 ];
 
 const STORAGE_KEY = "last_banner";
