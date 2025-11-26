@@ -1,5 +1,5 @@
 import bannerOtp from "../../../public/slike/otp/OTP_Bank_eIndeks_Banner.jpg";
-import bannerZaba from "../../../public/slike/mstudent/970x250px_mstudent_pop_up_banner_web.jpg";
+import bannerZaba from "../../../public/slike/mstudent/mstudent_PPD_970x250px.jpg";
 import { useEffect, useState } from "react";
 import { MdClose } from "react-icons/md";
 import Image from "next/image";
