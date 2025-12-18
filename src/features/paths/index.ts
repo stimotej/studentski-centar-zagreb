@@ -28,7 +28,7 @@ export const getInformacijePaths = async () => {
   const { data: posts } = await axios.get<Post<PostsMeta>[]>("/posts", {
     params: {
       categories: [infoPostsCategoryId],
-      per_page: 100,
+      per_page: 9999,
       orderby: "date",
       order: "desc",
     },
