@@ -60,6 +60,10 @@ const navLinks = [
         items: [
           { title: "Prijava student", href: "/prijava-student" },
           { title: "Prijava poslodavac", href: "/prijava-poslodavac" },
+          {
+            title: "Zaposlenici",
+            href: "https://natjecaj.sczg.hr/SCSmjestaj/f4bi/login?ReturnUrl=%2FSCSmjestaj%2Ff4bi",
+          },
         ],
       },
     ],
