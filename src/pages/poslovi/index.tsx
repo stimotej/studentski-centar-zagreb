@@ -95,7 +95,8 @@ const PosloviPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   } = useJobs(initialJobs, totalPages, {
     search: searchQuery,
     categories: category === jobsCategoryId ? undefined : [category],
-    orderby: category === jobsCategoryId ? "date" : "featured",
+    orderby: category === jobsCategoryId ? "modified" : "featured",
+    order: "desc",
   });
 
   useScrollRestoration();
