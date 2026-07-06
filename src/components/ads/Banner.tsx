@@ -5,25 +5,25 @@ import { useEffect, useState } from "react";
 import { MdClose } from "react-icons/md";
 import Image from "next/image";
 
-// Order matters: cycling through this array reproduces OTP-RBA-OTP-ZABA-OTP-RBA-OTP-ZABA...
+// Order matters: cycling through this array reproduces RBA-OTP-RBA-ZABA-RBA-OTP-RBA-ZABA...
 const banners = [
   {
     id: 1,
-    img: bannerOtp,
-    alt: "OTP e-Index studentski paket",
-    url: "https://www.otpbanka.hr/digitalni-paket/e-indeks/",
-  },
-  {
-    id: 2,
     img: bannerRba,
     alt: "RBA Young&Free tekući račun",
     url: "https://www.rba.hr/hr/gradani/proizvodi-i-usluge/racuni-i-kartice/paketi-usluga/young-and-free.html?utm_source=StudentskiZagreb&utm_medium=display&utm_campaign=Publicis_2026_SC_Zagreb&utm_content=Various",
   },
   {
-    id: 3,
+    id: 2,
     img: bannerOtp,
     alt: "OTP e-Index studentski paket",
     url: "https://www.otpbanka.hr/digitalni-paket/e-indeks/",
+  },
+  {
+    id: 3,
+    img: bannerRba,
+    alt: "RBA Young&Free tekući račun",
+    url: "https://www.rba.hr/hr/gradani/proizvodi-i-usluge/racuni-i-kartice/paketi-usluga/young-and-free.html?utm_source=StudentskiZagreb&utm_medium=display&utm_campaign=Publicis_2026_SC_Zagreb&utm_content=Various",
   },
   {
     id: 4,
