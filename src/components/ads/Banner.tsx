@@ -1,9 +1,11 @@
 import bannerOtp from "../../../public/slike/otp/OTP_Bank_eIndeks_Banner.jpg";
 import bannerZaba from "../../../public/slike/mstudent/mstudent_PPD_970x250px.jpg";
+import bannerRba from "../../../public/slike/rba/RBA_Young_and_Free_Banner.jpg";
 import { useEffect, useState } from "react";
 import { MdClose } from "react-icons/md";
 import Image from "next/image";
 
+// Order matters: cycling through this array reproduces OTP-RBA-OTP-ZABA-OTP-RBA-OTP-ZABA...
 const banners = [
   {
     id: 1,
@@ -13,6 +15,18 @@ const banners = [
   },
   {
     id: 2,
+    img: bannerRba,
+    alt: "RBA Young&Free tekući račun",
+    url: "https://www.rba.hr/hr/gradani/proizvodi-i-usluge/racuni-i-kartice/paketi-usluga/young-and-free.html?utm_source=StudentskiZagreb&utm_medium=display&utm_campaign=Publicis_2026_SC_Zagreb&utm_content=Various",
+  },
+  {
+    id: 3,
+    img: bannerOtp,
+    alt: "OTP e-Index studentski paket",
+    url: "https://www.otpbanka.hr/digitalni-paket/e-indeks/",
+  },
+  {
+    id: 4,
     img: bannerZaba,
     alt: "Zagrebačka banka m-student",
     url: "https://www.zaba.hr/home/m-student",
@@ -32,7 +46,7 @@ export default function Banner() {
     const lastBannerId = window.localStorage.getItem(STORAGE_KEY);
 
     if (!lastBannerId) {
-      bannerToSet = banners[Math.floor(Math.random() * banners.length)];
+      bannerToSet = banners[0];
     } else {
       const foundBannerIndex = banners.findIndex(
         (b) => b.id === parseInt(lastBannerId)
