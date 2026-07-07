@@ -76,6 +76,7 @@ export type ObavijestiMeta = {
   event_date: string;
   documents: Document[];
   featured: boolean;
+  order: number;
 };
 
 export type PostsMeta = {
@@ -127,6 +128,7 @@ export type PostsMeta = {
   lokacija: string;
   image_groups: ImageGroup[];
   link: string;
+  footnotes: string;
 };
 
 export type JobsMeta = {

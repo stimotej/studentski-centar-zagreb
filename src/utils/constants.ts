@@ -38,6 +38,9 @@ export const infoSmjestajInfoCategory = 264;
 export const infoSmjestajForeignStudentsCategory = 237;
 export const infoSmjestajDormitoriesCategory = 125;
 export const infoSmjestajNatjecajCategory = 283;
+export const smjestajNatjecajDokumentSlug = "smjestaj-natjecaj-dokument";
+export const infoSmjestajTogglesCategory = 371;
+export const infoSmjestajCardsCategory = 372;
 
 // kultura
 

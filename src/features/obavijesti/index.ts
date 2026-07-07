@@ -168,7 +168,9 @@ export const getSliderObavijesti = async () => {
       categories: [sliderCategoryId],
     },
   });
-  return response.data;
+  return [...response.data].sort(
+    (a, b) => (a.meta.order || 0) - (b.meta.order || 0)
+  );
 };
 
 export const useSliderObavijesti = (initialData?: Post<ObavijestiMeta>[]) => {

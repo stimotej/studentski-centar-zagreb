@@ -12,7 +12,7 @@ import { getDomoviPaths } from "@/features/paths";
 import { getPost } from "@/features/posts";
 import type { Post, PostsMeta } from "@/features/types";
 import clearHtmlFromString from "@/utils/clearHtmlFromString";
-import { revalidateTime } from "@/utils/constants";
+import { revalidateTime, smjestajNatjecajDokumentSlug } from "@/utils/constants";
 import type {
   GetStaticPaths,
   GetStaticProps,
@@ -41,16 +41,20 @@ interface StaticPathParams extends ParsedUrlQuery {
 
 type DomProps = {
   obavijest: Post<PostsMeta>;
+  natjecajDokument: Post<PostsMeta> | null;
 };
 
 export const getStaticProps: GetStaticProps<DomProps> = async ({ params }) => {
   const { slug } = params as StaticPathParams;
 
   const obavijest = await getPost(slug);
+  const natjecajDokument =
+    (await getPost(smjestajNatjecajDokumentSlug)) ?? null;
 
   return {
     props: {
       obavijest,
+      natjecajDokument,
     },
     revalidate: revalidateTime,
   };
@@ -58,8 +62,16 @@ export const getStaticProps: GetStaticProps<DomProps> = async ({ params }) => {
 
 const DormitoryPage: NextPage<
   InferGetStaticPropsType<typeof getStaticProps>
-> = ({ obavijest }) => {
+> = ({ obavijest, natjecajDokument }) => {
   const router = useRouter();
+
+  const natjecajTitle = natjecajDokument?.title.rendered
+    ? clearHtmlFromString(natjecajDokument.title.rendered)
+    : undefined;
+  const natjecajDescription = natjecajDokument?.excerpt.rendered
+    ? clearHtmlFromString(natjecajDokument.excerpt.rendered)
+    : undefined;
+  const natjecajPdfUrl = natjecajDokument?.meta.documents?.[0]?.source_url;
 
   // const postCardRefs = useRef<Array<HTMLDivElement | null>>([]);
   // const postsContainerRefs = useRef<Array<HTMLDivElement | null>>([]);
@@ -107,16 +119,22 @@ const DormitoryPage: NextPage<
               <DisplayHTML html={obavijest?.meta.lokacija || ""} />
             </div>
 
-            <BlueCard
-              title="Natječaj za smještaj 2025/2026"
-              description="Za prijavu na natječaj za studentski smještaj prijavite se putem linka  nastavku."
-              className="my-12"
-              action={{
-                title: "Prijava za natječaj",
-                href: "https://www.sczg.unizg.hr/wp-content/uploads/2025/06/Natjecaj-S-B-2025_2026-3.pdf",
-                isRegularLink: true,
-              }}
-            />
+            {(natjecajTitle || natjecajDescription || natjecajPdfUrl) && (
+              <BlueCard
+                title={natjecajTitle}
+                description={natjecajDescription}
+                className="my-12"
+                action={
+                  natjecajPdfUrl
+                    ? {
+                        title: "Prijava za natječaj",
+                        href: natjecajPdfUrl,
+                        isRegularLink: true,
+                      }
+                    : undefined
+                }
+              />
+            )}
           </Section>
         </>
       }

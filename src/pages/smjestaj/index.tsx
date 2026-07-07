@@ -9,9 +9,12 @@ import PostSlider from "@/components/shared/PostSlider";
 import Section from "@/components/shared/Section";
 import SectionTitle from "@/components/shared/SectionTitle";
 import InfoToggles from "@/components/smjestaj/InfoToggles";
+import type { InfoToggleItem } from "@/components/smjestaj/InfoToggles";
+import NatjecajCard from "@/components/smjestaj/NatjecajCard";
 import { getObavijestiPage } from "@/features/obavijesti";
 import { getPosts } from "@/features/posts";
 import type { ObavijestiMeta, Post, PostsMeta } from "@/features/types";
+import clearHtmlFromString from "@/utils/clearHtmlFromString";
 import {
   faqSmjestajCategory,
   infoPostsCategoryId,
@@ -19,19 +22,45 @@ import {
   infoSmjestajDormitoriesCategory,
   infoSmjestajForeignStudentsCategory,
   infoSmjestajInfoCategory,
+  infoSmjestajCardsCategory,
+  infoSmjestajNatjecajCategory,
+  infoSmjestajTogglesCategory,
   obavijestiSmjestajCategory,
   revalidateTime,
 } from "@/utils/constants";
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
 
+type CardItem = {
+  id: number;
+  image: string;
+  title: string;
+  content: string;
+  action: { title: string; href: string; isRegularLink?: boolean } | null;
+};
+
 type SmjestajProps = {
   posts: Post<PostsMeta>[];
+  infoToggleItems: InfoToggleItem[];
+  cardItems: CardItem[];
   obavijesti: Post<ObavijestiMeta>[];
 };
 
 export const getStaticProps: GetStaticProps<SmjestajProps> = async () => {
   const posts = await getPosts({
-    categories: [infoPostsCategoryId, infoPostsSmjestaj, faqSmjestajCategory],
+    categories: [
+      infoPostsCategoryId,
+      infoPostsSmjestaj,
+      faqSmjestajCategory,
+      infoSmjestajNatjecajCategory,
+    ],
+  });
+
+  const infoTogglePosts = await getPosts({
+    categories: [infoSmjestajTogglesCategory],
+  });
+
+  const cardPosts = await getPosts({
+    categories: [infoSmjestajCardsCategory],
   });
 
   const obavijesti = await getObavijestiPage(obavijestiSmjestajCategory);
@@ -39,6 +68,32 @@ export const getStaticProps: GetStaticProps<SmjestajProps> = async () => {
   return {
     props: {
       posts,
+      infoToggleItems: infoTogglePosts.map((post) => ({
+        id: post.id,
+        image: post.image_url,
+        title: clearHtmlFromString(post.title.rendered),
+        content: post.content.rendered,
+      })),
+      cardItems: cardPosts.map((post) => {
+        const documentUrl = post.meta.documents?.[0]?.source_url;
+        const action = documentUrl
+          ? {
+              title: post.meta.footnotes,
+              href: documentUrl,
+              isRegularLink: true,
+            }
+          : post.meta.link
+          ? { title: post.meta.footnotes, href: post.meta.link }
+          : null;
+
+        return {
+          id: post.id,
+          image: post.image_url,
+          title: post.title.rendered,
+          content: post.content.rendered,
+          action,
+        };
+      }),
       obavijesti,
     },
     revalidate: revalidateTime,
@@ -47,7 +102,7 @@ export const getStaticProps: GetStaticProps<SmjestajProps> = async () => {
 
 const SmjestajPage: NextPage<
   InferGetStaticPropsType<typeof getStaticProps>
-> = ({ posts, obavijesti }) => {
+> = ({ posts, infoToggleItems, cardItems, obavijesti }) => {
   return (
     <Layout
       title="Smještaj"
@@ -146,62 +201,41 @@ const SmjestajPage: NextPage<
 
       <PagePosts posts={obavijesti} className="my-12" />
 
-      {/* <div id="natjecaj"></div>
-      {isLoading ? (
-        <Spinner className="mt-12 mx-auto" />
-      ) : (
-        posts
-          ?.filter((post) =>
-            post.categories.includes(infoSmjestajNatjecajCategory)
-          )
-          .map((post) => (
-            <NatjecajCard
-              key={post.id}
-              title={post.title.rendered}
-              excerpt={post.excerpt.rendered}
-              link={`/informacije/${post.slug}`}
-              // className="mt-24"
-            />
-          ))
-      )} */}
+      <div id="natjecaj"></div>
+      {posts
+        ?.filter((post) =>
+          post.categories.includes(infoSmjestajNatjecajCategory)
+        )
+        .map((post) => (
+          <NatjecajCard
+            key={post.id}
+            title={post.title.rendered}
+            excerpt={post.excerpt.rendered}
+            link={`/informacije/${post.slug}`}
+            className="mt-12"
+          />
+        ))}
 
-      <InfoToggles className="mt-12" />
+      <InfoToggles items={infoToggleItems} className="mt-12" />
 
       <SectionTitle
         title="Boravak u studentskome domu"
         subtitle="Poštovani budući stanari studentskih domova, za boravak u studentskome domu potrebno je ispuniti slijedeći kriteriji:"
         className="mt-24"
       />
-      <div className="flex flex-col md:flex-row gap-6 mt-6">
-        <ContentCard
-          image="/slike/smjestaj/ikone/lijecnicki_pregled.png"
-          title="Liječnički pregled za smještaj"
-          content={`<div class="et_pb_blurb_description">Isti se provodi se u svrhu utvrđivanja zdravstvenih rizika za boravak u kolektivu. <b></b>Molimo studente da se na pregled u ambulantu naruče telefonski.
-<br><a href="https://www.sczg.unizg.hr/wp-content/uploads/2025/06/raspored-timova-novi.pdf">Raspored ambulanti</a></div>`}
-          imageClassName="w-[90px] h-[90px] object-contain"
-          contentClassName="text-light leading-relaxed"
-        />
+      <div className="flex flex-col gap-8 mt-6">
+        {cardItems.map((item) => (
+          <ContentCard
+            key={item.id}
+            image={item.image || undefined}
+            title={item.title}
+            content={item.content}
+            action={item.action ?? undefined}
+            imageClassName="w-[90px] h-[90px] object-contain"
+            contentClassName="text-light leading-relaxed"
+          />
+        ))}
       </div>
-      <ContentCard
-        title="Plaćanje stanarine on-line putem"
-        content="Omogućeno je plaćanje smještaja u studentskim domovima on-line putem tokom cijele akademke godine. Student na ovaj način može platiti sva dosadašnja dugovanja, kao i stanarinu za mjesec unaprijed."
-        action={{
-          title: "Saznaj više",
-          href: "/smjestaj/placanje-stanarine-on-line-putem",
-        }}
-        className="mt-8"
-        contentClassName="text-light leading-relaxed"
-      />
-      <ContentCard
-        title="Domski red"
-        content="Na snagu su stupile izmjene Pravilnika o domskom redu i uvjetima boravka studenata u studentskim domovima Studentskog centra u Zagrebu kojima se reguliraju obveze stanara studentskih domova, a tiču se postupanja stanara u izvanrednim okolnostima te je opisan način naplate stanarine koji stupa na snagu sa početkom nove akademske godine (22. rujna 2023.). Navedene izmjene donesene su kao zaključak dogovora Zajednice studentskih centara RH kako bi se ujednačio način naplate stanarine u svim studentskim domovima u Republici Hrvatskoj."
-        action={{
-          title: "Otvori domski red",
-          href: "/dokumenti/smjestaj/Pravilnik-o-domskom-redu-i-uvjetima-boravka-studenata-2023.pdf",
-        }}
-        className="mt-8"
-        contentClassName="text-light leading-relaxed"
-      />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
         {posts
