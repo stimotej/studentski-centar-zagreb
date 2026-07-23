@@ -1,6 +1,6 @@
 // import banner1 from "../../../public/slike/otp/OTP_e-indeks_Studentski_970x250.jpg";
 // import banner2 from "../../../public/slike/otp/OTP_e-indeks_Studentski_1200x200.jpg";
-import banner from "../../../public/slike/otp/OTP_Bank_eIndeks_Banner.jpg";
+import banner from "../../../public/slike/otp/OTP_Paket_Young_Banner.jpg";
 import { useMemo, useState } from "react";
 import { MdClose } from "react-icons/md";
 import Image from "next/image";
@@ -21,11 +21,11 @@ export default function OTPBanner() {
         <a
           target="_blank"
           rel="noopener noreferrer"
-          href="https://www.otpbanka.hr/digitalni-paket/e-indeks/"
+          href="https://www.otpbanka.hr/digitalni-paket/young/?&utm_source=sczg&utm_medium=display&utm_campaign=young_display&utm_content=image_970x250"
         >
           <Image
             src={randomImage}
-            alt="OTP e-Index studentski paket"
+            alt="OTP Paket Young"
             className="mx-auto"
           />
         </a>

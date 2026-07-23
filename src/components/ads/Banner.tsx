@@ -1,4 +1,4 @@
-import bannerOtp from "../../../public/slike/otp/OTP_Bank_eIndeks_Banner.jpg";
+import bannerOtp from "../../../public/slike/otp/OTP_Paket_Young_Banner.jpg";
 import bannerZaba from "../../../public/slike/mstudent/mstudent_PPD_970x250px.jpg";
 import bannerRba from "../../../public/slike/rba/RBA_Young_and_Free_Banner.jpg";
 import { useEffect, useState } from "react";
@@ -16,8 +16,8 @@ const banners = [
   {
     id: 2,
     img: bannerOtp,
-    alt: "OTP e-Index studentski paket",
-    url: "https://www.otpbanka.hr/digitalni-paket/e-indeks/",
+    alt: "OTP Paket Young",
+    url: "https://www.otpbanka.hr/digitalni-paket/young/?&utm_source=sczg&utm_medium=display&utm_campaign=young_display&utm_content=image_970x250",
   },
   {
     id: 3,
