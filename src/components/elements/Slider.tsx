@@ -103,7 +103,7 @@ export default function Slider({ slides, className }: SliderProps) {
   return (
     <div
       className={clsx(
-        "group relative h-[calc(75vh-64px)] h-[calc(75svh-64px)] overflow-hidden",
+        "group relative h-[calc(75vh-64px)] h-[calc(75svh-64px)] overflow-hidden bg-black",
         className
       )}
     >
@@ -116,25 +116,38 @@ export default function Slider({ slides, className }: SliderProps) {
           onTouchEnd={handleTouchEnd}
         >
           <Image
+            src={slide.src}
+            alt=""
+            aria-hidden="true"
+            className={clsx(
+              "absolute inset-0 h-full w-full scale-110 object-cover opacity-0 blur-lg transition-opacity duration-300",
+              index === currentSlide && "opacity-90"
+            )}
+            priority={index === 0}
+            quality={20}
+            width={1600}
+            height={900}
+          />
+          <Image
             key={slide.src}
             src={slide.src}
             alt={slide.title}
             className={clsx(
-              "absolute inset-0 h-full w-full object-cover object-center opacity-0 transition-opacity duration-300",
+              "absolute inset-0 h-full w-full object-contain object-center opacity-0 transition-opacity duration-300",
               index === currentSlide && "z-[1] opacity-100"
             )}
-            priority
+            priority={index === 0}
             width={1600}
             height={900}
           />
           <div
             className={clsx(
-              "absolute inset-0 h-full w-full bg-black opacity-60",
+              "absolute inset-0 h-full w-full bg-black opacity-40",
               index === currentSlide && "z-10"
             )}
           ></div>
           <div
-            className={`absolute top-1/2 left-6 right-6 md:left-28 md:right-28 z-20 transform-gpu text-center text-white [transition:transform_1s_ease,opacity_0.4s_ease] ${
+            className={`absolute top-1/2 left-6 right-6 md:left-28 md:right-28 z-20 transform-gpu text-center text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.65),0_0_6px_rgba(0,0,0,0.35)] [transition:transform_1s_ease,opacity_0.4s_ease] ${
               index === currentSlide
                 ? "-translate-y-1/2 opacity-100"
                 : "translate-y-full opacity-0"
