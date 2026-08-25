@@ -15,6 +15,7 @@ import { getObavijestiPage } from "@/features/obavijesti";
 import { getPosts } from "@/features/posts";
 import type { ObavijestiMeta, Post, PostsMeta } from "@/features/types";
 import clearHtmlFromString from "@/utils/clearHtmlFromString";
+import { localized } from "@/utils/i18n";
 import {
   faqSmjestajCategory,
   infoPostsCategoryId,
@@ -29,6 +30,7 @@ import {
   revalidateTime,
 } from "@/utils/constants";
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
+import { useRouter } from "next/router";
 
 type CardItem = {
   id: number;
@@ -45,7 +47,9 @@ type SmjestajProps = {
   obavijesti: Post<ObavijestiMeta>[];
 };
 
-export const getStaticProps: GetStaticProps<SmjestajProps> = async () => {
+export const getStaticProps: GetStaticProps<SmjestajProps> = async ({
+  locale,
+}) => {
   const posts = await getPosts({
     categories: [
       infoPostsCategoryId,
@@ -71,26 +75,33 @@ export const getStaticProps: GetStaticProps<SmjestajProps> = async () => {
       infoToggleItems: infoTogglePosts.map((post) => ({
         id: post.id,
         image: post.image_url,
-        title: clearHtmlFromString(post.title.rendered),
-        content: post.content.rendered,
+        title: clearHtmlFromString(
+          localized(locale, post.title.rendered, post.meta.title_en),
+        ),
+        content: localized(locale, post.content.rendered, post.meta.content_en),
       })),
       cardItems: cardPosts.map((post) => {
         const documentUrl = post.meta.documents?.[0]?.source_url;
+        const actionTitle = localized(
+          locale,
+          post.meta.footnotes,
+          post.meta.footnotes_en,
+        );
         const action = documentUrl
           ? {
-              title: post.meta.footnotes,
+              title: actionTitle,
               href: documentUrl,
               isRegularLink: true,
             }
           : post.meta.link
-          ? { title: post.meta.footnotes, href: post.meta.link }
+          ? { title: actionTitle, href: post.meta.link }
           : null;
 
         return {
           id: post.id,
           image: post.image_url,
-          title: post.title.rendered,
-          content: post.content.rendered,
+          title: localized(locale, post.title.rendered, post.meta.title_en),
+          content: localized(locale, post.content.rendered, post.meta.content_en),
           action,
         };
       }),
@@ -103,6 +114,11 @@ export const getStaticProps: GetStaticProps<SmjestajProps> = async () => {
 const SmjestajPage: NextPage<
   InferGetStaticPropsType<typeof getStaticProps>
 > = ({ posts, infoToggleItems, cardItems, obavijesti }) => {
+  const { locale } = useRouter();
+
+  const t = (hr: string | undefined, en: string | undefined) =>
+    localized(locale, hr, en);
+
   return (
     <Layout
       title="Smještaj"
@@ -130,8 +146,8 @@ const SmjestajPage: NextPage<
                 .map((post) => (
                   <InfoPostCard
                     key={post.id}
-                    title={post.title.rendered}
-                    excerpt={post.excerpt.rendered}
+                    title={t(post.title.rendered, post.meta.title_en)}
+                    excerpt={t(post.excerpt.rendered, post.meta.excerpt_en)}
                     link={`/informacije/${post.slug}`}
                   />
                 ))}
@@ -150,8 +166,8 @@ const SmjestajPage: NextPage<
                       )
                       .slice(0, 8)
                       .map((item) => ({
-                        title: item.title.rendered,
-                        content: item.content.rendered,
+                        title: t(item.title.rendered, item.meta.title_en),
+                        content: t(item.content.rendered, item.meta.content_en),
                       })) || []
                   }
                 />
@@ -209,8 +225,8 @@ const SmjestajPage: NextPage<
         .map((post) => (
           <NatjecajCard
             key={post.id}
-            title={post.title.rendered}
-            excerpt={post.excerpt.rendered}
+            title={t(post.title.rendered, post.meta.title_en)}
+            excerpt={t(post.excerpt.rendered, post.meta.excerpt_en)}
             link={`/informacije/${post.slug}`}
             className="mt-12"
           />
@@ -243,8 +259,8 @@ const SmjestajPage: NextPage<
           .map((post) => (
             <InfoPostCard
               key={post.id}
-              title={post.title.rendered}
-              excerpt={post.excerpt.rendered}
+              title={t(post.title.rendered, post.meta.title_en)}
+              excerpt={t(post.excerpt.rendered, post.meta.excerpt_en)}
               link={`/informacije/${post.slug}`}
             />
           ))}
