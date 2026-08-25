@@ -123,6 +123,7 @@ export type PostsMeta = {
   event_date: string;
   documents: Document[];
   sadrzaj: string;
+  sadrzaj_en?: string;
   kontakt: string;
   radno_vrijeme_blagajni: string;
   lokacija: string;

@@ -12,6 +12,7 @@ import { getDomoviPaths } from "@/features/paths";
 import { getPost } from "@/features/posts";
 import type { Post, PostsMeta } from "@/features/types";
 import clearHtmlFromString from "@/utils/clearHtmlFromString";
+import { localized } from "@/utils/i18n";
 import { revalidateTime, smjestajNatjecajDokumentSlug } from "@/utils/constants";
 import type {
   GetStaticPaths,
@@ -22,12 +23,18 @@ import type {
 import { useRouter } from "next/router";
 import type { ParsedUrlQuery } from "querystring";
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   const posts = await getDomoviPaths();
 
-  const paths = posts.map((post) => ({
-    params: { slug: post.slug },
-  }));
+  // Pre-render every locale. Without an explicit locale the English pages are
+  // only ever produced on demand, and with `fallback: true` a crawler or a
+  // JS-less request sees the loading shell instead of the page.
+  const paths = posts.flatMap((post) =>
+    (locales ?? ["hr"]).map((locale) => ({
+      params: { slug: post.slug },
+      locale,
+    })),
+  );
 
   return {
     paths,
@@ -64,6 +71,15 @@ const DormitoryPage: NextPage<
   InferGetStaticPropsType<typeof getStaticProps>
 > = ({ obavijest, natjecajDokument }) => {
   const router = useRouter();
+
+  // Croatian unless an English translation actually exists for this field.
+  // Pages render mixed while a section is only part-translated — that is the
+  // documented behaviour, not a bug.
+  const sadrzaj = localized(
+    router.locale,
+    obavijest?.meta.sadrzaj,
+    obavijest?.meta.sadrzaj_en,
+  );
 
   const natjecajTitle = natjecajDokument?.title.rendered
     ? clearHtmlFromString(natjecajDokument.title.rendered)
@@ -148,12 +164,12 @@ const DormitoryPage: NextPage<
         }
       />
       <div className="flex flex-col md:flex-row gap-8 mt-12">
-        {!!obavijest?.meta.sadrzaj && (
+        {!!sadrzaj && (
           <Card>
             <h5 className="font-semibold text-text text-lg mb-2">
               Popratni sadržaj
             </h5>
-            <DisplayHTML html={obavijest.meta.sadrzaj} className="text-light" />
+            <DisplayHTML html={sadrzaj} className="text-light" />
           </Card>
         )}
         {!!obavijest?.meta.kontakt && (
