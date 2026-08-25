@@ -123,13 +123,24 @@ export type PostsMeta = {
   event_date: string;
   documents: Document[];
   sadrzaj: string;
-  sadrzaj_en?: string;
   kontakt: string;
   radno_vrijeme_blagajni: string;
   lokacija: string;
   image_groups: ImageGroup[];
   link: string;
   footnotes: string;
+
+  // English twins, written by the admin at /zaposlenici. Every one is optional:
+  // a field is translated only when it holds non-whitespace text, otherwise the
+  // Croatian original is shown. See src/utils/i18n.ts.
+  title_en?: string;
+  excerpt_en?: string;
+  content_en?: string;
+  sadrzaj_en?: string;
+  kontakt_en?: string;
+  radno_vrijeme_blagajni_en?: string;
+  footnotes_en?: string;
+  image_groups_en?: { title: string }[];
 };
 
 export type JobsMeta = {

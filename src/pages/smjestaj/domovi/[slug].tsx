@@ -75,11 +75,17 @@ const DormitoryPage: NextPage<
   // Croatian unless an English translation actually exists for this field.
   // Pages render mixed while a section is only part-translated — that is the
   // documented behaviour, not a bug.
-  const sadrzaj = localized(
-    router.locale,
-    obavijest?.meta.sadrzaj,
-    obavijest?.meta.sadrzaj_en,
+  const t = (hr: string | undefined, en: string | undefined) =>
+    localized(router.locale, hr, en);
+
+  const sadrzaj = t(obavijest?.meta.sadrzaj, obavijest?.meta.sadrzaj_en);
+  const kontakt = t(obavijest?.meta.kontakt, obavijest?.meta.kontakt_en);
+  const radnoVrijemeBlagajni = t(
+    obavijest?.meta.radno_vrijeme_blagajni,
+    obavijest?.meta.radno_vrijeme_blagajni_en,
   );
+  const dormTitle = t(obavijest?.title.rendered, obavijest?.meta.title_en);
+  const dormExcerpt = t(obavijest?.excerpt.rendered, obavijest?.meta.excerpt_en);
 
   const natjecajTitle = natjecajDokument?.title.rendered
     ? clearHtmlFromString(natjecajDokument.title.rendered)
@@ -118,15 +124,18 @@ const DormitoryPage: NextPage<
     );
   return (
     <Layout
-      title={clearHtmlFromString(obavijest?.title.rendered || "")}
-      description={clearHtmlFromString(obavijest?.excerpt.rendered || "")}
+      title={clearHtmlFromString(dormTitle)}
+      description={clearHtmlFromString(dormExcerpt)}
       bottomComponent={
         <>
           <SectionTitle title="Fotografije" className="mt-24" />
           {!obavijest?.meta.image_groups ? (
             <p className="text-center text-light">Nema fotografija za prikaz</p>
           ) : (
-            <ImageGallery imageGroups={obavijest.meta.image_groups} />
+            <ImageGallery
+              imageGroups={obavijest.meta.image_groups}
+              imageGroupsEn={obavijest.meta.image_groups_en}
+            />
           )}
 
           <Section>
@@ -156,10 +165,10 @@ const DormitoryPage: NextPage<
       }
     >
       <PageTitle
-        title={clearHtmlFromString(obavijest?.title.rendered || "")}
+        title={clearHtmlFromString(dormTitle)}
         subtitle={
-          clearHtmlFromString(obavijest?.excerpt.rendered || "") ? (
-            <DisplayHTML html={obavijest?.excerpt.rendered || ""} />
+          clearHtmlFromString(dormExcerpt) ? (
+            <DisplayHTML html={dormExcerpt} />
           ) : null
         }
       />
@@ -172,19 +181,19 @@ const DormitoryPage: NextPage<
             <DisplayHTML html={sadrzaj} className="text-light" />
           </Card>
         )}
-        {!!obavijest?.meta.kontakt && (
+        {!!kontakt && (
           <Card>
             <h5 className="font-semibold text-text text-lg mb-2">Kontakt</h5>
-            <DisplayHTML html={obavijest.meta.kontakt} className="text-light" />
+            <DisplayHTML html={kontakt} className="text-light" />
           </Card>
         )}
-        {!!obavijest?.meta.radno_vrijeme_blagajni && (
+        {!!radnoVrijemeBlagajni && (
           <Card>
             <h5 className="font-semibold text-text text-lg mb-2">
               Radno vrijeme blagajni
             </h5>
             <DisplayHTML
-              html={obavijest.meta.radno_vrijeme_blagajni}
+              html={radnoVrijemeBlagajni}
               className="text-light"
             />
           </Card>

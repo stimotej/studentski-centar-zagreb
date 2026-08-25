@@ -2,13 +2,22 @@ import { ImageGroup } from "@/features/types";
 import Image from "next/image";
 import React, { useRef } from "react";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
+import { useRouter } from "next/router";
+import { localized } from "@/utils/i18n";
 
 interface ImageGalleryProps {
   imageGroups: ImageGroup[];
+  /** Captions only, index-aligned with imageGroups. Images are shared. */
+  imageGroupsEn?: { title: string }[];
   className?: string;
 }
 
 const ImageGallery: React.FC<ImageGalleryProps> = (props) => {
+  const { locale } = useRouter();
+
+  const caption = (index: number, hr: string) =>
+    localized(locale, hr, props.imageGroupsEn?.[index]?.title);
+
   const postCardRefs = useRef<Array<HTMLDivElement | null>>([]);
   const postsContainerRefs = useRef<Array<HTMLDivElement | null>>([]);
 
@@ -23,7 +32,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = (props) => {
     <div className={props.className}>
       {props.imageGroups?.map((group, index) => (
         <div key={group.id} className="mb-12 mt-8 text-center relative">
-          {group.title}
+          {caption(index, group.title)}
           <div
             ref={(el) => (postsContainerRefs.current[index] = el)}
             className="flex gap-6 mt-4 px-8 overflow-x-auto hide-scrollbar group"
@@ -33,7 +42,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = (props) => {
                 key={image.id}
                 ref={(el) => (postsContainerRefs.current[index] = el)}
                 src={image.url}
-                alt={group.title}
+                alt={caption(index, group.title)}
                 width={500}
                 height={350}
                 className="w-[80vw] max-w-[500px] h-[350px] object-cover rounded-lg"
