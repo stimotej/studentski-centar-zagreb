@@ -26,6 +26,8 @@ import PagePosts from "@/components/shared/PagePosts";
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
 import { getObavijestiPage } from "@/features/obavijesti";
 import type { ObavijestiMeta, Post, PostsMeta } from "@/features/types";
+import { useRouter } from "next/router";
+import { localized } from "@/utils/i18n";
 
 type StudentServisProps = {
   aboutPost: Post<PostsMeta> | undefined;
@@ -42,13 +44,13 @@ export const getStaticProps: GetStaticProps<StudentServisProps> = async () => {
 
   const aboutPost = posts.find((post) => post.id === infoSSAboutPost);
   const infoSSPoslovnicePosts = posts.filter((post) =>
-    post.categories.includes(infoSSPoslovniceCategory)
+    post.categories.includes(infoSSPoslovniceCategory),
   );
   const infoSSInfoPosts = posts.filter((post) =>
-    post.categories.includes(infoSSInfoCategory)
+    post.categories.includes(infoSSInfoCategory),
   );
   const faqStudentServisPosts = posts.filter((item) =>
-    item.categories.includes(faqStudentServisCategory)
+    item.categories.includes(faqStudentServisCategory),
   );
 
   const obavijesti = await getObavijestiPage(obavijestiStudentServisCategory);
@@ -74,6 +76,10 @@ const StudentServisPage: NextPage<
   faqStudentServisPosts,
   obavijesti,
 }) => {
+  const { locale } = useRouter();
+  const t = (hr: string | undefined, en: string | undefined) =>
+    localized(locale, hr, en);
+
   return (
     <Layout
       title="Student servis"
@@ -82,8 +88,8 @@ const StudentServisPage: NextPage<
       {!!aboutPost && (
         <AboutSection
           image={aboutPost.image_url}
-          title={aboutPost.title.rendered}
-          content={aboutPost.content.rendered}
+          title={t(aboutPost.title.rendered, aboutPost.meta.title_en)}
+          content={t(aboutPost.content.rendered, aboutPost.meta.content_en)}
           className="mt-12"
         />
       )}
@@ -92,8 +98,8 @@ const StudentServisPage: NextPage<
         {infoSSPoslovnicePosts.map((post) => (
           <InfoPostCard
             key={post.id}
-            title={post.title.rendered}
-            content={post.content.rendered}
+            title={t(post.title.rendered, post.meta.title_en)}
+            content={t(post.content.rendered, post.meta.content_en)}
           />
         ))}
       </div>
@@ -118,8 +124,8 @@ const StudentServisPage: NextPage<
         {infoSSInfoPosts.map((post) => (
           <InfoPostCard
             key={post.id}
-            title={post.title.rendered}
-            excerpt={post.excerpt.rendered}
+            title={t(post.title.rendered, post.meta.title_en)}
+            excerpt={t(post.excerpt.rendered, post.meta.excerpt_en)}
             link={`/informacije/${post.slug}`}
           />
         ))}
@@ -133,8 +139,8 @@ const StudentServisPage: NextPage<
           <FAQCards
             items={
               faqStudentServisPosts.slice(0, 8).map((item) => ({
-                title: item.title.rendered,
-                content: item.content.rendered,
+                title: t(item.title.rendered, item.meta.title_en),
+                content: t(item.content.rendered, item.meta.content_en),
               })) || []
             }
           />

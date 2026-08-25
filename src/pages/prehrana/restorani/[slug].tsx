@@ -24,6 +24,7 @@ import type {
 } from "next";
 import { useRouter } from "next/router";
 import type { ParsedUrlQuery } from "querystring";
+import { localized } from "@/utils/i18n";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await getRestaurantsPaths();
@@ -64,6 +65,10 @@ export const getStaticProps: GetStaticProps<RestoranProps> = async ({
 const RestaurantPage: NextPage<
   InferGetStaticPropsType<typeof getStaticProps>
 > = ({ restaurant }) => {
+  const { locale } = useRouter();
+  const t = (hr: string | undefined, en: string | undefined) =>
+    localized(locale, hr, en);
+
   const router = useRouter();
 
   const { data: menus, isInitialLoading: isLoadingMenus } = useMenus(
@@ -73,7 +78,7 @@ const RestaurantPage: NextPage<
     },
     {
       enabled: !!restaurant,
-    }
+    },
   );
 
   if (router.isFallback)
@@ -95,12 +100,18 @@ const RestaurantPage: NextPage<
     );
   return (
     <Layout
-      title={clearHtmlFromString(restaurant?.title.rendered || "")}
-      description={clearHtmlFromString(restaurant?.excerpt.rendered || "")}
+      title={clearHtmlFromString(
+        t(restaurant?.title.rendered, restaurant?.meta.title_en) || "",
+      )}
+      description={clearHtmlFromString(
+        t(restaurant?.excerpt.rendered, restaurant?.meta.excerpt_en) || "",
+      )}
     >
       <div className="flex flex-col md:flex-row gap-12">
         <PageTitle
-          title={clearHtmlFromString(restaurant?.title.rendered || "")}
+          title={clearHtmlFromString(
+            t(restaurant?.title.rendered, restaurant?.meta.title_en) || "",
+          )}
           subtitle={
             <div>
               <p className="font-semibold text-light underline">

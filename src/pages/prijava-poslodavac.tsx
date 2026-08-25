@@ -28,7 +28,7 @@ export const getStaticProps: GetStaticProps<PrijavaProps> = async () => {
   const registerPost = posts?.find((post) => post.id === infoSSRegisterPost);
   const documentPost = posts?.find((post) => post.id === infoSSDocumentPost);
   const predajaOglasaPost = posts?.find(
-    (post) => post.id === infoSSPredajaOglasaPost
+    (post) => post.id === infoSSPredajaOglasaPost,
   );
 
   return {

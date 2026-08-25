@@ -52,7 +52,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = (props) => {
               onClick={() =>
                 handleScrollPosts(
                   -((postCardRefs.current[index]?.offsetWidth || 600) + 3 * 32),
-                  index
+                  index,
                 )
               }
               className="bg-white/60 backdrop-blur-sm invisible active:shadow-md group-hover:visible opacity-0 group-hover:opacity-100 transition-[opacity,transform] shadow-lg rounded-lg py-6 px-2 absolute left-6 top-1/2 transform -translate-y-1/2"
@@ -63,7 +63,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = (props) => {
               onClick={() =>
                 handleScrollPosts(
                   (postCardRefs.current[index]?.offsetWidth || 600) + 3 * 32,
-                  index
+                  index,
                 )
               }
               className="bg-white/60 backdrop-blur-sm invisible active:shadow-md group-hover:visible opacity-0 group-hover:opacity-100 transition-[opacity,transform] shadow-lg rounded-lg py-6 px-2 absolute right-6 top-1/2 transform -translate-y-1/2"

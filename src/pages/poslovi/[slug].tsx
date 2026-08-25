@@ -86,7 +86,7 @@ const JobPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
         <div className="w-full lg:w-[70%]">
           <PageTitle title={clearHtmlFromString(job?.title.rendered || "")} />
           <p className="mt-8 text-lg font-medium text-text">{`Prijave traju do ${dayjs(
-            job?.meta.active_until
+            job?.meta.active_until,
           ).format("DD.MM.YYYY")}`}</p>
 
           {job?.meta.image ? (

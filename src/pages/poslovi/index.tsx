@@ -115,7 +115,7 @@ const PosloviPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
         query: routerQuery,
       },
       undefined,
-      { shallow: true }
+      { shallow: true },
     );
   };
 
@@ -142,7 +142,7 @@ const PosloviPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
           query: routerQuery,
         },
         undefined,
-        { shallow: true }
+        { shallow: true },
       );
     }, 1000);
   };

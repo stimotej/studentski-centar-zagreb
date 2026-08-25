@@ -33,6 +33,8 @@ import {
   revalidateTime,
 } from "@/utils/constants";
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
+import { useRouter } from "next/router";
+import { localized } from "@/utils/i18n";
 
 type SportProps = {
   posts: Post<PostsMeta>[];
@@ -73,6 +75,10 @@ const SportPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   categories,
   obavijesti,
 }) => {
+  const { locale } = useRouter();
+  const t = (hr: string | undefined, en: string | undefined) =>
+    localized(locale, hr, en);
+
   return (
     <Layout
       title="Sport"
@@ -83,14 +89,14 @@ const SportPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
           {(() => {
             const postsExistCjelogodisnje = !!posts?.filter((post) =>
               post.categories.includes(
-                infoSportRekreacijskeCjelogodisnjeCategory
-              )
+                infoSportRekreacijskeCjelogodisnjeCategory,
+              ),
             ).length;
             const postsExistPovremene = !!posts?.filter((post) =>
-              post.categories.includes(infoSportRekreacijskePovremeneCategory)
+              post.categories.includes(infoSportRekreacijskePovremeneCategory),
             ).length;
             const imagesExist = !!categories?.find(
-              (item) => item.id === infoSportRekreacijskeCategory
+              (item) => item.id === infoSportRekreacijskeCategory,
             )?.meta.image_groups.length;
 
             if (
@@ -116,14 +122,17 @@ const SportPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                         {posts
                           ?.filter((post) =>
                             post.categories.includes(
-                              infoSportRekreacijskeCjelogodisnjeCategory
-                            )
+                              infoSportRekreacijskeCjelogodisnjeCategory,
+                            ),
                           )
                           .map((post) => (
                             <InfoPostCard
                               key={post.id}
-                              title={post.title.rendered}
-                              excerpt={post.excerpt.rendered}
+                              title={t(post.title.rendered, post.meta.title_en)}
+                              excerpt={t(
+                                post.excerpt.rendered,
+                                post.meta.excerpt_en,
+                              )}
                               link={`/informacije/${post.slug}`}
                             />
                           ))}
@@ -140,14 +149,17 @@ const SportPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                         {posts
                           ?.filter((post) =>
                             post.categories.includes(
-                              infoSportRekreacijskePovremeneCategory
-                            )
+                              infoSportRekreacijskePovremeneCategory,
+                            ),
                           )
                           .map((post) => (
                             <InfoPostCard
                               key={post.id}
-                              title={post.title.rendered}
-                              excerpt={post.excerpt.rendered}
+                              title={t(post.title.rendered, post.meta.title_en)}
+                              excerpt={t(
+                                post.excerpt.rendered,
+                                post.meta.excerpt_en,
+                              )}
                               link={`/informacije/${post.slug}`}
                             />
                           ))}
@@ -161,7 +173,7 @@ const SportPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                     <ImageGallery
                       imageGroups={
                         categories?.find(
-                          (item) => item.id === infoSportRekreacijskeCategory
+                          (item) => item.id === infoSportRekreacijskeCategory,
                         )?.meta.image_groups || []
                       }
                     />
@@ -174,13 +186,13 @@ const SportPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
           {/* EDUKACIJSKE AKTIVNOSTI */}
           {(() => {
             const postsExistSportske = !!posts?.filter((post) =>
-              post.categories.includes(infoSportEdukacijskeSportskeCategory)
+              post.categories.includes(infoSportEdukacijskeSportskeCategory),
             ).length;
             const postsExistStrucne = !!posts?.filter((post) =>
-              post.categories.includes(infoSportEdukacijskeStrucneCategory)
+              post.categories.includes(infoSportEdukacijskeStrucneCategory),
             ).length;
             const imagesExist = !!categories?.find(
-              (item) => item.id === infoSportEdukacijskeCategory
+              (item) => item.id === infoSportEdukacijskeCategory,
             )?.meta.image_groups.length;
 
             if (!postsExistSportske && !postsExistStrucne && !imagesExist)
@@ -202,14 +214,17 @@ const SportPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                         {posts
                           ?.filter((post) =>
                             post.categories.includes(
-                              infoSportEdukacijskeSportskeCategory
-                            )
+                              infoSportEdukacijskeSportskeCategory,
+                            ),
                           )
                           .map((post) => (
                             <InfoPostCard
                               key={post.id}
-                              title={post.title.rendered}
-                              excerpt={post.excerpt.rendered}
+                              title={t(post.title.rendered, post.meta.title_en)}
+                              excerpt={t(
+                                post.excerpt.rendered,
+                                post.meta.excerpt_en,
+                              )}
                               link={`/informacije/${post.slug}`}
                             />
                           ))}
@@ -226,14 +241,17 @@ const SportPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                         {posts
                           ?.filter((post) =>
                             post.categories.includes(
-                              infoSportEdukacijskeStrucneCategory
-                            )
+                              infoSportEdukacijskeStrucneCategory,
+                            ),
                           )
                           .map((post) => (
                             <InfoPostCard
                               key={post.id}
-                              title={post.title.rendered}
-                              excerpt={post.excerpt.rendered}
+                              title={t(post.title.rendered, post.meta.title_en)}
+                              excerpt={t(
+                                post.excerpt.rendered,
+                                post.meta.excerpt_en,
+                              )}
                               link={`/informacije/${post.slug}`}
                             />
                           ))}
@@ -247,7 +265,7 @@ const SportPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                     <ImageGallery
                       imageGroups={
                         categories?.find(
-                          (item) => item.id === infoSportEdukacijskeCategory
+                          (item) => item.id === infoSportEdukacijskeCategory,
                         )?.meta.image_groups || []
                       }
                     />
@@ -260,10 +278,10 @@ const SportPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
           {/* NATJECATELJSKE AKTIVNOSTI */}
           {(() => {
             const postsExist = !!posts?.filter((post) =>
-              post.categories.includes(infoSportNatjecateljskeCategory)
+              post.categories.includes(infoSportNatjecateljskeCategory),
             ).length;
             const imagesExist = !!categories?.find(
-              (item) => item.id === infoSportNatjecateljskeCategory
+              (item) => item.id === infoSportNatjecateljskeCategory,
             )?.meta.image_groups.length;
 
             if (!postsExist && !imagesExist) return null;
@@ -280,14 +298,17 @@ const SportPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                       {posts
                         ?.filter((post) =>
                           post.categories.includes(
-                            infoSportNatjecateljskeCategory
-                          )
+                            infoSportNatjecateljskeCategory,
+                          ),
                         )
                         .map((post) => (
                           <InfoPostCard
                             key={post.id}
-                            title={post.title.rendered}
-                            excerpt={post.excerpt.rendered}
+                            title={t(post.title.rendered, post.meta.title_en)}
+                            excerpt={t(
+                              post.excerpt.rendered,
+                              post.meta.excerpt_en,
+                            )}
                             link={`/informacije/${post.slug}`}
                           />
                         ))}
@@ -300,7 +321,7 @@ const SportPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                     <ImageGallery
                       imageGroups={
                         categories?.find(
-                          (item) => item.id === infoSportNatjecateljskeCategory
+                          (item) => item.id === infoSportNatjecateljskeCategory,
                         )?.meta.image_groups || []
                       }
                     />
@@ -313,10 +334,10 @@ const SportPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
           {/* ZABAVA */}
           {(() => {
             const postsExist = !!posts?.filter((post) =>
-              post.categories.includes(infoSportZabavaCategory)
+              post.categories.includes(infoSportZabavaCategory),
             ).length;
             const imagesExist = !!categories?.find(
-              (item) => item.id === infoSportZabavaCategory
+              (item) => item.id === infoSportZabavaCategory,
             )?.meta.image_groups.length;
 
             if (!postsExist && !imagesExist) return null;
@@ -329,13 +350,16 @@ const SportPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
                       {posts
                         ?.filter((post) =>
-                          post.categories.includes(infoSportZabavaCategory)
+                          post.categories.includes(infoSportZabavaCategory),
                         )
                         .map((post) => (
                           <InfoPostCard
                             key={post.id}
-                            title={post.title.rendered}
-                            excerpt={post.excerpt.rendered}
+                            title={t(post.title.rendered, post.meta.title_en)}
+                            excerpt={t(
+                              post.excerpt.rendered,
+                              post.meta.excerpt_en,
+                            )}
                             link={`/informacije/${post.slug}`}
                           />
                         ))}
@@ -348,7 +372,7 @@ const SportPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                     <ImageGallery
                       imageGroups={
                         categories?.find(
-                          (item) => item.id === infoSportZabavaCategory
+                          (item) => item.id === infoSportZabavaCategory,
                         )?.meta.image_groups || []
                       }
                     />
@@ -366,17 +390,17 @@ const SportPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                 items={
                   posts
                     .filter((item) =>
-                      item.categories.includes(faqSportCategory)
+                      item.categories.includes(faqSportCategory),
                     )
                     .slice(0, 8)
                     .map((item) => ({
-                      title: item.title.rendered,
-                      content: item.content.rendered,
+                      title: t(item.title.rendered, item.meta.title_en),
+                      content: t(item.content.rendered, item.meta.content_en),
                     })) || []
                 }
               />
               {posts?.filter((item) =>
-                item.categories.includes(faqSportCategory)
+                item.categories.includes(faqSportCategory),
               ).length > 8 && (
                 <ButtonLink href="/sport/faq" className="mx-auto mt-6">
                   Vidi sve

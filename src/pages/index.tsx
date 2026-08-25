@@ -29,6 +29,8 @@ import type {
   PostsMeta,
 } from "@/features/types";
 import Banner from "@/components/ads/Banner";
+import { useRouter } from "next/router";
+import { localized } from "@/utils/i18n";
 
 type HomeProps = {
   sliderPosts: Post<ObavijestiMeta>[];
@@ -52,11 +54,11 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   });
 
   const opceInformacijePost = info?.find(
-    (post) => post.id === pocetnaOpceInformacijePost
+    (post) => post.id === pocetnaOpceInformacijePost,
   );
 
   const oglasZaPopunuRadnihMjestaPost = info?.find(
-    (post) => post.id === pocetnaOglasZaPopunuRadnihMjestaPost
+    (post) => post.id === pocetnaOglasZaPopunuRadnihMjestaPost,
   );
 
   return {
@@ -80,6 +82,10 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   opceInformacijePost,
   oglasZaPopunuRadnihMjestaPost,
 }) => {
+  const { locale } = useRouter();
+  const t = (hr: string | undefined, en: string | undefined) =>
+    localized(locale, hr, en);
+
   return (
     <Layout
       description="Studentski Centar u Zagrebu, Sveučilište u Zagrebu; Kultura, Prehrana, Smještaj, Student servis, Sport, Teatar &TD"
@@ -89,8 +95,8 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
             className="mt-[64px]"
             slides={sliderPosts.map((slide) => ({
               src: slide.image_url,
-              title: slide.title.rendered,
-              subtitle: slide.excerpt.rendered,
+              title: t(slide.title.rendered, slide.meta.title_en),
+              subtitle: t(slide.excerpt.rendered, slide.meta.excerpt_en),
               actionTitle: "Saznaj više",
               actionHref: `/obavijesti/${slide.slug}`,
             }))}
@@ -110,10 +116,14 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                 <PostCard
                   key={obavijest.id}
                   slug={obavijest.slug}
-                  title={clearHtmlFromString(obavijest.title.rendered)}
+                  title={clearHtmlFromString(
+                    t(obavijest.title.rendered, obavijest.meta.title_en),
+                  )}
                   category={obavijest.category}
                   date={obavijest.date}
-                  excerpt={clearHtmlFromString(obavijest.excerpt.rendered)}
+                  excerpt={clearHtmlFromString(
+                    t(obavijest.excerpt.rendered, obavijest.meta.excerpt_en),
+                  )}
                   image={obavijest.image_url}
                 />
               ))
@@ -137,12 +147,27 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
         </div>
         <div className="w-full md:w-[30%]">
           <GeneralInfoCard
-            title={opceInformacijePost?.title.rendered || ""}
-            content={opceInformacijePost?.meta.sadrzaj || ""}
+            title={
+              t(
+                opceInformacijePost?.title.rendered,
+                opceInformacijePost?.meta.title_en,
+              ) || ""
+            }
+            content={
+              t(
+                opceInformacijePost?.meta.sadrzaj,
+                opceInformacijePost?.meta.sadrzaj_en,
+              ) || ""
+            }
             link={`/informacije/${opceInformacijePost?.slug}`}
           />
           <DisplayHTML
-            html={oglasZaPopunuRadnihMjestaPost?.title.rendered || ""}
+            html={
+              t(
+                oglasZaPopunuRadnihMjestaPost?.title.rendered,
+                oglasZaPopunuRadnihMjestaPost?.meta.title_en,
+              ) || ""
+            }
             className="mt-6 font-medium text-lg"
           />
           <SidebarLinks
@@ -167,7 +192,7 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                   event.post_type === "obavijesti"
                     ? dayjs(event.event_date).format("DD.MM.YYYY [u] HH:mm[h]")
                     : `${dayjs(event.event_date).format(
-                        "DD.MM.YYYY [u] HH:mm[h]"
+                        "DD.MM.YYYY [u] HH:mm[h]",
                       )}, ${event.location}`,
                 title: clearHtmlFromString(event.title),
                 link:
@@ -189,8 +214,8 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                 .filter((item) => item.categories.includes(faqPocetnaCategory))
                 .slice(0, 8)
                 .map((item) => ({
-                  title: item.title.rendered,
-                  content: item.content.rendered,
+                  title: t(item.title.rendered, item.meta.title_en),
+                  content: t(item.content.rendered, item.meta.content_en),
                 })) || []
             }
             // loading={isLoadingFaqs}

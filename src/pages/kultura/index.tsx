@@ -21,6 +21,8 @@ import dayjs from "dayjs";
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
 import clearHtmlFromString from "@/utils/clearHtmlFromString";
 import type { ObavijestiMeta, Post, PostsMeta, Event } from "@/features/types";
+import { useRouter } from "next/router";
+import { localized } from "@/utils/i18n";
 
 type KulturaProps = {
   events: Event[];
@@ -63,8 +65,12 @@ const KulturaPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   posts,
   obavijesti,
 }) => {
+  const { locale } = useRouter();
+  const t = (hr: string | undefined, en: string | undefined) =>
+    localized(locale, hr, en);
+
   const todaysEvents = events?.filter((event) =>
-    dayjs(event.event_date).isSame(dayjs(), "day")
+    dayjs(event.event_date).isSame(dayjs(), "day"),
   );
 
   return (
@@ -130,8 +136,10 @@ const KulturaPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
           <ContentCard
             key={location.id}
             image={location.image_url}
-            title={clearHtmlFromString(location.title.rendered)}
-            content={location.excerpt.rendered}
+            title={clearHtmlFromString(
+              t(location.title.rendered, location.meta.title_en),
+            )}
+            content={t(location.excerpt.rendered, location.meta.excerpt_en)}
             action={{ title: "SAZNAJ VIŠE", href: location.meta.link }}
             className="flex-1"
           />
@@ -176,8 +184,8 @@ const KulturaPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                 .filter((item) => item.categories.includes(faqKulturaCategory))
                 .slice(0, 8)
                 .map((item) => ({
-                  title: item.title.rendered,
-                  content: item.content.rendered,
+                  title: t(item.title.rendered, item.meta.title_en),
+                  content: t(item.content.rendered, item.meta.content_en),
                 })) || []
             }
           />

@@ -13,7 +13,10 @@ import { getPost } from "@/features/posts";
 import type { Post, PostsMeta } from "@/features/types";
 import clearHtmlFromString from "@/utils/clearHtmlFromString";
 import { localized } from "@/utils/i18n";
-import { revalidateTime, smjestajNatjecajDokumentSlug } from "@/utils/constants";
+import {
+  revalidateTime,
+  smjestajNatjecajDokumentSlug,
+} from "@/utils/constants";
 import type {
   GetStaticPaths,
   GetStaticProps,
@@ -85,7 +88,10 @@ const DormitoryPage: NextPage<
     obavijest?.meta.radno_vrijeme_blagajni_en,
   );
   const dormTitle = t(obavijest?.title.rendered, obavijest?.meta.title_en);
-  const dormExcerpt = t(obavijest?.excerpt.rendered, obavijest?.meta.excerpt_en);
+  const dormExcerpt = t(
+    obavijest?.excerpt.rendered,
+    obavijest?.meta.excerpt_en,
+  );
 
   const natjecajTitle = natjecajDokument?.title.rendered
     ? clearHtmlFromString(natjecajDokument.title.rendered)
@@ -192,10 +198,7 @@ const DormitoryPage: NextPage<
             <h5 className="font-semibold text-text text-lg mb-2">
               Radno vrijeme blagajni
             </h5>
-            <DisplayHTML
-              html={radnoVrijemeBlagajni}
-              className="text-light"
-            />
+            <DisplayHTML html={radnoVrijemeBlagajni} className="text-light" />
           </Card>
         )}
       </div>

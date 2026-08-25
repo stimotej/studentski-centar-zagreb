@@ -22,6 +22,8 @@ import {
 } from "@/utils/constants";
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import { localized } from "@/utils/i18n";
 
 type PrehranaProps = {
   posts: Post<PostsMeta>[];
@@ -60,6 +62,10 @@ export const getStaticProps: GetStaticProps<PrehranaProps> = async () => {
 const PrehranaPage: NextPage<
   InferGetStaticPropsType<typeof getStaticProps>
 > = ({ posts, faqs, linksPost, obavijesti }) => {
+  const { locale } = useRouter();
+  const t = (hr: string | undefined, en: string | undefined) =>
+    localized(locale, hr, en);
+
   return (
     <Layout
       title="Prehrana"
@@ -121,7 +127,7 @@ const PrehranaPage: NextPage<
             <PagePosts posts={obavijesti} className="mt-12" />
 
             {!!faqs?.filter((item) =>
-              item.categories.includes(faqPrehranaCategory)
+              item.categories.includes(faqPrehranaCategory),
             ).length && (
               <div className="mt-32">
                 <SectionTitle title="Često postavljana pitanja" />
@@ -129,17 +135,17 @@ const PrehranaPage: NextPage<
                   items={
                     faqs
                       .filter((item) =>
-                        item.categories.includes(faqPrehranaCategory)
+                        item.categories.includes(faqPrehranaCategory),
                       )
                       .slice(0, 8)
                       .map((item) => ({
-                        title: item.title.rendered,
-                        content: item.content.rendered,
+                        title: t(item.title.rendered, item.meta.title_en),
+                        content: t(item.content.rendered, item.meta.content_en),
                       })) || []
                   }
                 />
                 {faqs?.filter((item) =>
-                  item.categories.includes(faqPrehranaCategory)
+                  item.categories.includes(faqPrehranaCategory),
                 ).length > 8 && (
                   <ButtonLink href="/prehrana/faq" className="mx-auto mt-6">
                     Vidi sve

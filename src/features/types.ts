@@ -77,6 +77,11 @@ export type ObavijestiMeta = {
   documents: Document[];
   featured: boolean;
   order: number;
+
+  // English twins — see src/utils/i18n.ts for the fallback rule.
+  title_en?: string;
+  excerpt_en?: string;
+  content_en?: string;
 };
 
 export type PostsMeta = {

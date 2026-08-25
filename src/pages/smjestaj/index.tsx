@@ -94,14 +94,18 @@ export const getStaticProps: GetStaticProps<SmjestajProps> = async ({
               isRegularLink: true,
             }
           : post.meta.link
-          ? { title: actionTitle, href: post.meta.link }
-          : null;
+            ? { title: actionTitle, href: post.meta.link }
+            : null;
 
         return {
           id: post.id,
           image: post.image_url,
           title: localized(locale, post.title.rendered, post.meta.title_en),
-          content: localized(locale, post.content.rendered, post.meta.content_en),
+          content: localized(
+            locale,
+            post.content.rendered,
+            post.meta.content_en,
+          ),
           action,
         };
       }),
@@ -131,7 +135,7 @@ const SmjestajPage: NextPage<
             subtitle="SC Zagreb nudi smještaj u 4 studentska doma na atraktivnim lokacijama u gradu Zagrebu."
             className="my-24"
             posts={posts?.filter((post) =>
-              post.categories.includes(infoSmjestajDormitoriesCategory)
+              post.categories.includes(infoSmjestajDormitoriesCategory),
             )}
           />
 
@@ -141,7 +145,7 @@ const SmjestajPage: NextPage<
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
               {posts
                 ?.filter((post) =>
-                  post.categories.includes(infoSmjestajForeignStudentsCategory)
+                  post.categories.includes(infoSmjestajForeignStudentsCategory),
                 )
                 .map((post) => (
                   <InfoPostCard
@@ -154,7 +158,7 @@ const SmjestajPage: NextPage<
             </div>
 
             {!!posts?.filter((item) =>
-              item.categories.includes(faqSmjestajCategory)
+              item.categories.includes(faqSmjestajCategory),
             ).length && (
               <div className="my-24">
                 <SectionTitle title="Često postavljana pitanja" />
@@ -162,7 +166,7 @@ const SmjestajPage: NextPage<
                   items={
                     posts
                       .filter((item) =>
-                        item.categories.includes(faqSmjestajCategory)
+                        item.categories.includes(faqSmjestajCategory),
                       )
                       .slice(0, 8)
                       .map((item) => ({
@@ -172,7 +176,7 @@ const SmjestajPage: NextPage<
                   }
                 />
                 {posts?.filter((item) =>
-                  item.categories.includes(faqSmjestajCategory)
+                  item.categories.includes(faqSmjestajCategory),
                 ).length > 8 && (
                   <ButtonLink href="/smjestaj/faq" className="mx-auto mt-6">
                     Vidi sve
@@ -220,7 +224,7 @@ const SmjestajPage: NextPage<
       <div id="natjecaj"></div>
       {posts
         ?.filter((post) =>
-          post.categories.includes(infoSmjestajNatjecajCategory)
+          post.categories.includes(infoSmjestajNatjecajCategory),
         )
         .map((post) => (
           <NatjecajCard

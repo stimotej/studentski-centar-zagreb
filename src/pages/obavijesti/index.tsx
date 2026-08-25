@@ -14,6 +14,7 @@ import { obavijestiCategoryId, revalidateTime } from "@/utils/constants";
 import { useScrollRestoration } from "@/hooks/useScrollRestoration";
 import type { Category, ObavijestiMeta, Post } from "@/features/types";
 import { useRouter } from "next/router";
+import { localized } from "@/utils/i18n";
 
 type ObavijestiProps = {
   initialObavijesti: Post<ObavijestiMeta>[];
@@ -38,6 +39,10 @@ export const getStaticProps: GetStaticProps<ObavijestiProps> = async () => {
 const ObavijestiPage: NextPage<
   InferGetStaticPropsType<typeof getStaticProps>
 > = ({ initialObavijesti, totalPages, categories }) => {
+  const { locale } = useRouter();
+  const t = (hr: string | undefined, en: string | undefined) =>
+    localized(locale, hr, en);
+
   const router = useRouter();
 
   const category = router.query.category
@@ -81,7 +86,7 @@ const ObavijestiPage: NextPage<
         query: routerQuery,
       },
       undefined,
-      { shallow: true }
+      { shallow: true },
     );
   };
 
@@ -108,7 +113,7 @@ const ObavijestiPage: NextPage<
           query: routerQuery,
         },
         undefined,
-        { shallow: true }
+        { shallow: true },
       );
     }, 1000);
   };
@@ -145,11 +150,16 @@ const ObavijestiPage: NextPage<
                       <PostCard
                         key={obavijest.id}
                         slug={obavijest.slug}
-                        title={clearHtmlFromString(obavijest.title.rendered)}
+                        title={clearHtmlFromString(
+                          t(obavijest.title.rendered, obavijest.meta.title_en),
+                        )}
                         category={obavijest.category}
                         date={obavijest.date}
                         excerpt={clearHtmlFromString(
-                          obavijest.excerpt.rendered
+                          t(
+                            obavijest.excerpt.rendered,
+                            obavijest.meta.excerpt_en,
+                          ),
                         )}
                         image={obavijest.image_url}
                       />
