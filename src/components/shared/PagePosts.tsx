@@ -7,6 +7,8 @@ import DisplayHTML from "../elements/DisplayHTML";
 import Spinner from "../elements/Spinner";
 import type { ObavijestiMeta, Post } from "@/features/types";
 import CustomLink from "../elements/CustomLink";
+import { useRouter } from "next/router";
+import { localized } from "@/utils/i18n";
 
 interface PagePostsProps {
   className?: string;
@@ -19,6 +21,10 @@ const PagePosts: React.FC<PagePostsProps> = ({
   posts,
   isLoading,
 }) => {
+  const { locale } = useRouter();
+  const t = (hr: string | undefined, en: string | undefined) =>
+    localized(locale, hr, en);
+
   if (!posts && !isLoading) return null;
   return (
     <section className={className}>
@@ -32,8 +38,8 @@ const PagePosts: React.FC<PagePostsProps> = ({
             <PagePostCard
               key={post.id}
               image={post.image_url}
-              title={post.title.rendered}
-              excerpt={post.excerpt.rendered}
+              title={t(post.title.rendered, post.meta.title_en)}
+              excerpt={t(post.excerpt.rendered, post.meta.excerpt_en)}
               slug={post.slug}
               date={post.date}
               featured={post.meta.featured}

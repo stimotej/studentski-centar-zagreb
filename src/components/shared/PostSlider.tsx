@@ -9,6 +9,8 @@ import DisplayHTML from "../elements/DisplayHTML";
 import Spinner from "../elements/Spinner";
 import SectionTitle from "./SectionTitle";
 import CustomLink from "../elements/CustomLink";
+import { useRouter } from "next/router";
+import { localized } from "@/utils/i18n";
 
 interface PostSliderProps {
   title?: string;
@@ -83,6 +85,13 @@ interface PostCardProps {
 }
 
 const PostCard: React.FC<PostCardProps> = (props) => {
+  const { locale } = useRouter();
+  const title = localized(
+    locale,
+    props.post.title.rendered,
+    props.post.meta.title_en,
+  );
+
   return (
     <CustomLink
       href={
@@ -93,14 +102,14 @@ const PostCard: React.FC<PostCardProps> = (props) => {
     >
       <Image
         src={props.post.image_url}
-        alt={clearHtmlFromString(props.post.title.rendered)}
+        alt={clearHtmlFromString(title)}
         width={350}
         height={200}
         className="rounded-lg object-cover w-[60vw] h-[30vh] max-w-[350px] min-w-[300px]"
       />
       <div className="flex flex-col gap-2 px-4 mt-4">
         <h4 className="text-text font-semibold text-xl">
-          {clearHtmlFromString(props.post.title.rendered)}
+          {clearHtmlFromString(title)}
         </h4>
         {props.isRestaurant ? (
           <>
@@ -122,7 +131,11 @@ const PostCard: React.FC<PostCardProps> = (props) => {
           </>
         ) : (
           <DisplayHTML
-            html={props.post.excerpt.rendered}
+            html={localized(
+              locale,
+              props.post.excerpt.rendered,
+              props.post.meta.excerpt_en,
+            )}
             className="text-light"
           />
         )}
