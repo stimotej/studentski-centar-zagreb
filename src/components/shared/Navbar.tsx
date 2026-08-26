@@ -27,20 +27,21 @@ import {
 } from "@radix-ui/react-collapsible";
 import { FaChevronDown } from "react-icons/fa";
 import CustomLink from "../elements/CustomLink";
+import { useUI, type UIKey } from "@/utils/ui";
 
-const navLinks = [
+const buildNavLinks = (t: (key: UIKey) => string) => [
   {
     key: "komercijalni",
     desktopOrder: 1,
     mobileOrder: 2,
     items: [
-      { title: "Teatar &TD", href: "/teatar-td" },
-      { title: "Francuski paviljon", href: "/francuski-paviljon" },
-      { title: "Kultura", href: "/kultura" },
-      { title: "Turizam", href: "/turizam" },
-      { title: "Catering", href: "/catering" },
-      { title: "Najam prostora", href: "/eventi" },
-      { title: "Mediji", href: "/mediji" },
+      { title: t("nav.teatarTd"), href: "/teatar-td" },
+      { title: t("nav.francuskiPaviljon"), href: "/francuski-paviljon" },
+      { title: t("nav.kultura"), href: "/kultura" },
+      { title: t("nav.turizam"), href: "/turizam" },
+      { title: t("nav.catering"), href: "/catering" },
+      { title: t("nav.najamProstora"), href: "/eventi" },
+      { title: t("nav.mediji"), href: "/mediji" },
     ],
   },
   {
@@ -48,20 +49,20 @@ const navLinks = [
     desktopOrder: 2,
     mobileOrder: 1,
     items: [
-      { title: "Početna", href: "/" },
-      { title: "Obavijesti", href: "/obavijesti" },
-      { title: "Student servis", href: "/student-servis" },
-      { title: "Poslovi", href: "/poslovi" },
-      { title: "Prehrana", href: "/prehrana" },
-      { title: "Smještaj", href: "/smjestaj" },
-      { title: "Sport", href: "/sport" },
+      { title: t("nav.home"), href: "/" },
+      { title: t("nav.obavijesti"), href: "/obavijesti" },
+      { title: t("nav.studentServis"), href: "/student-servis" },
+      { title: t("nav.poslovi"), href: "/poslovi" },
+      { title: t("nav.prehrana"), href: "/prehrana" },
+      { title: t("nav.smjestaj"), href: "/smjestaj" },
+      { title: t("nav.sport"), href: "/sport" },
       {
-        title: "Prijava",
+        title: t("nav.prijava"),
         items: [
-          { title: "Prijava student", href: "/prijava-student" },
-          { title: "Prijava poslodavac", href: "/prijava-poslodavac" },
+          { title: t("nav.prijavaStudent"), href: "/prijava-student" },
+          { title: t("nav.prijavaPoslodavac"), href: "/prijava-poslodavac" },
           {
-            title: "Zaposlenici",
+            title: t("nav.zaposlenici"),
             href: "https://natjecaj.sczg.hr/SCSmjestaj/f4bi/login?ReturnUrl=%2FSCSmjestaj%2Ff4bi",
           },
         ],
@@ -71,6 +72,9 @@ const navLinks = [
 ];
 
 export default function Navbar() {
+  const t = useUI();
+  const navLinks = buildNavLinks(t);
+
   const scrollY = useScrollPosition();
   const router = useRouter();
 
@@ -110,14 +114,14 @@ export default function Navbar() {
           </SheetTrigger>
           <SheetContent className="w-5/6 sm:max-w-3/4 md:w-1/2 lg:max-w-sm overflow-y-auto">
             <SheetHeader>
-              <SheetTitle className="sr-only">Glavna navigacija</SheetTitle>
+              <SheetTitle className="sr-only">{t("nav.main")}</SheetTitle>
               <SheetDescription className="sr-only">
                 Izbornik glavne navigacije stranice. Koristite tipkovnicu ili
                 miš za odabir željene stranice.
               </SheetDescription>
             </SheetHeader>
 
-            <nav aria-label="Glavna navigacija" dir="ltr">
+            <nav aria-label={t("nav.main")} dir="ltr">
               {navLinks
                 .sort((a, b) => a.mobileOrder - b.mobileOrder)
                 .map((group) => (
@@ -187,7 +191,7 @@ export default function Navbar() {
 
         {/* DESKTOP NAVIGATION */}
         <NavigationMenu
-          aria-label="Glavna navigacija"
+          aria-label={t("nav.main")}
           className="hidden [@media(min-width:1110px)]:flex flex-col justify-center items-end"
         >
           {navLinks
