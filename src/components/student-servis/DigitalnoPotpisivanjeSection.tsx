@@ -61,12 +61,13 @@ interface SectionCardProps {
 }
 
 const SectionCard: React.FC<SectionCardProps> = (props) => {
+  const ui = useUI();
   return (
     <div className="flex flex-col gap-3">
       <div className="flex gap-3 items-start">
         <Image
           src={props.image}
-          alt="Studentski centar ikona"
+          alt={ui("decor.scIcon")}
           width={60}
           height={60}
         />

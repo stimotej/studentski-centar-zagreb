@@ -1,12 +1,14 @@
 import clsx from "clsx";
 import Image from "next/image";
 import React from "react";
+import { useUI } from "@/utils/ui";
 
 interface IconCardsSectionProps {
   className?: string;
 }
 
 const IconCardsSection: React.FC<IconCardsSectionProps> = (props) => {
+  const ui = useUI();
   return (
     <div
       className={clsx(
@@ -48,11 +50,12 @@ interface IconCardProps {
 }
 
 const IconCard: React.FC<IconCardProps> = (props) => {
+  const ui = useUI();
   return (
     <div className="flex gap-4 items-center">
       <Image
         src={props.image}
-        alt="Student servis ikona"
+        alt={ui("decor.ssIcon")}
         width={120}
         height={120}
         className="w-14 h-14 object-cover rounded-lg"

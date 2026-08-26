@@ -5,6 +5,7 @@ import { getCourses } from "@/features/events";
 import type { Event } from "@/features/types";
 import { revalidateTime } from "@/utils/constants";
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
+import { useUI } from "@/utils/ui";
 
 type TecajeviProps = {
   courses: Event[];
@@ -24,9 +25,10 @@ export const getStaticProps: GetStaticProps<TecajeviProps> = async () => {
 const FAQPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   courses,
 }) => {
+  const ui = useUI();
   return (
-    <Layout title="Tečajevi i radionice">
-      <PageTitle title="Tečajevi i radionice" />
+    <Layout title={ui("kultura.coursesWorkshops")}>
+      <PageTitle title={ui("kultura.coursesWorkshops")} />
 
       {/* <div className="flex flex-col lg:flex-row gap-6 my-12"> */}
       <EventCards

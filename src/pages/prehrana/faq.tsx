@@ -8,6 +8,7 @@ import { faqPrehranaCategory, revalidateTime } from "@/utils/constants";
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
 import { useRouter } from "next/router";
 import { localized } from "@/utils/i18n";
+import { useUI } from "@/utils/ui";
 
 type PrehranaFaqProps = {
   posts: Post<PostsMeta>[];
@@ -29,13 +30,14 @@ export const getStaticProps: GetStaticProps<PrehranaFaqProps> = async () => {
 const FAQPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   posts,
 }) => {
+  const ui = useUI();
   const { locale } = useRouter();
 
   return (
-    <Layout title="Često postavljana pitanja">
-      <PageTitle title="Često postavljana pitanja" />
+    <Layout title={ui("common.faq")}>
+      <PageTitle title={ui("common.faq")} />
       {posts.length <= 0 ? (
-        <p className="text-center text-light my-24">Nema pitanja za prikaz</p>
+        <p className="text-center text-light my-24">{ui("empty.faq")}</p>
       ) : (
         <FAQCards
           items={

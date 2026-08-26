@@ -21,6 +21,7 @@ import DocumentCard from "@/components/shared/DocumentCard";
 import { revalidateTime } from "@/utils/constants";
 import { getJobsPaths } from "@/features/paths";
 import Embeds from "@/scripts/embeds";
+import { useUI } from "@/utils/ui";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const jobs = await getJobsPaths();
@@ -59,6 +60,7 @@ export const getStaticProps: GetStaticProps<JobProps> = async ({ params }) => {
 const JobPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   job,
 }) => {
+  const ui = useUI();
   const router = useRouter();
 
   if (router.isFallback)
@@ -72,7 +74,7 @@ const JobPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
     return (
       <Layout>
         <div className="flex flex-col gap-12 items-center justify-center mt-20">
-          <p className="text-lg text-light">Nije pronađen posao</p>
+          <p className="text-lg text-light">{ui("empty.jobNotFound")}</p>
           <Button onClick={() => router.back()} className="mx-auto">
             Povratak
           </Button>

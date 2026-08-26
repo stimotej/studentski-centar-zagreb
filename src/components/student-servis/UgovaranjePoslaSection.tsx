@@ -74,11 +74,12 @@ interface SectionCardProps {
 }
 
 const SectionCard: React.FC<SectionCardProps> = (props) => {
+  const ui = useUI();
   return (
     <div>
       <Image
         src={props.image}
-        alt="Student servis ikona"
+        alt={ui("decor.ssIcon")}
         width={100}
         height={100}
       />

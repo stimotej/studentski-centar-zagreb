@@ -4,6 +4,7 @@ import * as React from "react";
 import * as SheetPrimitive from "@radix-ui/react-dialog";
 import clsx from "clsx";
 import { MdClose } from "react-icons/md";
+import { useUI } from "@/utils/ui";
 
 function Sheet({ ...props }: React.ComponentProps<typeof SheetPrimitive.Root>) {
   return <SheetPrimitive.Root data-slot="sheet" {...props} />;
@@ -51,6 +52,7 @@ function SheetContent({
 }: React.ComponentProps<typeof SheetPrimitive.Content> & {
   side?: "top" | "right" | "bottom" | "left";
 }) {
+  const ui = useUI();
   return (
     <SheetPortal>
       <SheetOverlay />
@@ -72,11 +74,11 @@ function SheetContent({
       >
         {children}
         <SheetPrimitive.Close
-          title="Zatvori"
+          title={ui("common.close")}
           className="fixed top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 disabled:pointer-events-none"
         >
           <MdClose size={32} />
-          <span className="sr-only">Zatvori</span>
+          <span className="sr-only">{ui("common.close")}</span>
         </SheetPrimitive.Close>
       </SheetPrimitive.Content>
     </SheetPortal>

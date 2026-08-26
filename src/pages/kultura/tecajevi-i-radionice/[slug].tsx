@@ -16,6 +16,7 @@ import type {
 import type { ParsedUrlQuery } from "querystring";
 import { useRouter } from "next/router";
 import { revalidateTime } from "@/utils/constants";
+import { useUI } from "@/utils/ui";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const { data: events } = await axios.get<Event[]>("/events/courses", {
@@ -62,6 +63,7 @@ export const getStaticProps: GetStaticProps<TecajProps> = async ({
 const EventPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   event,
 }) => {
+  const ui = useUI();
   const router = useRouter();
 
   if (router.isFallback)
@@ -75,7 +77,7 @@ const EventPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
     return (
       <Layout>
         <div className="flex flex-col gap-12 items-center justify-center mt-20">
-          <p className="text-lg text-light">Nije pronađen tečaj/radionica</p>
+          <p className="text-lg text-light">{ui("empty.courseNotFound")}</p>
           <Button onClick={() => router.back()} className="mx-auto">
             Povratak
           </Button>

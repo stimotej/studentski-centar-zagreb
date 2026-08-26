@@ -17,6 +17,7 @@ import type { ParsedUrlQuery } from "querystring";
 import { useRouter } from "next/router";
 import { revalidateTime } from "@/utils/constants";
 import Embeds from "@/scripts/embeds";
+import { useUI } from "@/utils/ui";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const events = await getEventsPaths();
@@ -57,6 +58,7 @@ export const getStaticProps: GetStaticProps<EventProps> = async ({
 const EventPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   event,
 }) => {
+  const ui = useUI();
   const router = useRouter();
 
   if (router.isFallback)
@@ -70,7 +72,7 @@ const EventPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
     return (
       <Layout>
         <div className="flex flex-col gap-12 items-center justify-center mt-20">
-          <p className="text-lg text-light">Nije pronađen event</p>
+          <p className="text-lg text-light">{ui("empty.eventNotFound")}</p>
           <Button onClick={() => router.back()} className="mx-auto">
             Povratak
           </Button>

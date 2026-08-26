@@ -17,7 +17,7 @@ const KvalitetaPrehraneSection: React.FC<KvalitetaPrehraneSectionProps> = (
     <div className={clsx("relative z-[2] pt-36 bg-[#fafafa]", props.className)}>
       <Image
         src="/slike/pozadina-oblik-vrh.svg"
-        alt="Pozadinski oblik"
+        alt={ui("decor.backgroundShape")}
         width={1630}
         height={300}
         className="absolute top-0 -z-[1]"
@@ -91,7 +91,7 @@ const KvalitetaPrehraneSection: React.FC<KvalitetaPrehraneSectionProps> = (
       </Section>
       <Image
         src="/slike/pozadina-oblik-dno.svg"
-        alt="Pozadinski oblik"
+        alt={ui("decor.backgroundShape")}
         width={1630}
         height={300}
         className="absolute bottom-0 -z-[1]"

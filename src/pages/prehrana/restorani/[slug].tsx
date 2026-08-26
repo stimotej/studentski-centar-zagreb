@@ -25,6 +25,7 @@ import type {
 import { useRouter } from "next/router";
 import type { ParsedUrlQuery } from "querystring";
 import { localized } from "@/utils/i18n";
+import { useUI } from "@/utils/ui";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await getRestaurantsPaths();
@@ -65,6 +66,7 @@ export const getStaticProps: GetStaticProps<RestoranProps> = async ({
 const RestaurantPage: NextPage<
   InferGetStaticPropsType<typeof getStaticProps>
 > = ({ restaurant }) => {
+  const ui = useUI();
   const { locale } = useRouter();
   const t = (hr: string | undefined, en: string | undefined) =>
     localized(locale, hr, en);
@@ -91,7 +93,7 @@ const RestaurantPage: NextPage<
     return (
       <Layout>
         <div className="flex flex-col gap-12 items-center justify-center mt-20">
-          <p className="text-lg text-light">Nije pronađen restoran</p>
+          <p className="text-lg text-light">{ui("empty.restaurantNotFound")}</p>
           <Button onClick={() => router.back()} className="mx-auto">
             Povratak
           </Button>
@@ -138,7 +140,7 @@ const RestaurantPage: NextPage<
 
       <RestoranJelaSection className="mb-12 mt-28" />
 
-      <SectionTitle title="Lokacija" className="mt-24" />
+      <SectionTitle title={ui("common.location")} className="mt-24" />
       <div className="mb-12">
         <DisplayHTML html={restaurant?.meta.lokacija || ""} />
       </div>

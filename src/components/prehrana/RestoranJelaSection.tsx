@@ -2,6 +2,7 @@ import Image from "next/image";
 import React, { useEffect } from "react";
 import { MdClose } from "react-icons/md";
 import Button from "../elements/Button";
+import { useUI } from "@/utils/ui";
 
 interface RestoranJelaProps {
   className?: string;
@@ -71,6 +72,7 @@ const alergeni = [
 ];
 
 const RestoranJelaSection: React.FC<RestoranJelaProps> = (props) => {
+  const ui = useUI();
   const [modalOpened, setModalOpened] = React.useState(false);
 
   useEffect(() => {
@@ -105,7 +107,7 @@ const RestoranJelaSection: React.FC<RestoranJelaProps> = (props) => {
         <div className="flex-1">
           <Image
             src="/slike/prehrana/restoran_jela.png"
-            alt="Važnost kvalitetne prehrane"
+            alt={ui("nutrition.importance")}
             width={400}
             height={360}
             className="w-full h-auto object-cover"
@@ -121,7 +123,7 @@ const RestoranJelaSection: React.FC<RestoranJelaProps> = (props) => {
           ></div>
           <div className="p-6 w-[90%] sm:w-3/4 md:w-2/3 max-h-[90%] overflow-y-auto rounded-lg fixed top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 z-50 bg-white">
             <div className="flex item-center justify-between">
-              <h5 className="text-xl font-medium">Alergeni</h5>
+              <h5 className="text-xl font-medium">{ui("common.allergens")}</h5>
               <button
                 onClick={() => setModalOpened(false)}
                 className="p-1 hover:bg-gray-100 active:bg-gray-200 rounded-full"

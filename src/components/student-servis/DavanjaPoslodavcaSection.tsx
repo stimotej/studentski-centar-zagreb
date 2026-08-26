@@ -1,5 +1,6 @@
 import React from "react";
 import Card from "../shared/Card";
+import { useUI } from "@/utils/ui";
 
 interface DavanjaPoslodavcaSectionProps {
   className?: string;
@@ -8,6 +9,7 @@ interface DavanjaPoslodavcaSectionProps {
 const DavanjaPoslodavcaSection: React.FC<DavanjaPoslodavcaSectionProps> = (
   props,
 ) => {
+  const ui = useUI();
   return (
     <section className={props.className}>
       <div className="text-center">
@@ -21,7 +23,7 @@ const DavanjaPoslodavcaSection: React.FC<DavanjaPoslodavcaSectionProps> = (
       </div>
       <div className="flex flex-col lg:flex-row gap-12 mt-8">
         <SectionCard
-          title="Naknada posredniku"
+          title={ui("employer.fee")}
           amount="12,00"
           items={[
             "Posredovanje u studentskom zapošljavanju",
@@ -30,7 +32,7 @@ const DavanjaPoslodavcaSection: React.FC<DavanjaPoslodavcaSectionProps> = (
           ]}
         />
         <SectionCard
-          title="Zdravstveno i mirovinski stup"
+          title={ui("employer.pension")}
           amount="5,50"
           items={[
             "5% doprinosa za Mirovinsko osiguranje",
@@ -38,7 +40,7 @@ const DavanjaPoslodavcaSection: React.FC<DavanjaPoslodavcaSectionProps> = (
           ]}
         />
         <SectionCard
-          title="Studentski standard"
+          title={ui("employer.standard")}
           amount="0,50"
           items={[
             "Poboljšanje studentskog standarda",

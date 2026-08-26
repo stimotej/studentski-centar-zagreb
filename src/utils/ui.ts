@@ -123,12 +123,15 @@ export const HR = {
   "membership.title": "Članstvo u student servisu",
   "membership.photos": "Dvije male fotografije",
   "membership.idCard": "Osobna iskaznica",
-  "membership.bankAccount": "Osobni žiro ili tekući račun u banci na teritoriju Republike Hrvatske",
-  "membership.diploma": "Preslika svjedodžbe završnog razreda srednje škole ili maturalne svjedodžbe",
+  "membership.bankAccount":
+    "Osobni žiro ili tekući račun u banci na teritoriju Republike Hrvatske",
+  "membership.diploma":
+    "Preslika svjedodžbe završnog razreda srednje škole ili maturalne svjedodžbe",
   "membership.status": "Status studenta/ice za tekuću akademsku godinu",
   "membership.xica": "Studentska iskaznica - X-ica",
   "membership.employers": "Članstvo poslodavaca u Student servis",
-  "membership.employersIntro": "Jednostavan sustav prijave ovih poslodavaca u bazu Studentskog centra u Zagrebu.",
+  "membership.employersIntro":
+    "Jednostavan sustav prijave ovih poslodavaca u bazu Studentskog centra u Zagrebu.",
   "sport.pageTitle": "Sport",
   "sport.pageTitleUpper": "SPORT",
   "sport.educationalTc": "Edukacijske aktivnosti",
@@ -144,7 +147,8 @@ export const HR = {
   "jobs.search": "Pretraži poslove...",
   "jobs.type": "Vrsta posla",
   "jobs.searchUpper": "PRETRAŽI POSLOVE",
-  "jobs.metaTitle": "Ponuda poslova; Studentski centar u Zagrebu; Sveučilište u Zagrebu",
+  "jobs.metaTitle":
+    "Ponuda poslova; Studentski centar u Zagrebu; Sveučilište u Zagrebu",
   "empty.jobs": "Nema poslova za prikaz",
   "ss.pageTitle": "Student servis",
   "ss.signupMembershipEmployers": "PRIJAVA ČLANSTVO POSLODAVCI",
@@ -164,8 +168,10 @@ export const HR = {
   "nutrition.weight": "Normalna tjelesna masa",
   "sign.title": "Digitalno potpisivanje",
   "sign.contracts": "Digitalno potpisivanje ugovora",
-  "sign.extract": "Izvadite ugovor za poslodavca preko baze podataka aktivnih poslodavaca Studentskog centra u Zagrebu.",
-  "sign.mobile": "Potpišite ugovore digitalno putem mobitela kroz sigurnosni certifikat 4. razine. Brzo, jednostavno i sigurno.",
+  "sign.extract":
+    "Izvadite ugovor za poslodavca preko baze podataka aktivnih poslodavaca Studentskog centra u Zagrebu.",
+  "sign.mobile":
+    "Potpišite ugovore digitalno putem mobitela kroz sigurnosni certifikat 4. razine. Brzo, jednostavno i sigurno.",
   "sign.sync": "Sinkronizacija sa bazom podataka",
   "help.address": "ADRESA",
   "help.email": "EMAIL ADRESA",
@@ -186,7 +192,37 @@ export const HR = {
   "rent.accessProfile": "Pristupiti osobnom profilu putem linka:",
   "rent.afterLogin": "Nakon prijave u osobni profil, kliknuti na „",
   "rent.charges": "Naplata smještaja",
-  "rent.selectWhat": "U srednjem dijelu ekrana potrebno je odabrati što se plaća, na način da se odabir potvrdi klikom na praznu kučicu.",
+  "login.pageTitle": "Prijava",
+  "login.studentPage": "Prijava studenata - Studentski centar u Zagrebu",
+  "login.studentIntro":
+    "Prijava studenata članova Student servisa za korištenje usluga",
+  "login.employerPage": "Prijava poslodavac",
+  "login.employerPageTitle": "Prijava poslodavac - Studentski centar u Zagrebu",
+  "error.notFound": "Stranica nije pronađena",
+  "error.notFoundMeta": "Stranica nije pronađena; Studentski centar u Zagrebu;",
+  "error.server": "Došlo je do greške",
+  "error.serverMeta": "Došlo je do greške; Studentski centar u Zagrebu;",
+  "employer.fee": "Naknada posredniku",
+  "employer.standard": "Studentski standard",
+  "employer.pension": "Zdravstveno i mirovinski stup",
+  "empty.eventNotFound": "Nije pronađen event",
+  "empty.jobNotFound": "Nije pronađen posao",
+  "empty.restaurantNotFound": "Nije pronađen restoran",
+  "empty.courseNotFound": "Nije pronađen tečaj/radionica",
+  "common.allergens": "Alergeni",
+  "common.close": "Zatvori",
+  "common.events": "Eventi",
+  "membership.join": "Učlanjivanje",
+  "membership.inPerson": "Učlanit se može samo osobno.",
+  "kultura.metaTitle":
+    "Kultura; Studentski centar u Zagrebu; Sveučilište u Zagrebu",
+  "decor.backgroundShape": "Pozadinski oblik",
+  "decor.scIcon": "Studentski centar ikona",
+  "decor.ssIcon": "Student servis ikona",
+  "home.metaTitle":
+    "Studentski Centar u Zagrebu, Sveučilište u Zagrebu; Kultura, Prehrana, Smještaj, Student servis, Sport, Teatar &TD",
+  "rent.selectWhat":
+    "U srednjem dijelu ekrana potrebno je odabrati što se plaća, na način da se odabir potvrdi klikom na praznu kučicu.",
 } as const;
 
 export type UIKey = keyof typeof HR;
@@ -295,12 +331,15 @@ export const EN: Partial<Record<UIKey, string>> = {
   "membership.title": "Student service membership",
   "membership.photos": "Two small photographs",
   "membership.idCard": "Identity card",
-  "membership.bankAccount": "A personal giro or current account with a bank in the Republic of Croatia",
-  "membership.diploma": "A copy of your final-year secondary school certificate or school-leaving certificate",
+  "membership.bankAccount":
+    "A personal giro or current account with a bank in the Republic of Croatia",
+  "membership.diploma":
+    "A copy of your final-year secondary school certificate or school-leaving certificate",
   "membership.status": "Student status for the current academic year",
   "membership.xica": "Student card — X-ica",
   "membership.employers": "Employer membership of the Student service",
-  "membership.employersIntro": "A simple way for employers to register in the Studentski centar Zagreb database.",
+  "membership.employersIntro":
+    "A simple way for employers to register in the Studentski centar Zagreb database.",
   "sport.pageTitle": "Sport",
   "sport.pageTitleUpper": "SPORT",
   "sport.educationalTc": "Educational activities",
@@ -316,7 +355,8 @@ export const EN: Partial<Record<UIKey, string>> = {
   "jobs.search": "Search jobs…",
   "jobs.type": "Job type",
   "jobs.searchUpper": "SEARCH JOBS",
-  "jobs.metaTitle": "Job listings; Studentski centar u Zagrebu; University of Zagreb",
+  "jobs.metaTitle":
+    "Job listings; Studentski centar u Zagrebu; University of Zagreb",
   "empty.jobs": "No jobs to show",
   "ss.pageTitle": "Student service",
   "ss.signupMembershipEmployers": "SIGN-IN · MEMBERSHIP · EMPLOYERS",
@@ -336,8 +376,10 @@ export const EN: Partial<Record<UIKey, string>> = {
   "nutrition.weight": "A healthy body weight",
   "sign.title": "Digital signing",
   "sign.contracts": "Signing contracts digitally",
-  "sign.extract": "Retrieve an employer contract from the Studentski centar Zagreb database of active employers.",
-  "sign.mobile": "Sign contracts digitally on your phone using a level-4 security certificate. Fast, simple and secure.",
+  "sign.extract":
+    "Retrieve an employer contract from the Studentski centar Zagreb database of active employers.",
+  "sign.mobile":
+    "Sign contracts digitally on your phone using a level-4 security certificate. Fast, simple and secure.",
   "sign.sync": "Database synchronisation",
   "help.address": "ADDRESS",
   "help.email": "EMAIL ADDRESS",
@@ -358,7 +400,37 @@ export const EN: Partial<Record<UIKey, string>> = {
   "rent.accessProfile": "Sign in to your personal profile at:",
   "rent.afterLogin": "Once signed in, click “",
   "rent.charges": "Naplata smještaja",
-  "rent.selectWhat": "In the middle of the screen, select what you are paying for by ticking the empty checkbox.",
+  "login.pageTitle": "Sign in",
+  "login.studentPage": "Student sign-in — Studentski centar Zagreb",
+  "login.studentIntro":
+    "Sign-in for students who are members of the Student service",
+  "login.employerPage": "Employer sign-in",
+  "login.employerPageTitle": "Employer sign-in — Studentski centar Zagreb",
+  "error.notFound": "Page not found",
+  "error.notFoundMeta": "Page not found; Studentski centar u Zagrebu;",
+  "error.server": "Something went wrong",
+  "error.serverMeta": "Something went wrong; Studentski centar u Zagrebu;",
+  "employer.fee": "Agency fee",
+  "employer.standard": "Student standard levy",
+  "employer.pension": "Health and pension contributions",
+  "empty.eventNotFound": "Event not found",
+  "empty.jobNotFound": "Job not found",
+  "empty.restaurantNotFound": "Restaurant not found",
+  "empty.courseNotFound": "Course or workshop not found",
+  "common.allergens": "Allergens",
+  "common.close": "Close",
+  "common.events": "Events",
+  "membership.join": "Joining",
+  "membership.inPerson": "You can only join in person.",
+  "kultura.metaTitle":
+    "Culture; Studentski centar u Zagrebu; University of Zagreb",
+  "decor.backgroundShape": "Background shape",
+  "decor.scIcon": "Studentski centar icon",
+  "decor.ssIcon": "Student service icon",
+  "home.metaTitle":
+    "Studentski centar u Zagrebu, University of Zagreb; Culture, Dining, Accommodation, Student service, Sport, Teatar &TD",
+  "rent.selectWhat":
+    "In the middle of the screen, select what you are paying for by ticking the empty checkbox.",
 };
 
 /** Resolve one key for a locale. Falls back to Croatian, never to the key. */

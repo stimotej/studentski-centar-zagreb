@@ -53,7 +53,7 @@ const HelpSection = () => {
       </Section>
       <Image
         src="/slike/pozadina-oblik-dno.svg"
-        alt="Pozadinski oblik"
+        alt={ui("decor.backgroundShape")}
         width={1630}
         height={300}
         className="absolute bottom-0 z-[1]"

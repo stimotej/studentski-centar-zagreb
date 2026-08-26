@@ -90,7 +90,7 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
 
   return (
     <Layout
-      description="Studentski Centar u Zagrebu, Sveučilište u Zagrebu; Kultura, Prehrana, Smještaj, Student servis, Sport, Teatar &TD"
+      description={ui("home.metaTitle")}
       header={
         !!sliderPosts && (
           <Slider

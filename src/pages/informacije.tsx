@@ -7,6 +7,7 @@ import { faqPocetnaCategory, revalidateTime } from "@/utils/constants";
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
 import { useRouter } from "next/router";
 import { localized } from "@/utils/i18n";
+import { useUI } from "@/utils/ui";
 
 type FAQProps = {
   posts: Post<PostsMeta>[];
@@ -28,13 +29,14 @@ export const getStaticProps: GetStaticProps<FAQProps> = async () => {
 const FAQPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   posts,
 }) => {
+  const ui = useUI();
   const { locale } = useRouter();
   const t = (hr: string | undefined, en: string | undefined) =>
     localized(locale, hr, en);
 
   return (
-    <Layout title="Informacije">
-      <PageTitle title="Informacije" />
+    <Layout title={ui("home.information")}>
+      <PageTitle title={ui("home.information")} />
       {posts.length <= 0 ? (
         <p className="text-center text-light my-24">
           Nema informacija za prikaz

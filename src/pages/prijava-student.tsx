@@ -12,6 +12,7 @@ import {
 } from "@/utils/constants";
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
 import type { Post, PostsMeta } from "@/features/types";
+import { useUI } from "@/utils/ui";
 
 type PrijavaProps = {
   studentLoginPost: Post<PostsMeta> | undefined;
@@ -34,12 +35,10 @@ export const getStaticProps: GetStaticProps<PrijavaProps> = async () => {
 const StudentLoginPage: NextPage<
   InferGetStaticPropsType<typeof getStaticProps>
 > = ({ studentLoginPost }) => {
+  const ui = useUI();
   return (
-    <Layout
-      title="Prijava"
-      description="Prijava studenata - Studentski centar u Zagrebu"
-    >
-      <PageTitle title="Prijava studenata članova Student servisa za korištenje usluga" />
+    <Layout title={ui("login.pageTitle")} description={ui("login.studentPage")}>
+      <PageTitle title={ui("login.studentIntro")} />
 
       <div className="flex flex-col gap-8 items-start md:flex-row my-12">
         <div className="md:w-[65%]">

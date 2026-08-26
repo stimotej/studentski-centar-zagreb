@@ -4,8 +4,10 @@ import banner from "../../../public/slike/otp/OTP_Paket_Young_Banner.jpg";
 import { useMemo, useState } from "react";
 import { MdClose } from "react-icons/md";
 import Image from "next/image";
+import { useUI } from "@/utils/ui";
 
 export default function OTPBanner() {
+  const ui = useUI();
   const [isOpen, setIsOpen] = useState(true);
 
   const randomImage = useMemo(() => {
@@ -28,8 +30,8 @@ export default function OTPBanner() {
         <button
           className="absolute right-4 top-4"
           onClick={() => setIsOpen(false)}
-          title="Zatvori oglas"
-          aria-label="Zatvori oglas"
+          title={ui("ads.close")}
+          aria-label={ui("ads.close")}
         >
           <MdClose size={24} className="text-white" />
         </button>

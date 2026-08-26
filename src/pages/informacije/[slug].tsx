@@ -18,6 +18,7 @@ import Spinner from "@/components/elements/Spinner";
 import { getInformacijePaths } from "@/features/paths";
 import Embeds from "@/scripts/embeds";
 import { localized } from "@/utils/i18n";
+import { useUI } from "@/utils/ui";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await getInformacijePaths();
@@ -58,6 +59,7 @@ export const getStaticProps: GetStaticProps<InformacijeProps> = async ({
 const InfoPostPage: NextPage<
   InferGetStaticPropsType<typeof getStaticProps>
 > = ({ obavijest }) => {
+  const ui = useUI();
   const { locale } = useRouter();
   const t = (hr: string | undefined, en: string | undefined) =>
     localized(locale, hr, en);
@@ -74,7 +76,7 @@ const InfoPostPage: NextPage<
     return (
       <Layout>
         <div className="flex flex-col gap-12 items-center justify-center mt-20">
-          <p className="text-lg text-light">Nije pronađena obavijest</p>
+          <p className="text-lg text-light">{ui("empty.notFound")}</p>
           <Button onClick={() => router.back()} className="mx-auto">
             Povratak
           </Button>

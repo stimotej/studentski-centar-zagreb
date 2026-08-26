@@ -12,6 +12,7 @@ import {
   revalidateTime,
 } from "@/utils/constants";
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
+import { useUI } from "@/utils/ui";
 
 type PrijavaProps = {
   registerPost: Post<PostsMeta> | undefined;
@@ -44,12 +45,13 @@ export const getStaticProps: GetStaticProps<PrijavaProps> = async () => {
 const CompanyLoginPage: NextPage<
   InferGetStaticPropsType<typeof getStaticProps>
 > = ({ registerPost, documentPost, predajaOglasaPost }) => {
+  const ui = useUI();
   return (
     <Layout
-      title="Prijava poslodavac"
-      description="Prijava poslodavac - Studentski centar u Zagrebu"
+      title={ui("login.employerPage")}
+      description={ui("login.employerPageTitle")}
     >
-      <PageTitle title="Prijava poslodavac" />
+      <PageTitle title={ui("login.employerPage")} />
       <div className="flex flex-col my-12 gap-6 items-start lg:flex-row">
         <LoginInfoCard
           title={registerPost?.title.rendered || ""}

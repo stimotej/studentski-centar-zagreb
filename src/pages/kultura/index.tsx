@@ -78,7 +78,7 @@ const KulturaPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   return (
     <Layout
       title={ui("kultura.pageTitle")}
-      description="Kultura; Studentski centar u Zagrebu; Sveučilište u Zagrebu"
+      description={ui("kultura.metaTitle")}
     >
       <PageTitle title={ui("kultura.pageTitle")} />
 
