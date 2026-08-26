@@ -31,6 +31,7 @@ import {
 } from "@/utils/constants";
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
 import { useRouter } from "next/router";
+import { useUI } from "@/utils/ui";
 
 type CardItem = {
   id: number;
@@ -118,6 +119,7 @@ export const getStaticProps: GetStaticProps<SmjestajProps> = async ({
 const SmjestajPage: NextPage<
   InferGetStaticPropsType<typeof getStaticProps>
 > = ({ posts, infoToggleItems, cardItems, obavijesti }) => {
+  const ui = useUI();
   const { locale } = useRouter();
 
   const t = (hr: string | undefined, en: string | undefined) =>
@@ -125,14 +127,14 @@ const SmjestajPage: NextPage<
 
   return (
     <Layout
-      title="Smještaj"
+      title={ui("smjestaj.pageTitle")}
       description="Pravo na smještaj u studentskom domu je osobno pravo studenta i nije prenosivo na drugu osobu. Studentski centar u Zagrebu će odmah po useljenju studenata u studentske domove obavljati intenzivne kontrole ostvarenog prava i sukladno Pravilniku o domskom redu i uvjetima boravka studenata u studentskim domovima sankcionirati prekršitelje."
       bottomComponent={
         <>
           <div id="studentski-domovi"></div>
           <PostSlider
-            title="Studentski domovi"
-            subtitle="SC Zagreb nudi smještaj u 4 studentska doma na atraktivnim lokacijama u gradu Zagrebu."
+            title={ui("smjestaj.dorms")}
+            subtitle={ui("smjestaj.intro")}
             className="my-24"
             posts={posts?.filter((post) =>
               post.categories.includes(infoSmjestajDormitoriesCategory),
@@ -161,7 +163,7 @@ const SmjestajPage: NextPage<
               item.categories.includes(faqSmjestajCategory),
             ).length && (
               <div className="my-24">
-                <SectionTitle title="Često postavljana pitanja" />
+                <SectionTitle title={ui("common.faq")} />
                 <FAQCards
                   items={
                     posts
@@ -187,10 +189,10 @@ const SmjestajPage: NextPage<
 
             {/* <BlueCard
               title="Natječaj za smještaj 2022/2023"
-              description="Za prijavu na natječaj za studentski smještaj prijavite se putem linka  nastavku."
+              description={ui("smjestaj.applyVia")}
               className="mt-12"
               action={{
-                title: "Prijava za natječaj",
+                title: ui("smjestaj.applyTender"),
                 href: "https://natjecaj.sczg.hr/student",
                 isRegularLink: true,
               }}
@@ -199,7 +201,7 @@ const SmjestajPage: NextPage<
             <div className="flex flex-col md:flex-row gap-6 my-12">
               <ContentCard
                 image="/slike/smjestaj/ikone/savjetovaliste.png"
-                title="SAVJETOVALIŠTE"
+                title={ui("smjestaj.counselling")}
                 content="U sklopu studentskog doma „Cvjetno naselje“ možete koristiti usluge BESPLATNOG savjetovanja. Savjetovanje će se održavati prema unaprijed dogovorenim terminima i dostupno je svim studentima korisnicima usluga Studentskog centra u Zagrebu, kao i radnicima Studentskog centra u Zagrebu."
                 imageClassName="w-[90px] h-[90px] object-contain"
                 contentClassName="text-light leading-relaxed"
@@ -210,10 +212,10 @@ const SmjestajPage: NextPage<
       }
     >
       <PageTitle
-        title="Obavijesti - studentski smještaj"
+        title={ui("smjestaj.newsTitle")}
         subtitle="Pravo na smještaj u studentskom domu je osobno pravo studenta i nije prenosivo na drugu osobu. Studentski centar u Zagrebu će odmah po useljenju studenata u studentske domove obavljati intenzivne kontrole ostvarenog prava i sukladno Pravilniku o domskom redu i uvjetima boravka studenata u studentskim domovima sankcionirati prekršitelje."
         action={{
-          title: "STUDENTSKI DOMOVI",
+          title: ui("smjestaj.dormsUpper"),
           href: "#studentski-domovi",
           isRegularLink: true,
         }}
@@ -239,8 +241,8 @@ const SmjestajPage: NextPage<
       <InfoToggles items={infoToggleItems} className="mt-12" />
 
       <SectionTitle
-        title="Boravak u studentskome domu"
-        subtitle="Poštovani budući stanari studentskih domova, za boravak u studentskome domu potrebno je ispuniti slijedeći kriteriji:"
+        title={ui("smjestaj.stay")}
+        subtitle={ui("smjestaj.criteria")}
         className="mt-24"
       />
       <div className="flex flex-col gap-8 mt-6">

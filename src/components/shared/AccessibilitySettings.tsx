@@ -67,7 +67,7 @@ const AccessibilitySettings: React.FC<AccessibilitySettingsProps> = (props) => {
         grayScale ? "grayscale-filter" : "",
         readableFont ? "readable-font" : "",
         largeText ? "large-text" : "",
-        lightBackground ? "light-background" : ""
+        lightBackground ? "light-background" : "",
       )}
     >
       {props.children}
@@ -155,7 +155,7 @@ const ButtonToggle: React.FC<ButtonToggleProps> = (props) => {
         "px-2 py-1 rounded flex gap-2 items-center w-full focus:ring-1 ring-primary ring-offset-1",
         props.active
           ? "bg-primary hover:bg-primary/80 text-white accessibility-active"
-          : "hover:bg-gray-100"
+          : "hover:bg-gray-100",
       )}
     >
       <div>{props.icon}</div>

@@ -11,7 +11,7 @@ interface DigitalnoPotpisivanjeSectionProps {
 }
 
 const ClanstvoSection: React.FC<DigitalnoPotpisivanjeSectionProps> = (
-  props
+  props,
 ) => {
   return (
     <section className={props.className}>

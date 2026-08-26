@@ -15,7 +15,7 @@ const BlueCard: React.FC<BlueCardProps> = (props) => {
     <div
       className={clsx(
         "w-full bg-gradient-to-b from-primary-light to-primary text-white p-6 md:p-12 rounded-xl shadow shadow-primary/40",
-        props.className
+        props.className,
       )}
     >
       {!!props.title && (

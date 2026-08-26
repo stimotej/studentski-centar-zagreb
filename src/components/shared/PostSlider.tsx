@@ -54,7 +54,7 @@ const PostSlider: React.FC<PostSliderProps> = (props) => {
           <button
             onClick={() =>
               handleScrollPosts(
-                -((postCardRef.current?.offsetWidth || 600) * 3 + 3 * 32)
+                -((postCardRef.current?.offsetWidth || 600) * 3 + 3 * 32),
               )
             }
             className="bg-white/60 backdrop-blur-sm invisible active:shadow-md group-hover:visible opacity-0 group-hover:opacity-100 transition-[opacity,transform] shadow-lg rounded-lg py-6 px-2 absolute left-6 top-1/2 transform -translate-y-1/2"
@@ -64,7 +64,7 @@ const PostSlider: React.FC<PostSliderProps> = (props) => {
           <button
             onClick={() =>
               handleScrollPosts(
-                (postCardRef.current?.offsetWidth || 600) * 3 + 3 * 32
+                (postCardRef.current?.offsetWidth || 600) * 3 + 3 * 32,
               )
             }
             className="bg-white/60 backdrop-blur-sm invisible active:shadow-md group-hover:visible opacity-0 group-hover:opacity-100 transition-[opacity,transform] shadow-lg rounded-lg py-6 px-2 absolute right-6 top-1/2 transform -translate-y-1/2"
@@ -117,7 +117,7 @@ const PostCard: React.FC<PostCardProps> = (props) => {
                       <i className="material-icons">{info.icon}</i>
                       <span>{info.title}</span>
                     </div>
-                  )
+                  ),
               )}
           </>
         ) : (

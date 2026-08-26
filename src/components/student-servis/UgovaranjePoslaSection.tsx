@@ -9,7 +9,7 @@ interface UgovaranjePoslaSectionProps {
 }
 
 const UgovaranjePoslaSection: React.FC<UgovaranjePoslaSectionProps> = (
-  props
+  props,
 ) => {
   return (
     <section className={props.className}>

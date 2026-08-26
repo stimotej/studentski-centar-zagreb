@@ -6,7 +6,7 @@ interface DavanjaPoslodavcaSectionProps {
 }
 
 const DavanjaPoslodavcaSection: React.FC<DavanjaPoslodavcaSectionProps> = (
-  props
+  props,
 ) => {
   return (
     <section className={props.className}>

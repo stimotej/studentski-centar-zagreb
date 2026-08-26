@@ -11,7 +11,7 @@ const IconCardsSection: React.FC<IconCardsSectionProps> = (props) => {
     <div
       className={clsx(
         "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 border-t border-gray-200 pt-6",
-        props.className
+        props.className,
       )}
     >
       <IconCard

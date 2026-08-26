@@ -24,7 +24,7 @@ const JobCard: React.FC<JobCardProps> = (props) => {
       className={clsx(
         "w-full rounded-xl",
         props.featured && "ring-2 ring-primary",
-        props.className
+        props.className,
       )}
     >
       <Card className="rounded-xl w-full h-full">

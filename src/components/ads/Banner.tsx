@@ -49,7 +49,7 @@ export default function Banner() {
       bannerToSet = banners[0];
     } else {
       const foundBannerIndex = banners.findIndex(
-        (b) => b.id === parseInt(lastBannerId)
+        (b) => b.id === parseInt(lastBannerId),
       );
       const nextBannerIndex =
         foundBannerIndex > -1 ? (foundBannerIndex + 1) % banners.length : 0;

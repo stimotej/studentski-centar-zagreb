@@ -12,7 +12,7 @@ const DocumentCard: React.FC<DocumentCardProps> = (props) => {
       href={props.document.source_url.replaceAll(
         "http://161.53.174.14/wp-content/uploads",
         // ---------------------------
-        "https://www.sczg.unizg.hr/wp-content/uploads"
+        "https://www.sczg.unizg.hr/wp-content/uploads",
         // "/api/images" // Change http to https
       )}
       className="flex items-center p-4 rounded-lg border border-gray-200 text-light hover:bg-primary/5 hover:border-primary/40"

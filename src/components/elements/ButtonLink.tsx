@@ -18,7 +18,7 @@ const ButtonLink: React.FC<ButtonLinkProps> = (props) => {
     props.outlined
       ? "bg-white text-primary hover:bg-primary hover:text-white border border-primary"
       : "text-white bg-primary hover:bg-primary/90",
-    props.className
+    props.className,
   );
 
   if (props.isRegularLink && typeof props.href === "string") {

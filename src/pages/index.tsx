@@ -31,6 +31,7 @@ import type {
 import Banner from "@/components/ads/Banner";
 import { useRouter } from "next/router";
 import { localized } from "@/utils/i18n";
+import { useUI } from "@/utils/ui";
 
 type HomeProps = {
   sliderPosts: Post<ObavijestiMeta>[];
@@ -82,6 +83,7 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   opceInformacijePost,
   oglasZaPopunuRadnihMjestaPost,
 }) => {
+  const ui = useUI();
   const { locale } = useRouter();
   const t = (hr: string | undefined, en: string | undefined) =>
     localized(locale, hr, en);
@@ -97,7 +99,7 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
               src: slide.image_url,
               title: t(slide.title.rendered, slide.meta.title_en),
               subtitle: t(slide.excerpt.rendered, slide.meta.excerpt_en),
-              actionTitle: "Saznaj više",
+              actionTitle: ui("common.readMore"),
               actionHref: `/obavijesti/${slide.slug}`,
             }))}
           />
@@ -109,7 +111,7 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
       <LinkCards />
       <div className="mt-6 flex flex-col gap-16 md:flex-row">
         <div className="w-full md:w-[70%]">
-          <h2 className="text-2xl font-semibold">Obavijesti</h2>
+          <h2 className="text-2xl font-semibold">{ui("nav.obavijesti")}</h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-6">
             {!!obavijesti && obavijesti?.length > 0 ? (
               obavijesti?.map((obavijest) => (
@@ -128,7 +130,7 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                 />
               ))
             ) : (
-              <div className="my-4 text-light">Nema obavijesti za prikaz</div>
+              <div className="my-4 text-light">{ui("empty.obavijesti")}</div>
             )}
           </div>
           <div className="flex justify-center mt-8">
@@ -180,9 +182,9 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
               })) || []
             }
           />
-          <h3 className="mt-6 font-medium text-lg">Teatar &TD</h3>
+          <h3 className="mt-6 font-medium text-lg">{ui("nav.teatarTd")}</h3>
           <TeatarTDCard className="mt-2" />
-          <h3 className="mt-6 font-medium text-lg">Kalendar</h3>
+          <h3 className="mt-6 font-medium text-lg">{ui("home.calendar")}</h3>
           <SidebarLinks
             emptyText="Nema evenata za prikaz"
             className="mt-2"
@@ -207,7 +209,7 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
       {!!faqs?.filter((item) => item.categories.includes(faqPocetnaCategory))
         .length && (
         <div className="mt-32">
-          <SectionTitle title="Informacije" className="mt-20" />
+          <SectionTitle title={ui("home.information")} className="mt-20" />
           <FAQCards
             items={
               faqs

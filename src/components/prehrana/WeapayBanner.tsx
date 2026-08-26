@@ -12,7 +12,7 @@ const WeapayBanner: React.FC<WeapayBannerProps> = (props) => {
     <div
       className={clsx(
         "relative flex flex-col md:flex-row gap-6 p-6 items-start bg-gradient-to-l rounded-lg from-[#0b1218] to-[rgba(43,52,61,.97)]",
-        props.className
+        props.className,
       )}
     >
       <CustomLink href="https://weapay.hr/">

@@ -38,7 +38,7 @@ const PageTitle: React.FC<PageTitleProps> = (props) => {
           href={props.action.href}
           className={clsx(
             "!rounded-full w-fit",
-            props.subtitle ? "mt-6" : "mt-10"
+            props.subtitle ? "mt-6" : "mt-10",
           )}
           isRegularLink={props.action.isRegularLink}
         >

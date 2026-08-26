@@ -23,6 +23,7 @@ import clearHtmlFromString from "@/utils/clearHtmlFromString";
 import type { ObavijestiMeta, Post, PostsMeta, Event } from "@/features/types";
 import { useRouter } from "next/router";
 import { localized } from "@/utils/i18n";
+import { useUI } from "@/utils/ui";
 
 type KulturaProps = {
   events: Event[];
@@ -65,6 +66,7 @@ const KulturaPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   posts,
   obavijesti,
 }) => {
+  const ui = useUI();
   const { locale } = useRouter();
   const t = (hr: string | undefined, en: string | undefined) =>
     localized(locale, hr, en);
@@ -75,10 +77,10 @@ const KulturaPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
 
   return (
     <Layout
-      title="Kultura"
+      title={ui("kultura.pageTitle")}
       description="Kultura; Studentski centar u Zagrebu; Sveučilište u Zagrebu"
     >
-      <PageTitle title="Kultura" />
+      <PageTitle title={ui("kultura.pageTitle")} />
 
       <div className="flex flex-col md:flex-row gap-8 mt-12">
         <KulturaSlider
@@ -88,16 +90,16 @@ const KulturaPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
               src: slide.image,
               title: slide.title,
               subtitle: clearHtmlFromString(slide.content),
-              actionTitle: "Saznaj više",
+              actionTitle: ui("common.readMore"),
               actionHref: `/kultura/eventi/${slide.slug}`,
             })) || []
           }
         />
         <div className="flex-1 flex flex-col gap-3">
-          <h3 className="text-xl font-semibold">Danas</h3>
+          <h3 className="text-xl font-semibold">{ui("kultura.today")}</h3>
           {!!todaysEvents && todaysEvents?.length <= 0 ? (
             <div className="mt-2">
-              <div className="text-light">Nema evenata na današnji dan</div>
+              <div className="text-light">{ui("kultura.noEventsToday")}</div>
               <ButtonLink
                 href="#kalendar-evenata"
                 className="mt-6"
@@ -140,23 +142,29 @@ const KulturaPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
               t(location.title.rendered, location.meta.title_en),
             )}
             content={t(location.excerpt.rendered, location.meta.excerpt_en)}
-            action={{ title: "SAZNAJ VIŠE", href: location.meta.link }}
+            action={{
+              title: ui("common.readMoreUpper"),
+              href: location.meta.link,
+            }}
             className="flex-1"
           />
         ))}
       </div>
       <ContentCard
-        title="Tečajevi i radionice"
+        title={ui("kultura.coursesWorkshops")}
         titleClassName="!text-xl md:!text-2xl font-semibold !text-blue-600 include-filters"
         content="Studentski centar u Zagrebu nudi širok izbor tečajeva i radionica za sve zainteresirane. Bez obzira na vaše iskustvo ili interese, imamo nešto za svakoga. Pridružite nam se i istražite što sve možete naučiti!"
         action={{
-          title: "Idi na popis",
+          title: ui("kultura.goToList"),
           href: "/kultura/tecajevi-i-radionice/",
         }}
         className="flex-1 mt-12"
       />
       <div id="kalendar-evenata" className="py-12">
-        <SectionTitle title="Kalendar evenata" className="mt-12 mb-8" />
+        <SectionTitle
+          title={ui("kultura.eventCalendar")}
+          className="mt-12 mb-8"
+        />
         <div className="flex flex-col lg:flex-row gap-6">
           <EventCards
             events={events}
@@ -177,7 +185,7 @@ const KulturaPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
       {!!posts?.filter((item) => item.categories.includes(faqKulturaCategory))
         .length && (
         <div className="mb-24">
-          <SectionTitle title="Često postavljana pitanja" />
+          <SectionTitle title={ui("common.faq")} />
           <FAQCards
             items={
               posts

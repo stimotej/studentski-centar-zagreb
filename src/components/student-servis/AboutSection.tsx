@@ -16,7 +16,7 @@ const AboutSection: React.FC<AboutSectionProps> = (props) => {
     <div
       className={clsx(
         "flex flex-col-reverse md:flex-row gap-12",
-        props.className
+        props.className,
       )}
     >
       <div className="flex-1">

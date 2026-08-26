@@ -20,7 +20,7 @@ const InfoPostCard: React.FC<InfoPostCardProps> = (props) => {
       className={clsx(
         "flex flex-col gap-3 relative",
         props.excerpt?.includes("img") && "!pb-0",
-        props.className
+        props.className,
       )}
     >
       <DisplayHTML
@@ -39,7 +39,7 @@ const InfoPostCard: React.FC<InfoPostCardProps> = (props) => {
               "text-light flex-1 max-h-[250px]",
               props.excerpt?.includes("img")
                 ? "overflow-hidden"
-                : "line-clamp-3"
+                : "line-clamp-3",
             )}
           />
           <CustomLink
@@ -48,7 +48,7 @@ const InfoPostCard: React.FC<InfoPostCardProps> = (props) => {
               "text-primary text-xs font-semibold uppercase tracking-wider flex items-center gap-2",
               props.excerpt?.includes("img")
                 ? "absolute bottom-0 left-0 right-0 rounded-b-lg px-6 pb-4 pt-8 bg-gradient-to-t from-white from-60% to-transparent"
-                : ""
+                : "",
             )}
           >
             Saznaj više <MdArrowRightAlt size={18} />

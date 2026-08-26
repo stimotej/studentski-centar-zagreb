@@ -60,7 +60,7 @@ const PagePostCard: React.FC<PagePostCardProps> = (props) => {
       href={`/obavijesti/${props.slug}`}
       className={clsx(
         "p-3 rounded-lg border border-primary/20 hover:border-primary/40 hover:bg-primary/5 flex gap-4",
-        props.featured && "ring-1 ring-primary/60"
+        props.featured && "ring-1 ring-primary/60",
       )}
     >
       <Image

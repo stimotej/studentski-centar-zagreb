@@ -9,7 +9,7 @@ interface KvalitetaPrehraneSectionProps {
 }
 
 const KvalitetaPrehraneSection: React.FC<KvalitetaPrehraneSectionProps> = (
-  props
+  props,
 ) => {
   return (
     <div className={clsx("relative z-[2] pt-36 bg-[#fafafa]", props.className)}>
