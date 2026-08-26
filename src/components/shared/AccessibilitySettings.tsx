@@ -11,12 +11,14 @@ import {
 } from "react-icons/md";
 import { AnimatePresence, motion } from "framer-motion";
 import clsx from "clsx";
+import { useUI } from "@/utils/ui";
 
 interface AccessibilitySettingsProps {
   children?: React.ReactNode;
 }
 
 const AccessibilitySettings: React.FC<AccessibilitySettingsProps> = (props) => {
+  const ui = useUI();
   const [opened, setOpened] = useState(false);
 
   const [largeText, setLargeText] = useState(false);
@@ -87,47 +89,47 @@ const AccessibilitySettings: React.FC<AccessibilitySettingsProps> = (props) => {
               className="overflow-hidden bg-white whitespace-nowrap rounded-bl-lg shadow-[0_10px_60px_0px_rgba(39,39,52,0.06)]"
             >
               <div className="p-2">
-                <h1 className="text-lg font-bold mb-2">Pristupačnost</h1>
+                <h1 className="text-lg font-bold mb-2">{ui("a11y.title")}</h1>
                 <div className="flex flex-col gap-1">
                   <ButtonToggle
                     onClick={handleLargeTextToggle}
-                    label="Povećani tekst"
+                    label={ui("a11y.largeText")}
                     icon={<MdFormatSize />}
                     active={largeText}
                   />
                   <ButtonToggle
                     onClick={handleHighContrastToggle}
-                    label="Visoki kontrast"
+                    label={ui("a11y.highContrast")}
                     icon={<MdContrast />}
                     active={highContrast}
                   />
                   <ButtonToggle
                     onClick={handleGrayScaleToggle}
-                    label="Sivi tonovi"
+                    label={ui("a11y.grayscale")}
                     icon={<MdFilterBAndW />}
                     active={grayScale}
                   />
                   <ButtonToggle
                     onClick={handleReadableFontToggle}
-                    label="Čitljiv font"
+                    label={ui("a11y.readableFont")}
                     icon={<MdTextFormat />}
                     active={readableFont}
                   />
                   <ButtonToggle
                     onClick={handleUnderlineLinksToggle}
-                    label="Podcrtaj poveznice"
+                    label={ui("a11y.underlineLinks")}
                     icon={<MdLink />}
                     active={underlineLinks}
                   />
                   <ButtonToggle
                     onClick={handleLightBackgroundToggle}
-                    label="Svijetla pozadina"
+                    label={ui("a11y.lightBackground")}
                     icon={<MdOutlineLightbulb />}
                     active={lightBackground}
                   />
                   <ButtonToggle
                     onClick={handleResetSettings}
-                    label="Obriši odabir"
+                    label={ui("a11y.clear")}
                     icon={<MdReplay />}
                   />
                 </div>

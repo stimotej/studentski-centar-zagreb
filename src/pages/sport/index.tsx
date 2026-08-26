@@ -35,6 +35,7 @@ import {
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
 import { useRouter } from "next/router";
 import { localized } from "@/utils/i18n";
+import { useUI } from "@/utils/ui";
 
 type SportProps = {
   posts: Post<PostsMeta>[];
@@ -75,13 +76,14 @@ const SportPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   categories,
   obavijesti,
 }) => {
+  const ui = useUI();
   const { locale } = useRouter();
   const t = (hr: string | undefined, en: string | undefined) =>
     localized(locale, hr, en);
 
   return (
     <Layout
-      title="Sport"
+      title={ui("sport.pageTitle")}
       description="U ponudi rekreativnih aktivnosti koje su dostupne svim studentima Sveučilišta u Zagrebu, najviše je zanimanja za programe: fitness, aerobik, zumba fitness, funkcionalno-kondicijski trening."
       bottomComponent={
         <div className="mb-12">
@@ -109,7 +111,7 @@ const SportPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
               <>
                 <Section>
                   <SectionTitle
-                    title="Rekreacijske aktivnosti"
+                    title={ui("sport.recreationalTc")}
                     className="mt-12"
                   />
                   {postsExistCjelogodisnje && (
@@ -201,7 +203,7 @@ const SportPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
               <>
                 <Section>
                   <SectionTitle
-                    title="Edukacijske aktivnosti"
+                    title={ui("sport.educationalTc")}
                     className="mt-12"
                   />
                   {postsExistSportske && (
@@ -290,7 +292,7 @@ const SportPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                 <Section>
                   <div id="natjecateljske-aktivnosti-informacije"></div>
                   <SectionTitle
-                    title="Natjecateljske aktivnosti"
+                    title={ui("sport.competitiveTc")}
                     className="mt-12"
                   />
                   {postsExist && (
@@ -345,7 +347,7 @@ const SportPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
               <>
                 <Section>
                   <div id="zabavne-aktivnosti-informacije"></div>
-                  <SectionTitle title="Zabava" className="mt-12" />
+                  <SectionTitle title={ui("sport.fun")} className="mt-12" />
                   {postsExist && (
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
                       {posts
@@ -385,7 +387,7 @@ const SportPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
           {!!posts?.filter((item) => item.categories.includes(faqSportCategory))
             .length && (
             <div className="mt-12">
-              <SectionTitle title="Često postavljana pitanja" />
+              <SectionTitle title={ui("common.faq")} />
               <FAQCards
                 items={
                   posts
@@ -424,7 +426,7 @@ const SportPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
       }
     >
       <PageTitle
-        title="SPORT"
+        title={ui("sport.pageTitleUpper")}
         // subtitle="U ponudi rekreativnih aktivnosti koje su dostupne svim studentima Sveučilišta u Zagrebu, najviše je zanimanja za programe: fitness, aerobik, zumba fitness, funkcionalno-kondicijski trening."
       />
 

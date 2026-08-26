@@ -24,6 +24,7 @@ import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { localized } from "@/utils/i18n";
+import { useUI } from "@/utils/ui";
 
 type PrehranaProps = {
   posts: Post<PostsMeta>[];
@@ -62,20 +63,21 @@ export const getStaticProps: GetStaticProps<PrehranaProps> = async () => {
 const PrehranaPage: NextPage<
   InferGetStaticPropsType<typeof getStaticProps>
 > = ({ posts, faqs, linksPost, obavijesti }) => {
+  const ui = useUI();
   const { locale } = useRouter();
   const t = (hr: string | undefined, en: string | undefined) =>
     localized(locale, hr, en);
 
   return (
     <Layout
-      title="Prehrana"
+      title={ui("prehrana.pageTitle")}
       description="Studentski centar Zagreb broji čak 16 restorana smještenih na vrlo atraktivnim lokacijama po Zagrebu. Na stranicama svakog restorana možete pratiti dnevnu ponudu jela koja se taj dan poslužuju."
       bottomComponent={
         <>
           <div id="restorani"></div>
           <PostSlider
-            // title="Restorani"
-            // subtitle="Restorani Studentskog Centra u Zagrebu"
+            // title={ui("prehrana.restaurants")}
+            // subtitle={ui("prehrana.restaurantsTitle")}
             className="my-14"
             posts={posts}
           />
@@ -99,7 +101,7 @@ const PrehranaPage: NextPage<
                     width={128}
                     height={128}
                     src="/slike/prehrana/student.png"
-                    alt="Student - prijava u issp.srce.hr"
+                    alt={ui("prehrana.studentLogin")}
                     className="mx-auto"
                   />
                   <h4 className="uppercase text-[22px] text-center my-2">
@@ -130,7 +132,7 @@ const PrehranaPage: NextPage<
               item.categories.includes(faqPrehranaCategory),
             ).length && (
               <div className="mt-32">
-                <SectionTitle title="Često postavljana pitanja" />
+                <SectionTitle title={ui("common.faq")} />
                 <FAQCards
                   items={
                     faqs
@@ -167,10 +169,10 @@ const PrehranaPage: NextPage<
       }
     >
       <PageTitle
-        title="Prehrana"
+        title={ui("prehrana.pageTitle")}
         // subtitle="Studentski centar Zagreb broji čak 16 restorana smještenih na vrlo atraktivnim lokacijama po Zagrebu. Na stranicama svakog restorana možete pratiti dnevnu ponudu jela koja se taj dan poslužuju."
         // action={{
-        //   title: "Pitanja i pomoć",
+        //   title: ui("common.questionsAndHelp"),
         //   href: "#pitanja-i-pomoc",
         //   isRegularLink: true,
         // }}

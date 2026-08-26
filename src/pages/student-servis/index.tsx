@@ -28,6 +28,7 @@ import { getObavijestiPage } from "@/features/obavijesti";
 import type { ObavijestiMeta, Post, PostsMeta } from "@/features/types";
 import { useRouter } from "next/router";
 import { localized } from "@/utils/i18n";
+import { useUI } from "@/utils/ui";
 
 type StudentServisProps = {
   aboutPost: Post<PostsMeta> | undefined;
@@ -76,13 +77,14 @@ const StudentServisPage: NextPage<
   faqStudentServisPosts,
   obavijesti,
 }) => {
+  const ui = useUI();
   const { locale } = useRouter();
   const t = (hr: string | undefined, en: string | undefined) =>
     localized(locale, hr, en);
 
   return (
     <Layout
-      title="Student servis"
+      title={ui("ss.pageTitle")}
       description="Student servis studentskog centar Sveučilišta u Zagrebu posreduje u pronalasku studentskih poslova između studenata i poslodavaca. Pronađite najbolje poslove na oglasniku studentskih poslova."
     >
       {!!aboutPost && (
@@ -110,10 +112,10 @@ const StudentServisPage: NextPage<
       <LoginLinksSection className="mt-24 mb-24" />
 
       <PageTitle
-        title="Student servis"
+        title={ui("ss.pageTitle")}
         subtitle="Student servis studentskog centar Sveučilišta u Zagrebu posreduje u pronalasku studentskih poslova između studenata i poslodavaca. Pronađite najbolje poslove na oglasniku studentskih poslova."
         action={{
-          title: "PRETRAŽI POSLOVE",
+          title: ui("jobs.searchUpper"),
           href: "/poslovi",
         }}
       />
@@ -135,7 +137,7 @@ const StudentServisPage: NextPage<
 
       {faqStudentServisPosts.length > 0 && (
         <div className="mb-24">
-          <SectionTitle title="Često postavljana pitanja" />
+          <SectionTitle title={ui("common.faq")} />
           <FAQCards
             items={
               faqStudentServisPosts.slice(0, 8).map((item) => ({
@@ -158,10 +160,10 @@ const StudentServisPage: NextPage<
       <ClanstvoSection className="mb-24" />
 
       <BlueCard
-        title="Članstvo poslodavaca u Student servis"
-        description="Jednostavan sustav prijave ovih poslodavaca u bazu Studentskog centra u Zagrebu."
+        title={ui("membership.employers")}
+        description={ui("membership.employersIntro")}
         action={{
-          title: "PRIJAVA ČLANSTVO POSLODAVCI",
+          title: ui("ss.signupMembershipEmployers"),
           href: "/prijava-poslodavac",
         }}
         className="mb-12"

@@ -25,6 +25,7 @@ import type {
 } from "next";
 import { useRouter } from "next/router";
 import type { ParsedUrlQuery } from "querystring";
+import { useUI } from "@/utils/ui";
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   const posts = await getDomoviPaths();
@@ -73,6 +74,7 @@ export const getStaticProps: GetStaticProps<DomProps> = async ({ params }) => {
 const DormitoryPage: NextPage<
   InferGetStaticPropsType<typeof getStaticProps>
 > = ({ obavijest, natjecajDokument }) => {
+  const ui = useUI();
   const router = useRouter();
 
   // Croatian unless an English translation actually exists for this field.
@@ -121,7 +123,7 @@ const DormitoryPage: NextPage<
     return (
       <Layout>
         <div className="flex flex-col gap-12 items-center justify-center mt-20">
-          <p className="text-lg text-light">Nije pronađen studentski dom</p>
+          <p className="text-lg text-light">{ui("dorm.notFound")}</p>
           <Button onClick={() => router.back()} className="mx-auto">
             Povratak
           </Button>
@@ -134,9 +136,9 @@ const DormitoryPage: NextPage<
       description={clearHtmlFromString(dormExcerpt)}
       bottomComponent={
         <>
-          <SectionTitle title="Fotografije" className="mt-24" />
+          <SectionTitle title={ui("dorm.photos")} className="mt-24" />
           {!obavijest?.meta.image_groups ? (
-            <p className="text-center text-light">Nema fotografija za prikaz</p>
+            <p className="text-center text-light">{ui("empty.photos")}</p>
           ) : (
             <ImageGallery
               imageGroups={obavijest.meta.image_groups}
@@ -145,7 +147,7 @@ const DormitoryPage: NextPage<
           )}
 
           <Section>
-            <SectionTitle title="Lokacija" className="mt-12" />
+            <SectionTitle title={ui("common.location")} className="mt-12" />
             <div className="mb-12">
               <DisplayHTML html={obavijest?.meta.lokacija || ""} />
             </div>
@@ -158,7 +160,7 @@ const DormitoryPage: NextPage<
                 action={
                   natjecajPdfUrl
                     ? {
-                        title: "Prijava za natječaj",
+                        title: ui("smjestaj.applyTender"),
                         href: natjecajPdfUrl,
                         isRegularLink: true,
                       }
@@ -189,7 +191,9 @@ const DormitoryPage: NextPage<
         )}
         {!!kontakt && (
           <Card>
-            <h5 className="font-semibold text-text text-lg mb-2">Kontakt</h5>
+            <h5 className="font-semibold text-text text-lg mb-2">
+              {ui("cards.contact")}
+            </h5>
             <DisplayHTML html={kontakt} className="text-light" />
           </Card>
         )}
