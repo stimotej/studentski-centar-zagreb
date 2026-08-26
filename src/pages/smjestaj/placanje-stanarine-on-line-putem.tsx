@@ -5,31 +5,33 @@ import PageTitle from "@/components/shared/PageTitle";
 import { type NextPage } from "next";
 import Image from "next/image";
 import React from "react";
+import { useUI } from "@/utils/ui";
 
 const PlacanjeStanarineOnLinePutemPage: NextPage = () => {
+  const ui = useUI();
   return (
     <Layout
-      title="Plaćanje stanarine on-line putem"
+      title={ui("rent.title")}
       description="Omogućeno je plaćanje smještaja u studentskim domovima on-line putem tokom cijele akademke godine. Student na ovaj način može platiti sva dosadašnja dugovanja, kao i stanarinu za mjesec unaprijed."
     >
       <PageTitle
-        title="Plaćanje stanarine on-line putem"
+        title={ui("rent.title")}
         subtitle="Omogućeno je plaćanje smještaja u studentskim domovima on-line putem tokom cijele akademke godine. Student na ovaj način može platiti sva dosadašnja dugovanja, kao i stanarinu za mjesec unaprijed."
       />
       <Step
         number={1}
         image="/slike/smjestaj/placanje-stanarine/korak_1.png"
-        content={`<div class="et_pb_blurb_description"><p><strong>Pristupiti osobnom profilu putem linka:</strong><span>&nbsp;</span><a target="_blank" href="https://natjecaj.sczg.hr/student/login.ashx" rel="noopener">https://natjecaj.sczg.hr/student/login.ashx</a></p></div>`}
+        content={`<div class="et_pb_blurb_description"><p><strong>{ui("rent.accessProfile")}</strong><span>&nbsp;</span><a target="_blank" href="https://natjecaj.sczg.hr/student/login.ashx" rel="noopener">https://natjecaj.sczg.hr/student/login.ashx</a></p></div>`}
       />
       <Step
         number={2}
         image="/slike/smjestaj/placanje-stanarine/korak_2.jpg"
-        content={`<p><strong>Nakon prijave u osobni profil, kliknuti na „<em>Naplata smještaja</em>“.</strong></p>`}
+        content={`<p><strong>{ui("rent.afterLogin")}<em>{ui("rent.charges")}</em>“.</strong></p>`}
       />
       <Step
         number={3}
         image="/slike/smjestaj/placanje-stanarine/korak_3.jpg"
-        content={`<p><strong>U srednjem dijelu ekrana potrebno je odabrati što se plaća, na način da se odabir potvrdi klikom na praznu kučicu.</strong></p>`}
+        content={`<p><strong>{ui("rent.selectWhat")}</strong></p>`}
       />
       <Step
         number={4}

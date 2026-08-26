@@ -3,6 +3,7 @@ import Image from "next/image";
 import React from "react";
 import Card from "../shared/Card";
 import Section from "../shared/Section";
+import { useUI } from "@/utils/ui";
 
 interface KvalitetaPrehraneSectionProps {
   className?: string;
@@ -11,6 +12,7 @@ interface KvalitetaPrehraneSectionProps {
 const KvalitetaPrehraneSection: React.FC<KvalitetaPrehraneSectionProps> = (
   props,
 ) => {
+  const ui = useUI();
   return (
     <div className={clsx("relative z-[2] pt-36 bg-[#fafafa]", props.className)}>
       <Image
@@ -37,7 +39,7 @@ const KvalitetaPrehraneSection: React.FC<KvalitetaPrehraneSectionProps> = (
           <div className="flex-1">
             <Image
               src="/slike/prehrana/vaznost_kvalitete_prehrane.png"
-              alt="Važnost kvalitetne prehrane"
+              alt={ui("nutrition.importance")}
               width={400}
               height={360}
               className="w-full h-auto object-cover"
@@ -70,19 +72,19 @@ const KvalitetaPrehraneSection: React.FC<KvalitetaPrehraneSectionProps> = (
           <div className="flex flex-col gap-6 flex-1">
             <SectionCard
               image="/slike/prehrana/ikone/raznovrsna_prehrana.png"
-              title="Raznovrsna prehrana"
+              title={ui("nutrition.varied")}
             />
             <SectionCard
               image="/slike/prehrana/ikone/tjelesna_aktivnost.png"
-              title="Tjelesna aktivnost"
+              title={ui("nutrition.activity")}
             />
             <SectionCard
               image="/slike/prehrana/ikone/normalna_tjelesna_masa.png"
-              title="Normalna tjelesna masa"
+              title={ui("nutrition.weight")}
             />
             <SectionCard
               image="/slike/prehrana/ikone/vitamini_i_minerali.png"
-              title="Vitamini i minerali"
+              title={ui("nutrition.vitamins")}
             />
           </div>
         </div>

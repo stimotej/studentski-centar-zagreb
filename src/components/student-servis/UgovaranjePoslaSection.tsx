@@ -3,6 +3,7 @@ import React from "react";
 import ButtonLink from "../elements/ButtonLink";
 import DisplayHTML from "../elements/DisplayHTML";
 import Card from "../shared/Card";
+import { useUI } from "@/utils/ui";
 
 interface UgovaranjePoslaSectionProps {
   className?: string;
@@ -11,6 +12,7 @@ interface UgovaranjePoslaSectionProps {
 const UgovaranjePoslaSection: React.FC<UgovaranjePoslaSectionProps> = (
   props,
 ) => {
+  const ui = useUI();
   return (
     <section className={props.className}>
       <div className="flex flex-col lg:flex-row gap-6 ">
@@ -32,7 +34,7 @@ const UgovaranjePoslaSection: React.FC<UgovaranjePoslaSectionProps> = (
         <div className="lg:w-1/3 lg:px-6">
           <SectionCard
             image="/slike/student-servis/ikone/potpis-ugovora.png"
-            title="POTPIS UGOVORA NAKON POSLODAVCA"
+            title={ui("contract.signAfterEmployer")}
             content="Student/ica potpisuje ugovor nakon što poslodavac uredno popuni i uvjeri ugovor, nikako prije.
 Upozoravamo studente da nikome, nikad ništa ne <strong>potpisuju unaprijed</strong>."
           />
@@ -42,21 +44,21 @@ Upozoravamo studente da nikome, nikad ništa ne <strong>potpisuju unaprijed</str
         <div className="flex-1">
           <SectionCard
             image="/slike/student-servis/ikone/isplate-naknada.png"
-            title="ISPLATE NAKNADA"
+            title={ui("contract.payments")}
             content="Isplate se obavljaju nakon što poslodavac - naručitelj posla plati račun Studentskom centru u Zagrebu. Isplate se vrše na <strong>osobni žiro ili tekući račun</strong> studente otvorenog u bilo kojoj banci na teritoriju Republike Hrvatske."
           />
         </div>
         <div className="transform lg:-translate-y-24 flex-1">
           <SectionCard
             image="/slike/student-servis/ikone/broj-ugovora.png"
-            title="BROJ UGOVORA"
+            title={ui("contract.number")}
             content="Student, član Student servisa može podizati <strong>tijekom godine</strong> neograničen broj ugovora, ukoliko prethodno podignute redovite vraća u Student servis. Student/ica može mjesečno preuzeti tri ugovora za istog poslodavca pod uvjetom da prethodno podignute redovito vraća u Student servis."
           />
         </div>
         <div className="flex-1">
           <SectionCard
             image="/slike/student-servis/ikone/neoporezivi-primitak.png"
-            title="NEOPOREZIVI PRIMITAK"
+            title={ui("contract.taxFree")}
             content="Uz isplatu redovite ugovorene plaće, poslodavci imaju mogućnost dodatnog nagrađivanja radnika kroz isplatu neoporezivih primitaka, nagrada, naknada i potpora."
           />
         </div>

@@ -2,12 +2,14 @@ import Image from "next/image";
 import React from "react";
 import ButtonLink from "../elements/ButtonLink";
 import Card from "../shared/Card";
+import { useUI } from "@/utils/ui";
 
 interface LoginLinksSectionProps {
   className?: string;
 }
 
 const LoginLinksSection: React.FC<LoginLinksSectionProps> = (props) => {
+  const ui = useUI();
   return (
     <section className={props.className}>
       <div className="flex flex-col md:flex-row gap-12">
@@ -15,7 +17,9 @@ const LoginLinksSection: React.FC<LoginLinksSectionProps> = (props) => {
           <h4 className="text-primary text-sm font-medium tracking-wider uppercase">
             POSREDNIK U STUDENTSKOM ZAPOŠLJAVANJU
           </h4>
-          <h2 className="text-text font-semibold text-4xl">Student servis</h2>
+          <h2 className="text-text font-semibold text-4xl">
+            {ui("ss.pageTitle")}
+          </h2>
           <p className="text-light leading-loose">
             Student servis obavlja ulogu propisanu Zakonom o obavljanju
             studentski poslova (NN 96/18, 16/20) Republike Hrvatske i u tome
@@ -27,7 +31,7 @@ const LoginLinksSection: React.FC<LoginLinksSectionProps> = (props) => {
         <div className="flex-1">
           <Image
             src="/slike/student-servis/student-servis-prijava.png"
-            alt="Student servis"
+            alt={ui("ss.pageTitle")}
             width={500}
             height={300}
             className="w-full h-auto object-cover"
@@ -36,20 +40,20 @@ const LoginLinksSection: React.FC<LoginLinksSectionProps> = (props) => {
       </div>
       <div className="flex flex-col md:flex-row gap-6 mt-12">
         <LoginLinkCard
-          title="STUDENT"
+          title={ui("login.student")}
           description="Korisnički profil studenta omogućuje uređivanje profila studenta, pretraživanje poslova, izdavanje ugovora, statuse isplata, ažuriranje podataka i korisničku podršku."
           link={{
             href: "/prijava-student",
-            title: "PRIJAVA STUDENT",
+            title: ui("login.studentSignIn"),
             isRegularLink: true,
           }}
         />
         <LoginLinkCard
-          title="POSLODAVAC"
+          title={ui("login.employer")}
           description="Korisnički profil poslodavca omogućuje objavu poslova, upravljanje postojećim poslovima, pregled prijavljenih kandidata, pregled studentskih ugovora i računa."
           link={{
             href: "/prijava-poslodavac",
-            title: "PRIJAVA POSLODAVAC",
+            title: ui("login.employerSignIn"),
           }}
         />
       </div>

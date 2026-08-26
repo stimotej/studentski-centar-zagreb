@@ -87,7 +87,7 @@ export default function Navbar() {
     >
       <div className="max-w-screen-2xl mx-auto flex items-center justify-between px-6 md:px-10">
         <div className="flex items-center gap-4">
-          <CustomLink href="/" aria-label="Idi na početnu stranicu">
+          <CustomLink href="/" aria-label={ui("nav.goHome")}>
             <Image
               src="/sc-logo.svg"
               alt="SC Logo"
@@ -97,8 +97,8 @@ export default function Navbar() {
             />
           </CustomLink>
           <div className="hidden [@media(min-width:350px)]:flex [@media(min-width:1110px)]:!hidden [@media(min-width:1246px)]:!flex flex-col text-sm font-medium">
-            <span>Sveučilište u Zagrebu</span>
-            <span className="text-sc">Studentski centar u Zagrebu</span>
+            <span>{ui("org.university")}</span>
+            <span className="text-sc">{ui("org.name")}</span>
           </div>
         </div>
 
@@ -106,7 +106,7 @@ export default function Navbar() {
         <Sheet>
           <SheetTrigger asChild>
             <button
-              aria-label="Otvori navigaciju"
+              aria-label={ui("nav.openMenu")}
               className="rounded-full p-2 my-3 hover:bg-gray-200 active:bg-gray-300 [@media(min-width:1110px)]:hidden"
             >
               <MdMenu size={24} />
