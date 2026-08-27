@@ -188,7 +188,7 @@ const SmjestajPage: NextPage<
             )}
 
             {/* <BlueCard
-              title="Natječaj za smještaj 2022/2023"
+              title={ui("smjestaj.tender2022")}
               description={ui("smjestaj.applyVia")}
               className="mt-12"
               action={{

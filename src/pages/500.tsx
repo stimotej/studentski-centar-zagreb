@@ -11,7 +11,7 @@ const Page500 = () => {
         <h1 className="text-[100px] font-bold">500</h1>
         <p className="text-lg text-light">{ui("error.server")}</p>
         <ButtonLink href="/" className="mx-auto mt-12 !rounded-full">
-          Idi na početnu
+          {ui("error.goHome")}
         </ButtonLink>
       </div>
     </Layout>

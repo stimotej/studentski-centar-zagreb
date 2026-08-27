@@ -39,7 +39,7 @@ const FAQPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
       <PageTitle title={ui("home.information")} />
       {posts.length <= 0 ? (
         <p className="text-center text-light my-24">
-          Nema informacija za prikaz
+          {ui("empty.information")}
         </p>
       ) : (
         <FAQCards

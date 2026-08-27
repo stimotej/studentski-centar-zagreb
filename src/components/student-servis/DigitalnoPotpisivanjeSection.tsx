@@ -19,7 +19,7 @@ const DigitalnoPotpisivanjeSection: React.FC<
             DIGITALNO POTPISIVANJE UGOVORA
           </h5>
           <h3 className="text-[38px] text-text font-semibold leading-normal">
-            Izvadite i potpišite ugovor u trenu putem mobitela.
+            {ui("sign.instant")}
           </h3>
           <div className="flex flex-col gap-8 mt-6">
             <SectionCard

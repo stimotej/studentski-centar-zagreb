@@ -26,7 +26,7 @@ const KvalitetaPrehraneSection: React.FC<KvalitetaPrehraneSectionProps> = (
         <div className="flex flex-col gap-12 lg:flex-row">
           <div className="flex-1">
             <h3 className="text-[38px] text-text font-semibold leading-normal">
-              Važnost kvalitetne i razvnovrsne prehrane za studente i uspjeh.
+              {ui("nutrition.students")}
             </h3>
             <p className="mt-4 text-light leading-relaxed">
               Ljudsko je tijelo sofisticiran mehanizam za čiji je rad i normalno

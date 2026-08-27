@@ -117,7 +117,7 @@ const RestaurantPage: NextPage<
           subtitle={
             <div>
               <p className="font-semibold text-light underline">
-                Ponuda uključuje:
+                {ui("restaurant.offerIncludes")}
               </p>
               <DisplayHTML html={restaurant?.meta.ponuda || ""} />
               <ButtonLink href="#dnevni-meni" className="mt-6" isRegularLink>
@@ -129,7 +129,7 @@ const RestaurantPage: NextPage<
         />
         <Card className="flex-1 mt-0 md:mt-24 text-center text-sm text-light">
           <h5 className="uppercase text-primary underline font-semibold mb-6">
-            RADNO VRIJEME
+            {ui("restaurant.openingHours")}
           </h5>
           <DisplayHTML html={restaurant?.meta.radno_vrijeme || ""} />
         </Card>

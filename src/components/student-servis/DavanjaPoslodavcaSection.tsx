@@ -14,11 +14,10 @@ const DavanjaPoslodavcaSection: React.FC<DavanjaPoslodavcaSectionProps> = (
     <section className={props.className}>
       <div className="text-center">
         <h5 className="text-primary text-sm font-medium tracking-wider uppercase">
-          DAVANJA POSLODAVCA STUDENT SERVISU IZNOSE 18,00% NA NETO ZARADU
-          STUDENATA
+          {ui("employer.contribution")}
         </h5>
         <h3 className="text-[42px] text-text font-semibold leading-normal">
-          Kako se koristi naknada od 18,00%?
+          {ui("employer.howUsed")}
         </h3>
       </div>
       <div className="flex flex-col lg:flex-row gap-12 mt-8">

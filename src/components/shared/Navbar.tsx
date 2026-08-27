@@ -116,8 +116,7 @@ export default function Navbar() {
             <SheetHeader>
               <SheetTitle className="sr-only">{ui("nav.main")}</SheetTitle>
               <SheetDescription className="sr-only">
-                Izbornik glavne navigacije stranice. Koristite tipkovnicu ili
-                miš za odabir željene stranice.
+                {ui("nav.menuDescription")}
               </SheetDescription>
             </SheetHeader>
 

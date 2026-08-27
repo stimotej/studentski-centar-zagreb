@@ -303,6 +303,45 @@ export const HR = {
   "wallet.title": "Digitalni studentski novčanik",
   "wallet.tagline": "PLATI BRŽE, UŽIVAJ DUŽE.",
   "help.contactUs": "KONTAKTIRAJ NAS",
+  "td.tickets":
+    "Ulaznice za predstave Teatra &TD, koncerte i određene filmske projekcije u SC-u, osim na našim blagajnama možete kupiti i putem online platforme za prodaju ulaznica Ulaznice.hr te na njihovim prodajnim mjestima.",
+  "nutrition.body":
+    "Ljudsko je tijelo sofisticiran mehanizam za čiji je rad i normalno funkcioniranje prehrana i sastojni prehrane",
+  "nutrition.digestion":
+    "Organizam i probava svake osobe se dovoljno razlikuju da isti režim prehrane može rezultirati sa drugačijim ishodom",
+  "nutrition.students":
+    "Važnost kvalitetne i razvnovrsne prehrane za studente i uspjeh.",
+  "login.employerProfile":
+    "Korisnički profil poslodavca omogućuje objavu poslova, upravljanje postojećim poslovima, pregled prijavljenih studenata i izdavanje ugovora.",
+  "login.studentProfile":
+    "Korisnički profil studenta omogućuje uređivanje profila studenta, pretraživanje poslova, izdavanje ugovora, status isplata i pregled zarade.",
+  "ss.intermediary": "POSREDNIK U STUDENTSKOM ZAPOŠLJAVANJU",
+  "smjestaj.tender2022": "Natječaj za smještaj 2022/2023",
+  "smjestaj.personalRight":
+    "Pravo na smještaj u studentskom domu je osobno pravo studenta i nije prenosivo na drugu osobu.",
+  "restaurant.offerIncludes": "Ponuda uključuje:",
+  "restaurant.openingHours": "RADNO VRIJEME",
+  "login.goToSignIn": "Idi na prijavu",
+  "login.aaiSystem": "Prijava u Web sustav s AAI korisničkim računom",
+  "sign.instant": "Izvadite i potpišite ugovor u trenu putem mobitela.",
+  "sign.stored":
+    "Svi ugovori su pohranjeni i zaštićeni vremenskim žigom. U bilo kojem trenutku pogledajte sve ugovore i statuse.",
+  "employer.contribution":
+    "DAVANJA POSLODAVCA STUDENT SERVISU IZNOSE 18,00% NA NETO ZARADU STUDENATA",
+  "employer.howUsed": "Kako se koristi naknada od 18,00%?",
+  "error.goHome": "Idi na početnu",
+  "empty.information": "Nema informacija za prikaz",
+  "common.loadMore": "Učitaj više",
+  "ss.intro":
+    "Student servis studentskog centar Sveučilišta u Zagrebu posreduje u pronalasku studentskih poslova između studenata i poslodavaca.",
+  "empty.newEvents": "Nema novih evenata za prikaz",
+  "empty.courses": "Nema tečajeva/radionica za prikaz.",
+  "help.postalAddress":
+    "Studentski centar Zagreb, Savska cesta 25, 10000, Zagreb, Hrvatska",
+  "nav.menuDescription":
+    "Izbornik glavne navigacije stranice. Koristite tipkovnicu ili miš za odabir željene stranice.",
+  "common.underConstruction": "Stranica u izradi",
+  "smjestaj.tenderCard": "Natječaj za studentski smještaj",
   "home.metaTitle":
     "Studentski Centar u Zagrebu, Sveučilište u Zagrebu; Kultura, Prehrana, Smještaj, Student servis, Sport, Teatar &TD",
   "rent.selectWhat":
@@ -598,6 +637,45 @@ export const EN: Partial<Record<UIKey, string>> = {
   "wallet.title": "Digital student wallet",
   "wallet.tagline": "PAY FASTER, ENJOY LONGER.",
   "help.contactUs": "CONTACT US",
+  "td.tickets":
+    "Tickets for Teatar &TD performances, concerts and selected film screenings at SC can be bought at our box offices, and also through the online ticketing platform Ulaznice.hr and at their points of sale.",
+  "nutrition.body":
+    "The human body is a sophisticated mechanism whose functioning depends on diet and the nutrients it provides",
+  "nutrition.digestion":
+    "Every person's body and digestion differ enough that the same diet can produce different results",
+  "nutrition.students":
+    "Why a good, varied diet matters for students and their success.",
+  "login.employerProfile":
+    "An employer account lets you post jobs, manage existing listings, review student applications and issue contracts.",
+  "login.studentProfile":
+    "A student account lets you edit your profile, search jobs, issue contracts, and check payment status and earnings.",
+  "ss.intermediary": "STUDENT EMPLOYMENT AGENCY",
+  "smjestaj.tender2022": "Accommodation call 2022/2023",
+  "smjestaj.personalRight":
+    "The right to a place in a student hall is personal to the student and cannot be transferred to anyone else.",
+  "restaurant.offerIncludes": "The offer includes:",
+  "restaurant.openingHours": "OPENING HOURS",
+  "login.goToSignIn": "Go to sign-in",
+  "login.aaiSystem": "Sign in to the web system with an AAI account",
+  "sign.instant": "Issue and sign a contract in moments on your phone.",
+  "sign.stored":
+    "All contracts are stored and protected with a timestamp. View every contract and its status at any time.",
+  "employer.contribution":
+    "EMPLOYER CONTRIBUTIONS TO THE STUDENT SERVICE ARE 18,00% OF THE STUDENT'S NET EARNINGS",
+  "employer.howUsed": "How is the 18,00% fee used?",
+  "error.goHome": "Go to the home page",
+  "empty.information": "No information to show",
+  "common.loadMore": "Load more",
+  "ss.intro":
+    "The Student service of Studentski centar, University of Zagreb, connects students with employers looking for student workers.",
+  "empty.newEvents": "No new events to show",
+  "empty.courses": "No courses or workshops to show.",
+  "help.postalAddress":
+    "Studentski centar Zagreb, Savska cesta 25, 10000 Zagreb, Croatia",
+  "nav.menuDescription":
+    "The site's main navigation menu. Use the keyboard or mouse to choose a page.",
+  "common.underConstruction": "Page under construction",
+  "smjestaj.tenderCard": "Student accommodation call",
   "home.metaTitle":
     "Studentski centar u Zagrebu, University of Zagreb; Culture, Dining, Accommodation, Student service, Sport, Teatar &TD",
   "rent.selectWhat":

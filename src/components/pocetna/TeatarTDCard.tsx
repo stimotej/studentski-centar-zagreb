@@ -2,12 +2,14 @@ import clsx from "clsx";
 import Image from "next/image";
 import React from "react";
 import Card from "../shared/Card";
+import { useUI } from "@/utils/ui";
 
 interface TeatarTDCardProps {
   className?: string;
 }
 
 const TeatarTDCard: React.FC<TeatarTDCardProps> = (props) => {
+  const ui = useUI();
   return (
     <Card className={clsx("w-full", props.className)}>
       <Image
@@ -17,11 +19,7 @@ const TeatarTDCard: React.FC<TeatarTDCardProps> = (props) => {
         height={200}
         className="w-full h-[200px] object-contain"
       />
-      <p className="text-light">
-        Ulaznice za predstave Teatra &TD, koncerte i određene filmske projekcije
-        u SC-u, osim na našim blagajnama možete kupiti i putem online platforme
-        za prodaju ulaznica Ulaznice.hr te na njihovim prodajnim mjestima.
-      </p>
+      <p className="text-light">{ui("td.tickets")}</p>
     </Card>
   );
 };

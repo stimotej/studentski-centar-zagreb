@@ -15,7 +15,7 @@ const LoginLinksSection: React.FC<LoginLinksSectionProps> = (props) => {
       <div className="flex flex-col md:flex-row gap-12">
         <div className="flex flex-col gap-3 flex-1">
           <h4 className="text-primary text-sm font-medium tracking-wider uppercase">
-            POSREDNIK U STUDENTSKOM ZAPOŠLJAVANJU
+            {ui("ss.intermediary")}
           </h4>
           <h2 className="text-text font-semibold text-4xl">
             {ui("ss.pageTitle")}

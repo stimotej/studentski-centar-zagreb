@@ -202,7 +202,7 @@ const PosloviPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                     onClick={() => fetchNextPage()}
                     className="mt-6"
                   >
-                    Učitaj više
+                    {ui("common.loadMore")}
                   </Button>
                 </div>
               ) : null}

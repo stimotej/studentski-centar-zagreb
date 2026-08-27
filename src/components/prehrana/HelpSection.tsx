@@ -35,7 +35,7 @@ const HelpSection = () => {
           <div className="col-span-2">
             <div>{ui("help.address")}</div>
             <a href="https://goo.gl/maps/XNJ98VWsZp16tKRe6">
-              Studentski centar Zagreb, Savska cesta 25, 10000, Zagreb, Hrvatska
+              {ui("help.postalAddress")}
             </a>
           </div>
         </div>

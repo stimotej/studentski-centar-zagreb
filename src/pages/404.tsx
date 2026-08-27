@@ -11,7 +11,7 @@ const NotFoundPage = () => {
         <h1 className="text-[100px] font-bold">404</h1>
         <p className="text-lg text-light">{ui("error.notFound")}</p>
         <ButtonLink href="/" className="mx-auto mt-12 !rounded-full">
-          Idi na početnu
+          {ui("error.goHome")}
         </ButtonLink>
       </div>
     </Layout>

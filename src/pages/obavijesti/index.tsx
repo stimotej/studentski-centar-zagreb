@@ -176,7 +176,7 @@ const ObavijestiPage: NextPage<
                     onClick={() => fetchNextPage()}
                     className="mt-6"
                   >
-                    Učitaj više
+                    {ui("common.loadMore")}
                   </Button>
                 </div>
               ) : null}

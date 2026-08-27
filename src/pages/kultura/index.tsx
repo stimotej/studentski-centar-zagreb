@@ -168,7 +168,7 @@ const KulturaPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
         <div className="flex flex-col lg:flex-row gap-6">
           <EventCards
             events={events}
-            emptyMessage="Nema novih evenata za prikaz"
+            emptyMessage={ui("empty.newEvents")}
             className="w-full"
             loading={false}
             // className="w-full lg:w-2/3"

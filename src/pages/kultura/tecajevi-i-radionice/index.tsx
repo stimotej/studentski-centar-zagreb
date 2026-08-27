@@ -34,7 +34,7 @@ const FAQPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
       <EventCards
         events={courses}
         loading={false}
-        emptyMessage="Nema tečajeva/radionica za prikaz."
+        emptyMessage={ui("empty.courses")}
         className="w-full my-12"
         classNameLoading="mt-12 w-2/3"
         classNameEmpty="mt-12 w-2/3"
