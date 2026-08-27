@@ -219,6 +219,90 @@ export const HR = {
   "decor.backgroundShape": "Pozadinski oblik",
   "decor.scIcon": "Studentski centar ikona",
   "decor.ssIcon": "Student servis ikona",
+  "allergen.gluten": "žitarice koje sadrže gluten i proizvodi od tih žitarica",
+  "allergen.crustaceans": "rakovi i proizvodi od rakova",
+  "allergen.eggs": "jaja i proizvodi od jaja",
+  "allergen.fish": "riba i riblji proizvodi",
+  "allergen.peanuts": "kikiriki i proizvodi od kikirikija",
+  "allergen.soy": "zrna soje i proizvodi od soje",
+  "allergen.milk": "mlijeko i mliječni proizvodi (uključujući laktozu)",
+  "allergen.nuts": "orašasto voće i njegovi proizvodi",
+  "allergen.celery": "celer i njegovi proizvodi",
+  "allergen.mustard": "gorušica i proizvodi od gorušice",
+  "allergen.sesame": "sjeme sezama i proizvodi od sjemena sezama",
+  "allergen.sulphites": "sumporni dioksid i sulfiti",
+  "allergen.lupin": "lupina i proizvodi od lupine",
+  "allergen.molluscs": "mekušci i proizvodi od mekušaca",
+  "allergen.mayContain": "može sadržavati navedeni alergen",
+  "food.prepared":
+    "Sva jela pripremljena su od profesionalnih kuhara sa svježim i kvalitetnim sastojcima.",
+  "food.quality":
+    "Za kvalitetniju pripremu jela koriste se kvalitetni sastojci sa fokusom da se pri kuhanju maksimalno iskoriste nutritivne vrijednosti namirnica. Detaljan opis alergena potražite na linku u nastavku.",
+  "job.otherFees": "Druge naknade",
+  "job.howToApply": "Način za prijavu",
+  "job.description": "Opis posla",
+  "job.otherNotes": "Ostale napomene i uvjeti",
+  "job.duration": "Očekivano trajanje posla",
+  "job.positions": "Potreban broj izvođača",
+  "job.requiredSkills": "Potrebna znanja",
+  "job.back": "Povratak",
+  "job.startDate": "Početak rada",
+  "job.desirableSkills": "Poželjne vještine",
+  "job.hours": "Radno vrijeme",
+  "job.rate": "Satnica",
+  "job.whyYou": "Zašto tražimo tebe?",
+  "sport.archive": "Arhiva",
+  "sport.yearRoundTc": "Cjelogodišnje",
+  "sport.occasionalTc": "Povremene",
+  "sport.sportingTc": "Sportske",
+  "sport.professionalTc": "Stručne",
+  "sport.recreationIntro":
+    "U ponudi rekreativnih aktivnosti koje su dostupne svim studentima Sveučilišta u Zagrebu, najviše je zanimanja za programe: fitness, aerobik, zumba fitness, funkcionalno-kondicijski trening.",
+  "common.seeAll": "Vidi sve",
+  "common.goToNews": "Idi na obavijesti",
+  "empty.events": "Nema evenata za prikaz",
+  "rent.intro":
+    "Omogućeno je plaćanje smještaja u studentskim domovima on-line putem tokom cijele akademke godine. Student na ovaj način može platiti sva dosadašnja dugovanja, kao i stanarinu za mjesec unaprijed.",
+  "rent.rightSide":
+    "Sa desne strane vidljiva je opcija „Plaćanje odabranih usluga“ na čiji se klik otvara obrazac za plaćanje stanarine (sukladno odabranim opcijama).",
+  "rent.cardDetails":
+    "U obrazac potrebno je unijeti broj kartice, datum isteka i kontrolni broj. Ako su ti podaci ispravno upisani, transakciju je potrebno potvrditi nekim oblikom tokena (čitač kartice, mtoken – kao i na svakom web plaćanju).",
+  "rent.receipt":
+    "Ukoliko je transakcija uspješna, student može dohvatiti račun u PDF obliku.",
+  "rent.note":
+    "Napomena: nije moguće platiti stanarinu za mjesec unaprijed ukoliko nisu podmirena sva ranije pristigla dugovanja.",
+  "ss.contractTitle": "Ugovaranje posla",
+  "ss.regulation": "PRAVILNIK O STUDENTSKOM ZAPOŠLJAVANJU",
+  "ss.employerDuty":
+    "Poslodavac je dužan popuniti obrazac ugovora te ga ovjeriti najkasnije u roku od 15 dana nakon obavljenog posla.",
+  "ss.account": "osobni žiro ili tekući račun",
+  "ss.signedInAdvance": "potpisuju unaprijed",
+  "ss.duringYear": "tijekom godine",
+  "ss.digitalSearch":
+    "Digitalno pretraživanje tržišta rada i studentskih poslova.",
+  "ss.fullPayout": "Isplata punog iznosa zarade studentu, bez naknade.",
+  "ss.marketProcessing":
+    "Obrada tržišta studentskog rada i posredovanja u pronalasku posla.",
+  "ss.billing":
+    "Obračun i naplata studentske zarade od poslodavca u korist studenta.",
+  "ss.records":
+    "Vođenje očevidnika članova redovnih studenata i obavljenih posredovanja.",
+  "ss.membershipBoth": "Članstvo studenta i poslodavaca u Student servisu.",
+  "membership.upper": "ČLANSTVO U STUDENT SERVISU",
+  "membership.enables":
+    "Omogućuje obavljanje studentskih poslova, izdavanje ugovora o djelu poslodavcima i isplatu naknada na žiro račun studenta. Član student servisa može biti student i maturant ali najdulje 3 mjeseca od završetka srednjoškolskog obrazovanja.",
+  "membership.conditions": "Uvjeti za članstvo i prijava.",
+  "membership.beforeJoining":
+    "Prije učlanjenja potrebno je provjeriti imate li osnovno zdravstveno osiguranje.",
+  "prehrana.restaurantsIntro":
+    "Studentski centar Zagreb broji čak 16 restorana smještenih na vrlo atraktivnim lokacijama po Zagrebu. Na stranicama svakog restorana možete pratiti dnevnu ponudu jela koja se taj dan poslužuju.",
+  "prehrana.rightsData": "Podaci o studentskim pravima i akademskim karticama",
+  "prehrana.systemLogin": "Prijava u sustav",
+  "prehrana.students": "STUDENTI",
+  "footer.builtBy": "Izradio",
+  "wallet.title": "Digitalni studentski novčanik",
+  "wallet.tagline": "PLATI BRŽE, UŽIVAJ DUŽE.",
+  "help.contactUs": "KONTAKTIRAJ NAS",
   "home.metaTitle":
     "Studentski Centar u Zagrebu, Sveučilište u Zagrebu; Kultura, Prehrana, Smještaj, Student servis, Sport, Teatar &TD",
   "rent.selectWhat":
@@ -427,6 +511,93 @@ export const EN: Partial<Record<UIKey, string>> = {
   "decor.backgroundShape": "Background shape",
   "decor.scIcon": "Studentski centar icon",
   "decor.ssIcon": "Student service icon",
+  "allergen.gluten": "cereals containing gluten and products thereof",
+  "allergen.crustaceans": "crustaceans and products thereof",
+  "allergen.eggs": "eggs and products thereof",
+  "allergen.fish": "fish and fish products",
+  "allergen.peanuts": "peanuts and products thereof",
+  "allergen.soy": "soybeans and products thereof",
+  "allergen.milk": "milk and dairy products (including lactose)",
+  "allergen.nuts": "tree nuts and products thereof",
+  "allergen.celery": "celery and products thereof",
+  "allergen.mustard": "mustard and products thereof",
+  "allergen.sesame": "sesame seeds and products thereof",
+  "allergen.sulphites": "sulphur dioxide and sulphites",
+  "allergen.lupin": "lupin and products thereof",
+  "allergen.molluscs": "molluscs and products thereof",
+  "allergen.mayContain": "may contain the listed allergen",
+  "food.prepared":
+    "All dishes are prepared by professional chefs using fresh, high-quality ingredients.",
+  "food.quality":
+    "Quality ingredients are used so that cooking preserves as much of their nutritional value as possible. A detailed description of allergens is available at the link below.",
+  "job.otherFees": "Other allowances",
+  "job.howToApply": "How to apply",
+  "job.description": "Job description",
+  "job.otherNotes": "Other notes and conditions",
+  "job.duration": "Expected duration",
+  "job.positions": "Positions available",
+  "job.requiredSkills": "Required skills",
+  "job.back": "Back",
+  "job.startDate": "Start date",
+  "job.desirableSkills": "Desirable skills",
+  "job.hours": "Working hours",
+  "job.rate": "Hourly rate",
+  "job.whyYou": "Why we are looking for you",
+  "sport.archive": "Archive",
+  "sport.yearRoundTc": "Year-round",
+  "sport.occasionalTc": "Occasional",
+  "sport.sportingTc": "Sporting",
+  "sport.professionalTc": "Professional",
+  "sport.recreationIntro":
+    "Among the recreational activities open to all University of Zagreb students, the most popular are fitness, aerobics, Zumba fitness and functional conditioning training.",
+  "common.seeAll": "See all",
+  "common.goToNews": "Go to news",
+  "empty.events": "No events to show",
+  "rent.intro":
+    "Accommodation in student halls can be paid online throughout the academic year. This lets students settle any outstanding debts as well as pay rent one month in advance.",
+  "rent.rightSide":
+    "On the right you will see “Plaćanje odabranih usluga” (Pay for selected services); clicking it opens the rent payment form for the options you selected.",
+  "rent.cardDetails":
+    "Enter your card number, expiry date and security code. If those details are correct, confirm the transaction with a token of some kind (card reader, mToken — as with any online payment).",
+  "rent.receipt":
+    "If the transaction succeeds, you can download the receipt as a PDF.",
+  "rent.note":
+    "Please note: rent cannot be paid a month in advance unless all earlier debts have been settled.",
+  "ss.contractTitle": "Arranging work",
+  "ss.regulation": "STUDENT EMPLOYMENT REGULATIONS",
+  "ss.employerDuty":
+    "The employer must complete and certify the contract form within 15 days of the work being carried out.",
+  "ss.account": "personal giro or current account",
+  "ss.signedInAdvance": "signed in advance",
+  "ss.duringYear": "during the year",
+  "ss.digitalSearch":
+    "Digital searching of the labour market and student jobs.",
+  "ss.fullPayout":
+    "The full amount earned is paid to the student, with no fee.",
+  "ss.marketProcessing":
+    "Analysis of the student labour market and job placement.",
+  "ss.billing":
+    "Calculating and collecting student earnings from employers on the student's behalf.",
+  "ss.records":
+    "Keeping records of full-time student members and placements made.",
+  "ss.membershipBoth":
+    "Membership of the Student service for students and employers.",
+  "membership.upper": "STUDENT SERVICE MEMBERSHIP",
+  "membership.enables":
+    "It allows you to take student jobs, lets employers issue service contracts, and pays your earnings into your giro account. Students and school leavers can join, the latter for at most three months after finishing secondary school.",
+  "membership.conditions": "Membership conditions and registration.",
+  "membership.beforeJoining":
+    "Before joining, check that you have basic health insurance.",
+  "prehrana.restaurantsIntro":
+    "Studentski centar Zagreb has 16 restaurants in attractive locations across the city. Each restaurant's page shows the dishes being served that day.",
+  "prehrana.rightsData":
+    "Information on student entitlements and academic cards",
+  "prehrana.systemLogin": "Sign in to the system",
+  "prehrana.students": "STUDENTS",
+  "footer.builtBy": "Built by",
+  "wallet.title": "Digital student wallet",
+  "wallet.tagline": "PAY FASTER, ENJOY LONGER.",
+  "help.contactUs": "CONTACT US",
   "home.metaTitle":
     "Studentski centar u Zagrebu, University of Zagreb; Culture, Dining, Accommodation, Student service, Sport, Teatar &TD",
   "rent.selectWhat":

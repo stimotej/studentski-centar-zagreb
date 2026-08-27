@@ -48,7 +48,7 @@ const HelpSection = () => {
           className="!rounded-full mt-10 w-fit"
           isRegularLink
         >
-          KONTAKTIRAJ NAS
+          {ui("help.contactUs")}
         </ButtonLink>
       </Section>
       <Image

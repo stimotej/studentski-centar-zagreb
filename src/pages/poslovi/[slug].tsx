@@ -76,7 +76,7 @@ const JobPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
         <div className="flex flex-col gap-12 items-center justify-center mt-20">
           <p className="text-lg text-light">{ui("empty.jobNotFound")}</p>
           <Button onClick={() => router.back()} className="mx-auto">
-            Povratak
+            {ui("job.back")}
           </Button>
         </div>
       </Layout>
@@ -104,7 +104,7 @@ const JobPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
           {!!job?.meta.description && (
             <>
               <h4 className="mt-12 mb-2 uppercase text-text text-sm tracking-wide font-medium">
-                Opis posla
+                {ui("job.description")}
               </h4>
               <DisplayHTML
                 html={job?.meta.description || ""}
@@ -116,7 +116,7 @@ const JobPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
           {!!job?.meta.whyme && (
             <>
               <h4 className="mt-12 mb-2 uppercase text-text text-sm tracking-wide font-medium">
-                Zašto tražimo tebe?
+                {ui("job.whyYou")}
               </h4>
               <DisplayHTML
                 html={job?.meta.whyme || ""}
@@ -128,7 +128,7 @@ const JobPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
           {!!job?.meta.other_description && (
             <>
               <h4 className="mt-12 mb-2 uppercase text-text text-sm tracking-wide font-medium">
-                Ostale napomene i uvjeti
+                {ui("job.otherNotes")}
               </h4>
               <DisplayHTML
                 html={job?.meta.other_description || ""}
@@ -142,7 +142,7 @@ const JobPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
               {!!job?.meta.work_start && (
                 <div>
                   <h4 className="mt-12 mb-2 uppercase text-text text-sm tracking-wide font-medium">
-                    Početak rada
+                    {ui("job.startDate")}
                   </h4>
                   <p className="text-light">{job?.meta.work_start}</p>
                 </div>
@@ -150,7 +150,7 @@ const JobPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
               {!!job?.meta.work_end && (
                 <div>
                   <h4 className="mt-12 mb-2 uppercase text-text text-sm tracking-wide font-medium">
-                    Očekivano trajanje posla
+                    {ui("job.duration")}
                   </h4>
                   <p className="text-light">{job?.meta.work_end}</p>
                 </div>
@@ -164,7 +164,7 @@ const JobPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
               {!!job?.meta.payment_rate && (
                 <div>
                   <h4 className="mb-2 uppercase text-text text-sm tracking-wide font-medium">
-                    Satnica
+                    {ui("job.rate")}
                   </h4>
                   <p className="text-light">{job?.meta.payment_rate}</p>
                 </div>
@@ -172,7 +172,7 @@ const JobPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
               {!!job?.meta.city && (
                 <div>
                   <h4 className="mb-2 uppercase text-text text-sm tracking-wide font-medium">
-                    Lokacija
+                    {ui("common.location")}
                   </h4>
                   <p className="text-light">
                     {job?.meta.city === "FROM_HOME"
@@ -184,7 +184,7 @@ const JobPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
               {!!job?.meta.payment_other && (
                 <div>
                   <h4 className="mb-2 uppercase text-text text-sm tracking-wide font-medium">
-                    Druge naknade
+                    {ui("job.otherFees")}
                   </h4>
                   <p className="text-light">{job?.meta.payment_other}</p>
                 </div>
@@ -196,7 +196,7 @@ const JobPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
               {!!job?.meta.work_hours && (
                 <div>
                   <h4 className="mb-2 uppercase text-text text-sm tracking-wide font-medium">
-                    Radno vrijeme
+                    {ui("job.hours")}
                   </h4>
                   <p className="text-light">{job?.meta.work_hours}</p>
                 </div>
@@ -204,7 +204,7 @@ const JobPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
               {!!job?.meta.positions && (
                 <div>
                   <h4 className="mb-2 uppercase text-text text-sm tracking-wide font-medium">
-                    Potreban broj izvođača
+                    {ui("job.positions")}
                   </h4>
                   <p className="text-light">{job?.meta.positions}</p>
                 </div>
@@ -214,7 +214,7 @@ const JobPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
           {!!job?.meta.skills && (
             <div>
               <h4 className="mt-12 mb-2 uppercase text-text text-sm tracking-wide font-medium">
-                Potrebna znanja
+                {ui("job.requiredSkills")}
               </h4>
               <p className="text-light">{job?.meta.skills}</p>
             </div>
@@ -225,7 +225,7 @@ const JobPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
             job.meta.labels[0] && (
               <div>
                 <h4 className="mt-12 mb-2 uppercase text-text text-sm tracking-wide font-medium">
-                  Poželjne vještine
+                  {ui("job.desirableSkills")}
                 </h4>
                 <p className="text-light">{job?.meta.labels}</p>
               </div>
@@ -244,7 +244,7 @@ const JobPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
           {!!job?.meta.documents.length ? (
             <div className="mb-6">
               <h4 className="uppercase text-text text-sm tracking-wide font-medium">
-                Dokumenti
+                {ui("common.documents")}
               </h4>
               <div className="flex flex-col gap-2 mt-2">
                 {job.meta.documents.map((document, index) => (
@@ -268,7 +268,7 @@ const JobPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
             </div>
 
             <h4 className="mt-10 mb-2 uppercase text-text text-sm tracking-wide font-medium">
-              Način za prijavu
+              {ui("job.howToApply")}
             </h4>
             <DisplayHTML
               html={job?.meta.contact_student || ""}

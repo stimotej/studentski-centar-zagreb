@@ -135,7 +135,7 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
           </div>
           <div className="flex justify-center mt-8">
             <ButtonLink href="/obavijesti" className="px-8 !rounded-full">
-              Idi na obavijesti
+              {ui("common.goToNews")}
             </ButtonLink>
           </div>
 
@@ -173,7 +173,7 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
             className="mt-6 font-medium text-lg"
           />
           <SidebarLinks
-            emptyText="Nema poslova za prikaz"
+            emptyText={ui("empty.jobs")}
             className="mt-2"
             items={
               oglasZaPopunuRadnihMjestaPost?.meta.documents.map((file) => ({
@@ -186,7 +186,7 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
           <TeatarTDCard className="mt-2" />
           <h3 className="mt-6 font-medium text-lg">{ui("home.calendar")}</h3>
           <SidebarLinks
-            emptyText="Nema evenata za prikaz"
+            emptyText={ui("empty.events")}
             className="mt-2"
             items={
               calendarEvents?.map((event) => ({
@@ -225,7 +225,7 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
           {faqs?.filter((item) => item.categories.includes(faqPocetnaCategory))
             .length > 8 && (
             <ButtonLink href="/informacije" className="mx-auto mt-6">
-              Vidi sve
+              {ui("common.seeAll")}
             </ButtonLink>
           )}
         </div>

@@ -3,6 +3,7 @@ import { MdChevronRight } from "react-icons/md";
 import DisplayHTML from "../elements/DisplayHTML";
 import Card from "../shared/Card";
 import CustomLink from "../elements/CustomLink";
+import { useUI } from "@/utils/ui";
 
 interface GeneralInfoCardProps {
   title: string;
@@ -11,6 +12,7 @@ interface GeneralInfoCardProps {
 }
 
 const GeneralInfoCard: React.FC<GeneralInfoCardProps> = (props) => {
+  const ui = useUI();
   return (
     <Card className="text-sm text-text w-full">
       <DisplayHTML
@@ -23,7 +25,7 @@ const GeneralInfoCard: React.FC<GeneralInfoCardProps> = (props) => {
           href={props.link}
           className="text-primary flex items-center gap-1"
         >
-          Saznaj više
+          {ui("common.readMore")}
           <MdChevronRight size={16} />
         </CustomLink>
       </p>

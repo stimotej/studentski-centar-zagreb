@@ -74,7 +74,7 @@ const EventPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
         <div className="flex flex-col gap-12 items-center justify-center mt-20">
           <p className="text-lg text-light">{ui("empty.eventNotFound")}</p>
           <Button onClick={() => router.back()} className="mx-auto">
-            Povratak
+            {ui("job.back")}
           </Button>
         </div>
       </Layout>

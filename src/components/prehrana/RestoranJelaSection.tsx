@@ -2,77 +2,78 @@ import Image from "next/image";
 import React, { useEffect } from "react";
 import { MdClose } from "react-icons/md";
 import Button from "../elements/Button";
-import { useUI } from "@/utils/ui";
+import { useUI, type UIKey } from "@/utils/ui";
 
 interface RestoranJelaProps {
   className?: string;
 }
 
-const alergeni = [
+const buildAlergeni = (ui: (key: UIKey) => string) => [
   {
     label: "A",
-    description: "žitarice koje sadrže gluten i proizvodi od tih žitarica",
+    description: ui("allergen.gluten"),
   },
   {
     label: "B",
-    description: "rakovi i proizvodi od rakova",
+    description: ui("allergen.crustaceans"),
   },
   {
     label: "C",
-    description: "jaja i proizvodi od jaja",
+    description: ui("allergen.eggs"),
   },
   {
     label: "D",
-    description: "riba i riblji proizvodi",
+    description: ui("allergen.fish"),
   },
   {
     label: "E",
-    description: "kikiriki i proizvodi od kikirikija",
+    description: ui("allergen.peanuts"),
   },
   {
     label: "F",
-    description: "zrna soje i proizvodi od soje",
+    description: ui("allergen.soy"),
   },
   {
     label: "G",
-    description: "mlijeko i mliječni proizvodi (uključujući laktozu)",
+    description: ui("allergen.milk"),
   },
   {
     label: "H",
-    description: "orašasto voće i njegovi proizvodi",
+    description: ui("allergen.nuts"),
   },
   {
     label: "I",
-    description: "celer i njegovi proizvodi",
+    description: ui("allergen.celery"),
   },
   {
     label: "J",
-    description: "gorušica i proizvodi od gorušice",
+    description: ui("allergen.mustard"),
   },
   {
     label: "K",
-    description: "sjeme sezama i proizvodi od sjemena sezama",
+    description: ui("allergen.sesame"),
   },
   {
     label: "L",
-    description: "sumporni dioksid i sulfiti",
+    description: ui("allergen.sulphites"),
   },
   {
     label: "M",
-    description: "lupina i proizvodi od lupine",
+    description: ui("allergen.lupin"),
   },
   {
     label: "N",
-    description: "mekušci i proizvodi od mekušaca",
+    description: ui("allergen.molluscs"),
   },
   {
     label: "*",
-    description: "može sadržavati navedeni alergen",
+    description: ui("allergen.mayContain"),
   },
 ];
 
 const RestoranJelaSection: React.FC<RestoranJelaProps> = (props) => {
   const ui = useUI();
+  const alergeni = buildAlergeni(ui);
   const [modalOpened, setModalOpened] = React.useState(false);
 
   useEffect(() => {
@@ -88,20 +89,16 @@ const RestoranJelaSection: React.FC<RestoranJelaProps> = (props) => {
       <div className="flex flex-col gap-12 lg:flex-row">
         <div className="flex-1">
           <h3 className="text-[38px] text-text font-semibold leading-normal">
-            Sva jela pripremljena su od profesionalnih kuhara sa svježim i
-            kvalitetnim sastojcima.
+            {ui("food.prepared")}
           </h3>
           <p className="mt-4 text-light leading-relaxed">
-            Za kvalitetniju pripremu jela koriste se kvalitetni sastojci sa
-            fokusom da se pri kuhanju maksimalno iskoriste nutritivne
-            vrijednosti namirnica. Detaljan opis alergena potražite na linku u
-            nastavku.
+            {ui("food.quality")}
           </p>
           <Button
             className="mt-6"
             onClick={() => setModalOpened((isOpened) => !isOpened)}
           >
-            Alergeni
+            {ui("common.allergens")}
           </Button>
         </div>
         <div className="flex-1">

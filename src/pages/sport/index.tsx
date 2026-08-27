@@ -84,7 +84,7 @@ const SportPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   return (
     <Layout
       title={ui("sport.pageTitle")}
-      description="U ponudi rekreativnih aktivnosti koje su dostupne svim studentima Sveučilišta u Zagrebu, najviše je zanimanja za programe: fitness, aerobik, zumba fitness, funkcionalno-kondicijski trening."
+      description={ui("sport.recreationIntro")}
       bottomComponent={
         <div className="mb-12">
           {/* REKREACIJSKE AKTIVNOSTI */}
@@ -118,7 +118,7 @@ const SportPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                     <>
                       <div id="rekreacijske-aktivnosti-informacije-cjelogodisnje"></div>
                       <h4 className="text-text text-center text-lg font-semibold mt-12">
-                        Cjelogodišnje
+                        {ui("sport.yearRoundTc")}
                       </h4>
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
                         {posts
@@ -145,7 +145,7 @@ const SportPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                     <>
                       <div id="rekreacijske-aktivnosti-informacije-povremene"></div>
                       <h4 className="text-text text-center text-lg font-semibold mt-12">
-                        Povremene
+                        {ui("sport.occasionalTc")}
                       </h4>
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
                         {posts
@@ -210,7 +210,7 @@ const SportPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                     <>
                       <div id="edukacijske-aktivnosti-informacije-sportske"></div>
                       <h4 className="text-text text-center text-lg font-semibold mt-12">
-                        Sportske
+                        {ui("sport.sportingTc")}
                       </h4>
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
                         {posts
@@ -237,7 +237,7 @@ const SportPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                     <>
                       <div id="edukacijske-aktivnosti-informacije-strucne"></div>
                       <h4 className="text-text text-center text-lg font-semibold mt-12">
-                        Stručne
+                        {ui("sport.professionalTc")}
                       </h4>
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
                         {posts
@@ -405,7 +405,7 @@ const SportPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                 item.categories.includes(faqSportCategory),
               ).length > 8 && (
                 <ButtonLink href="/sport/faq" className="mx-auto mt-6">
-                  Vidi sve
+                  {ui("common.seeAll")}
                 </ButtonLink>
               )}
             </div>
@@ -418,7 +418,7 @@ const SportPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                 className="mx-auto"
                 isRegularLink
               >
-                Arhiva
+                {ui("sport.archive")}
               </ButtonLink>
             </Card>
           </Section>
@@ -427,7 +427,7 @@ const SportPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
     >
       <PageTitle
         title={ui("sport.pageTitleUpper")}
-        // subtitle="U ponudi rekreativnih aktivnosti koje su dostupne svim studentima Sveučilišta u Zagrebu, najviše je zanimanja za programe: fitness, aerobik, zumba fitness, funkcionalno-kondicijski trening."
+        // subtitle={ui("sport.recreationIntro")}
       />
 
       <PagePosts posts={obavijesti} className="mt-12" />

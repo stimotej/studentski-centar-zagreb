@@ -18,17 +18,16 @@ const UgovaranjePoslaSection: React.FC<UgovaranjePoslaSectionProps> = (
       <div className="flex flex-col lg:flex-row gap-6 ">
         <div className="flex flex-col gap-3 pl-0 lg:pl-24 lg:w-2/3">
           <h5 className="text-primary text-sm font-medium tracking-wider uppercase">
-            Ugovaranje posla
+            {ui("ss.contractTitle")}
           </h5>
           <h3 className="text-[38px] text-text font-semibold leading-normal">
-            Poslodavac je dužan popuniti obrazac ugovora te ga ovjeriti
-            najkasnije u roku od 15 dana nakon obavljenog posla.
+            {ui("ss.employerDuty")}
           </h3>
           <ButtonLink
             href="/dokumenti/student-servis/Zakon-o-obavljanju-studentskih-poslova.pdf"
             isRegularLink
           >
-            PRAVILNIK O STUDENTSKOM ZAPOŠLJAVANJU
+            {ui("ss.regulation")}
           </ButtonLink>
         </div>
         <div className="lg:w-1/3 lg:px-6">

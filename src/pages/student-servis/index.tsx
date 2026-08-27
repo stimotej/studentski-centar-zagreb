@@ -148,7 +148,7 @@ const StudentServisPage: NextPage<
           />
           {faqStudentServisPosts.length > 8 && (
             <ButtonLink href="/student-servis/faq" className="mx-auto mt-6">
-              Vidi sve
+              {ui("common.seeAll")}
             </ButtonLink>
           )}
         </div>

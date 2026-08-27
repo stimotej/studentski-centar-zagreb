@@ -29,16 +29,13 @@ const ClanstvoSection: React.FC<DigitalnoPotpisivanjeSectionProps> = (
         </div>
         <div className="flex-1">
           <h5 className="text-primary text-sm font-medium tracking-wider uppercase">
-            ČLANSTVO U STUDENT SERVISU
+            {ui("membership.upper")}
           </h5>
           <h3 className="text-[38px] text-text font-semibold leading-normal">
-            Uvjeti za članstvo i prijava.
+            {ui("membership.conditions")}
           </h3>
           <p className="mt-3 text-light leading-normal">
-            Omogućuje obavljanje studentskih poslova, izdavanje ugovora o djelu
-            poslodavcima i isplatu naknada na žiro račun studenta. Član student
-            servisa može biti student i maturant ali najdulje 3 mjeseca od
-            završetka srednjoškolskog obrazovanja.
+            {ui("membership.enables")}
           </p>
           <div className="flex flex-col gap-8 mt-6">
             <SectionCard title={ui("membership.status")} />

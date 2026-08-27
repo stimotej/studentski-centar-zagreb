@@ -5,6 +5,7 @@ import DisplayHTML from "../elements/DisplayHTML";
 import Card from "./Card";
 import clearHtmlFromString from "@/utils/clearHtmlFromString";
 import CustomLink from "../elements/CustomLink";
+import { useUI } from "@/utils/ui";
 
 interface InfoPostCardProps {
   title: string;
@@ -15,6 +16,7 @@ interface InfoPostCardProps {
 }
 
 const InfoPostCard: React.FC<InfoPostCardProps> = (props) => {
+  const ui = useUI();
   return (
     <Card
       className={clsx(
@@ -51,7 +53,7 @@ const InfoPostCard: React.FC<InfoPostCardProps> = (props) => {
                 : "",
             )}
           >
-            Saznaj više <MdArrowRightAlt size={18} />
+            {ui("common.readMore")} <MdArrowRightAlt size={18} />
           </CustomLink>
         </>
       ) : (

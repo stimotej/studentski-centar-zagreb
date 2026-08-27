@@ -95,7 +95,7 @@ const RestaurantPage: NextPage<
         <div className="flex flex-col gap-12 items-center justify-center mt-20">
           <p className="text-lg text-light">{ui("empty.restaurantNotFound")}</p>
           <Button onClick={() => router.back()} className="mx-auto">
-            Povratak
+            {ui("job.back")}
           </Button>
         </div>
       </Layout>

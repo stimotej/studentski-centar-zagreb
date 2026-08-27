@@ -181,7 +181,7 @@ const SmjestajPage: NextPage<
                   item.categories.includes(faqSmjestajCategory),
                 ).length > 8 && (
                   <ButtonLink href="/smjestaj/faq" className="mx-auto mt-6">
-                    Vidi sve
+                    {ui("common.seeAll")}
                   </ButtonLink>
                 )}
               </div>

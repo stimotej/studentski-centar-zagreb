@@ -125,7 +125,7 @@ const DormitoryPage: NextPage<
         <div className="flex flex-col gap-12 items-center justify-center mt-20">
           <p className="text-lg text-light">{ui("dorm.notFound")}</p>
           <Button onClick={() => router.back()} className="mx-auto">
-            Povratak
+            {ui("job.back")}
           </Button>
         </div>
       </Layout>
@@ -184,7 +184,7 @@ const DormitoryPage: NextPage<
         {!!sadrzaj && (
           <Card>
             <h5 className="font-semibold text-text text-lg mb-2">
-              Popratni sadržaj
+              {ui("common.relatedContent")}
             </h5>
             <DisplayHTML html={sadrzaj} className="text-light" />
           </Card>
@@ -200,7 +200,7 @@ const DormitoryPage: NextPage<
         {!!radnoVrijemeBlagajni && (
           <Card>
             <h5 className="font-semibold text-text text-lg mb-2">
-              Radno vrijeme blagajni
+              {ui("common.workingHours")}
             </h5>
             <DisplayHTML html={radnoVrijemeBlagajni} className="text-light" />
           </Card>

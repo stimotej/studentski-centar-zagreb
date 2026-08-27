@@ -106,7 +106,7 @@ const KulturaPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                 isRegularLink
                 outlined
               >
-                Kalendar evenata
+                {ui("kultura.eventCalendar")}
               </ButtonLink>
             </div>
           ) : (
@@ -179,7 +179,7 @@ const KulturaPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
           href="/kultura/eventi"
           className="mx-auto mt-8 !rounded-full"
         >
-          Vidi sve
+          {ui("common.seeAll")}
         </ButtonLink>
       </div>
       {!!posts?.filter((item) => item.categories.includes(faqKulturaCategory))
@@ -200,7 +200,7 @@ const KulturaPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
           {posts?.filter((item) => item.categories.includes(faqKulturaCategory))
             .length > 8 && (
             <ButtonLink href="/kultura/faq" className="mx-auto mt-6">
-              Vidi sve
+              {ui("common.seeAll")}
             </ButtonLink>
           )}
         </div>

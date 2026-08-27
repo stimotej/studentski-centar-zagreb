@@ -10,14 +10,8 @@ import { useUI } from "@/utils/ui";
 const PlacanjeStanarineOnLinePutemPage: NextPage = () => {
   const ui = useUI();
   return (
-    <Layout
-      title={ui("rent.title")}
-      description="Omogućeno je plaćanje smještaja u studentskim domovima on-line putem tokom cijele akademke godine. Student na ovaj način može platiti sva dosadašnja dugovanja, kao i stanarinu za mjesec unaprijed."
-    >
-      <PageTitle
-        title={ui("rent.title")}
-        subtitle="Omogućeno je plaćanje smještaja u studentskim domovima on-line putem tokom cijele akademke godine. Student na ovaj način može platiti sva dosadašnja dugovanja, kao i stanarinu za mjesec unaprijed."
-      />
+    <Layout title={ui("rent.title")} description={ui("rent.intro")}>
+      <PageTitle title={ui("rent.title")} subtitle={ui("rent.intro")} />
       <Step
         number={1}
         image="/slike/smjestaj/placanje-stanarine/korak_1.png"
@@ -36,19 +30,16 @@ const PlacanjeStanarineOnLinePutemPage: NextPage = () => {
       <Step
         number={4}
         image="/slike/smjestaj/placanje-stanarine/korak_4.jpg"
-        content={`<p><strong>Sa desne strane vidljiva je opcija „Plaćanje odabranih usluga“ na čiji se klik otvara obrazac za plaćanje stanarine (sukladno odabranim opcijama).</strong></p>`}
+        content={`<p><strong>{ui("rent.rightSide")}</strong></p>`}
       />
       <Step
         number={5}
         image="/slike/smjestaj/placanje-stanarine/korak_5.jpg"
-        content={`<p><strong>U obrazac potrebno je unijeti broj kartice, datum isteka i kontrolni broj. Ako su ti podaci ispravno upisani, transakciju je potrebno potvrditi nekim oblikom tokena (čitač kartice, mtoken – kao i na svakom web plaćanju).</strong></p>`}
+        content={`<p><strong>{ui("rent.cardDetails")}</strong></p>`}
       />
 
       <Card className="text-text text-center my-12 font-medium">
-        <p>
-          Ukoliko je transakcija uspješna, student može dohvatiti račun u PDF
-          obliku.
-        </p>
+        <p>{ui("rent.receipt")}</p>
         <p className="mt-3">
           Ako se na formi za plaćanje prikaže da je transakcija uspješna, a na
           ekranu za rezervaciju smještaja bude pogreška kako transakcija nije
@@ -58,10 +49,7 @@ const PlacanjeStanarineOnLinePutemPage: NextPage = () => {
           OIB), broj rezervacije i kratak opis što je pošlo krivo (poželjna je
           preslika ekrana), kako bi se transakcija ručno stornirala.
         </p>
-        <p className="mt-3">
-          Napomena: nije moguće platiti stanarinu za mjesec unaprijed ukoliko
-          nisu podmirena sva ranije pristigla dugovanja.
-        </p>
+        <p className="mt-3">{ui("rent.note")}</p>
       </Card>
     </Layout>
   );
