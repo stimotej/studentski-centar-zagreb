@@ -129,6 +129,7 @@ const KulturaPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
         {locations?.map((location) => (
           <ContentCard
             key={location.id}
+            banner
             image={location.image_url}
             title={clearHtmlFromString(location.title.rendered)}
             content={location.excerpt.rendered}

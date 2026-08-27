@@ -2,13 +2,13 @@ import type { Post, PostsMeta } from "@/features/types";
 import clearHtmlFromString from "@/utils/clearHtmlFromString";
 import { restaurantsCategoryId } from "@/utils/constants";
 import clsx from "clsx";
-import Image from "next/image";
 import React, { useRef } from "react";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import DisplayHTML from "../elements/DisplayHTML";
 import Spinner from "../elements/Spinner";
 import SectionTitle from "./SectionTitle";
 import CustomLink from "../elements/CustomLink";
+import CardImage from "./CardImage";
 
 interface PostSliderProps {
   title?: string;
@@ -91,12 +91,11 @@ const PostCard: React.FC<PostCardProps> = (props) => {
           : `/smjestaj/domovi/${props.post.slug}`
       }
     >
-      <Image
+      <CardImage
         src={props.post.image_url}
         alt={clearHtmlFromString(props.post.title.rendered)}
-        width={350}
-        height={200}
-        className="rounded-lg object-cover w-[60vw] h-[30vh] max-w-[350px] min-w-[300px]"
+        className="w-[60vw] max-w-[350px] min-w-[300px] aspect-[16/10]"
+        sizes="350px"
       />
       <div className="flex flex-col gap-2 px-4 mt-4">
         <h4 className="text-text font-semibold text-xl">

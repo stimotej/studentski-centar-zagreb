@@ -4,6 +4,7 @@ import React from "react";
 import ButtonLink from "../elements/ButtonLink";
 import DisplayHTML from "../elements/DisplayHTML";
 import Card from "./Card";
+import CardImage from "./CardImage";
 
 interface ContentCardProps {
   image?: string;
@@ -14,6 +15,8 @@ interface ContentCardProps {
   contentClassName?: string;
   action?: { title: string; href: string; isRegularLink?: boolean };
   className?: string;
+  /** Photos: show the whole image in a fixed-ratio box over a blurred backdrop. */
+  banner?: boolean;
 }
 
 const ContentCard: React.FC<ContentCardProps> = (props) => {
@@ -24,18 +27,25 @@ const ContentCard: React.FC<ContentCardProps> = (props) => {
         props.className
       )}
     >
-      {!!props.image && (
-        <Image
-          src={props.image}
-          alt={props.title}
-          width={230}
-          height={230}
-          className={clsx(
-            "h-[150px] w-auto object-cover mx-auto",
-            props.imageClassName
-          )}
-        />
-      )}
+      {!!props.image &&
+        (props.banner ? (
+          <CardImage
+            src={props.image}
+            alt={props.title}
+            className={clsx("w-full aspect-[16/10]", props.imageClassName)}
+          />
+        ) : (
+          <Image
+            src={props.image}
+            alt={props.title}
+            width={230}
+            height={230}
+            className={clsx(
+              "h-[150px] w-auto object-cover mx-auto",
+              props.imageClassName
+            )}
+          />
+        ))}
       <div className="flex flex-col gap-2">
         <DisplayHTML
           html={props.title}

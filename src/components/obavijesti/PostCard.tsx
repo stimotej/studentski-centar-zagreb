@@ -1,9 +1,9 @@
 import React from "react";
-import Image from "next/image";
 import dayjs from "dayjs";
 import DisplayHTML from "../elements/DisplayHTML";
 import clearHtmlFromString from "@/utils/clearHtmlFromString";
 import CustomLink from "../elements/CustomLink";
+import CardImage from "../shared/CardImage";
 
 interface PostCardProps {
   image: string;
@@ -17,13 +17,11 @@ interface PostCardProps {
 const PostCard: React.FC<PostCardProps> = (props) => {
   return (
     <CustomLink href={"/obavijesti/" + props.slug}>
-      <Image
+      <CardImage
         src={props.image || "/slike/placeholder.png"}
         alt={props.title}
         priority
-        width={355}
-        height={250}
-        className="object-cover w-full h-[200px] rounded-lg"
+        className="w-full aspect-[16/10]"
       />
       <div className="flex flex-col gap-2 px-3 mt-3">
         <DisplayHTML

@@ -69,7 +69,7 @@ const PagePostCard: React.FC<PagePostCardProps> = (props) => {
         priority
         width={96}
         height={96}
-        className="w-24 h-24 object-cover rounded-lg"
+        className="w-24 h-24 object-cover object-[center_25%] rounded-lg"
       />
       <div className="flex flex-col gap-2 flex-1">
         <DisplayHTML

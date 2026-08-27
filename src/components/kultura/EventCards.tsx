@@ -105,7 +105,7 @@ export const EventCard: React.FC<EventCardProps> = (props) => {
             width={60}
             height={60}
             className={clsx(
-              "rounded-lg object-cover",
+              "rounded-lg object-cover object-[center_25%]",
               props.dense ? "w-[50px] h-[50px]" : "w-[60px] h-[60px]"
             )}
           />
