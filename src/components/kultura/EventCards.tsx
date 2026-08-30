@@ -7,6 +7,7 @@ import DisplayHTML from "../elements/DisplayHTML";
 import Spinner from "../elements/Spinner";
 import Card from "../shared/Card";
 import CustomLink from "../elements/CustomLink";
+import { useUI } from "@/utils/ui";
 
 interface EventCardsProps {
   events: Event[] | undefined;
@@ -18,6 +19,8 @@ interface EventCardsProps {
 }
 
 const EventCards: React.FC<EventCardsProps> = (props) => {
+  const ui = useUI();
+
   return props.loading ? (
     <div
       className={clsx(
@@ -29,7 +32,7 @@ const EventCards: React.FC<EventCardsProps> = (props) => {
     </div>
   ) : props.events && props.events.length <= 0 ? (
     <div className={clsx("text-light", props.classNameEmpty)}>
-      {props.emptyMessage || "Nema evenata za prikaz"}
+      {props.emptyMessage || ui("empty.events")}
     </div>
   ) : (
     <div className={clsx("grid grid-cols-1 lg:grid-cols-2", props.className)}>
