@@ -30,12 +30,13 @@ import type {
 } from "@/features/types";
 import { useUI } from "@/utils/ui";
 import { categoryName } from "@/utils/categoryName";
+import { localized } from "@/utils/i18n";
 
 type JobsProps = {
   initialJobs: Post<JobsMeta>[];
   totalPages: number;
   postObrasci: Post<PostsMeta>[];
-  jobPage: Post<JobsMeta>;
+  jobPage: Post<PostsMeta>;
   categories: Category[];
   banners: Banner[];
 };
@@ -74,6 +75,8 @@ const PosloviPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
 }) => {
   const ui = useUI();
   const router = useRouter();
+  const t = (hr: string | undefined, en: string | undefined) =>
+    localized(router.locale, hr, en);
 
   const category = router.query.category
     ? Number(router.query.category)
@@ -165,12 +168,14 @@ const PosloviPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
 
   return (
     <Layout
-      title={clearHtmlFromString(jobPage?.title.rendered ?? "Poslovi")}
+      title={clearHtmlFromString(
+        t(jobPage?.title.rendered, jobPage?.meta.title_en) || "Poslovi",
+      )}
       description={ui("jobs.metaTitle")}
     >
       <PageTitle
-        title={jobPage?.title.rendered ?? "Poslovi"}
-        subtitle={jobPage?.excerpt.rendered}
+        title={t(jobPage?.title.rendered, jobPage?.meta.title_en) || "Poslovi"}
+        subtitle={t(jobPage?.excerpt.rendered, jobPage?.meta.excerpt_en)}
       />
       <div className="mt-12 flex flex-col-reverse gap-12 md:flex-row pb-12">
         <div className="w-full md:w-[75%]">
@@ -238,7 +243,10 @@ const PosloviPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
           />
           <LoginInfoCard
             title={ui("jobs.forms")}
-            content={postObrasci?.[0].content.rendered || ""}
+            content={t(
+              postObrasci?.[0].content.rendered,
+              postObrasci?.[0].meta.content_en,
+            )}
             documents={postObrasci?.[0].meta.documents || []}
             className="mt-6 hidden md:block !p-0 !bg-transparent !shadow-none [&>div>div>p]:!text-sm"
           />
@@ -261,7 +269,10 @@ const PosloviPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
       </div>
       <LoginInfoCard
         title={ui("jobs.forms")}
-        content={postObrasci?.[0].content.rendered || ""}
+        content={t(
+          postObrasci?.[0].content.rendered,
+          postObrasci?.[0].meta.content_en,
+        )}
         documents={postObrasci?.[0].meta.documents || []}
         className="mt-6 md:hidden !p-0 !bg-transparent !shadow-none [&>div>div>p]:!text-sm"
       />
