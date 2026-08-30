@@ -16,7 +16,7 @@ const DigitalnoPotpisivanjeSection: React.FC<
       <div className="flex flex-col gap-12 lg:flex-row">
         <div className="flex-1">
           <h5 className="text-primary text-sm font-medium tracking-wider uppercase">
-            DIGITALNO POTPISIVANJE UGOVORA
+            {ui("sign.headingUpper")}
           </h5>
           <h3 className="text-[38px] text-text font-semibold leading-normal">
             {ui("sign.instant")}

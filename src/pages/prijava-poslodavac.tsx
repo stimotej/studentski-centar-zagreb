@@ -13,6 +13,8 @@ import {
 } from "@/utils/constants";
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
 import { useUI } from "@/utils/ui";
+import { useRouter } from "next/router";
+import { localized } from "@/utils/i18n";
 
 type PrijavaProps = {
   registerPost: Post<PostsMeta> | undefined;
@@ -46,6 +48,9 @@ const CompanyLoginPage: NextPage<
   InferGetStaticPropsType<typeof getStaticProps>
 > = ({ registerPost, documentPost, predajaOglasaPost }) => {
   const ui = useUI();
+  const { locale } = useRouter();
+  const t = (hr: string | undefined, en: string | undefined) =>
+    localized(locale, hr, en);
   return (
     <Layout
       title={ui("login.employerPage")}
@@ -54,21 +59,33 @@ const CompanyLoginPage: NextPage<
       <PageTitle title={ui("login.employerPage")} />
       <div className="flex flex-col my-12 gap-6 items-start lg:flex-row">
         <LoginInfoCard
-          title={registerPost?.title.rendered || ""}
-          content={registerPost?.content.rendered || ""}
+          title={t(registerPost?.title.rendered, registerPost?.meta.title_en)}
+          content={t(
+            registerPost?.content.rendered,
+            registerPost?.meta.content_en,
+          )}
           documents={registerPost?.meta.documents || []}
           className="flex-1"
         />
         <LoginInfoCard
-          title={documentPost?.title.rendered || ""}
-          content={documentPost?.content.rendered || ""}
+          title={t(documentPost?.title.rendered, documentPost?.meta.title_en)}
+          content={t(
+            documentPost?.content.rendered,
+            documentPost?.meta.content_en,
+          )}
           documents={documentPost?.meta.documents || []}
           className="flex-1"
         />
         <div className="flex-1">
           <LoginInfoCard
-            title={predajaOglasaPost?.title.rendered || ""}
-            content={predajaOglasaPost?.content.rendered || ""}
+            title={t(
+              predajaOglasaPost?.title.rendered,
+              predajaOglasaPost?.meta.title_en,
+            )}
+            content={t(
+              predajaOglasaPost?.content.rendered,
+              predajaOglasaPost?.meta.content_en,
+            )}
             documents={predajaOglasaPost?.meta.documents || []}
           />
           {/* <LogInForm className="mt-4" /> */}

@@ -13,6 +13,8 @@ import {
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
 import type { Post, PostsMeta } from "@/features/types";
 import { useUI } from "@/utils/ui";
+import { useRouter } from "next/router";
+import { localized } from "@/utils/i18n";
 
 type PrijavaProps = {
   studentLoginPost: Post<PostsMeta> | undefined;
@@ -36,6 +38,9 @@ const StudentLoginPage: NextPage<
   InferGetStaticPropsType<typeof getStaticProps>
 > = ({ studentLoginPost }) => {
   const ui = useUI();
+  const { locale } = useRouter();
+  const t = (hr: string | undefined, en: string | undefined) =>
+    localized(locale, hr, en);
   return (
     <Layout title={ui("login.pageTitle")} description={ui("login.studentPage")}>
       <PageTitle title={ui("login.studentIntro")} />
@@ -44,8 +49,14 @@ const StudentLoginPage: NextPage<
         <div className="md:w-[65%]">
           {studentLoginPost ? (
             <LoginInfoCard
-              title={studentLoginPost.title.rendered || ""}
-              content={studentLoginPost.content.rendered || ""}
+              title={t(
+                studentLoginPost.title.rendered,
+                studentLoginPost.meta.title_en,
+              )}
+              content={t(
+                studentLoginPost.content.rendered,
+                studentLoginPost.meta.content_en,
+              )}
               documents={studentLoginPost.meta.documents || []}
             />
           ) : null}

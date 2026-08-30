@@ -383,6 +383,13 @@ export const HR = {
   "fee.projects": "Financiranje studentskih projekata",
   "fee.scholarships": "Stipendiranje studenata",
   "fee.perContract": "/ po ugovoru",
+  "sign.headingUpper": "DIGITALNO POTPISIVANJE UGOVORA",
+  "login.eContracts":
+    "Izdavanje e-ugovora, pregled ugovora, ispis potvrda, zarade",
+  "membership.results":
+    "Ispis moji Rezultati na <a href='https://www.postani-student.hr/'>www.postani-student.hr</a>",
+  "login.noAaiAccount":
+    "Ukoliko nemate AAI korisnički račun, prijaviti se možete ovdje",
   "home.metaTitle":
     "Studentski Centar u Zagrebu, Sveučilište u Zagrebu; Kultura, Prehrana, Smještaj, Student servis, Sport, Teatar &TD",
   "rent.selectWhat":
@@ -758,6 +765,13 @@ export const EN: Partial<Record<UIKey, string>> = {
   "fee.projects": "Funding student projects",
   "fee.scholarships": "Student scholarships",
   "fee.perContract": "/ per contract",
+  "sign.headingUpper": "DIGITAL CONTRACT SIGNING",
+  "login.eContracts":
+    "Issuing e-contracts, viewing contracts, printing certificates, earnings",
+  "membership.results":
+    "A printout of My Results from <a href='https://www.postani-student.hr/'>www.postani-student.hr</a>",
+  "login.noAaiAccount":
+    "If you do not have an AAI account, you can sign in here",
   "home.metaTitle":
     "Studentski centar u Zagrebu, University of Zagreb; Culture, Dining, Accommodation, Student service, Sport, Teatar &TD",
   "rent.selectWhat":

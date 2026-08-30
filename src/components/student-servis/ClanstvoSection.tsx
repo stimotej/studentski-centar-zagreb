@@ -44,7 +44,7 @@ const ClanstvoSection: React.FC<DigitalnoPotpisivanjeSectionProps> = (
             <SectionCard title={ui("membership.idCard")} />
             <SectionCard title={ui("membership.photos")} />
             <SectionCard title={ui("membership.diploma")} />
-            <SectionCard title="Ispis moji Rezultati na <a href='https://www.postani-student.hr/'>www.postani-student.hr</a>" />
+            <SectionCard title={ui("membership.results")} />
           </div>
         </div>
       </div>
