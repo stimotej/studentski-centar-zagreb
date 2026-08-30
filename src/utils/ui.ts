@@ -441,17 +441,17 @@ export const EN: Partial<Record<UIKey, string>> = {
   "org.university": "University of Zagreb",
 
   "smjestaj.pageTitle": "Accommodation",
-  "smjestaj.dorms": "Student halls",
-  "smjestaj.dormsUpper": "STUDENT HALLS",
-  "smjestaj.stay": "Living in a student hall",
+  "smjestaj.dorms": "Student dormitories",
+  "smjestaj.dormsUpper": "STUDENT DORMITORIES",
+  "smjestaj.stay": "Living in a student dormitory",
   "smjestaj.criteria":
-    "Dear future residents, the following criteria must be met in order to live in a student hall:",
+    "Dear future residents, the following criteria must be met in order to live in a student dormitory:",
   "smjestaj.applyTender": "Apply to the call",
   "smjestaj.applyVia":
     "To apply for student accommodation, use the link below.",
   "smjestaj.counselling": "COUNSELLING",
   "smjestaj.intro":
-    "SC Zagreb offers accommodation in four student halls in attractive locations across Zagreb.",
+    "The University of Zagreb Student Centre offers accommodation in four student dormitories in attractive locations across Zagreb.",
   "smjestaj.newsTitle": "News — student accommodation",
   "cards.contact": "Contact",
   "cards.settlements": "Villages",
@@ -538,7 +538,7 @@ export const EN: Partial<Record<UIKey, string>> = {
   "obavijesti.search": "Search news…",
   "obavijesti.metaTitle": "News from University of Zagreb Student Centre",
   "dorm.photos": "Photographs",
-  "dorm.notFound": "Student hall not found",
+  "dorm.notFound": "Student dormitory not found",
   "empty.photos": "No photographs to show",
 
   "nutrition.importance": "Why good nutrition matters",
@@ -644,7 +644,7 @@ export const EN: Partial<Record<UIKey, string>> = {
   "common.goToNews": "Go to news",
   "empty.events": "No events to show",
   "rent.intro":
-    "Accommodation in student halls can be paid online throughout the academic year. This lets students settle any outstanding debts as well as pay rent one month in advance.",
+    "Accommodation in student dormitories can be paid online throughout the academic year. This lets students settle any outstanding debts as well as pay rent one month in advance.",
   "rent.rightSide":
     "On the right you will see “Plaćanje odabranih usluga” (Pay for selected services); clicking it opens the rent payment form for the options you selected.",
   "rent.cardDetails":
@@ -703,7 +703,7 @@ export const EN: Partial<Record<UIKey, string>> = {
   "ss.intermediary": "STUDENT EMPLOYMENT AGENCY",
   "smjestaj.tender2022": "Accommodation call 2022/2023",
   "smjestaj.personalRight":
-    "The right to a place in a student hall is personal to the student and cannot be transferred to anyone else.",
+    "The right to a place in a student dormitory is personal to the student and cannot be transferred to anyone else.",
   "restaurant.offerIncludes": "The offer includes:",
   "restaurant.openingHours": "OPENING HOURS",
   "login.goToSignIn": "Go to sign-in",
@@ -749,9 +749,9 @@ export const EN: Partial<Record<UIKey, string>> = {
   "nutrition.digestionFull":
     "People's bodies and digestion differ enough that the same diet can produce different results. It is worth understanding your own body and adapting your diet to suit it.",
   "smjestaj.personalRightFull":
-    "The right to a place in a student hall is personal to the student and cannot be transferred. As soon as students move in, the University of Zagreb Student Centre carries out thorough checks that the right is properly held, and penalises breaches under the Rules on hall conduct and residence conditions.",
+    "The right to a place in a student dormitory is personal to the student and cannot be transferred. As soon as students move in, the University of Zagreb Student Centre carries out thorough checks that the right is properly held, and penalises breaches under the Dormitory Rules and residence conditions.",
   "smjestaj.counsellingFull":
-    "FREE counselling is available at the “Cvjetno naselje” student hall. Sessions run by prior appointment and are open to all students using the University of Zagreb Student Centre's services, as well as to its staff.",
+    "FREE counselling is available at the “Cvjetno naselje” student dormitory. Sessions run by prior appointment and are open to all students using the University of Zagreb Student Centre's services, as well as to its staff.",
   "rent.errorContact":
     "If the payment form reports success but the accommodation reservation screen shows the transaction failed, an error occurred while creating the receipt. Contact the SC office by email at (poslovnica@sczg.hr), giving your personal details (first name, surname, OIB), the reservation number and a short description of what went wrong (a screenshot helps), so the transaction can be reversed manually.",
   "kultura.coursesIntro":
