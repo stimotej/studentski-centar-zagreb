@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { MdAddCircle, MdRemoveCircle } from "react-icons/md";
 import DisplayHTML from "../elements/DisplayHTML";
 import BlueCard from "../shared/BlueCard";
+import { useUI } from "@/utils/ui";
 
 export type InfoToggleItem = {
   id: number;
@@ -61,6 +62,7 @@ interface ToggleCardProps {
 }
 
 const ToggleCard: React.FC<ToggleCardProps> = (props) => {
+  const ui = useUI();
   return (
     <div className="flex-1">
       <div className="bg-white p-8 rounded-lg">
@@ -81,7 +83,7 @@ const ToggleCard: React.FC<ToggleCardProps> = (props) => {
         onClick={props.onClick}
         className="flex w-full py-4 items-center justify-between gap-4 text-xs uppercase font-medium tracking-wider"
       >
-        Više informacija
+        {ui("common.moreInfo")}
         {props.active ? (
           <MdRemoveCircle className="text-white/60" size={16} />
         ) : (

@@ -58,6 +58,7 @@ export const HR = {
 
   // ---- organisation --------------------------------------------------
   "org.name": "Studentski centar u Zagrebu",
+  "common.moreInfo": "Više informacija",
   "org.university": "Sveučilište u Zagrebu",
 
   "smjestaj.pageTitle": "Smještaj",
@@ -162,6 +163,7 @@ export const HR = {
   "empty.photos": "Nema fotografija za prikaz",
 
   "nutrition.importance": "Važnost kvalitetne prehrane",
+  "nutrition.individual": "Individualni pristup",
   "nutrition.varied": "Raznovrsna prehrana",
   "nutrition.vitamins": "Vitamini i minerali",
   "nutrition.activity": "Tjelesna aktivnost",
@@ -439,6 +441,7 @@ export const EN: Partial<Record<UIKey, string>> = {
   "empty.notFound": "Notice not found",
 
   "org.name": "University of Zagreb Student Centre",
+  "common.moreInfo": "More information",
   "org.university": "University of Zagreb",
 
   "smjestaj.pageTitle": "Accommodation",
@@ -543,6 +546,7 @@ export const EN: Partial<Record<UIKey, string>> = {
   "empty.photos": "No photographs to show",
 
   "nutrition.importance": "Why good nutrition matters",
+  "nutrition.individual": "An individual approach",
   "nutrition.varied": "A varied diet",
   "nutrition.vitamins": "Vitamins and minerals",
   "nutrition.activity": "Physical activity",

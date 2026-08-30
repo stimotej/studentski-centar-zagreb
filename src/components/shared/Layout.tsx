@@ -4,6 +4,7 @@ import Head from "next/head";
 import Navbar from "@/components/shared/Navbar";
 import { motion } from "framer-motion";
 import Footer from "./Footer";
+import { useUI } from "@/utils/ui";
 
 const poppins = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -25,12 +26,11 @@ const Layout = ({
   description,
   bottomComponent,
 }: LayoutProps) => {
+  const ui = useUI();
   return (
     <>
       <Head>
-        <title>{`${
-          title ? `${title} | ` : ""
-        }Studentski Centar u Zagrebu`}</title>
+        <title>{`${title ? `${title} | ` : ""}${ui("org.name")}`}</title>
         <meta name="description" content={description} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/sc-logo.svg" />

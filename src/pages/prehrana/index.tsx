@@ -120,7 +120,10 @@ const PrehranaPage: NextPage<
               </div>
               <Card className="flex flex-col gap-3 text-primary flex-1">
                 <DisplayHTML
-                  html={linksPost?.[0].excerpt.rendered || ""}
+                  html={t(
+                    linksPost?.[0].excerpt.rendered,
+                    linksPost?.[0].meta.excerpt_en,
+                  )}
                   className="leading-7"
                 />
               </Card>

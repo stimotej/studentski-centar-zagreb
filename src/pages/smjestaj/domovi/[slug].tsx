@@ -96,10 +96,14 @@ const DormitoryPage: NextPage<
   );
 
   const natjecajTitle = natjecajDokument?.title.rendered
-    ? clearHtmlFromString(natjecajDokument.title.rendered)
+    ? clearHtmlFromString(
+        t(natjecajDokument.title.rendered, natjecajDokument.meta.title_en),
+      )
     : undefined;
   const natjecajDescription = natjecajDokument?.excerpt.rendered
-    ? clearHtmlFromString(natjecajDokument.excerpt.rendered)
+    ? clearHtmlFromString(
+        t(natjecajDokument.excerpt.rendered, natjecajDokument.meta.excerpt_en),
+      )
     : undefined;
   const natjecajPdfUrl = natjecajDokument?.meta.documents?.[0]?.source_url;
 

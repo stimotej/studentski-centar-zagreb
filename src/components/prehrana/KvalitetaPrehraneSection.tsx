@@ -45,7 +45,7 @@ const KvalitetaPrehraneSection: React.FC<KvalitetaPrehraneSectionProps> = (
         <div className="flex flex-col md:flex-row gap-10 mt-12">
           <Card className="text-center flex-1">
             <h5 className="text-lg text-text font-semibold mb-4">
-              Individualni pristup
+              {ui("nutrition.individual")}
             </h5>
             <p className="text-sm font-light leading-relaxed">
               {ui("nutrition.digestionFull")}
@@ -53,7 +53,7 @@ const KvalitetaPrehraneSection: React.FC<KvalitetaPrehraneSectionProps> = (
           </Card>
           <Card className="text-center flex-1">
             <h5 className="text-lg text-text font-semibold mb-4">
-              Individualni pristup
+              {ui("nutrition.individual")}
             </h5>
             <p className="text-sm font-light leading-relaxed">
               {ui("nutrition.digestionFull")}
