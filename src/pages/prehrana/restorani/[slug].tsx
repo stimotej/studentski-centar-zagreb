@@ -119,9 +119,11 @@ const RestaurantPage: NextPage<
               <p className="font-semibold text-light underline">
                 {ui("restaurant.offerIncludes")}
               </p>
-              <DisplayHTML html={restaurant?.meta.ponuda || ""} />
+              <DisplayHTML
+                html={t(restaurant?.meta.ponuda, restaurant?.meta.ponuda_en)}
+              />
               <ButtonLink href="#dnevni-meni" className="mt-6" isRegularLink>
-                Dnevna ponuda
+                {ui("restaurant.dailyOffer")}
               </ButtonLink>
             </div>
           }
@@ -131,7 +133,12 @@ const RestaurantPage: NextPage<
           <h5 className="uppercase text-primary underline font-semibold mb-6">
             {ui("restaurant.openingHours")}
           </h5>
-          <DisplayHTML html={restaurant?.meta.radno_vrijeme || ""} />
+          <DisplayHTML
+            html={t(
+              restaurant?.meta.radno_vrijeme,
+              restaurant?.meta.radno_vrijeme_en,
+            )}
+          />
         </Card>
       </div>
 

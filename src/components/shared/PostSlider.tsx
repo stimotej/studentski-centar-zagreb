@@ -113,8 +113,26 @@ const PostCard: React.FC<PostCardProps> = (props) => {
         </h4>
         {props.isRestaurant ? (
           <>
-            <DisplayHTML html={props.post.meta.ponuda} className="text-light" />
+            <DisplayHTML
+              html={localized(
+                locale,
+                props.post.meta.ponuda,
+                props.post.meta.ponuda_en,
+              )}
+              className="text-light"
+            />
             {props.post.meta.restaurant_info
+              // The English array is index-aligned with the Croatian one, so
+              // the English line has to be looked up before sorting reorders
+              // them (docs/i18n/CONVENTIONS.md).
+              .map((info, index) => ({
+                ...info,
+                title: localized(
+                  locale,
+                  info.title,
+                  props.post.meta.restaurant_info_en?.[index]?.title,
+                ),
+              }))
               .sort((a, b) => a.order - b.order)
               .map(
                 (info, index) =>

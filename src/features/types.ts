@@ -150,6 +150,10 @@ export type PostsMeta = {
   radno_vrijeme_blagajni_en?: string;
   footnotes_en?: string;
   image_groups_en?: { title: string }[];
+  ponuda_en?: string;
+  radno_vrijeme_en?: string;
+  /** Title only — icon and order are read from `restaurant_info`. */
+  restaurant_info_en?: { title: string }[];
 };
 
 export type JobsMeta = {
