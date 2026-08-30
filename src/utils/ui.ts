@@ -437,7 +437,7 @@ export const EN: Partial<Record<UIKey, string>> = {
   "empty.faq": "No questions to show",
   "empty.notFound": "Notice not found",
 
-  "org.name": "Studentski centar u Zagrebu",
+  "org.name": "University of Zagreb Student Centre",
   "org.university": "University of Zagreb",
 
   "smjestaj.pageTitle": "Accommodation",
@@ -511,7 +511,7 @@ export const EN: Partial<Record<UIKey, string>> = {
   "membership.xica": "Student card — X-ica",
   "membership.employers": "Employer membership of the Student service",
   "membership.employersIntro":
-    "A simple way for employers to register in the Studentski centar Zagreb database.",
+    "A simple way for employers to register in the University of Zagreb Student Centre database.",
   "sport.pageTitle": "Sport",
   "sport.pageTitleUpper": "SPORT",
   "sport.educationalTc": "Educational activities",
@@ -520,15 +520,15 @@ export const EN: Partial<Record<UIKey, string>> = {
   "sport.fun": "Entertainment",
   "prehrana.pageTitle": "Dining",
   "prehrana.restaurants": "Restaurants",
-  "prehrana.restaurantsTitle": "Restaurants of Studentski centar Zagreb",
+  "prehrana.restaurantsTitle":
+    "Restaurants of the University of Zagreb Student Centre",
   "prehrana.studentLogin": "Students — sign in at issp.srce.hr",
   "jobs.pageTitle": "All jobs",
   "jobs.forms": "Forms",
   "jobs.search": "Search jobs…",
   "jobs.type": "Job type",
   "jobs.searchUpper": "SEARCH JOBS",
-  "jobs.metaTitle":
-    "Job listings; Studentski centar u Zagrebu; University of Zagreb",
+  "jobs.metaTitle": "Job listings; University of Zagreb Student Centre",
   "empty.jobs": "No jobs to show",
   "ss.pageTitle": "Student service",
   "ss.signupMembershipEmployers": "SIGN-IN · MEMBERSHIP · EMPLOYERS",
@@ -536,7 +536,7 @@ export const EN: Partial<Record<UIKey, string>> = {
   "obavijesti.all": "All news",
   "obavijesti.categories": "Categories",
   "obavijesti.search": "Search news…",
-  "obavijesti.metaTitle": "News from Studentski centar Zagreb",
+  "obavijesti.metaTitle": "News from University of Zagreb Student Centre",
   "dorm.photos": "Photographs",
   "dorm.notFound": "Student hall not found",
   "empty.photos": "No photographs to show",
@@ -549,7 +549,7 @@ export const EN: Partial<Record<UIKey, string>> = {
   "sign.title": "Digital signing",
   "sign.contracts": "Signing contracts digitally",
   "sign.extract":
-    "Retrieve an employer contract from the Studentski centar Zagreb database of active employers.",
+    "Retrieve an employer contract from the University of Zagreb Student Centre database of active employers.",
   "sign.mobile":
     "Sign contracts digitally on your phone using a level-4 security certificate. Fast, simple and secure.",
   "sign.sync": "Database synchronisation",
@@ -573,15 +573,17 @@ export const EN: Partial<Record<UIKey, string>> = {
   "rent.afterLogin": "Once signed in, click “",
   "rent.charges": "Naplata smještaja",
   "login.pageTitle": "Sign in",
-  "login.studentPage": "Student sign-in — Studentski centar Zagreb",
+  "login.studentPage": "Student sign-in — University of Zagreb Student Centre",
   "login.studentIntro":
     "Sign-in for students who are members of the Student service",
   "login.employerPage": "Employer sign-in",
-  "login.employerPageTitle": "Employer sign-in — Studentski centar Zagreb",
+  "login.employerPageTitle":
+    "Employer sign-in — University of Zagreb Student Centre",
   "error.notFound": "Page not found",
-  "error.notFoundMeta": "Page not found; Studentski centar u Zagrebu;",
+  "error.notFoundMeta": "Page not found; University of Zagreb Student Centre;",
   "error.server": "Something went wrong",
-  "error.serverMeta": "Something went wrong; Studentski centar u Zagrebu;",
+  "error.serverMeta":
+    "Something went wrong; University of Zagreb Student Centre;",
   "employer.fee": "Agency fee",
   "employer.standard": "Student standard levy",
   "employer.pension": "Health and pension contributions",
@@ -594,10 +596,9 @@ export const EN: Partial<Record<UIKey, string>> = {
   "common.events": "Events",
   "membership.join": "Joining",
   "membership.inPerson": "You can only join in person.",
-  "kultura.metaTitle":
-    "Culture; Studentski centar u Zagrebu; University of Zagreb",
+  "kultura.metaTitle": "Culture; University of Zagreb Student Centre",
   "decor.backgroundShape": "Background shape",
-  "decor.scIcon": "Studentski centar icon",
+  "decor.scIcon": "University of Zagreb Student Centre icon",
   "decor.ssIcon": "Student service icon",
   "allergen.gluten": "cereals containing gluten and products thereof",
   "allergen.crustaceans": "crustaceans and products thereof",
@@ -678,7 +679,7 @@ export const EN: Partial<Record<UIKey, string>> = {
   "membership.beforeJoining":
     "Before joining, check that you have basic health insurance.",
   "prehrana.restaurantsIntro":
-    "Studentski centar Zagreb has 16 restaurants in attractive locations across the city. Each restaurant's page shows the dishes being served that day.",
+    "The University of Zagreb Student Centre has 16 restaurants in attractive locations across the city. Each restaurant's page shows the dishes being served that day.",
   "prehrana.rightsData":
     "Information on student entitlements and academic cards",
   "prehrana.systemLogin": "Sign in to the system",
@@ -717,11 +718,11 @@ export const EN: Partial<Record<UIKey, string>> = {
   "empty.information": "No information to show",
   "common.loadMore": "Load more",
   "ss.intro":
-    "The Student service of Studentski centar, University of Zagreb, connects students with employers looking for student workers.",
+    "The Student service of the University of Zagreb Student Centre connects students with employers looking for student workers.",
   "empty.newEvents": "No new events to show",
   "empty.courses": "No courses or workshops to show.",
   "help.postalAddress":
-    "Studentski centar Zagreb, Savska cesta 25, 10000 Zagreb, Croatia",
+    "University of Zagreb Student Centre, Savska cesta 25, 10000 Zagreb, Croatia",
   "nav.menuDescription":
     "The site's main navigation menu. Use the keyboard or mouse to choose a page.",
   "common.underConstruction": "Page under construction",
@@ -734,9 +735,9 @@ export const EN: Partial<Record<UIKey, string>> = {
   "login.employerProfileFull":
     "An employer account lets you post jobs, manage existing listings, review applicants, and view student contracts and invoices.",
   "ss.introFull":
-    "The Student service of Studentski centar, University of Zagreb, connects students with employers looking for student workers. Find the best openings on the student job board.",
+    "The Student service of the University of Zagreb Student Centre connects students with employers looking for student workers. Find the best openings on the student job board.",
   "contract.payoutsFull":
-    "Payments are made once the employer who commissioned the work has paid the invoice to Studentski centar Zagreb. Payment goes to the student's <strong>personal giro or current account</strong> held at any bank in the Republic of Croatia.",
+    "Payments are made once the employer who commissioned the work has paid the invoice to the University of Zagreb Student Centre. Payment goes to the student's <strong>personal giro or current account</strong> held at any bank in the Republic of Croatia.",
   "contract.numberFull":
     "A student who is a member of the Student service may take out an unlimited number of contracts <strong>during the year</strong>, provided earlier ones are returned to the Student service. A student may take up to three contracts a month for the same employer, again provided earlier ones are returned.",
   "contract.taxFreeFull":
@@ -744,17 +745,17 @@ export const EN: Partial<Record<UIKey, string>> = {
   "sign.storedFull":
     "All contracts are stored and protected with a timestamp. View every contract and its status at any time.",
   "nutrition.bodyFull":
-    "The human body is a sophisticated mechanism whose working and normal functioning depend heavily on diet and its components. Good nutrition matters for physical function, growth and academic success — and that is what Studentski centar provides students through its restaurants.",
+    "The human body is a sophisticated mechanism whose working and normal functioning depend heavily on diet and its components. Good nutrition matters for physical function, growth and academic success — and that is what the University of Zagreb Student Centre provides students through its restaurants.",
   "nutrition.digestionFull":
     "People's bodies and digestion differ enough that the same diet can produce different results. It is worth understanding your own body and adapting your diet to suit it.",
   "smjestaj.personalRightFull":
-    "The right to a place in a student hall is personal to the student and cannot be transferred. As soon as students move in, Studentski centar Zagreb carries out thorough checks that the right is properly held, and penalises breaches under the Rules on hall conduct and residence conditions.",
+    "The right to a place in a student hall is personal to the student and cannot be transferred. As soon as students move in, the University of Zagreb Student Centre carries out thorough checks that the right is properly held, and penalises breaches under the Rules on hall conduct and residence conditions.",
   "smjestaj.counsellingFull":
-    "FREE counselling is available at the “Cvjetno naselje” student hall. Sessions run by prior appointment and are open to all students using Studentski centar Zagreb services, as well as to its staff.",
+    "FREE counselling is available at the “Cvjetno naselje” student hall. Sessions run by prior appointment and are open to all students using the University of Zagreb Student Centre's services, as well as to its staff.",
   "rent.errorContact":
     "If the payment form reports success but the accommodation reservation screen shows the transaction failed, an error occurred while creating the receipt. Contact the SC office by email at (poslovnica@sczg.hr), giving your personal details (first name, surname, OIB), the reservation number and a short description of what went wrong (a screenshot helps), so the transaction can be reversed manually.",
   "kultura.coursesIntro":
-    "Studentski centar Zagreb offers a wide range of courses and workshops. Whatever your experience or interests, there is something for everyone — join us and see what you can learn.",
+    "The University of Zagreb Student Centre offers a wide range of courses and workshops. Whatever your experience or interests, there is something for everyone — join us and see what you can learn.",
   "contract.signWarning":
     "Students sign the contract only after the employer has properly completed and certified it — never before. We warn students never to sign anything for anyone <strong>in advance</strong>.",
   "fee.placement": "Student job placement",
@@ -775,7 +776,7 @@ export const EN: Partial<Record<UIKey, string>> = {
   "login.noAaiAccount":
     "If you do not have an AAI account, you can sign in here",
   "home.metaTitle":
-    "Studentski centar u Zagrebu, University of Zagreb; Culture, Dining, Accommodation, Student service, Sport, Teatar &TD",
+    "University of Zagreb Student Centre; Culture, Dining, Accommodation, Student service, Sport, Teatar &TD",
   "rent.selectWhat":
     "In the middle of the screen, select what you are paying for by ticking the empty checkbox.",
 };
