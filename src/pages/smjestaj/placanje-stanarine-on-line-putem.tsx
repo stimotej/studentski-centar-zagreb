@@ -40,15 +40,7 @@ const PlacanjeStanarineOnLinePutemPage: NextPage = () => {
 
       <Card className="text-text text-center my-12 font-medium">
         <p>{ui("rent.receipt")}</p>
-        <p className="mt-3">
-          Ako se na formi za plaćanje prikaže da je transakcija uspješna, a na
-          ekranu za rezervaciju smještaja bude pogreška kako transakcija nije
-          uspjela - došlo je do pogreške kod kreiranja računa. Student bi u tom
-          slučaju trebao kontaktirati Poslovnicu SC-a putem e-maila
-          (poslovnica@sczg.hr) te navesti svoje osobne podatke (ime, prezime,
-          OIB), broj rezervacije i kratak opis što je pošlo krivo (poželjna je
-          preslika ekrana), kako bi se transakcija ručno stornirala.
-        </p>
+        <p className="mt-3">{ui("rent.errorContact")}</p>
         <p className="mt-3">{ui("rent.note")}</p>
       </Card>
     </Layout>

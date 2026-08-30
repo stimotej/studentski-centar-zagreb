@@ -34,8 +34,7 @@ const UgovaranjePoslaSection: React.FC<UgovaranjePoslaSectionProps> = (
           <SectionCard
             image="/slike/student-servis/ikone/potpis-ugovora.png"
             title={ui("contract.signAfterEmployer")}
-            content="Student/ica potpisuje ugovor nakon što poslodavac uredno popuni i uvjeri ugovor, nikako prije.
-Upozoravamo studente da nikome, nikad ništa ne <strong>potpisuju unaprijed</strong>."
+            content={ui("contract.signWarning")}
           />
         </div>
       </div>
@@ -44,21 +43,21 @@ Upozoravamo studente da nikome, nikad ništa ne <strong>potpisuju unaprijed</str
           <SectionCard
             image="/slike/student-servis/ikone/isplate-naknada.png"
             title={ui("contract.payments")}
-            content="Isplate se obavljaju nakon što poslodavac - naručitelj posla plati račun Studentskom centru u Zagrebu. Isplate se vrše na <strong>osobni žiro ili tekući račun</strong> studente otvorenog u bilo kojoj banci na teritoriju Republike Hrvatske."
+            content={ui("contract.payoutsFull")}
           />
         </div>
         <div className="transform lg:-translate-y-24 flex-1">
           <SectionCard
             image="/slike/student-servis/ikone/broj-ugovora.png"
             title={ui("contract.number")}
-            content="Student, član Student servisa može podizati <strong>tijekom godine</strong> neograničen broj ugovora, ukoliko prethodno podignute redovite vraća u Student servis. Student/ica može mjesečno preuzeti tri ugovora za istog poslodavca pod uvjetom da prethodno podignute redovito vraća u Student servis."
+            content={ui("contract.numberFull")}
           />
         </div>
         <div className="flex-1">
           <SectionCard
             image="/slike/student-servis/ikone/neoporezivi-primitak.png"
             title={ui("contract.taxFree")}
-            content="Uz isplatu redovite ugovorene plaće, poslodavci imaju mogućnost dodatnog nagrađivanja radnika kroz isplatu neoporezivih primitaka, nagrada, naknada i potpora."
+            content={ui("contract.taxFreeFull")}
           />
         </div>
       </div>

@@ -342,6 +342,47 @@ export const HR = {
     "Izbornik glavne navigacije stranice. Koristite tipkovnicu ili miš za odabir željene stranice.",
   "common.underConstruction": "Stranica u izradi",
   "smjestaj.tenderCard": "Natječaj za studentski smještaj",
+  "ss.oldSite": "Stara web stranica",
+  "ss.legalRole":
+    "Student servis obavlja ulogu propisanu Zakonom o obavljanju studentski poslova (NN 96/18, 16/20) Republike Hrvatske i u tome zastupa studente u potraživanju zarade za obavljeni posao prema poslodavcima. Pri zapošljavanju studenata zaključuje se ugovor o djelu koji Student servis, kao posrednik, izdaje poslodavcima.",
+  "login.studentProfileFull":
+    "Korisnički profil studenta omogućuje uređivanje profila studenta, pretraživanje poslova, izdavanje ugovora, statuse isplata, ažuriranje podataka i korisničku podršku.",
+  "login.employerProfileFull":
+    "Korisnički profil poslodavca omogućuje objavu poslova, upravljanje postojećim poslovima, pregled prijavljenih kandidata, pregled studentskih ugovora i računa.",
+  "ss.introFull":
+    "Student servis studentskog centar Sveučilišta u Zagrebu posreduje u pronalasku studentskih poslova između studenata i poslodavaca. Pronađite najbolje poslove na oglasniku studentskih poslova.",
+  "contract.payoutsFull":
+    "Isplate se obavljaju nakon što poslodavac - naručitelj posla plati račun Studentskom centru u Zagrebu. Isplate se vrše na <strong>osobni žiro ili tekući račun</strong> studente otvorenog u bilo kojoj banci na teritoriju Republike Hrvatske.",
+  "contract.numberFull":
+    "Student, član Student servisa može podizati <strong>tijekom godine</strong> neograničen broj ugovora, ukoliko prethodno podignute redovite vraća u Student servis. Student/ica može mjesečno preuzeti tri ugovora za istog poslodavca pod uvjetom da prethodno podignute redovito vraća u Student servis.",
+  "contract.taxFreeFull":
+    "Uz isplatu redovite ugovorene plaće, poslodavci imaju mogućnost dodatnog nagrađivanja radnika kroz isplatu neoporezivih primitaka, nagrada, naknada i potpora.",
+  "sign.storedFull":
+    "Svi ugovori su pohranjeni i zaštićeni vremenskim žigom. U bilo kojem trenutku pogledajte sve ugovore i statuse ugovora.",
+  "nutrition.bodyFull":
+    "Ljudsko je tijelo sofisticiran mehanizam za čiji je rad i normalno funkcioniranje prehrana i sastojni prehrane vrlo bitna. Za bolje tjelesne funkcije, rast i akademski uspjeh kvalitetna prehrana je jako bitna a to je ono što Studentski centar kroz svoje restorane pruža studentima.",
+  "nutrition.digestionFull":
+    "Organizam i probava svake osobe se dovoljno razlikuju da isti režim prehrane može rezultirati sa drugačijim ishodima. Zato je bitno istražiti i testirati vlastiti organizam te prilagoditi režim prehrane tim potrebama.",
+  "smjestaj.personalRightFull":
+    "Pravo na smještaj u studentskom domu je osobno pravo studenta i nije prenosivo na drugu osobu. Studentski centar u Zagrebu će odmah po useljenju studenata u studentske domove obavljati intenzivne kontrole ostvarenog prava i sukladno Pravilniku o domskom redu i uvjetima boravka studenata u studentskim domovima sankcionirati prekršitelje.",
+  "smjestaj.counsellingFull":
+    "U sklopu studentskog doma „Cvjetno naselje“ možete koristiti usluge BESPLATNOG savjetovanja. Savjetovanje će se održavati prema unaprijed dogovorenim terminima i dostupno je svim studentima korisnicima usluga Studentskog centra u Zagrebu, kao i radnicima Studentskog centra u Zagrebu.",
+  "rent.errorContact":
+    "Ako se na formi za plaćanje prikaže da je transakcija uspješna, a na ekranu za rezervaciju smještaja bude pogreška kako transakcija nije uspjela - došlo je do pogreške kod kreiranja računa. Student bi u tom slučaju trebao kontaktirati Poslovnicu SC-a putem e-maila (poslovnica@sczg.hr) te navesti svoje osobne podatke (ime, prezime, OIB), broj rezervacije i kratak opis što je pošlo krivo (poželjna je preslika ekrana), kako bi se transakcija ručno stornirala.",
+  "kultura.coursesIntro":
+    "Studentski centar u Zagrebu nudi širok izbor tečajeva i radionica za sve zainteresirane. Bez obzira na vaše iskustvo ili interese, imamo nešto za svakoga. Pridružite nam se i istražite što sve možete naučiti!",
+  "contract.signWarning":
+    "Student/ica potpisuje ugovor nakon što poslodavac uredno popuni i uvjeri ugovor, nikako prije. Upozoravamo studente da nikome, nikad ništa ne <strong>potpisuju unaprijed</strong>.",
+  "fee.placement": "Posredovanje u studentskom zapošljavanju",
+  "fee.collection": "Osiguranje naplate od poslodavaca",
+  "fee.support": "Korisnička podrška studentima",
+  "fee.pension": "5% doprinosa za Mirovinsko osiguranje",
+  "fee.health":
+    "0,5% doprinos za Zdravstveno osiguranje za slučaj ozljede na radu i profesionalne bolesti",
+  "fee.standard": "Poboljšanje studentskog standarda",
+  "fee.projects": "Financiranje studentskih projekata",
+  "fee.scholarships": "Stipendiranje studenata",
+  "fee.perContract": "/ po ugovoru",
   "home.metaTitle":
     "Studentski Centar u Zagrebu, Sveučilište u Zagrebu; Kultura, Prehrana, Smještaj, Student servis, Sport, Teatar &TD",
   "rent.selectWhat":
@@ -676,6 +717,47 @@ export const EN: Partial<Record<UIKey, string>> = {
     "The site's main navigation menu. Use the keyboard or mouse to choose a page.",
   "common.underConstruction": "Page under construction",
   "smjestaj.tenderCard": "Student accommodation call",
+  "ss.oldSite": "Old website",
+  "ss.legalRole":
+    "The Student service performs the role set out in the Croatian Student Work Act (NN 96/18, 16/20), representing students in claiming payment from employers for work done. When a student is engaged, a service contract is concluded, which the Student service issues to the employer as intermediary.",
+  "login.studentProfileFull":
+    "A student account lets you edit your profile, search for jobs, issue contracts, check payment status, update your details and get support.",
+  "login.employerProfileFull":
+    "An employer account lets you post jobs, manage existing listings, review applicants, and view student contracts and invoices.",
+  "ss.introFull":
+    "The Student service of Studentski centar, University of Zagreb, connects students with employers looking for student workers. Find the best openings on the student job board.",
+  "contract.payoutsFull":
+    "Payments are made once the employer who commissioned the work has paid the invoice to Studentski centar Zagreb. Payment goes to the student's <strong>personal giro or current account</strong> held at any bank in the Republic of Croatia.",
+  "contract.numberFull":
+    "A student who is a member of the Student service may take out an unlimited number of contracts <strong>during the year</strong>, provided earlier ones are returned to the Student service. A student may take up to three contracts a month for the same employer, again provided earlier ones are returned.",
+  "contract.taxFreeFull":
+    "Alongside the agreed pay, employers may reward workers further through tax-free payments, bonuses, allowances and support.",
+  "sign.storedFull":
+    "All contracts are stored and protected with a timestamp. View every contract and its status at any time.",
+  "nutrition.bodyFull":
+    "The human body is a sophisticated mechanism whose working and normal functioning depend heavily on diet and its components. Good nutrition matters for physical function, growth and academic success — and that is what Studentski centar provides students through its restaurants.",
+  "nutrition.digestionFull":
+    "People's bodies and digestion differ enough that the same diet can produce different results. It is worth understanding your own body and adapting your diet to suit it.",
+  "smjestaj.personalRightFull":
+    "The right to a place in a student hall is personal to the student and cannot be transferred. As soon as students move in, Studentski centar Zagreb carries out thorough checks that the right is properly held, and penalises breaches under the Rules on hall conduct and residence conditions.",
+  "smjestaj.counsellingFull":
+    "FREE counselling is available at the “Cvjetno naselje” student hall. Sessions run by prior appointment and are open to all students using Studentski centar Zagreb services, as well as to its staff.",
+  "rent.errorContact":
+    "If the payment form reports success but the accommodation reservation screen shows the transaction failed, an error occurred while creating the receipt. Contact the SC office by email at (poslovnica@sczg.hr), giving your personal details (first name, surname, OIB), the reservation number and a short description of what went wrong (a screenshot helps), so the transaction can be reversed manually.",
+  "kultura.coursesIntro":
+    "Studentski centar Zagreb offers a wide range of courses and workshops. Whatever your experience or interests, there is something for everyone — join us and see what you can learn.",
+  "contract.signWarning":
+    "Students sign the contract only after the employer has properly completed and certified it — never before. We warn students never to sign anything for anyone <strong>in advance</strong>.",
+  "fee.placement": "Student job placement",
+  "fee.collection": "Guaranteed collection from employers",
+  "fee.support": "Support for students",
+  "fee.pension": "5% pension insurance contribution",
+  "fee.health":
+    "0,5% health insurance contribution for workplace injury and occupational illness",
+  "fee.standard": "Improving student welfare",
+  "fee.projects": "Funding student projects",
+  "fee.scholarships": "Student scholarships",
+  "fee.perContract": "/ per contract",
   "home.metaTitle":
     "Studentski centar u Zagrebu, University of Zagreb; Culture, Dining, Accommodation, Student service, Sport, Teatar &TD",
   "rent.selectWhat":

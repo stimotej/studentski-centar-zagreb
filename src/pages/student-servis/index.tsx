@@ -83,10 +83,7 @@ const StudentServisPage: NextPage<
     localized(locale, hr, en);
 
   return (
-    <Layout
-      title={ui("ss.pageTitle")}
-      description="Student servis studentskog centar Sveučilišta u Zagrebu posreduje u pronalasku studentskih poslova između studenata i poslodavaca. Pronađite najbolje poslove na oglasniku studentskih poslova."
-    >
+    <Layout title={ui("ss.pageTitle")} description={ui("ss.introFull")}>
       {!!aboutPost && (
         <AboutSection
           image={aboutPost.image_url}
@@ -113,7 +110,7 @@ const StudentServisPage: NextPage<
 
       <PageTitle
         title={ui("ss.pageTitle")}
-        subtitle="Student servis studentskog centar Sveučilišta u Zagrebu posreduje u pronalasku studentskih poslova između studenata i poslodavaca. Pronađite najbolje poslove na oglasniku studentskih poslova."
+        subtitle={ui("ss.introFull")}
         action={{
           title: ui("jobs.searchUpper"),
           href: "/poslovi",

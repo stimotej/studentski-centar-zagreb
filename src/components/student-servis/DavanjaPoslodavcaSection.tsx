@@ -24,27 +24,20 @@ const DavanjaPoslodavcaSection: React.FC<DavanjaPoslodavcaSectionProps> = (
         <SectionCard
           title={ui("employer.fee")}
           amount="12,00"
-          items={[
-            "Posredovanje u studentskom zapošljavanju",
-            "Osiguranje naplate od poslodavaca",
-            "Korisnička podrška studentima",
-          ]}
+          items={[ui("fee.placement"), ui("fee.collection"), ui("fee.support")]}
         />
         <SectionCard
           title={ui("employer.pension")}
           amount="5,50"
-          items={[
-            "5% doprinosa za Mirovinsko osiguranje",
-            "0,5% doprinos za Zdravstveno osiguranje za slučaj ozljede na radu i profesionalne bolesti",
-          ]}
+          items={[ui("fee.pension"), ui("fee.health")]}
         />
         <SectionCard
           title={ui("employer.standard")}
           amount="0,50"
           items={[
-            "Poboljšanje studentskog standarda",
-            "Financiranje studentskih projekata",
-            "Stipendiranje studenata",
+            ui("fee.standard"),
+            ui("fee.projects"),
+            ui("fee.scholarships"),
           ]}
         />
       </div>
@@ -59,6 +52,7 @@ interface SectionCardProps {
 }
 
 const SectionCard: React.FC<SectionCardProps> = (props) => {
+  const ui = useUI();
   return (
     <Card className="p-0">
       <div className="border-b border-gray-200 p-6">
@@ -70,7 +64,7 @@ const SectionCard: React.FC<SectionCardProps> = (props) => {
           <span className="font-semibold text-5xl text-text">
             {props.amount}
           </span>
-          <span className="mt-auto text-light"> / po ugovoru</span>
+          <span className="mt-auto text-light"> {ui("fee.perContract")}</span>
         </div>
       </div>
       <div className="p-6">

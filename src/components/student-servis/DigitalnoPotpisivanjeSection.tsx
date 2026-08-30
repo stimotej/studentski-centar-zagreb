@@ -35,7 +35,7 @@ const DigitalnoPotpisivanjeSection: React.FC<
             <SectionCard
               image="/slike/student-servis/ikone/pohrana.png"
               title={ui("sign.sync")}
-              description="Svi ugovori su pohranjeni i zaštićeni vremenskim žigom. U bilo kojem trenutku pogledajte sve ugovore i statuse ugovora."
+              description={ui("sign.storedFull")}
             />
           </div>
         </div>

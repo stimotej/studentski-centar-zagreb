@@ -29,11 +29,7 @@ const KvalitetaPrehraneSection: React.FC<KvalitetaPrehraneSectionProps> = (
               {ui("nutrition.students")}
             </h3>
             <p className="mt-4 text-light leading-relaxed">
-              Ljudsko je tijelo sofisticiran mehanizam za čiji je rad i normalno
-              funkcioniranje prehrana i sastojni prehrane vrlo bitna. Za bolje
-              tjelesne funkcije, rast i akademski uspjeh kvalitetna prehrana je
-              jako bitna a to je ono što Studentski centar kroz svoje restorane
-              pruža studentima.
+              {ui("nutrition.bodyFull")}
             </p>
           </div>
           <div className="flex-1">
@@ -52,10 +48,7 @@ const KvalitetaPrehraneSection: React.FC<KvalitetaPrehraneSectionProps> = (
               Individualni pristup
             </h5>
             <p className="text-sm font-light leading-relaxed">
-              Organizam i probava svake osobe se dovoljno razlikuju da isti
-              režim prehrane može rezultirati sa drugačijim ishodima. Zato je
-              bitno istražiti i testirati vlastiti organizam te prilagoditi
-              režim prehrane tim potrebama.
+              {ui("nutrition.digestionFull")}
             </p>
           </Card>
           <Card className="text-center flex-1">
@@ -63,10 +56,7 @@ const KvalitetaPrehraneSection: React.FC<KvalitetaPrehraneSectionProps> = (
               Individualni pristup
             </h5>
             <p className="text-sm font-light leading-relaxed">
-              Organizam i probava svake osobe se dovoljno razlikuju da isti
-              režim prehrane može rezultirati sa drugačijim ishodima. Zato je
-              bitno istražiti i testirati vlastiti organizam te prilagoditi
-              režim prehrane tim potrebama.
+              {ui("nutrition.digestionFull")}
             </p>
           </Card>
           <div className="flex flex-col gap-6 flex-1">

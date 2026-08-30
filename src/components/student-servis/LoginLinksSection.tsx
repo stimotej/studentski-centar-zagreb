@@ -20,13 +20,7 @@ const LoginLinksSection: React.FC<LoginLinksSectionProps> = (props) => {
           <h2 className="text-text font-semibold text-4xl">
             {ui("ss.pageTitle")}
           </h2>
-          <p className="text-light leading-loose">
-            Student servis obavlja ulogu propisanu Zakonom o obavljanju
-            studentski poslova (NN 96/18, 16/20) Republike Hrvatske i u tome
-            zastupa studente u potraživanju zarade za obavljeni posao prema
-            poslodavcima. Pri zapošljavanju studenata zaključuje se ugovor o
-            djelu koji Student servis, kao posrednik, izdaje poslodavcima.
-          </p>
+          <p className="text-light leading-loose">{ui("ss.legalRole")}</p>
         </div>
         <div className="flex-1">
           <Image
@@ -41,7 +35,7 @@ const LoginLinksSection: React.FC<LoginLinksSectionProps> = (props) => {
       <div className="flex flex-col md:flex-row gap-6 mt-12">
         <LoginLinkCard
           title={ui("login.student")}
-          description="Korisnički profil studenta omogućuje uređivanje profila studenta, pretraživanje poslova, izdavanje ugovora, statuse isplata, ažuriranje podataka i korisničku podršku."
+          description={ui("login.studentProfileFull")}
           link={{
             href: "/prijava-student",
             title: ui("login.studentSignIn"),
@@ -50,7 +44,7 @@ const LoginLinksSection: React.FC<LoginLinksSectionProps> = (props) => {
         />
         <LoginLinkCard
           title={ui("login.employer")}
-          description="Korisnički profil poslodavca omogućuje objavu poslova, upravljanje postojećim poslovima, pregled prijavljenih kandidata, pregled studentskih ugovora i računa."
+          description={ui("login.employerProfileFull")}
           link={{
             href: "/prijava-poslodavac",
             title: ui("login.employerSignIn"),

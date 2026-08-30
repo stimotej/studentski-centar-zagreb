@@ -153,7 +153,7 @@ const KulturaPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
       <ContentCard
         title={ui("kultura.coursesWorkshops")}
         titleClassName="!text-xl md:!text-2xl font-semibold !text-blue-600 include-filters"
-        content="Studentski centar u Zagrebu nudi širok izbor tečajeva i radionica za sve zainteresirane. Bez obzira na vaše iskustvo ili interese, imamo nešto za svakoga. Pridružite nam se i istražite što sve možete naučiti!"
+        content={ui("kultura.coursesIntro")}
         action={{
           title: ui("kultura.goToList"),
           href: "/kultura/tecajevi-i-radionice/",

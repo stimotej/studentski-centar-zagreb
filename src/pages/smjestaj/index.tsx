@@ -128,7 +128,7 @@ const SmjestajPage: NextPage<
   return (
     <Layout
       title={ui("smjestaj.pageTitle")}
-      description="Pravo na smještaj u studentskom domu je osobno pravo studenta i nije prenosivo na drugu osobu. Studentski centar u Zagrebu će odmah po useljenju studenata u studentske domove obavljati intenzivne kontrole ostvarenog prava i sukladno Pravilniku o domskom redu i uvjetima boravka studenata u studentskim domovima sankcionirati prekršitelje."
+      description={ui("smjestaj.personalRightFull")}
       bottomComponent={
         <>
           <div id="studentski-domovi"></div>
@@ -202,7 +202,7 @@ const SmjestajPage: NextPage<
               <ContentCard
                 image="/slike/smjestaj/ikone/savjetovaliste.png"
                 title={ui("smjestaj.counselling")}
-                content="U sklopu studentskog doma „Cvjetno naselje“ možete koristiti usluge BESPLATNOG savjetovanja. Savjetovanje će se održavati prema unaprijed dogovorenim terminima i dostupno je svim studentima korisnicima usluga Studentskog centra u Zagrebu, kao i radnicima Studentskog centra u Zagrebu."
+                content={ui("smjestaj.counsellingFull")}
                 imageClassName="w-[90px] h-[90px] object-contain"
                 contentClassName="text-light leading-relaxed"
               />
@@ -213,7 +213,7 @@ const SmjestajPage: NextPage<
     >
       <PageTitle
         title={ui("smjestaj.newsTitle")}
-        subtitle="Pravo na smještaj u studentskom domu je osobno pravo studenta i nije prenosivo na drugu osobu. Studentski centar u Zagrebu će odmah po useljenju studenata u studentske domove obavljati intenzivne kontrole ostvarenog prava i sukladno Pravilniku o domskom redu i uvjetima boravka studenata u studentskim domovima sankcionirati prekršitelje."
+        subtitle={ui("smjestaj.personalRightFull")}
         action={{
           title: ui("smjestaj.dormsUpper"),
           href: "#studentski-domovi",

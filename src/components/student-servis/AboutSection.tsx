@@ -3,6 +3,7 @@ import Image from "next/image";
 import React from "react";
 import ButtonLink from "../elements/ButtonLink";
 import DisplayHTML from "../elements/DisplayHTML";
+import { useUI } from "@/utils/ui";
 
 interface AboutSectionProps {
   title: string;
@@ -12,6 +13,7 @@ interface AboutSectionProps {
 }
 
 const AboutSection: React.FC<AboutSectionProps> = (props) => {
+  const ui = useUI();
   return (
     <div
       className={clsx(
@@ -32,7 +34,7 @@ const AboutSection: React.FC<AboutSectionProps> = (props) => {
           className="mt-6"
           isRegularLink
         >
-          Stara web stranica
+          {ui("ss.oldSite")}
         </ButtonLink>
       </div>
       <div className="flex-1 flex flex-col gap-4">
