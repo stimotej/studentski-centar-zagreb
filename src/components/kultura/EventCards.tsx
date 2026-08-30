@@ -8,6 +8,8 @@ import Spinner from "../elements/Spinner";
 import Card from "../shared/Card";
 import CustomLink from "../elements/CustomLink";
 import { useUI } from "@/utils/ui";
+import { useRouter } from "next/router";
+import { localized } from "@/utils/i18n";
 
 interface EventCardsProps {
   events: Event[] | undefined;
@@ -20,6 +22,9 @@ interface EventCardsProps {
 
 const EventCards: React.FC<EventCardsProps> = (props) => {
   const ui = useUI();
+  const { locale } = useRouter();
+  const t = (hr: string | undefined, en: string | undefined) =>
+    localized(locale, hr, en);
 
   return props.loading ? (
     <div
@@ -39,8 +44,8 @@ const EventCards: React.FC<EventCardsProps> = (props) => {
       {props.events?.map((event, index) => (
         <EventCard
           key={event.slug + event.event_date}
-          title={event.title}
-          location={event.location}
+          title={t(event.title, event.title_en)}
+          location={t(event.location, event.location_en)}
           type={event.type}
           date={event.event_date}
           image={event.image}

@@ -53,6 +53,10 @@ export type CalendarEvent = {
 
 export type Event = {
   title: string;
+  /** English twins, supplied by the custom /events/* endpoints. */
+  title_en?: string;
+  content_en?: string;
+  location_en?: string;
   slug: string;
   permalink: string;
   image: string;

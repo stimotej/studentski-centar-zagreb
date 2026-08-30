@@ -17,6 +17,7 @@ import type { ParsedUrlQuery } from "querystring";
 import { useRouter } from "next/router";
 import { revalidateTime } from "@/utils/constants";
 import { useUI } from "@/utils/ui";
+import { localized } from "@/utils/i18n";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const { data: events } = await axios.get<Event[]>("/events/courses", {
@@ -64,6 +65,9 @@ const EventPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   event,
 }) => {
   const ui = useUI();
+  const { locale } = useRouter();
+  const t = (hr: string | undefined, en: string | undefined) =>
+    localized(locale, hr, en);
   const router = useRouter();
 
   if (router.isFallback)
@@ -86,14 +90,20 @@ const EventPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
     );
   return (
     <Layout
-      title={clearHtmlFromString(event?.title || "")}
-      description={clearHtmlFromString(event?.content || "")}
+      title={clearHtmlFromString(t(event?.title, event?.title_en))}
+      description={clearHtmlFromString(t(event?.content, event?.content_en))}
       header={
-        <ImageTitle image={event?.image || ""} title={event?.title || ""} />
+        <ImageTitle
+          image={event?.image || ""}
+          title={t(event?.title, event?.title_en)}
+        />
       }
     >
       <div className="py-12">
-        <DisplayHTML html={event?.content || ""} documents={event.documents} />
+        <DisplayHTML
+          html={t(event?.content, event?.content_en)}
+          documents={event.documents}
+        />
       </div>
     </Layout>
   );

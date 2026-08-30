@@ -88,8 +88,8 @@ const KulturaPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
           slides={
             sliderEvents?.map((slide) => ({
               src: slide.image,
-              title: slide.title,
-              subtitle: clearHtmlFromString(slide.content),
+              title: t(slide.title, slide.title_en),
+              subtitle: clearHtmlFromString(t(slide.content, slide.content_en)),
               actionTitle: ui("common.readMore"),
               actionHref: `/kultura/eventi/${slide.slug}`,
             })) || []
