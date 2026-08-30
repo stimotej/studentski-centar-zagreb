@@ -16,6 +16,7 @@ import type { Category, ObavijestiMeta, Post } from "@/features/types";
 import { useRouter } from "next/router";
 import { localized } from "@/utils/i18n";
 import { useUI } from "@/utils/ui";
+import { categoryName } from "@/utils/categoryName";
 
 type ObavijestiProps = {
   initialObavijesti: Post<ObavijestiMeta>[];
@@ -155,7 +156,7 @@ const ObavijestiPage: NextPage<
                         title={clearHtmlFromString(
                           t(obavijest.title.rendered, obavijest.meta.title_en),
                         )}
-                        category={obavijest.category}
+                        category={categoryName(locale, obavijest.category)}
                         date={obavijest.date}
                         excerpt={clearHtmlFromString(
                           t(
@@ -205,7 +206,7 @@ const ObavijestiPage: NextPage<
                       value: obavijestiCategoryId,
                     },
                     ...categories?.map((category) => ({
-                      title: category.name,
+                      title: categoryName(locale, category.name),
                       value: category.id,
                     })),
                   ]

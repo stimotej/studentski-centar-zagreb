@@ -29,6 +29,7 @@ import type {
   PostsMeta,
 } from "@/features/types";
 import { useUI } from "@/utils/ui";
+import { categoryName } from "@/utils/categoryName";
 
 type JobsProps = {
   initialJobs: Post<JobsMeta>[];
@@ -228,7 +229,7 @@ const PosloviPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                 ? [
                     { title: ui("jobs.pageTitle"), value: jobsCategoryId },
                     ...categories?.map((category) => ({
-                      title: category.name,
+                      title: categoryName(router.locale, category.name),
                       value: category.id,
                     })),
                   ]

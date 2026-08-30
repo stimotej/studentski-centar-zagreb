@@ -32,6 +32,7 @@ import Banner from "@/components/ads/Banner";
 import { useRouter } from "next/router";
 import { localized } from "@/utils/i18n";
 import { useUI } from "@/utils/ui";
+import { categoryName } from "@/utils/categoryName";
 
 type HomeProps = {
   sliderPosts: Post<ObavijestiMeta>[];
@@ -121,7 +122,7 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                   title={clearHtmlFromString(
                     t(obavijest.title.rendered, obavijest.meta.title_en),
                   )}
-                  category={obavijest.category}
+                  category={categoryName(locale, obavijest.category)}
                   date={obavijest.date}
                   excerpt={clearHtmlFromString(
                     t(obavijest.excerpt.rendered, obavijest.meta.excerpt_en),
