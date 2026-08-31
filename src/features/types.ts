@@ -53,6 +53,10 @@ export type CalendarEvent = {
 
 export type Event = {
   title: string;
+  /** English twins, supplied by the custom /events/* endpoints. */
+  title_en?: string;
+  content_en?: string;
+  location_en?: string;
   slug: string;
   permalink: string;
   image: string;
@@ -77,6 +81,11 @@ export type ObavijestiMeta = {
   documents: Document[];
   featured: boolean;
   order: number;
+
+  // English twins — see src/utils/i18n.ts for the fallback rule.
+  title_en?: string;
+  excerpt_en?: string;
+  content_en?: string;
 };
 
 export type PostsMeta = {
@@ -129,6 +138,22 @@ export type PostsMeta = {
   image_groups: ImageGroup[];
   link: string;
   footnotes: string;
+
+  // English twins, written by the admin at /zaposlenici. Every one is optional:
+  // a field is translated only when it holds non-whitespace text, otherwise the
+  // Croatian original is shown. See src/utils/i18n.ts.
+  title_en?: string;
+  excerpt_en?: string;
+  content_en?: string;
+  sadrzaj_en?: string;
+  kontakt_en?: string;
+  radno_vrijeme_blagajni_en?: string;
+  footnotes_en?: string;
+  image_groups_en?: { title: string }[];
+  ponuda_en?: string;
+  radno_vrijeme_en?: string;
+  /** Title only — icon and order are read from `restaurant_info`. */
+  restaurant_info_en?: { title: string }[];
 };
 
 export type JobsMeta = {

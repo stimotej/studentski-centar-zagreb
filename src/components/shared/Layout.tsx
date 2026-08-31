@@ -4,11 +4,33 @@ import Head from "next/head";
 import Navbar from "@/components/shared/Navbar";
 import { motion } from "framer-motion";
 import Footer from "./Footer";
+import { useUI } from "@/utils/ui";
+import { useRouter } from "next/router";
+import { DEFAULT_LOCALE, LOCALES } from "@/utils/i18n";
 
 const poppins = Roboto({
   weight: ["300", "400", "500", "700"],
   subsets: ["latin"],
 });
+
+/**
+ * Absolute origin for hreflang and canonical, which must not be relative.
+ *
+ * The Croatian site is the default locale and keeps the bare path; English
+ * lives under /en. Without these tags a search engine has no way to know the
+ * two are the same page in different languages, and treats them as duplicates.
+ */
+const SITE_ORIGIN = (
+  process.env.NEXT_PUBLIC_SITE_URL || "https://www.sczg.unizg.hr"
+).replace(/\/$/, "");
+
+/** `asPath` carries the query string and never the locale prefix. */
+const localeHref = (locale: string, asPath: string) => {
+  const path = asPath.split(/[?#]/)[0];
+  const clean = path === "/" ? "" : path.replace(/\/$/, "");
+  const prefix = locale === DEFAULT_LOCALE ? "" : `/${locale}`;
+  return `${SITE_ORIGIN}${prefix}${clean}` || `${SITE_ORIGIN}/`;
+};
 
 interface LayoutProps {
   children?: React.ReactNode;
@@ -25,15 +47,32 @@ const Layout = ({
   description,
   bottomComponent,
 }: LayoutProps) => {
+  const ui = useUI();
+  const { asPath, locale } = useRouter();
   return (
     <>
       <Head>
-        <title>{`${
-          title ? `${title} | ` : ""
-        }Studentski Centar u Zagrebu`}</title>
+        <title>{`${title ? `${title} | ` : ""}${ui("org.name")}`}</title>
         <meta name="description" content={description} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/sc-logo.svg" />
+        <link
+          rel="canonical"
+          href={localeHref(locale ?? DEFAULT_LOCALE, asPath)}
+        />
+        {LOCALES.map((code) => (
+          <link
+            key={code}
+            rel="alternate"
+            hrefLang={code}
+            href={localeHref(code, asPath)}
+          />
+        ))}
+        <link
+          rel="alternate"
+          hrefLang="x-default"
+          href={localeHref(DEFAULT_LOCALE, asPath)}
+        />
       </Head>
       <Navbar />
       <main className={poppins.className}>

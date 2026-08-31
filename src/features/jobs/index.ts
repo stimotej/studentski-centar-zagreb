@@ -1,7 +1,7 @@
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useEffect, useRef } from "react";
-import type { JobsMeta, Post } from "../types";
+import type { JobsMeta, Post, PostsMeta } from "../types";
 import jobKeys from "./queries";
 import { jobsPageId } from "@/utils/constants";
 
@@ -36,7 +36,7 @@ export const getInfiniteJobs = async () => {
 export const useJobs = (
   initialData: Post<JobsMeta>[],
   initialTotalPages: number,
-  filters: JobsFilters
+  filters: JobsFilters,
 ) => {
   const initialRun = useRef(true);
 
@@ -78,7 +78,7 @@ export const useJobs = (
       getNextPageParam: (lastPage, pages) => {
         if (pages.length + 1 <= lastPage.totalPages) return pages.length + 1;
       },
-    }
+    },
   );
 };
 
@@ -115,8 +115,10 @@ export const useJobsHome = (initialData?: Post<JobsMeta>[]) => {
   return useQuery(jobKeys.jobsHome, getJobsHome, { initialData });
 };
 
+// This is a WordPress *page*, not a job. Its meta is page meta — it was typed
+// as JobsMeta, which hid the `_en` fields the page actually carries.
 export const getJobPage = async () => {
-  const response = await axios.get<Post<JobsMeta>>(`/pages/${jobsPageId}`, {
+  const response = await axios.get<Post<PostsMeta>>(`/pages/${jobsPageId}`, {
     params: filters,
   });
   return response.data;

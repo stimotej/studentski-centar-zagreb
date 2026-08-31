@@ -2,17 +2,19 @@ import clsx from "clsx";
 import Image from "next/image";
 import React from "react";
 import CustomLink from "../elements/CustomLink";
+import { useUI } from "@/utils/ui";
 
 interface WeapayBannerProps {
   className?: string;
 }
 
 const WeapayBanner: React.FC<WeapayBannerProps> = (props) => {
+  const ui = useUI();
   return (
     <div
       className={clsx(
         "relative flex flex-col md:flex-row gap-6 p-6 items-start bg-gradient-to-l rounded-lg from-[#0b1218] to-[rgba(43,52,61,.97)]",
-        props.className
+        props.className,
       )}
     >
       <CustomLink href="https://weapay.hr/">
@@ -26,10 +28,10 @@ const WeapayBanner: React.FC<WeapayBannerProps> = (props) => {
       </CustomLink>
       <div>
         <h5 className="text-3xl uppercase font-bold tracking-wide text-white">
-          PLATI BRŽE, UŽIVAJ DUŽE.
+          {ui("wallet.tagline")}
         </h5>
         <p className="text-white/50 font-medium tracking-wide mt-1">
-          Digitalni studentski novčanik
+          {ui("wallet.title")}
         </p>
         <div className="flex gap-2 mt-4">
           <a href="https://apps.apple.com/app/weapay/id1592689129">

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import UnderConstructionTag from "../shared/UnderConstructionTag";
+import { useUI } from "@/utils/ui";
 
 interface DigitalnoPotpisivanjeSectionProps {
   className?: string;
@@ -9,38 +10,39 @@ interface DigitalnoPotpisivanjeSectionProps {
 const DigitalnoPotpisivanjeSection: React.FC<
   DigitalnoPotpisivanjeSectionProps
 > = (props) => {
+  const ui = useUI();
   return (
     <section className={props.className}>
       <div className="flex flex-col gap-12 lg:flex-row">
         <div className="flex-1">
           <h5 className="text-primary text-sm font-medium tracking-wider uppercase">
-            DIGITALNO POTPISIVANJE UGOVORA
+            {ui("sign.headingUpper")}
           </h5>
           <h3 className="text-[38px] text-text font-semibold leading-normal">
-            Izvadite i potpišite ugovor u trenu putem mobitela.
+            {ui("sign.instant")}
           </h3>
           <div className="flex flex-col gap-8 mt-6">
             <SectionCard
               image="/slike/student-servis/ikone/sinkronizacija.png"
-              title="Sinkronizacija sa bazom podataka"
-              description="Izvadite ugovor za poslodavca preko baze podataka aktivnih poslodavaca Studentskog centra u Zagrebu."
+              title={ui("sign.sync")}
+              description={ui("sign.extract")}
             />
             <SectionCard
               image="/slike/student-servis/ikone/potpisivanje.png"
-              title="Digitalno potpisivanje"
-              description="Potpišite ugovore digitalno putem mobitela kroz sigurnosni certifikat 4. razine. Brzo, jednostavno i sigurno."
+              title={ui("sign.title")}
+              description={ui("sign.mobile")}
             />
             <SectionCard
               image="/slike/student-servis/ikone/pohrana.png"
-              title="Sinkronizacija sa bazom podataka"
-              description="Svi ugovori su pohranjeni i zaštićeni vremenskim žigom. U bilo kojem trenutku pogledajte sve ugovore i statuse ugovora."
+              title={ui("sign.sync")}
+              description={ui("sign.storedFull")}
             />
           </div>
         </div>
         <div className="flex-1">
           <Image
             src="/slike/student-servis/digitalno-potpisivanje-ugovora.png"
-            alt="Digitalno potpisivanje ugovora"
+            alt={ui("sign.contracts")}
             width={400}
             height={360}
             className="w-full h-auto object-cover"
@@ -59,12 +61,13 @@ interface SectionCardProps {
 }
 
 const SectionCard: React.FC<SectionCardProps> = (props) => {
+  const ui = useUI();
   return (
     <div className="flex flex-col gap-3">
       <div className="flex gap-3 items-start">
         <Image
           src={props.image}
-          alt="Studentski centar ikona"
+          alt={ui("decor.scIcon")}
           width={60}
           height={60}
         />

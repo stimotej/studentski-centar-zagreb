@@ -105,7 +105,7 @@ export default function KulturaSlider({ slides, className }: SliderProps) {
     <div
       className={clsx(
         "group relative w-full h-[350px] rounded-lg overflow-hidden bg-black",
-        className
+        className,
       )}
     >
       {slides.map((slide, index) => (
@@ -122,7 +122,7 @@ export default function KulturaSlider({ slides, className }: SliderProps) {
             aria-hidden="true"
             className={clsx(
               "absolute inset-0 h-full w-full scale-110 object-cover opacity-0 blur-lg transition-opacity duration-300",
-              index === currentSlide && "opacity-90"
+              index === currentSlide && "opacity-90",
             )}
             priority={index === 0}
             quality={20}
@@ -135,7 +135,7 @@ export default function KulturaSlider({ slides, className }: SliderProps) {
             alt={slide.title}
             className={clsx(
               "absolute inset-0 h-full w-full object-contain object-center opacity-0 transition-opacity duration-300",
-              index === currentSlide && "z-[1] opacity-100"
+              index === currentSlide && "z-[1] opacity-100",
             )}
             priority={index === 0}
             width={1600}
@@ -144,7 +144,7 @@ export default function KulturaSlider({ slides, className }: SliderProps) {
           <div
             className={clsx(
               "absolute inset-0 h-full w-full bg-black opacity-40",
-              index === currentSlide && "z-10"
+              index === currentSlide && "z-10",
             )}
           ></div>
           <div

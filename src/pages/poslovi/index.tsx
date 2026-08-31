@@ -28,12 +28,15 @@ import type {
   Post,
   PostsMeta,
 } from "@/features/types";
+import { useUI } from "@/utils/ui";
+import { categoryName } from "@/utils/categoryName";
+import { localized } from "@/utils/i18n";
 
 type JobsProps = {
   initialJobs: Post<JobsMeta>[];
   totalPages: number;
   postObrasci: Post<PostsMeta>[];
-  jobPage: Post<JobsMeta>;
+  jobPage: Post<PostsMeta>;
   categories: Category[];
   banners: Banner[];
 };
@@ -70,7 +73,10 @@ const PosloviPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   categories,
   banners,
 }) => {
+  const ui = useUI();
   const router = useRouter();
+  const t = (hr: string | undefined, en: string | undefined) =>
+    localized(router.locale, hr, en);
 
   const category = router.query.category
     ? Number(router.query.category)
@@ -115,7 +121,7 @@ const PosloviPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
         query: routerQuery,
       },
       undefined,
-      { shallow: true }
+      { shallow: true },
     );
   };
 
@@ -142,7 +148,7 @@ const PosloviPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
           query: routerQuery,
         },
         undefined,
-        { shallow: true }
+        { shallow: true },
       );
     }, 1000);
   };
@@ -162,12 +168,14 @@ const PosloviPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
 
   return (
     <Layout
-      title={clearHtmlFromString(jobPage?.title.rendered ?? "Poslovi")}
-      description="Ponuda poslova; Studentski centar u Zagrebu; Sveučilište u Zagrebu"
+      title={clearHtmlFromString(
+        t(jobPage?.title.rendered, jobPage?.meta.title_en) || "Poslovi",
+      )}
+      description={ui("jobs.metaTitle")}
     >
       <PageTitle
-        title={jobPage?.title.rendered ?? "Poslovi"}
-        subtitle={jobPage?.excerpt.rendered}
+        title={t(jobPage?.title.rendered, jobPage?.meta.title_en) || "Poslovi"}
+        subtitle={t(jobPage?.excerpt.rendered, jobPage?.meta.excerpt_en)}
       />
       <div className="mt-12 flex flex-col-reverse gap-12 md:flex-row pb-12">
         <div className="w-full md:w-[75%]">
@@ -200,42 +208,45 @@ const PosloviPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                     onClick={() => fetchNextPage()}
                     className="mt-6"
                   >
-                    Učitaj više
+                    {ui("common.loadMore")}
                   </Button>
                 </div>
               ) : null}
             </>
           ) : (
-            <div className="my-4 text-light">Nema poslova za prikaz</div>
+            <div className="my-4 text-light">{ui("empty.jobs")}</div>
           )}
         </div>
         <div className="w-full md:w-[25%]">
           <TextInput
             value={search}
             onChange={handleSearch}
-            placeholder="Pretraži poslove..."
+            placeholder={ui("jobs.search")}
             type="search"
           />
           <FilterSelect
             value={category || 0}
             onChange={handleChangeCategory}
-            title="Vrsta posla"
+            title={ui("jobs.type")}
             className="md:mt-8"
             items={
               categories
                 ? [
-                    { title: "Svi poslovi", value: jobsCategoryId },
+                    { title: ui("jobs.pageTitle"), value: jobsCategoryId },
                     ...categories?.map((category) => ({
-                      title: category.name,
+                      title: categoryName(router.locale, category.name),
                       value: category.id,
                     })),
                   ]
-                : [{ title: "Svi poslovi", value: jobsCategoryId }]
+                : [{ title: ui("jobs.pageTitle"), value: jobsCategoryId }]
             }
           />
           <LoginInfoCard
-            title="Obrasci"
-            content={postObrasci?.[0].content.rendered || ""}
+            title={ui("jobs.forms")}
+            content={t(
+              postObrasci?.[0].content.rendered,
+              postObrasci?.[0].meta.content_en,
+            )}
             documents={postObrasci?.[0].meta.documents || []}
             className="mt-6 hidden md:block !p-0 !bg-transparent !shadow-none [&>div>div>p]:!text-sm"
           />
@@ -257,8 +268,11 @@ const PosloviPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
         </div>
       </div>
       <LoginInfoCard
-        title="Obrasci"
-        content={postObrasci?.[0].content.rendered || ""}
+        title={ui("jobs.forms")}
+        content={t(
+          postObrasci?.[0].content.rendered,
+          postObrasci?.[0].meta.content_en,
+        )}
         documents={postObrasci?.[0].meta.documents || []}
         className="mt-6 md:hidden !p-0 !bg-transparent !shadow-none [&>div>div>p]:!text-sm"
       />

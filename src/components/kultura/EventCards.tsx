@@ -7,6 +7,9 @@ import DisplayHTML from "../elements/DisplayHTML";
 import Spinner from "../elements/Spinner";
 import Card from "../shared/Card";
 import CustomLink from "../elements/CustomLink";
+import { useUI } from "@/utils/ui";
+import { useRouter } from "next/router";
+import { localized } from "@/utils/i18n";
 
 interface EventCardsProps {
   events: Event[] | undefined;
@@ -18,26 +21,31 @@ interface EventCardsProps {
 }
 
 const EventCards: React.FC<EventCardsProps> = (props) => {
+  const ui = useUI();
+  const { locale } = useRouter();
+  const t = (hr: string | undefined, en: string | undefined) =>
+    localized(locale, hr, en);
+
   return props.loading ? (
     <div
       className={clsx(
         "py-12 flex items-center justify-center",
-        props.classNameLoading
+        props.classNameLoading,
       )}
     >
       <Spinner />
     </div>
   ) : props.events && props.events.length <= 0 ? (
     <div className={clsx("text-light", props.classNameEmpty)}>
-      {props.emptyMessage || "Nema evenata za prikaz"}
+      {props.emptyMessage || ui("empty.events")}
     </div>
   ) : (
     <div className={clsx("grid grid-cols-1 lg:grid-cols-2", props.className)}>
       {props.events?.map((event, index) => (
         <EventCard
           key={event.slug + event.event_date}
-          title={event.title}
-          location={event.location}
+          title={t(event.title, event.title_en)}
+          location={t(event.location, event.location_en)}
           type={event.type}
           date={event.event_date}
           image={event.image}
@@ -77,15 +85,15 @@ export const EventCard: React.FC<EventCardProps> = (props) => {
         props.withoutTimeline
           ? ""
           : props.reverse
-          ? "border-l-2 lg:border-l-0 lg:border-r-2 lg:ml-px"
-          : "border-l-2 lg:border-l-0 ml-0 lg:mr-px"
+            ? "border-l-2 lg:border-l-0 lg:border-r-2 lg:ml-px"
+            : "border-l-2 lg:border-l-0 ml-0 lg:mr-px",
       )}
     >
       {!props.withoutTimeline && (
         <div
           className={clsx(
             "w-3 h-3 bg-gray-200 rounded-full absolute top-1/2 transform -translate-y-1/2",
-            props.reverse ? "-left-[7px] lg:hidden" : "-left-[7px]"
+            props.reverse ? "-left-[7px] lg:hidden" : "-left-[7px]",
           )}
         ></div>
       )}
@@ -96,7 +104,7 @@ export const EventCard: React.FC<EventCardProps> = (props) => {
               ? "flex-row lg:flex-row-reverse text-left lg:text-right"
               : "flex-row",
             "flex gap-4 !p-4",
-            props.dense ? "!py-2" : "py-4"
+            props.dense ? "!py-2" : "py-4",
           )}
         >
           <Image
@@ -106,7 +114,7 @@ export const EventCard: React.FC<EventCardProps> = (props) => {
             height={60}
             className={clsx(
               "rounded-lg object-cover object-[center_25%]",
-              props.dense ? "w-[50px] h-[50px]" : "w-[60px] h-[60px]"
+              props.dense ? "w-[50px] h-[50px]" : "w-[60px] h-[60px]",
             )}
           />
           <div
@@ -115,7 +123,7 @@ export const EventCard: React.FC<EventCardProps> = (props) => {
             <div
               className={clsx(
                 "text-light",
-                props.dense ? "text-sm" : "text-base"
+                props.dense ? "text-sm" : "text-base",
               )}
             >{`${
               props.date

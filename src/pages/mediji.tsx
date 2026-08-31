@@ -6,6 +6,8 @@ import type { Post, PostsMeta } from "@/features/types";
 import clearHtmlFromString from "@/utils/clearHtmlFromString";
 import { medijiPost, revalidateTime } from "@/utils/constants";
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
+import { useRouter } from "next/router";
+import { localized } from "@/utils/i18n";
 
 type MedijiProps = {
   data: Post<PostsMeta>;
@@ -25,11 +27,23 @@ export const getStaticProps: GetStaticProps<MedijiProps> = async () => {
 export const MeidjiPage: NextPage<
   InferGetStaticPropsType<typeof getStaticProps>
 > = ({ data }) => {
+  const { locale } = useRouter();
+  const t = (hr: string | undefined, en: string | undefined) =>
+    localized(locale, hr, en);
+
   return (
-    <Layout title={clearHtmlFromString(data?.title.rendered ?? "")}>
-      <PageTitle title={clearHtmlFromString(data?.title.rendered ?? "")} />
+    <Layout
+      title={clearHtmlFromString(
+        t(data?.title.rendered, data?.meta.title_en) ?? "",
+      )}
+    >
+      <PageTitle
+        title={clearHtmlFromString(
+          t(data?.title.rendered, data?.meta.title_en) ?? "",
+        )}
+      />
       <DisplayHTML
-        html={data?.content.rendered ?? ""}
+        html={t(data?.content.rendered, data?.meta.content_en) ?? ""}
         className="mediji-content mt-12"
       />
       {/* <iframe

@@ -12,6 +12,9 @@ import {
 } from "@/utils/constants";
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
 import type { Post, PostsMeta } from "@/features/types";
+import { useUI } from "@/utils/ui";
+import { useRouter } from "next/router";
+import { localized } from "@/utils/i18n";
 
 type PrijavaProps = {
   studentLoginPost: Post<PostsMeta> | undefined;
@@ -34,19 +37,26 @@ export const getStaticProps: GetStaticProps<PrijavaProps> = async () => {
 const StudentLoginPage: NextPage<
   InferGetStaticPropsType<typeof getStaticProps>
 > = ({ studentLoginPost }) => {
+  const ui = useUI();
+  const { locale } = useRouter();
+  const t = (hr: string | undefined, en: string | undefined) =>
+    localized(locale, hr, en);
   return (
-    <Layout
-      title="Prijava"
-      description="Prijava studenata - Studentski centar u Zagrebu"
-    >
-      <PageTitle title="Prijava studenata članova Student servisa za korištenje usluga" />
+    <Layout title={ui("login.pageTitle")} description={ui("login.studentPage")}>
+      <PageTitle title={ui("login.studentIntro")} />
 
       <div className="flex flex-col gap-8 items-start md:flex-row my-12">
         <div className="md:w-[65%]">
           {studentLoginPost ? (
             <LoginInfoCard
-              title={studentLoginPost.title.rendered || ""}
-              content={studentLoginPost.content.rendered || ""}
+              title={t(
+                studentLoginPost.title.rendered,
+                studentLoginPost.meta.title_en,
+              )}
+              content={t(
+                studentLoginPost.content.rendered,
+                studentLoginPost.meta.content_en,
+              )}
               documents={studentLoginPost.meta.documents || []}
             />
           ) : null}

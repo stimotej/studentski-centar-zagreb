@@ -5,6 +5,7 @@ import { getEvents } from "@/features/events";
 import type { Event } from "@/features/types";
 import { revalidateTime } from "@/utils/constants";
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
+import { useUI } from "@/utils/ui";
 
 type EventsProps = {
   events: Event[];
@@ -24,9 +25,10 @@ export const getStaticProps: GetStaticProps<EventsProps> = async () => {
 const EventsPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   events,
 }) => {
+  const ui = useUI();
   return (
-    <Layout title="Eventi">
-      <PageTitle title="Kalendar evenata" />
+    <Layout title={ui("common.events")}>
+      <PageTitle title={ui("kultura.eventCalendar")} />
       {/* <div className="flex flex-col lg:flex-row gap-6 my-12"> */}
       <EventCards
         events={events}

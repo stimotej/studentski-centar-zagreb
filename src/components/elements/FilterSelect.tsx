@@ -36,7 +36,7 @@ const FilterSelect: React.FC<FilterSelectProps> = (props) => {
               onClick={() => setOpened(false)}
               className={clsx(
                 "fixed inset-0 bg-black/40 z-50",
-                !opened && "md:hidden"
+                !opened && "md:hidden",
               )}
             ></motion.div>
             <motion.div
@@ -46,7 +46,7 @@ const FilterSelect: React.FC<FilterSelectProps> = (props) => {
               className={clsx(
                 "fixed left-0 bottom-0 right-0 max-h-[90%] z-50 overflow-auto bg-white rounded-lg",
                 !opened && "md:hidden",
-                props.className
+                props.className,
               )}
             >
               <div className="p-6">
@@ -71,7 +71,7 @@ const FilterSelect: React.FC<FilterSelectProps> = (props) => {
       <div
         className={clsx(
           "hidden md:static md:block md:p-0 md:rounded-none",
-          props.className
+          props.className,
         )}
       >
         <Filters
@@ -89,7 +89,7 @@ const FilterSelect: React.FC<FilterSelectProps> = (props) => {
         onClick={() => setOpened(!opened)}
         className={clsx(
           "fixed bottom-4 right-4 z-50 bg-primary text-white rounded-full p-4",
-          !opened && "md:hidden"
+          !opened && "md:hidden",
         )}
       >
         {opened ? <MdClose size={24} /> : <MdFilterList size={24} />}
@@ -122,7 +122,7 @@ const Filters: React.FC<FiltersProps> = (props) => {
               "flex include-filters items-center justify-between text-sm text-left p-4 text-text border-b border-gray-100",
               item.value === props.value
                 ? "bg-primary/5 border-b-primary/25"
-                : "hover:bg-gray-50"
+                : "hover:bg-gray-50",
             )}
           >
             {item.title}

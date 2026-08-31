@@ -29,6 +29,10 @@ import type {
   PostsMeta,
 } from "@/features/types";
 import Banner from "@/components/ads/Banner";
+import { useRouter } from "next/router";
+import { localized } from "@/utils/i18n";
+import { useUI } from "@/utils/ui";
+import { categoryName } from "@/utils/categoryName";
 
 type HomeProps = {
   sliderPosts: Post<ObavijestiMeta>[];
@@ -52,11 +56,11 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   });
 
   const opceInformacijePost = info?.find(
-    (post) => post.id === pocetnaOpceInformacijePost
+    (post) => post.id === pocetnaOpceInformacijePost,
   );
 
   const oglasZaPopunuRadnihMjestaPost = info?.find(
-    (post) => post.id === pocetnaOglasZaPopunuRadnihMjestaPost
+    (post) => post.id === pocetnaOglasZaPopunuRadnihMjestaPost,
   );
 
   return {
@@ -80,18 +84,23 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   opceInformacijePost,
   oglasZaPopunuRadnihMjestaPost,
 }) => {
+  const ui = useUI();
+  const { locale } = useRouter();
+  const t = (hr: string | undefined, en: string | undefined) =>
+    localized(locale, hr, en);
+
   return (
     <Layout
-      description="Studentski Centar u Zagrebu, Sveučilište u Zagrebu; Kultura, Prehrana, Smještaj, Student servis, Sport, Teatar &TD"
+      description={ui("home.metaTitle")}
       header={
         !!sliderPosts && (
           <Slider
             className="mt-[64px]"
             slides={sliderPosts.map((slide) => ({
               src: slide.image_url,
-              title: slide.title.rendered,
-              subtitle: slide.excerpt.rendered,
-              actionTitle: "Saznaj više",
+              title: t(slide.title.rendered, slide.meta.title_en),
+              subtitle: t(slide.excerpt.rendered, slide.meta.excerpt_en),
+              actionTitle: ui("common.readMore"),
               actionHref: `/obavijesti/${slide.slug}`,
             }))}
           />
@@ -103,27 +112,31 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
       <LinkCards />
       <div className="mt-6 flex flex-col gap-16 md:flex-row">
         <div className="w-full md:w-[70%]">
-          <h2 className="text-2xl font-semibold">Obavijesti</h2>
+          <h2 className="text-2xl font-semibold">{ui("nav.obavijesti")}</h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-6">
             {!!obavijesti && obavijesti?.length > 0 ? (
               obavijesti?.map((obavijest) => (
                 <PostCard
                   key={obavijest.id}
                   slug={obavijest.slug}
-                  title={clearHtmlFromString(obavijest.title.rendered)}
-                  category={obavijest.category}
+                  title={clearHtmlFromString(
+                    t(obavijest.title.rendered, obavijest.meta.title_en),
+                  )}
+                  category={categoryName(locale, obavijest.category)}
                   date={obavijest.date}
-                  excerpt={clearHtmlFromString(obavijest.excerpt.rendered)}
+                  excerpt={clearHtmlFromString(
+                    t(obavijest.excerpt.rendered, obavijest.meta.excerpt_en),
+                  )}
                   image={obavijest.image_url}
                 />
               ))
             ) : (
-              <div className="my-4 text-light">Nema obavijesti za prikaz</div>
+              <div className="my-4 text-light">{ui("empty.obavijesti")}</div>
             )}
           </div>
           <div className="flex justify-center mt-8">
             <ButtonLink href="/obavijesti" className="px-8 !rounded-full">
-              Idi na obavijesti
+              {ui("common.goToNews")}
             </ButtonLink>
           </div>
 
@@ -137,16 +150,31 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
         </div>
         <div className="w-full md:w-[30%]">
           <GeneralInfoCard
-            title={opceInformacijePost?.title.rendered || ""}
-            content={opceInformacijePost?.meta.sadrzaj || ""}
+            title={
+              t(
+                opceInformacijePost?.title.rendered,
+                opceInformacijePost?.meta.title_en,
+              ) || ""
+            }
+            content={
+              t(
+                opceInformacijePost?.meta.sadrzaj,
+                opceInformacijePost?.meta.sadrzaj_en,
+              ) || ""
+            }
             link={`/informacije/${opceInformacijePost?.slug}`}
           />
           <DisplayHTML
-            html={oglasZaPopunuRadnihMjestaPost?.title.rendered || ""}
+            html={
+              t(
+                oglasZaPopunuRadnihMjestaPost?.title.rendered,
+                oglasZaPopunuRadnihMjestaPost?.meta.title_en,
+              ) || ""
+            }
             className="mt-6 font-medium text-lg"
           />
           <SidebarLinks
-            emptyText="Nema poslova za prikaz"
+            emptyText={ui("empty.jobs")}
             className="mt-2"
             items={
               oglasZaPopunuRadnihMjestaPost?.meta.documents.map((file) => ({
@@ -155,11 +183,11 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
               })) || []
             }
           />
-          <h3 className="mt-6 font-medium text-lg">Teatar &TD</h3>
+          <h3 className="mt-6 font-medium text-lg">{ui("nav.teatarTd")}</h3>
           <TeatarTDCard className="mt-2" />
-          <h3 className="mt-6 font-medium text-lg">Kalendar</h3>
+          <h3 className="mt-6 font-medium text-lg">{ui("home.calendar")}</h3>
           <SidebarLinks
-            emptyText="Nema evenata za prikaz"
+            emptyText={ui("empty.events")}
             className="mt-2"
             items={
               calendarEvents?.map((event) => ({
@@ -167,7 +195,7 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                   event.post_type === "obavijesti"
                     ? dayjs(event.event_date).format("DD.MM.YYYY [u] HH:mm[h]")
                     : `${dayjs(event.event_date).format(
-                        "DD.MM.YYYY [u] HH:mm[h]"
+                        "DD.MM.YYYY [u] HH:mm[h]",
                       )}, ${event.location}`,
                 title: clearHtmlFromString(event.title),
                 link:
@@ -182,15 +210,15 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
       {!!faqs?.filter((item) => item.categories.includes(faqPocetnaCategory))
         .length && (
         <div className="mt-32">
-          <SectionTitle title="Informacije" className="mt-20" />
+          <SectionTitle title={ui("home.information")} className="mt-20" />
           <FAQCards
             items={
               faqs
                 .filter((item) => item.categories.includes(faqPocetnaCategory))
                 .slice(0, 8)
                 .map((item) => ({
-                  title: item.title.rendered,
-                  content: item.content.rendered,
+                  title: t(item.title.rendered, item.meta.title_en),
+                  content: t(item.content.rendered, item.meta.content_en),
                 })) || []
             }
             // loading={isLoadingFaqs}
@@ -198,7 +226,7 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
           {faqs?.filter((item) => item.categories.includes(faqPocetnaCategory))
             .length > 8 && (
             <ButtonLink href="/informacije" className="mx-auto mt-6">
-              Vidi sve
+              {ui("common.seeAll")}
             </ButtonLink>
           )}
         </div>

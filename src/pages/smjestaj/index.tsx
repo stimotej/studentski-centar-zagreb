@@ -15,6 +15,7 @@ import { getObavijestiPage } from "@/features/obavijesti";
 import { getPosts } from "@/features/posts";
 import type { ObavijestiMeta, Post, PostsMeta } from "@/features/types";
 import clearHtmlFromString from "@/utils/clearHtmlFromString";
+import { localized } from "@/utils/i18n";
 import {
   faqSmjestajCategory,
   infoPostsCategoryId,
@@ -29,6 +30,8 @@ import {
   revalidateTime,
 } from "@/utils/constants";
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
+import { useRouter } from "next/router";
+import { useUI } from "@/utils/ui";
 
 type CardItem = {
   id: number;
@@ -45,7 +48,9 @@ type SmjestajProps = {
   obavijesti: Post<ObavijestiMeta>[];
 };
 
-export const getStaticProps: GetStaticProps<SmjestajProps> = async () => {
+export const getStaticProps: GetStaticProps<SmjestajProps> = async ({
+  locale,
+}) => {
   const posts = await getPosts({
     categories: [
       infoPostsCategoryId,
@@ -71,26 +76,37 @@ export const getStaticProps: GetStaticProps<SmjestajProps> = async () => {
       infoToggleItems: infoTogglePosts.map((post) => ({
         id: post.id,
         image: post.image_url,
-        title: clearHtmlFromString(post.title.rendered),
-        content: post.content.rendered,
+        title: clearHtmlFromString(
+          localized(locale, post.title.rendered, post.meta.title_en),
+        ),
+        content: localized(locale, post.content.rendered, post.meta.content_en),
       })),
       cardItems: cardPosts.map((post) => {
         const documentUrl = post.meta.documents?.[0]?.source_url;
+        const actionTitle = localized(
+          locale,
+          post.meta.footnotes,
+          post.meta.footnotes_en,
+        );
         const action = documentUrl
           ? {
-              title: post.meta.footnotes,
+              title: actionTitle,
               href: documentUrl,
               isRegularLink: true,
             }
           : post.meta.link
-          ? { title: post.meta.footnotes, href: post.meta.link }
-          : null;
+            ? { title: actionTitle, href: post.meta.link }
+            : null;
 
         return {
           id: post.id,
           image: post.image_url,
-          title: post.title.rendered,
-          content: post.content.rendered,
+          title: localized(locale, post.title.rendered, post.meta.title_en),
+          content: localized(
+            locale,
+            post.content.rendered,
+            post.meta.content_en,
+          ),
           action,
         };
       }),
@@ -103,19 +119,25 @@ export const getStaticProps: GetStaticProps<SmjestajProps> = async () => {
 const SmjestajPage: NextPage<
   InferGetStaticPropsType<typeof getStaticProps>
 > = ({ posts, infoToggleItems, cardItems, obavijesti }) => {
+  const ui = useUI();
+  const { locale } = useRouter();
+
+  const t = (hr: string | undefined, en: string | undefined) =>
+    localized(locale, hr, en);
+
   return (
     <Layout
-      title="Smještaj"
-      description="Pravo na smještaj u studentskom domu je osobno pravo studenta i nije prenosivo na drugu osobu. Studentski centar u Zagrebu će odmah po useljenju studenata u studentske domove obavljati intenzivne kontrole ostvarenog prava i sukladno Pravilniku o domskom redu i uvjetima boravka studenata u studentskim domovima sankcionirati prekršitelje."
+      title={ui("smjestaj.pageTitle")}
+      description={ui("smjestaj.personalRightFull")}
       bottomComponent={
         <>
           <div id="studentski-domovi"></div>
           <PostSlider
-            title="Studentski domovi"
-            subtitle="SC Zagreb nudi smještaj u 4 studentska doma na atraktivnim lokacijama u gradu Zagrebu."
+            title={ui("smjestaj.dorms")}
+            subtitle={ui("smjestaj.intro")}
             className="my-24"
             posts={posts?.filter((post) =>
-              post.categories.includes(infoSmjestajDormitoriesCategory)
+              post.categories.includes(infoSmjestajDormitoriesCategory),
             )}
           />
 
@@ -125,52 +147,52 @@ const SmjestajPage: NextPage<
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
               {posts
                 ?.filter((post) =>
-                  post.categories.includes(infoSmjestajForeignStudentsCategory)
+                  post.categories.includes(infoSmjestajForeignStudentsCategory),
                 )
                 .map((post) => (
                   <InfoPostCard
                     key={post.id}
-                    title={post.title.rendered}
-                    excerpt={post.excerpt.rendered}
+                    title={t(post.title.rendered, post.meta.title_en)}
+                    excerpt={t(post.excerpt.rendered, post.meta.excerpt_en)}
                     link={`/informacije/${post.slug}`}
                   />
                 ))}
             </div>
 
             {!!posts?.filter((item) =>
-              item.categories.includes(faqSmjestajCategory)
+              item.categories.includes(faqSmjestajCategory),
             ).length && (
               <div className="my-24">
-                <SectionTitle title="Često postavljana pitanja" />
+                <SectionTitle title={ui("common.faq")} />
                 <FAQCards
                   items={
                     posts
                       .filter((item) =>
-                        item.categories.includes(faqSmjestajCategory)
+                        item.categories.includes(faqSmjestajCategory),
                       )
                       .slice(0, 8)
                       .map((item) => ({
-                        title: item.title.rendered,
-                        content: item.content.rendered,
+                        title: t(item.title.rendered, item.meta.title_en),
+                        content: t(item.content.rendered, item.meta.content_en),
                       })) || []
                   }
                 />
                 {posts?.filter((item) =>
-                  item.categories.includes(faqSmjestajCategory)
+                  item.categories.includes(faqSmjestajCategory),
                 ).length > 8 && (
                   <ButtonLink href="/smjestaj/faq" className="mx-auto mt-6">
-                    Vidi sve
+                    {ui("common.seeAll")}
                   </ButtonLink>
                 )}
               </div>
             )}
 
             {/* <BlueCard
-              title="Natječaj za smještaj 2022/2023"
-              description="Za prijavu na natječaj za studentski smještaj prijavite se putem linka  nastavku."
+              title={ui("smjestaj.tender2022")}
+              description={ui("smjestaj.applyVia")}
               className="mt-12"
               action={{
-                title: "Prijava za natječaj",
+                title: ui("smjestaj.applyTender"),
                 href: "https://natjecaj.sczg.hr/student",
                 isRegularLink: true,
               }}
@@ -179,8 +201,8 @@ const SmjestajPage: NextPage<
             <div className="flex flex-col md:flex-row gap-6 my-12">
               <ContentCard
                 image="/slike/smjestaj/ikone/savjetovaliste.png"
-                title="SAVJETOVALIŠTE"
-                content="U sklopu studentskog doma „Cvjetno naselje“ možete koristiti usluge BESPLATNOG savjetovanja. Savjetovanje će se održavati prema unaprijed dogovorenim terminima i dostupno je svim studentima korisnicima usluga Studentskog centra u Zagrebu, kao i radnicima Studentskog centra u Zagrebu."
+                title={ui("smjestaj.counselling")}
+                content={ui("smjestaj.counsellingFull")}
                 imageClassName="w-[90px] h-[90px] object-contain"
                 contentClassName="text-light leading-relaxed"
               />
@@ -190,10 +212,10 @@ const SmjestajPage: NextPage<
       }
     >
       <PageTitle
-        title="Obavijesti - studentski smještaj"
-        subtitle="Pravo na smještaj u studentskom domu je osobno pravo studenta i nije prenosivo na drugu osobu. Studentski centar u Zagrebu će odmah po useljenju studenata u studentske domove obavljati intenzivne kontrole ostvarenog prava i sukladno Pravilniku o domskom redu i uvjetima boravka studenata u studentskim domovima sankcionirati prekršitelje."
+        title={ui("smjestaj.newsTitle")}
+        subtitle={ui("smjestaj.personalRightFull")}
         action={{
-          title: "STUDENTSKI DOMOVI",
+          title: ui("smjestaj.dormsUpper"),
           href: "#studentski-domovi",
           isRegularLink: true,
         }}
@@ -204,13 +226,13 @@ const SmjestajPage: NextPage<
       <div id="natjecaj"></div>
       {posts
         ?.filter((post) =>
-          post.categories.includes(infoSmjestajNatjecajCategory)
+          post.categories.includes(infoSmjestajNatjecajCategory),
         )
         .map((post) => (
           <NatjecajCard
             key={post.id}
-            title={post.title.rendered}
-            excerpt={post.excerpt.rendered}
+            title={t(post.title.rendered, post.meta.title_en)}
+            excerpt={t(post.excerpt.rendered, post.meta.excerpt_en)}
             link={`/informacije/${post.slug}`}
             className="mt-12"
           />
@@ -219,8 +241,8 @@ const SmjestajPage: NextPage<
       <InfoToggles items={infoToggleItems} className="mt-12" />
 
       <SectionTitle
-        title="Boravak u studentskome domu"
-        subtitle="Poštovani budući stanari studentskih domova, za boravak u studentskome domu potrebno je ispuniti slijedeći kriteriji:"
+        title={ui("smjestaj.stay")}
+        subtitle={ui("smjestaj.criteria")}
         className="mt-24"
       />
       <div className="flex flex-col gap-8 mt-6">
@@ -243,8 +265,8 @@ const SmjestajPage: NextPage<
           .map((post) => (
             <InfoPostCard
               key={post.id}
-              title={post.title.rendered}
-              excerpt={post.excerpt.rendered}
+              title={t(post.title.rendered, post.meta.title_en)}
+              excerpt={t(post.excerpt.rendered, post.meta.excerpt_en)}
               link={`/informacije/${post.slug}`}
             />
           ))}

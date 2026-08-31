@@ -2,72 +2,74 @@ import clsx from "clsx";
 import React from "react";
 import { MdChevronRight } from "react-icons/md";
 import Card from "../shared/Card";
+import { useUI } from "@/utils/ui";
 
 interface LinkCardsProps {
   className?: string;
 }
 
 const LinkCards: React.FC<LinkCardsProps> = (props) => {
+  const ui = useUI();
   return (
     <section
       className={clsx("grid grid-cols-1 md:grid-cols-2 gap-4", props.className)}
     >
       <SectionCard
-        title="REKREACIJSKE AKTIVNOSTI"
+        title={ui("sport.recreational")}
         links={[
           {
-            title: "CJELOGODIŠNJE",
+            title: ui("sport.yearRound"),
             href: "#rekreacijske-aktivnosti-informacije-cjelogodisnje",
           },
           {
-            title: "POVREMENE",
+            title: ui("sport.occasional"),
             href: "#rekreacijske-aktivnosti-informacije-povremene",
           },
           {
-            title: "SLIKE",
+            title: ui("sport.photos"),
             href: "#rekreacijske-aktivnosti-slike",
           },
         ]}
       />
       <SectionCard
-        title="EDUKACIJSKE AKTIVNOSTI"
+        title={ui("sport.educational")}
         links={[
           {
-            title: "SPORTSKE",
+            title: ui("sport.sporting"),
             href: "#edukacijske-aktivnosti-informacije-sportske",
           },
           {
-            title: "STRUČNE",
+            title: ui("sport.professional"),
             href: "#edukacijske-aktivnosti-informacije-strucne",
           },
           {
-            title: "SLIKE",
+            title: ui("sport.photos"),
             href: "#edukacijske-aktivnosti-slike",
           },
         ]}
       />
       <SectionCard
-        title="NATJECATELJSKE AKTIVNOSTI"
+        title={ui("sport.competitive")}
         links={[
           {
-            title: "INFORMACIJE",
+            title: ui("sport.information"),
             href: "#natjecateljske-aktivnosti-informacije",
           },
           {
-            title: "SLIKE",
+            title: ui("sport.photos"),
             href: "#natjecateljske-aktivnosti-slike",
           },
         ]}
       />
       <SectionCard
-        title="ZABAVNE AKTIVNOSTI"
+        title={ui("sport.social")}
         links={[
           {
-            title: "INFORMACIJE",
+            title: ui("sport.information"),
             href: "#zabavne-aktivnosti-informacije",
           },
           {
-            title: "SLIKE",
+            title: ui("sport.photos"),
             href: "#zabavne-aktivnosti-slike",
           },
         ]}

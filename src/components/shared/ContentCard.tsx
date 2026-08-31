@@ -24,7 +24,7 @@ const ContentCard: React.FC<ContentCardProps> = (props) => {
     <Card
       className={clsx(
         "text-center flex flex-col justify-between gap-6",
-        props.className
+        props.className,
       )}
     >
       {!!props.image &&
@@ -42,7 +42,7 @@ const ContentCard: React.FC<ContentCardProps> = (props) => {
             height={230}
             className={clsx(
               "h-[150px] w-auto object-cover mx-auto",
-              props.imageClassName
+              props.imageClassName,
             )}
           />
         ))}
@@ -51,7 +51,7 @@ const ContentCard: React.FC<ContentCardProps> = (props) => {
           html={props.title}
           className={clsx(
             "text-sm uppercase text-text tracking-wide font-medium",
-            props.titleClassName
+            props.titleClassName,
           )}
         />
         <DisplayHTML

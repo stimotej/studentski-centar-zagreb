@@ -24,6 +24,8 @@ import type {
 } from "next";
 import { useRouter } from "next/router";
 import type { ParsedUrlQuery } from "querystring";
+import { localized } from "@/utils/i18n";
+import { useUI } from "@/utils/ui";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await getRestaurantsPaths();
@@ -64,6 +66,11 @@ export const getStaticProps: GetStaticProps<RestoranProps> = async ({
 const RestaurantPage: NextPage<
   InferGetStaticPropsType<typeof getStaticProps>
 > = ({ restaurant }) => {
+  const ui = useUI();
+  const { locale } = useRouter();
+  const t = (hr: string | undefined, en: string | undefined) =>
+    localized(locale, hr, en);
+
   const router = useRouter();
 
   const { data: menus, isInitialLoading: isLoadingMenus } = useMenus(
@@ -73,7 +80,7 @@ const RestaurantPage: NextPage<
     },
     {
       enabled: !!restaurant,
-    }
+    },
   );
 
   if (router.isFallback)
@@ -86,29 +93,37 @@ const RestaurantPage: NextPage<
     return (
       <Layout>
         <div className="flex flex-col gap-12 items-center justify-center mt-20">
-          <p className="text-lg text-light">Nije pronađen restoran</p>
+          <p className="text-lg text-light">{ui("empty.restaurantNotFound")}</p>
           <Button onClick={() => router.back()} className="mx-auto">
-            Povratak
+            {ui("job.back")}
           </Button>
         </div>
       </Layout>
     );
   return (
     <Layout
-      title={clearHtmlFromString(restaurant?.title.rendered || "")}
-      description={clearHtmlFromString(restaurant?.excerpt.rendered || "")}
+      title={clearHtmlFromString(
+        t(restaurant?.title.rendered, restaurant?.meta.title_en) || "",
+      )}
+      description={clearHtmlFromString(
+        t(restaurant?.excerpt.rendered, restaurant?.meta.excerpt_en) || "",
+      )}
     >
       <div className="flex flex-col md:flex-row gap-12">
         <PageTitle
-          title={clearHtmlFromString(restaurant?.title.rendered || "")}
+          title={clearHtmlFromString(
+            t(restaurant?.title.rendered, restaurant?.meta.title_en) || "",
+          )}
           subtitle={
             <div>
               <p className="font-semibold text-light underline">
-                Ponuda uključuje:
+                {ui("restaurant.offerIncludes")}
               </p>
-              <DisplayHTML html={restaurant?.meta.ponuda || ""} />
+              <DisplayHTML
+                html={t(restaurant?.meta.ponuda, restaurant?.meta.ponuda_en)}
+              />
               <ButtonLink href="#dnevni-meni" className="mt-6" isRegularLink>
-                Dnevna ponuda
+                {ui("restaurant.dailyOffer")}
               </ButtonLink>
             </div>
           }
@@ -116,9 +131,14 @@ const RestaurantPage: NextPage<
         />
         <Card className="flex-1 mt-0 md:mt-24 text-center text-sm text-light">
           <h5 className="uppercase text-primary underline font-semibold mb-6">
-            RADNO VRIJEME
+            {ui("restaurant.openingHours")}
           </h5>
-          <DisplayHTML html={restaurant?.meta.radno_vrijeme || ""} />
+          <DisplayHTML
+            html={t(
+              restaurant?.meta.radno_vrijeme,
+              restaurant?.meta.radno_vrijeme_en,
+            )}
+          />
         </Card>
       </div>
 
@@ -127,7 +147,7 @@ const RestaurantPage: NextPage<
 
       <RestoranJelaSection className="mb-12 mt-28" />
 
-      <SectionTitle title="Lokacija" className="mt-24" />
+      <SectionTitle title={ui("common.location")} className="mt-24" />
       <div className="mb-12">
         <DisplayHTML html={restaurant?.meta.lokacija || ""} />
       </div>

@@ -1,6 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 import { MdOutlineWarning } from "react-icons/md";
+import { useUI } from "@/utils/ui";
 
 interface UnderConstructionTagProps {
   className?: string;
@@ -8,6 +9,7 @@ interface UnderConstructionTagProps {
 }
 
 const UnderConstructionTag: React.FC<UnderConstructionTagProps> = (props) => {
+  const ui = useUI();
   return (
     <div
       className={clsx(
@@ -15,17 +17,17 @@ const UnderConstructionTag: React.FC<UnderConstructionTagProps> = (props) => {
         props.white
           ? "bg-white/20 text-white border-2 border-white"
           : "bg-primary/10 text-primary border-2 border-primary",
-        props.className
+        props.className,
       )}
     >
       <MdOutlineWarning size={20} />
       <span
         className={clsx(
           "font-semibold",
-          props.white ? "text-white" : "text-primary"
+          props.white ? "text-white" : "text-primary",
         )}
       >
-        Stranica u izradi
+        {ui("common.underConstruction")}
       </span>
     </div>
   );

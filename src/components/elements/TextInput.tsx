@@ -21,7 +21,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
               : "border-primary/40 bg-primary/5 rounded-lg",
             props.errorMessage &&
               "border-red-500 focus-within:border-red-600 bg-red-500/5",
-            props.className
+            props.className,
           )}
         >
           {props.type === "search" ? (
@@ -36,7 +36,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
             {...props}
             className={clsx(
               "outline-none py-3 px-4 rounded-xl w-full",
-              props.type === "search" && "pl-r pl-1"
+              props.type === "search" && "pl-r pl-1",
             )}
           />
         </div>
@@ -47,7 +47,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
         ) : null}
       </div>
     );
-  }
+  },
 );
 
 TextInput.displayName = "TextInput";

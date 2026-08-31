@@ -2,6 +2,7 @@ import React from "react";
 import ButtonLink from "../elements/ButtonLink";
 import Card from "../shared/Card";
 import DisplayHTML from "../elements/DisplayHTML";
+import { useUI } from "@/utils/ui";
 
 interface NatjecajCardProps {
   className?: string;
@@ -11,6 +12,7 @@ interface NatjecajCardProps {
 }
 
 const NatjecajCard: React.FC<NatjecajCardProps> = (props) => {
+  const ui = useUI();
   return (
     <Card className={props.className}>
       <DisplayHTML
@@ -26,7 +28,7 @@ const NatjecajCard: React.FC<NatjecajCardProps> = (props) => {
         className="mt-5 mx-auto"
         isRegularLink
       >
-        Natječaj za studentski smještaj
+        {ui("smjestaj.tenderCard")}
       </ButtonLink>
     </Card>
   );

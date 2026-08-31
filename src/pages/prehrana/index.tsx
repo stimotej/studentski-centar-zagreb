@@ -22,6 +22,9 @@ import {
 } from "@/utils/constants";
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import { localized } from "@/utils/i18n";
+import { useUI } from "@/utils/ui";
 
 type PrehranaProps = {
   posts: Post<PostsMeta>[];
@@ -60,16 +63,21 @@ export const getStaticProps: GetStaticProps<PrehranaProps> = async () => {
 const PrehranaPage: NextPage<
   InferGetStaticPropsType<typeof getStaticProps>
 > = ({ posts, faqs, linksPost, obavijesti }) => {
+  const ui = useUI();
+  const { locale } = useRouter();
+  const t = (hr: string | undefined, en: string | undefined) =>
+    localized(locale, hr, en);
+
   return (
     <Layout
-      title="Prehrana"
-      description="Studentski centar Zagreb broji čak 16 restorana smještenih na vrlo atraktivnim lokacijama po Zagrebu. Na stranicama svakog restorana možete pratiti dnevnu ponudu jela koja se taj dan poslužuju."
+      title={ui("prehrana.pageTitle")}
+      description={ui("prehrana.restaurantsIntro")}
       bottomComponent={
         <>
           <div id="restorani"></div>
           <PostSlider
-            // title="Restorani"
-            // subtitle="Restorani Studentskog Centra u Zagrebu"
+            // title={ui("prehrana.restaurants")}
+            // subtitle={ui("prehrana.restaurantsTitle")}
             className="my-14"
             posts={posts}
           />
@@ -80,30 +88,30 @@ const PrehranaPage: NextPage<
               className="!rounded-full w-fit"
               isRegularLink={true}
             >
-              Pitanja i pomoć
+              {ui("common.questionsAndHelp")}
             </ButtonLink>
 
             <div className="flex flex-col items-start md:flex-row gap-6 mt-8">
               <div className="flex flex-col gap-2 flex-1 items-start">
                 <p className="text-light font-medium">
-                  Podaci o studentskim pravima i akademskim karticama
+                  {ui("prehrana.rightsData")}
                 </p>
                 <div className="bg-[#bfc946] p-3 include-filters relative overflow-hidden rounded-sm">
                   <Image
                     width={128}
                     height={128}
                     src="/slike/prehrana/student.png"
-                    alt="Student - prijava u issp.srce.hr"
+                    alt={ui("prehrana.studentLogin")}
                     className="mx-auto"
                   />
                   <h4 className="uppercase text-[22px] text-center my-2">
-                    STUDENTI
+                    {ui("prehrana.students")}
                   </h4>
                   <a
                     href="https://issp.srce.hr/account/loginaai"
                     className="flex rounded-sm transition-[shadow,colors] hover:text-[#212529] hover:animate-pulse hover:shadow-[0_5px_11px_0_rgba(0,0,0,.18),0_4px_15px_0_rgba(0,0,0,.15)] shadow-[0_2px_5px_0_rgba(0,0,0,.16),0_2px_10px_0_rgba(0,0,0,.12)] w-full p-3 px-6 font-semibold text-white bg-[#63681e]"
                   >
-                    Prijava u sustav
+                    {ui("prehrana.systemLogin")}
                   </a>
                   <div className="p-10 pb-1 absolute -top-[10px] text-sm -left-14 transform -rotate-45 bg-[#444444] text-center text-white">
                     AAI@EduHr
@@ -112,7 +120,10 @@ const PrehranaPage: NextPage<
               </div>
               <Card className="flex flex-col gap-3 text-primary flex-1">
                 <DisplayHTML
-                  html={linksPost?.[0].excerpt.rendered || ""}
+                  html={t(
+                    linksPost?.[0].excerpt.rendered,
+                    linksPost?.[0].meta.excerpt_en,
+                  )}
                   className="leading-7"
                 />
               </Card>
@@ -121,28 +132,28 @@ const PrehranaPage: NextPage<
             <PagePosts posts={obavijesti} className="mt-12" />
 
             {!!faqs?.filter((item) =>
-              item.categories.includes(faqPrehranaCategory)
+              item.categories.includes(faqPrehranaCategory),
             ).length && (
               <div className="mt-32">
-                <SectionTitle title="Često postavljana pitanja" />
+                <SectionTitle title={ui("common.faq")} />
                 <FAQCards
                   items={
                     faqs
                       .filter((item) =>
-                        item.categories.includes(faqPrehranaCategory)
+                        item.categories.includes(faqPrehranaCategory),
                       )
                       .slice(0, 8)
                       .map((item) => ({
-                        title: item.title.rendered,
-                        content: item.content.rendered,
+                        title: t(item.title.rendered, item.meta.title_en),
+                        content: t(item.content.rendered, item.meta.content_en),
                       })) || []
                   }
                 />
                 {faqs?.filter((item) =>
-                  item.categories.includes(faqPrehranaCategory)
+                  item.categories.includes(faqPrehranaCategory),
                 ).length > 8 && (
                   <ButtonLink href="/prehrana/faq" className="mx-auto mt-6">
-                    Vidi sve
+                    {ui("common.seeAll")}
                   </ButtonLink>
                 )}
               </div>
@@ -161,10 +172,10 @@ const PrehranaPage: NextPage<
       }
     >
       <PageTitle
-        title="Prehrana"
-        // subtitle="Studentski centar Zagreb broji čak 16 restorana smještenih na vrlo atraktivnim lokacijama po Zagrebu. Na stranicama svakog restorana možete pratiti dnevnu ponudu jela koja se taj dan poslužuju."
+        title={ui("prehrana.pageTitle")}
+        // subtitle={ui("prehrana.restaurantsIntro")}
         // action={{
-        //   title: "Pitanja i pomoć",
+        //   title: ui("common.questionsAndHelp"),
         //   href: "#pitanja-i-pomoc",
         //   isRegularLink: true,
         // }}

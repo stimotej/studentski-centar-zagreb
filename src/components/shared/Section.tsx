@@ -11,7 +11,7 @@ const Section: React.FC<SectionProps> = (props) => {
     <section
       className={clsx(
         "container md:max-w-[80%] mx-auto p-6 md:px-0",
-        props.className
+        props.className,
       )}
     >
       {props.children}

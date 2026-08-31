@@ -14,6 +14,9 @@ import { obavijestiCategoryId, revalidateTime } from "@/utils/constants";
 import { useScrollRestoration } from "@/hooks/useScrollRestoration";
 import type { Category, ObavijestiMeta, Post } from "@/features/types";
 import { useRouter } from "next/router";
+import { localized } from "@/utils/i18n";
+import { useUI } from "@/utils/ui";
+import { categoryName } from "@/utils/categoryName";
 
 type ObavijestiProps = {
   initialObavijesti: Post<ObavijestiMeta>[];
@@ -38,6 +41,11 @@ export const getStaticProps: GetStaticProps<ObavijestiProps> = async () => {
 const ObavijestiPage: NextPage<
   InferGetStaticPropsType<typeof getStaticProps>
 > = ({ initialObavijesti, totalPages, categories }) => {
+  const ui = useUI();
+  const { locale } = useRouter();
+  const t = (hr: string | undefined, en: string | undefined) =>
+    localized(locale, hr, en);
+
   const router = useRouter();
 
   const category = router.query.category
@@ -81,7 +89,7 @@ const ObavijestiPage: NextPage<
         query: routerQuery,
       },
       undefined,
-      { shallow: true }
+      { shallow: true },
     );
   };
 
@@ -108,7 +116,7 @@ const ObavijestiPage: NextPage<
           query: routerQuery,
         },
         undefined,
-        { shallow: true }
+        { shallow: true },
       );
     }, 1000);
   };
@@ -128,10 +136,10 @@ const ObavijestiPage: NextPage<
 
   return (
     <Layout
-      title="Obavijesti"
-      description="Obavijesti Studentskog Centra u Zagrebu"
+      title={ui("obavijesti.pageTitle")}
+      description={ui("obavijesti.metaTitle")}
     >
-      <PageTitle title="Obavijesti" />
+      <PageTitle title={ui("obavijesti.pageTitle")} />
       <div className="mt-12 flex flex-col-reverse gap-12 md:flex-row pb-12">
         <div className="w-full md:w-[75%]">
           {isLoading ? (
@@ -145,11 +153,16 @@ const ObavijestiPage: NextPage<
                       <PostCard
                         key={obavijest.id}
                         slug={obavijest.slug}
-                        title={clearHtmlFromString(obavijest.title.rendered)}
-                        category={obavijest.category}
+                        title={clearHtmlFromString(
+                          t(obavijest.title.rendered, obavijest.meta.title_en),
+                        )}
+                        category={categoryName(locale, obavijest.category)}
                         date={obavijest.date}
                         excerpt={clearHtmlFromString(
-                          obavijest.excerpt.rendered
+                          t(
+                            obavijest.excerpt.rendered,
+                            obavijest.meta.excerpt_en,
+                          ),
                         )}
                         image={obavijest.image_url}
                       />
@@ -164,37 +177,40 @@ const ObavijestiPage: NextPage<
                     onClick={() => fetchNextPage()}
                     className="mt-6"
                   >
-                    Učitaj više
+                    {ui("common.loadMore")}
                   </Button>
                 </div>
               ) : null}
             </>
           ) : (
-            <div className="my-4 text-light">Nema obavijesti za prikaz</div>
+            <div className="my-4 text-light">{ui("empty.obavijesti")}</div>
           )}
         </div>
         <div className="w-full md:w-[25%]">
           <TextInput
             value={search}
             onChange={handleSearch}
-            placeholder="Pretraži obavijesti..."
+            placeholder={ui("obavijesti.search")}
             type="search"
           />
           <FilterSelect
             value={category}
             onChange={handleChangeCategory}
-            title="Kategorije"
+            title={ui("obavijesti.categories")}
             className="mt-8"
             items={
               categories
                 ? [
-                    { title: "Sve obavijesti", value: obavijestiCategoryId },
+                    {
+                      title: ui("obavijesti.all"),
+                      value: obavijestiCategoryId,
+                    },
                     ...categories?.map((category) => ({
-                      title: category.name,
+                      title: categoryName(locale, category.name),
                       value: category.id,
                     })),
                   ]
-                : [{ title: "Sve obavijesti", value: obavijestiCategoryId }]
+                : [{ title: ui("obavijesti.all"), value: obavijestiCategoryId }]
             }
           />
         </div>

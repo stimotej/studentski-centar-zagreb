@@ -4,6 +4,7 @@ import DisplayHTML from "../elements/DisplayHTML";
 import Spinner from "../elements/Spinner";
 import Card from "../shared/Card";
 import SectionTitle from "../shared/SectionTitle";
+import { useUI, type UIKey } from "@/utils/ui";
 
 interface DnevniMenuSectionProps {
   className?: string;
@@ -11,32 +12,41 @@ interface DnevniMenuSectionProps {
   loading?: boolean;
 }
 
-const meals: { field_name: "dorucak" | "rucak" | "vecera"; title: string }[] = [
-  { field_name: "dorucak", title: "Doručak" },
-  { field_name: "rucak", title: "Ručak" },
-  { field_name: "vecera", title: "Večera" },
+// The literal union on field_name must survive, or the lookups below widen to
+// string and stop type-checking against the menu shape.
+const buildMeals = (
+  ui: (key: UIKey) => string,
+): { field_name: "dorucak" | "rucak" | "vecera"; title: string }[] => [
+  { field_name: "dorucak", title: ui("prehrana.breakfast") },
+  { field_name: "rucak", title: ui("prehrana.lunch") },
+  { field_name: "vecera", title: ui("prehrana.dinner") },
 ];
 
-const types: {
+const buildTypes = (
+  ui: (key: UIKey) => string,
+): {
   field_name: "menu" | "vege_menu" | "izbor" | "prilozi";
   title: string;
-}[] = [
-  { field_name: "menu", title: "Menu" },
-  { field_name: "vege_menu", title: "Vegeterijanski menu" },
-  { field_name: "izbor", title: "Izbor" },
-  { field_name: "prilozi", title: "Prilozi" },
+}[] => [
+  { field_name: "menu", title: ui("prehrana.menu") },
+  { field_name: "vege_menu", title: ui("prehrana.vegetarian") },
+  { field_name: "izbor", title: ui("prehrana.choice") },
+  { field_name: "prilozi", title: ui("prehrana.sides") },
 ];
 
 const DnevniMenuSection: React.FC<DnevniMenuSectionProps> = (props) => {
+  const ui = useUI();
+  const meals = buildMeals(ui);
+  const types = buildTypes(ui);
   return (
     <section className={props.className}>
-      <SectionTitle title="Dnevni meni" className="mt-24" />
+      <SectionTitle title={ui("prehrana.dailyMenu")} className="mt-24" />
       {props.loading ? (
         <div className="py-6">
           <Spinner className="mx-auto" />
         </div>
       ) : !!props.menus && props.menus.length <= 0 ? (
-        <div className="text-light text-center py-8">Nema menija za prikaz</div>
+        <div className="text-light text-center py-8">{ui("empty.menus")}</div>
       ) : (
         props.menus?.map((menu) => {
           const menu_products = menu.meta.menu_products;

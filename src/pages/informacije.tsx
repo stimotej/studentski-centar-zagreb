@@ -5,6 +5,9 @@ import { getPosts } from "@/features/posts";
 import type { Post, PostsMeta } from "@/features/types";
 import { faqPocetnaCategory, revalidateTime } from "@/utils/constants";
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
+import { useRouter } from "next/router";
+import { localized } from "@/utils/i18n";
+import { useUI } from "@/utils/ui";
 
 type FAQProps = {
   posts: Post<PostsMeta>[];
@@ -26,19 +29,24 @@ export const getStaticProps: GetStaticProps<FAQProps> = async () => {
 const FAQPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   posts,
 }) => {
+  const ui = useUI();
+  const { locale } = useRouter();
+  const t = (hr: string | undefined, en: string | undefined) =>
+    localized(locale, hr, en);
+
   return (
-    <Layout title="Informacije">
-      <PageTitle title="Informacije" />
+    <Layout title={ui("home.information")}>
+      <PageTitle title={ui("home.information")} />
       {posts.length <= 0 ? (
         <p className="text-center text-light my-24">
-          Nema informacija za prikaz
+          {ui("empty.information")}
         </p>
       ) : (
         <FAQCards
           items={
             posts?.map((item) => ({
-              title: item.title.rendered,
-              content: item.content.rendered,
+              title: t(item.title.rendered, item.meta.title_en),
+              content: t(item.content.rendered, item.meta.content_en),
             })) || []
           }
           className="my-12"

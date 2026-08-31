@@ -11,7 +11,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   if (req.query.secret !== process.env.REVALIDATION_SECRET) {
     return res.status(401).json({ message: "Invalid token" });
@@ -59,23 +59,23 @@ export default async function handler(
     ]);
 
     informacijePosts.forEach((p) =>
-      allPathsToRevalidate.push(`/informacije/${p.slug}`)
+      allPathsToRevalidate.push(`/informacije/${p.slug}`),
     );
     eventiPaths.forEach((e) =>
-      allPathsToRevalidate.push(`/kultura/eventi/${e.slug}`)
+      allPathsToRevalidate.push(`/kultura/eventi/${e.slug}`),
     );
     tecajeviPaths.forEach((t) =>
-      allPathsToRevalidate.push(`/kultura/tecajevi-i-radionice/${t.slug}`)
+      allPathsToRevalidate.push(`/kultura/tecajevi-i-radionice/${t.slug}`),
     );
     obavijestiPaths.forEach((o) =>
-      allPathsToRevalidate.push(`/obavijesti/${o.slug}`)
+      allPathsToRevalidate.push(`/obavijesti/${o.slug}`),
     );
     jobsPaths.forEach((j) => allPathsToRevalidate.push(`/poslovi/${j.slug}`));
     restaurantsPaths.forEach((r) =>
-      allPathsToRevalidate.push(`/prehrana/restorani/${r.slug}`)
+      allPathsToRevalidate.push(`/prehrana/restorani/${r.slug}`),
     );
     domoviPaths.forEach((d) =>
-      allPathsToRevalidate.push(`/smjestaj/domovi/${d.slug}`)
+      allPathsToRevalidate.push(`/smjestaj/domovi/${d.slug}`),
     );
   } catch (err) {
     console.error("Failed to fetch paths for revalidation:", err);
@@ -85,16 +85,25 @@ export default async function handler(
     });
   }
 
+  // Every page exists twice now. Croatian is the default locale so it keeps
+  // the bare path, and English lives under /en — revalidating only the bare
+  // path would leave the English copy to age out on its own revalidate timer
+  // instead of updating when an editor saves.
+  const localizedPaths = allPathsToRevalidate.flatMap((path) => [
+    path,
+    path === "/" ? "/en" : `/en${path}`,
+  ]);
+
   try {
     const results = await Promise.all(
-      allPathsToRevalidate.map(async (path) => {
+      localizedPaths.map(async (path) => {
         try {
           await res.revalidate(path);
           return { path, success: true };
         } catch (error) {
           return { path, success: false, error: (error as Error).message };
         }
-      })
+      }),
     );
     return res.json({ revalidated: true, results });
   } catch (err) {

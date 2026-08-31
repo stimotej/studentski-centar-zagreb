@@ -12,7 +12,11 @@ import { getDomoviPaths } from "@/features/paths";
 import { getPost } from "@/features/posts";
 import type { Post, PostsMeta } from "@/features/types";
 import clearHtmlFromString from "@/utils/clearHtmlFromString";
-import { revalidateTime, smjestajNatjecajDokumentSlug } from "@/utils/constants";
+import { localized } from "@/utils/i18n";
+import {
+  revalidateTime,
+  smjestajNatjecajDokumentSlug,
+} from "@/utils/constants";
 import type {
   GetStaticPaths,
   GetStaticProps,
@@ -21,13 +25,20 @@ import type {
 } from "next";
 import { useRouter } from "next/router";
 import type { ParsedUrlQuery } from "querystring";
+import { useUI } from "@/utils/ui";
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   const posts = await getDomoviPaths();
 
-  const paths = posts.map((post) => ({
-    params: { slug: post.slug },
-  }));
+  // Pre-render every locale. Without an explicit locale the English pages are
+  // only ever produced on demand, and with `fallback: true` a crawler or a
+  // JS-less request sees the loading shell instead of the page.
+  const paths = posts.flatMap((post) =>
+    (locales ?? ["hr"]).map((locale) => ({
+      params: { slug: post.slug },
+      locale,
+    })),
+  );
 
   return {
     paths,
@@ -63,13 +74,36 @@ export const getStaticProps: GetStaticProps<DomProps> = async ({ params }) => {
 const DormitoryPage: NextPage<
   InferGetStaticPropsType<typeof getStaticProps>
 > = ({ obavijest, natjecajDokument }) => {
+  const ui = useUI();
   const router = useRouter();
 
+  // Croatian unless an English translation actually exists for this field.
+  // Pages render mixed while a section is only part-translated — that is the
+  // documented behaviour, not a bug.
+  const t = (hr: string | undefined, en: string | undefined) =>
+    localized(router.locale, hr, en);
+
+  const sadrzaj = t(obavijest?.meta.sadrzaj, obavijest?.meta.sadrzaj_en);
+  const kontakt = t(obavijest?.meta.kontakt, obavijest?.meta.kontakt_en);
+  const radnoVrijemeBlagajni = t(
+    obavijest?.meta.radno_vrijeme_blagajni,
+    obavijest?.meta.radno_vrijeme_blagajni_en,
+  );
+  const dormTitle = t(obavijest?.title.rendered, obavijest?.meta.title_en);
+  const dormExcerpt = t(
+    obavijest?.excerpt.rendered,
+    obavijest?.meta.excerpt_en,
+  );
+
   const natjecajTitle = natjecajDokument?.title.rendered
-    ? clearHtmlFromString(natjecajDokument.title.rendered)
+    ? clearHtmlFromString(
+        t(natjecajDokument.title.rendered, natjecajDokument.meta.title_en),
+      )
     : undefined;
   const natjecajDescription = natjecajDokument?.excerpt.rendered
-    ? clearHtmlFromString(natjecajDokument.excerpt.rendered)
+    ? clearHtmlFromString(
+        t(natjecajDokument.excerpt.rendered, natjecajDokument.meta.excerpt_en),
+      )
     : undefined;
   const natjecajPdfUrl = natjecajDokument?.meta.documents?.[0]?.source_url;
 
@@ -93,28 +127,31 @@ const DormitoryPage: NextPage<
     return (
       <Layout>
         <div className="flex flex-col gap-12 items-center justify-center mt-20">
-          <p className="text-lg text-light">Nije pronađen studentski dom</p>
+          <p className="text-lg text-light">{ui("dorm.notFound")}</p>
           <Button onClick={() => router.back()} className="mx-auto">
-            Povratak
+            {ui("job.back")}
           </Button>
         </div>
       </Layout>
     );
   return (
     <Layout
-      title={clearHtmlFromString(obavijest?.title.rendered || "")}
-      description={clearHtmlFromString(obavijest?.excerpt.rendered || "")}
+      title={clearHtmlFromString(dormTitle)}
+      description={clearHtmlFromString(dormExcerpt)}
       bottomComponent={
         <>
-          <SectionTitle title="Fotografije" className="mt-24" />
+          <SectionTitle title={ui("dorm.photos")} className="mt-24" />
           {!obavijest?.meta.image_groups ? (
-            <p className="text-center text-light">Nema fotografija za prikaz</p>
+            <p className="text-center text-light">{ui("empty.photos")}</p>
           ) : (
-            <ImageGallery imageGroups={obavijest.meta.image_groups} />
+            <ImageGallery
+              imageGroups={obavijest.meta.image_groups}
+              imageGroupsEn={obavijest.meta.image_groups_en}
+            />
           )}
 
           <Section>
-            <SectionTitle title="Lokacija" className="mt-12" />
+            <SectionTitle title={ui("common.location")} className="mt-12" />
             <div className="mb-12">
               <DisplayHTML html={obavijest?.meta.lokacija || ""} />
             </div>
@@ -127,7 +164,7 @@ const DormitoryPage: NextPage<
                 action={
                   natjecajPdfUrl
                     ? {
-                        title: "Prijava za natječaj",
+                        title: ui("smjestaj.applyTender"),
                         href: natjecajPdfUrl,
                         isRegularLink: true,
                       }
@@ -140,37 +177,36 @@ const DormitoryPage: NextPage<
       }
     >
       <PageTitle
-        title={clearHtmlFromString(obavijest?.title.rendered || "")}
+        title={clearHtmlFromString(dormTitle)}
         subtitle={
-          clearHtmlFromString(obavijest?.excerpt.rendered || "") ? (
-            <DisplayHTML html={obavijest?.excerpt.rendered || ""} />
+          clearHtmlFromString(dormExcerpt) ? (
+            <DisplayHTML html={dormExcerpt} />
           ) : null
         }
       />
       <div className="flex flex-col md:flex-row gap-8 mt-12">
-        {!!obavijest?.meta.sadrzaj && (
+        {!!sadrzaj && (
           <Card>
             <h5 className="font-semibold text-text text-lg mb-2">
-              Popratni sadržaj
+              {ui("common.relatedContent")}
             </h5>
-            <DisplayHTML html={obavijest.meta.sadrzaj} className="text-light" />
+            <DisplayHTML html={sadrzaj} className="text-light" />
           </Card>
         )}
-        {!!obavijest?.meta.kontakt && (
-          <Card>
-            <h5 className="font-semibold text-text text-lg mb-2">Kontakt</h5>
-            <DisplayHTML html={obavijest.meta.kontakt} className="text-light" />
-          </Card>
-        )}
-        {!!obavijest?.meta.radno_vrijeme_blagajni && (
+        {!!kontakt && (
           <Card>
             <h5 className="font-semibold text-text text-lg mb-2">
-              Radno vrijeme blagajni
+              {ui("cards.contact")}
             </h5>
-            <DisplayHTML
-              html={obavijest.meta.radno_vrijeme_blagajni}
-              className="text-light"
-            />
+            <DisplayHTML html={kontakt} className="text-light" />
+          </Card>
+        )}
+        {!!radnoVrijemeBlagajni && (
+          <Card>
+            <h5 className="font-semibold text-text text-lg mb-2">
+              {ui("common.workingHours")}
+            </h5>
+            <DisplayHTML html={radnoVrijemeBlagajni} className="text-light" />
           </Card>
         )}
       </div>

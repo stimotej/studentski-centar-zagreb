@@ -4,6 +4,7 @@ import bannerRba from "../../../public/slike/rba/RBA_Young_and_Free_Banner.jpg";
 import { useEffect, useState } from "react";
 import { MdClose } from "react-icons/md";
 import Image from "next/image";
+import { useUI } from "@/utils/ui";
 
 // Order matters: cycling through this array reproduces RBA-OTP-RBA-ZABA-RBA-OTP-RBA-ZABA...
 const banners = [
@@ -36,6 +37,7 @@ const banners = [
 const STORAGE_KEY = "last_banner";
 
 export default function Banner() {
+  const ui = useUI();
   const [isOpen, setIsOpen] = useState(true);
   const [activeBanner, setActiveBanner] = useState<
     (typeof banners)[number] | null
@@ -49,7 +51,7 @@ export default function Banner() {
       bannerToSet = banners[0];
     } else {
       const foundBannerIndex = banners.findIndex(
-        (b) => b.id === parseInt(lastBannerId)
+        (b) => b.id === parseInt(lastBannerId),
       );
       const nextBannerIndex =
         foundBannerIndex > -1 ? (foundBannerIndex + 1) % banners.length : 0;
@@ -82,8 +84,8 @@ export default function Banner() {
         <button
           className="absolute right-4 top-4"
           onClick={() => setIsOpen(false)}
-          title="Zatvori oglas"
-          aria-label="Zatvori oglas"
+          title={ui("ads.close")}
+          aria-label={ui("ads.close")}
         >
           <MdClose size={24} className="text-white" />
         </button>

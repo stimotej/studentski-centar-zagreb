@@ -5,61 +5,43 @@ import PageTitle from "@/components/shared/PageTitle";
 import { type NextPage } from "next";
 import Image from "next/image";
 import React from "react";
+import { useUI } from "@/utils/ui";
 
 const PlacanjeStanarineOnLinePutemPage: NextPage = () => {
+  const ui = useUI();
   return (
-    <Layout
-      title="Plaćanje stanarine on-line putem"
-      description="Omogućeno je plaćanje smještaja u studentskim domovima on-line putem tokom cijele akademke godine. Student na ovaj način može platiti sva dosadašnja dugovanja, kao i stanarinu za mjesec unaprijed."
-    >
-      <PageTitle
-        title="Plaćanje stanarine on-line putem"
-        subtitle="Omogućeno je plaćanje smještaja u studentskim domovima on-line putem tokom cijele akademke godine. Student na ovaj način može platiti sva dosadašnja dugovanja, kao i stanarinu za mjesec unaprijed."
-      />
+    <Layout title={ui("rent.title")} description={ui("rent.intro")}>
+      <PageTitle title={ui("rent.title")} subtitle={ui("rent.intro")} />
       <Step
         number={1}
         image="/slike/smjestaj/placanje-stanarine/korak_1.png"
-        content={`<div class="et_pb_blurb_description"><p><strong>Pristupiti osobnom profilu putem linka:</strong><span>&nbsp;</span><a target="_blank" href="https://natjecaj.sczg.hr/student/login.ashx" rel="noopener">https://natjecaj.sczg.hr/student/login.ashx</a></p></div>`}
+        content={`<div class="et_pb_blurb_description"><p><strong>{ui("rent.accessProfile")}</strong><span>&nbsp;</span><a target="_blank" href="https://natjecaj.sczg.hr/student/login.ashx" rel="noopener">https://natjecaj.sczg.hr/student/login.ashx</a></p></div>`}
       />
       <Step
         number={2}
         image="/slike/smjestaj/placanje-stanarine/korak_2.jpg"
-        content={`<p><strong>Nakon prijave u osobni profil, kliknuti na „<em>Naplata smještaja</em>“.</strong></p>`}
+        content={`<p><strong>{ui("rent.afterLogin")}<em>{ui("rent.charges")}</em>“.</strong></p>`}
       />
       <Step
         number={3}
         image="/slike/smjestaj/placanje-stanarine/korak_3.jpg"
-        content={`<p><strong>U srednjem dijelu ekrana potrebno je odabrati što se plaća, na način da se odabir potvrdi klikom na praznu kučicu.</strong></p>`}
+        content={`<p><strong>{ui("rent.selectWhat")}</strong></p>`}
       />
       <Step
         number={4}
         image="/slike/smjestaj/placanje-stanarine/korak_4.jpg"
-        content={`<p><strong>Sa desne strane vidljiva je opcija „Plaćanje odabranih usluga“ na čiji se klik otvara obrazac za plaćanje stanarine (sukladno odabranim opcijama).</strong></p>`}
+        content={`<p><strong>{ui("rent.rightSide")}</strong></p>`}
       />
       <Step
         number={5}
         image="/slike/smjestaj/placanje-stanarine/korak_5.jpg"
-        content={`<p><strong>U obrazac potrebno je unijeti broj kartice, datum isteka i kontrolni broj. Ako su ti podaci ispravno upisani, transakciju je potrebno potvrditi nekim oblikom tokena (čitač kartice, mtoken – kao i na svakom web plaćanju).</strong></p>`}
+        content={`<p><strong>{ui("rent.cardDetails")}</strong></p>`}
       />
 
       <Card className="text-text text-center my-12 font-medium">
-        <p>
-          Ukoliko je transakcija uspješna, student može dohvatiti račun u PDF
-          obliku.
-        </p>
-        <p className="mt-3">
-          Ako se na formi za plaćanje prikaže da je transakcija uspješna, a na
-          ekranu za rezervaciju smještaja bude pogreška kako transakcija nije
-          uspjela - došlo je do pogreške kod kreiranja računa. Student bi u tom
-          slučaju trebao kontaktirati Poslovnicu SC-a putem e-maila
-          (poslovnica@sczg.hr) te navesti svoje osobne podatke (ime, prezime,
-          OIB), broj rezervacije i kratak opis što je pošlo krivo (poželjna je
-          preslika ekrana), kako bi se transakcija ručno stornirala.
-        </p>
-        <p className="mt-3">
-          Napomena: nije moguće platiti stanarinu za mjesec unaprijed ukoliko
-          nisu podmirena sva ranije pristigla dugovanja.
-        </p>
+        <p>{ui("rent.receipt")}</p>
+        <p className="mt-3">{ui("rent.errorContact")}</p>
+        <p className="mt-3">{ui("rent.note")}</p>
       </Card>
     </Layout>
   );

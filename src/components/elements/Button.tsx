@@ -17,7 +17,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         className={clsx(
           "relative flex text-center items-center gap-1 bg-primary hover:bg-primary/90 rounded-full uppercase text-white tracking-widest text-xs py-4 px-8 font-semibold",
           props.disabled && "!bg-gray-200 !text-gray-600 hover:!bg-gray-200",
-          props.className
+          props.className,
         )}
       >
         {props.children}
@@ -29,7 +29,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {props.icon}
       </button>
     );
-  }
+  },
 );
 
 Button.displayName = "Button";

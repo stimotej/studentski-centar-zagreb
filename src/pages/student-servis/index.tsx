@@ -26,6 +26,9 @@ import PagePosts from "@/components/shared/PagePosts";
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
 import { getObavijestiPage } from "@/features/obavijesti";
 import type { ObavijestiMeta, Post, PostsMeta } from "@/features/types";
+import { useRouter } from "next/router";
+import { localized } from "@/utils/i18n";
+import { useUI } from "@/utils/ui";
 
 type StudentServisProps = {
   aboutPost: Post<PostsMeta> | undefined;
@@ -42,13 +45,13 @@ export const getStaticProps: GetStaticProps<StudentServisProps> = async () => {
 
   const aboutPost = posts.find((post) => post.id === infoSSAboutPost);
   const infoSSPoslovnicePosts = posts.filter((post) =>
-    post.categories.includes(infoSSPoslovniceCategory)
+    post.categories.includes(infoSSPoslovniceCategory),
   );
   const infoSSInfoPosts = posts.filter((post) =>
-    post.categories.includes(infoSSInfoCategory)
+    post.categories.includes(infoSSInfoCategory),
   );
   const faqStudentServisPosts = posts.filter((item) =>
-    item.categories.includes(faqStudentServisCategory)
+    item.categories.includes(faqStudentServisCategory),
   );
 
   const obavijesti = await getObavijestiPage(obavijestiStudentServisCategory);
@@ -74,16 +77,18 @@ const StudentServisPage: NextPage<
   faqStudentServisPosts,
   obavijesti,
 }) => {
+  const ui = useUI();
+  const { locale } = useRouter();
+  const t = (hr: string | undefined, en: string | undefined) =>
+    localized(locale, hr, en);
+
   return (
-    <Layout
-      title="Student servis"
-      description="Student servis studentskog centar Sveučilišta u Zagrebu posreduje u pronalasku studentskih poslova između studenata i poslodavaca. Pronađite najbolje poslove na oglasniku studentskih poslova."
-    >
+    <Layout title={ui("ss.pageTitle")} description={ui("ss.introFull")}>
       {!!aboutPost && (
         <AboutSection
           image={aboutPost.image_url}
-          title={aboutPost.title.rendered}
-          content={aboutPost.content.rendered}
+          title={t(aboutPost.title.rendered, aboutPost.meta.title_en)}
+          content={t(aboutPost.content.rendered, aboutPost.meta.content_en)}
           className="mt-12"
         />
       )}
@@ -92,8 +97,8 @@ const StudentServisPage: NextPage<
         {infoSSPoslovnicePosts.map((post) => (
           <InfoPostCard
             key={post.id}
-            title={post.title.rendered}
-            content={post.content.rendered}
+            title={t(post.title.rendered, post.meta.title_en)}
+            content={t(post.content.rendered, post.meta.content_en)}
           />
         ))}
       </div>
@@ -104,10 +109,10 @@ const StudentServisPage: NextPage<
       <LoginLinksSection className="mt-24 mb-24" />
 
       <PageTitle
-        title="Student servis"
-        subtitle="Student servis studentskog centar Sveučilišta u Zagrebu posreduje u pronalasku studentskih poslova između studenata i poslodavaca. Pronađite najbolje poslove na oglasniku studentskih poslova."
+        title={ui("ss.pageTitle")}
+        subtitle={ui("ss.introFull")}
         action={{
-          title: "PRETRAŽI POSLOVE",
+          title: ui("jobs.searchUpper"),
           href: "/poslovi",
         }}
       />
@@ -118,8 +123,8 @@ const StudentServisPage: NextPage<
         {infoSSInfoPosts.map((post) => (
           <InfoPostCard
             key={post.id}
-            title={post.title.rendered}
-            excerpt={post.excerpt.rendered}
+            title={t(post.title.rendered, post.meta.title_en)}
+            excerpt={t(post.excerpt.rendered, post.meta.excerpt_en)}
             link={`/informacije/${post.slug}`}
           />
         ))}
@@ -129,18 +134,18 @@ const StudentServisPage: NextPage<
 
       {faqStudentServisPosts.length > 0 && (
         <div className="mb-24">
-          <SectionTitle title="Često postavljana pitanja" />
+          <SectionTitle title={ui("common.faq")} />
           <FAQCards
             items={
               faqStudentServisPosts.slice(0, 8).map((item) => ({
-                title: item.title.rendered,
-                content: item.content.rendered,
+                title: t(item.title.rendered, item.meta.title_en),
+                content: t(item.content.rendered, item.meta.content_en),
               })) || []
             }
           />
           {faqStudentServisPosts.length > 8 && (
             <ButtonLink href="/student-servis/faq" className="mx-auto mt-6">
-              Vidi sve
+              {ui("common.seeAll")}
             </ButtonLink>
           )}
         </div>
@@ -152,10 +157,10 @@ const StudentServisPage: NextPage<
       <ClanstvoSection className="mb-24" />
 
       <BlueCard
-        title="Članstvo poslodavaca u Student servis"
-        description="Jednostavan sustav prijave ovih poslodavaca u bazu Studentskog centra u Zagrebu."
+        title={ui("membership.employers")}
+        description={ui("membership.employersIntro")}
         action={{
-          title: "PRIJAVA ČLANSTVO POSLODAVCI",
+          title: ui("ss.signupMembershipEmployers"),
           href: "/prijava-poslodavac",
         }}
         className="mb-12"

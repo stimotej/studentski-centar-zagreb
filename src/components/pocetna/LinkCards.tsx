@@ -2,43 +2,46 @@ import React from "react";
 import { MdChevronRight } from "react-icons/md";
 import Card from "../shared/Card";
 import CustomLink from "../elements/CustomLink";
+import { useUI, type UIKey } from "@/utils/ui";
 
-const slides = [
+const buildSlides = (ui: (key: UIKey) => string) => [
   {
-    title: "PREHRANA",
+    title: ui("cards.prehranaUpper"),
     links: [
       { title: "+385 1 4593 654", href: "tel:+385 1 4593 654" },
-      { title: "Restorani", href: "/prehrana#restorani" },
+      { title: ui("cards.restaurants"), href: "/prehrana#restorani" },
       {
-        title: "Pitanja i pomoć",
+        title: ui("common.questionsAndHelp"),
         href: "/prehrana#pitanja-i-pomoc",
       },
     ],
   },
   {
-    title: "STUDENT SERVIS",
+    title: ui("cards.studentServisUpper"),
     links: [
-      { title: "Prijava", href: "/student-servis#prijava" },
+      { title: ui("cards.signIn"), href: "/student-servis#prijava" },
       {
-        title: "Postani član",
+        title: ui("cards.becomeMember"),
         href: "/student-servis#clanstvo",
       },
-      { title: "Poslovi", href: "/poslovi" },
+      { title: ui("cards.jobs"), href: "/poslovi" },
     ],
   },
   {
-    title: "SMJEŠTAJ",
+    title: ui("cards.smjestajUpper"),
     links: [
-      { title: "Kontakt", href: "/informacije/kontakti/" },
-      { title: "Natječaj", href: "/smjestaj#natjecaj" },
+      { title: ui("cards.contact"), href: "/informacije/kontakti/" },
+      { title: ui("cards.tender"), href: "/smjestaj#natjecaj" },
       {
-        title: "Naselja",
+        title: ui("cards.settlements"),
         href: "/smjestaj#studentski-domovi",
       },
     ],
   },
 ];
 const LinkCards: React.FC = () => {
+  const ui = useUI();
+  const slides = buildSlides(ui);
   return (
     <div className="flex flex-col items-center justify-center gap-4 md:flex-row flex-wrap py-4">
       {slides.map((slide, index) => (
@@ -59,6 +62,8 @@ interface SingleCardProps {
 }
 
 const SingleCard = ({ title, links }: SingleCardProps) => {
+  const ui = useUI();
+  const slides = buildSlides(ui);
   return (
     <Card className="flex-1 w-full">
       <h3 className="text-sm font-bold uppercase tracking-wider">{title}</h3>

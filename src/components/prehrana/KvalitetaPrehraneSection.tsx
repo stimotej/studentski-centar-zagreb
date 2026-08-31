@@ -3,19 +3,21 @@ import Image from "next/image";
 import React from "react";
 import Card from "../shared/Card";
 import Section from "../shared/Section";
+import { useUI } from "@/utils/ui";
 
 interface KvalitetaPrehraneSectionProps {
   className?: string;
 }
 
 const KvalitetaPrehraneSection: React.FC<KvalitetaPrehraneSectionProps> = (
-  props
+  props,
 ) => {
+  const ui = useUI();
   return (
     <div className={clsx("relative z-[2] pt-36 bg-[#fafafa]", props.className)}>
       <Image
         src="/slike/pozadina-oblik-vrh.svg"
-        alt="Pozadinski oblik"
+        alt={ui("decor.backgroundShape")}
         width={1630}
         height={300}
         className="absolute top-0 -z-[1]"
@@ -24,20 +26,16 @@ const KvalitetaPrehraneSection: React.FC<KvalitetaPrehraneSectionProps> = (
         <div className="flex flex-col gap-12 lg:flex-row">
           <div className="flex-1">
             <h3 className="text-[38px] text-text font-semibold leading-normal">
-              Važnost kvalitetne i razvnovrsne prehrane za studente i uspjeh.
+              {ui("nutrition.students")}
             </h3>
             <p className="mt-4 text-light leading-relaxed">
-              Ljudsko je tijelo sofisticiran mehanizam za čiji je rad i normalno
-              funkcioniranje prehrana i sastojni prehrane vrlo bitna. Za bolje
-              tjelesne funkcije, rast i akademski uspjeh kvalitetna prehrana je
-              jako bitna a to je ono što Studentski centar kroz svoje restorane
-              pruža studentima.
+              {ui("nutrition.bodyFull")}
             </p>
           </div>
           <div className="flex-1">
             <Image
               src="/slike/prehrana/vaznost_kvalitete_prehrane.png"
-              alt="Važnost kvalitetne prehrane"
+              alt={ui("nutrition.importance")}
               width={400}
               height={360}
               className="w-full h-auto object-cover"
@@ -47,49 +45,43 @@ const KvalitetaPrehraneSection: React.FC<KvalitetaPrehraneSectionProps> = (
         <div className="flex flex-col md:flex-row gap-10 mt-12">
           <Card className="text-center flex-1">
             <h5 className="text-lg text-text font-semibold mb-4">
-              Individualni pristup
+              {ui("nutrition.individual")}
             </h5>
             <p className="text-sm font-light leading-relaxed">
-              Organizam i probava svake osobe se dovoljno razlikuju da isti
-              režim prehrane može rezultirati sa drugačijim ishodima. Zato je
-              bitno istražiti i testirati vlastiti organizam te prilagoditi
-              režim prehrane tim potrebama.
+              {ui("nutrition.digestionFull")}
             </p>
           </Card>
           <Card className="text-center flex-1">
             <h5 className="text-lg text-text font-semibold mb-4">
-              Individualni pristup
+              {ui("nutrition.individual")}
             </h5>
             <p className="text-sm font-light leading-relaxed">
-              Organizam i probava svake osobe se dovoljno razlikuju da isti
-              režim prehrane može rezultirati sa drugačijim ishodima. Zato je
-              bitno istražiti i testirati vlastiti organizam te prilagoditi
-              režim prehrane tim potrebama.
+              {ui("nutrition.digestionFull")}
             </p>
           </Card>
           <div className="flex flex-col gap-6 flex-1">
             <SectionCard
               image="/slike/prehrana/ikone/raznovrsna_prehrana.png"
-              title="Raznovrsna prehrana"
+              title={ui("nutrition.varied")}
             />
             <SectionCard
               image="/slike/prehrana/ikone/tjelesna_aktivnost.png"
-              title="Tjelesna aktivnost"
+              title={ui("nutrition.activity")}
             />
             <SectionCard
               image="/slike/prehrana/ikone/normalna_tjelesna_masa.png"
-              title="Normalna tjelesna masa"
+              title={ui("nutrition.weight")}
             />
             <SectionCard
               image="/slike/prehrana/ikone/vitamini_i_minerali.png"
-              title="Vitamini i minerali"
+              title={ui("nutrition.vitamins")}
             />
           </div>
         </div>
       </Section>
       <Image
         src="/slike/pozadina-oblik-dno.svg"
-        alt="Pozadinski oblik"
+        alt={ui("decor.backgroundShape")}
         width={1630}
         height={300}
         className="absolute bottom-0 -z-[1]"
