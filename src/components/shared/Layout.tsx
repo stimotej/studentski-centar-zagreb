@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import Footer from "./Footer";
 import { useUI } from "@/utils/ui";
 import { useRouter } from "next/router";
-import { DEFAULT_LOCALE, LOCALES } from "@/utils/i18n";
+import { DEFAULT_LOCALE, LOCALES, isEnglish } from "@/utils/i18n";
 
 const poppins = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -73,6 +73,18 @@ const Layout = ({
           hrefLang="x-default"
           href={localeHref(DEFAULT_LOCALE, asPath)}
         />
+        {/*
+          TEMPORARY — remove when the language selector ships.
+
+          The English pages are complete but nobody has reviewed the
+          translations yet, and the site has no way to switch language, so the
+          only visitors who should reach /en are staff typing the URL. The
+          hreflang tags above would otherwise invite Google to index and
+          surface unreviewed English in search results.
+
+          Deleting these three lines is all that is needed. See CLAUDE.md.
+        */}
+        {isEnglish(locale) && <meta name="robots" content="noindex, follow" />}
       </Head>
       <Navbar />
       <main className={poppins.className}>
