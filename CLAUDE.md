@@ -25,22 +25,15 @@ meta, written by editors in the admin.
 Conventions, and the migration's history, live in the admin repo under
 `docs/i18n/`.
 
-## TODO: the language selector
+## Language selector
 
-**There is no way to switch language in the UI yet.** Whoever builds it must
-also do these two things, which exist only because it is missing:
+`src/components/shared/LanguageSwitcher.tsx` (HR / EN, in the navbar) swaps
+locale in place via `next/link` with `locale`. The temporary `noindex` on `/en`
+has been removed; `hreflang` and canonical tags stay.
 
-1. **Remove the `noindex` on English pages.** `src/components/shared/Layout.tsx`
-   emits `<meta name="robots" content="noindex, follow">` for `/en`. It is
-   there because the English is unreviewed and unreachable except by typing the
-   URL, while the `hreflang` tags beside it would otherwise have Google index
-   it. Once the selector ships and the translations have been read by a Croatian
-   speaker, delete that block — the `hreflang` and canonical tags are already
-   correct and should stay.
-2. **Check what is still Croatian.** Jobs (~726) and events (~460) are
-   deliberately untranslated, so an English visitor sees Croatian job adverts
-   and course listings. Decide whether the selector should be hidden on those
-   pages, or whether that content gets translated first.
+Open question: jobs (~726) and events (~460) are deliberately untranslated, so
+an English visitor sees Croatian job adverts and course listings. Decide
+whether to hide the selector on those pages or translate that content first.
 
 ## Verifying a translation change
 
@@ -65,3 +58,7 @@ npx tsc --noEmit
 `NEXT_PUBLIC_SITE_URL` is the absolute origin used for hreflang and canonical;
 `REVALIDATION_SECRET` guards `/api/revalidate`, which WordPress calls on save
 and which revalidates both locales.
+`BANNER_STATS_SECRET` lets `/api/counter` forward homepage banner views,
+clicks and closes to WordPress (`sc/v1/banner-stats`, added by
+`docs/banner-stats-wordpress-snippet.php` in the admin repo). Leave it unset
+locally so development never writes into the production counters.

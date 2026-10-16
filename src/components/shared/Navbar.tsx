@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import type { ComponentPropsWithoutRef } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { MdMenu, MdExpandMore } from "react-icons/md";
@@ -27,7 +28,24 @@ import {
 } from "@radix-ui/react-collapsible";
 import { FaChevronDown } from "react-icons/fa";
 import CustomLink from "../elements/CustomLink";
+import LanguageSwitcher from "./LanguageSwitcher";
 import { useUI, type UIKey } from "@/utils/ui";
+
+// The commercial links point at other sites served under this domain, not at
+// pages of this app. next/link would prefix them with the locale, so on the
+// English site they became /en/francuski-paviljon etc. and 404ed. A plain <a>
+// leaves the path alone and does a full navigation to the other site.
+function NavItemLink({
+  external,
+  href,
+  ...props
+}: ComponentPropsWithoutRef<"a"> & { href: string; external?: boolean }) {
+  return external ? (
+    <a href={href} {...props} />
+  ) : (
+    <CustomLink href={href} {...props} />
+  );
+}
 
 const buildNavLinks = (ui: (key: UIKey) => string) => [
   {
@@ -35,12 +53,16 @@ const buildNavLinks = (ui: (key: UIKey) => string) => [
     desktopOrder: 1,
     mobileOrder: 2,
     items: [
-      { title: ui("nav.teatarTd"), href: "/teatar-td" },
-      { title: ui("nav.francuskiPaviljon"), href: "/francuski-paviljon" },
+      { title: ui("nav.teatarTd"), href: "/teatar-td", external: true },
+      {
+        title: ui("nav.francuskiPaviljon"),
+        href: "/francuski-paviljon",
+        external: true,
+      },
       { title: ui("nav.kultura"), href: "/kultura" },
-      { title: ui("nav.turizam"), href: "/turizam" },
-      { title: ui("nav.catering"), href: "/catering" },
-      { title: ui("nav.najamProstora"), href: "/eventi" },
+      { title: ui("nav.turizam"), href: "/turizam", external: true },
+      { title: ui("nav.catering"), href: "/catering", external: true },
+      { title: ui("nav.najamProstora"), href: "/eventi", external: true },
       { title: ui("nav.mediji"), href: "/mediji" },
     ],
   },
@@ -96,97 +118,101 @@ export default function Navbar() {
               height={56}
             />
           </CustomLink>
-          <div className="hidden [@media(min-width:350px)]:flex [@media(min-width:1110px)]:!hidden [@media(min-width:1246px)]:!flex flex-col text-sm font-medium">
+          <div className="hidden [@media(min-width:430px)]:flex [@media(min-width:1110px)]:!hidden [@media(min-width:1246px)]:!flex flex-col text-sm font-medium">
             <span>{ui("org.university")}</span>
             <span className="text-sc">{ui("org.name")}</span>
           </div>
         </div>
 
         {/* MOBILE NAVIGATION */}
-        <Sheet>
-          <SheetTrigger asChild>
-            <button
-              aria-label={ui("nav.openMenu")}
-              className="rounded-full p-2 my-3 hover:bg-gray-200 active:bg-gray-300 [@media(min-width:1110px)]:hidden"
-            >
-              <MdMenu size={24} />
-            </button>
-          </SheetTrigger>
-          <SheetContent className="w-5/6 sm:max-w-3/4 md:w-1/2 lg:max-w-sm overflow-y-auto">
-            <SheetHeader>
-              <SheetTitle className="sr-only">{ui("nav.main")}</SheetTitle>
-              <SheetDescription className="sr-only">
-                {ui("nav.menuDescription")}
-              </SheetDescription>
-            </SheetHeader>
+        <div className="flex items-center gap-1 [@media(min-width:1110px)]:hidden">
+          <LanguageSwitcher />
+          <Sheet>
+            <SheetTrigger asChild>
+              <button
+                aria-label={ui("nav.openMenu")}
+                className="rounded-full p-2 my-3 hover:bg-gray-200 active:bg-gray-300 [@media(min-width:1110px)]:hidden"
+              >
+                <MdMenu size={24} />
+              </button>
+            </SheetTrigger>
+            <SheetContent className="w-5/6 sm:max-w-3/4 md:w-1/2 lg:max-w-sm overflow-y-auto">
+              <SheetHeader>
+                <SheetTitle className="sr-only">{ui("nav.main")}</SheetTitle>
+                <SheetDescription className="sr-only">
+                  {ui("nav.menuDescription")}
+                </SheetDescription>
+              </SheetHeader>
 
-            <nav aria-label={ui("nav.main")} dir="ltr">
-              {navLinks
-                .sort((a, b) => a.mobileOrder - b.mobileOrder)
-                .map((group) => (
-                  <ul key={group.key} className="flex flex-col p-4">
-                    {group.items.map((link) =>
-                      "items" in link ? (
-                        <li key={link.title}>
-                          <Collapsible
-                            defaultOpen={link.items!.some(
-                              (i) => i.href === router.pathname,
-                            )}
-                          >
-                            <CollapsibleTrigger className="flex items-center justify-between gap-2 w-full px-6 py-3 cursor-default text-sm text-gray-500 hover:cursor-pointer hover:bg-gray-100 data-[state=open]:bg-gray-100 [&[data-state=open]>svg]:rotate-180 data-[state=open]:text-black">
-                              {link.title}
-                              <FaChevronDown
-                                aria-hidden={true}
-                                size={12}
-                                className="text-gray-500 transition-transform"
-                              />
-                            </CollapsibleTrigger>
-                            <CollapsibleContent>
-                              <ul>
-                                {link.items!.map((item) => (
-                                  <li key={item.href} className="w-full">
-                                    <SheetClose asChild>
-                                      <CustomLink
-                                        href={item.href}
-                                        className={clsx(
-                                          "ml-8 text-sm px-6 py-3 hover:bg-gray-100 flex",
-                                          router.pathname == item.href
-                                            ? "text-sc"
-                                            : "text-gray-500",
-                                        )}
-                                      >
-                                        {item.title}
-                                      </CustomLink>
-                                    </SheetClose>
-                                  </li>
-                                ))}
-                              </ul>
-                            </CollapsibleContent>
-                          </Collapsible>
-                        </li>
-                      ) : (
-                        <li key={link.title} className="w-full">
-                          <SheetClose asChild>
-                            <CustomLink
-                              href={link.href}
-                              className={clsx(
-                                "text-sm px-6 py-3 hover:bg-gray-100 flex border-gray-100",
-                                router.pathname == link.href
-                                  ? "text-sc"
-                                  : "text-gray-500",
+              <nav aria-label={ui("nav.main")} dir="ltr">
+                {navLinks
+                  .sort((a, b) => a.mobileOrder - b.mobileOrder)
+                  .map((group) => (
+                    <ul key={group.key} className="flex flex-col p-4">
+                      {group.items.map((link) =>
+                        "items" in link ? (
+                          <li key={link.title}>
+                            <Collapsible
+                              defaultOpen={link.items!.some(
+                                (i) => i.href === router.pathname,
                               )}
                             >
-                              {link.title}
-                            </CustomLink>
-                          </SheetClose>
-                        </li>
-                      ),
-                    )}
-                  </ul>
-                ))}
-            </nav>
-          </SheetContent>
-        </Sheet>
+                              <CollapsibleTrigger className="flex items-center justify-between gap-2 w-full px-6 py-3 cursor-default text-sm text-gray-500 hover:cursor-pointer hover:bg-gray-100 data-[state=open]:bg-gray-100 [&[data-state=open]>svg]:rotate-180 data-[state=open]:text-black">
+                                {link.title}
+                                <FaChevronDown
+                                  aria-hidden={true}
+                                  size={12}
+                                  className="text-gray-500 transition-transform"
+                                />
+                              </CollapsibleTrigger>
+                              <CollapsibleContent>
+                                <ul>
+                                  {link.items!.map((item) => (
+                                    <li key={item.href} className="w-full">
+                                      <SheetClose asChild>
+                                        <CustomLink
+                                          href={item.href}
+                                          className={clsx(
+                                            "ml-8 text-sm px-6 py-3 hover:bg-gray-100 flex",
+                                            router.pathname == item.href
+                                              ? "text-sc"
+                                              : "text-gray-500",
+                                          )}
+                                        >
+                                          {item.title}
+                                        </CustomLink>
+                                      </SheetClose>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </CollapsibleContent>
+                            </Collapsible>
+                          </li>
+                        ) : (
+                          <li key={link.title} className="w-full">
+                            <SheetClose asChild>
+                              <NavItemLink
+                                href={link.href}
+                                external={"external" in link && link.external}
+                                className={clsx(
+                                  "text-sm px-6 py-3 hover:bg-gray-100 flex border-gray-100",
+                                  router.pathname == link.href
+                                    ? "text-sc"
+                                    : "text-gray-500",
+                                )}
+                              >
+                                {link.title}
+                              </NavItemLink>
+                            </SheetClose>
+                          </li>
+                        ),
+                      )}
+                    </ul>
+                  ))}
+              </nav>
+            </SheetContent>
+          </Sheet>
+        </div>
 
         {/* DESKTOP NAVIGATION */}
         <NavigationMenu
@@ -239,8 +265,9 @@ export default function Navbar() {
                   ) : (
                     <NavigationMenuItem key={index}>
                       <NavigationMenuLink asChild>
-                        <CustomLink
+                        <NavItemLink
                           href={link.href}
+                          external={"external" in link && link.external}
                           className={clsx(
                             "text-sm px-3 py-2 h-8 flex-shrink-0",
                             router.pathname == link.href
@@ -249,10 +276,15 @@ export default function Navbar() {
                           )}
                         >
                           {link.title}
-                        </CustomLink>
+                        </NavItemLink>
                       </NavigationMenuLink>
                     </NavigationMenuItem>
                   ),
+                )}
+                {group.key === "komercijalni" && (
+                  <NavigationMenuItem>
+                    <LanguageSwitcher className="px-1" />
+                  </NavigationMenuItem>
                 )}
               </NavigationMenuList>
             ))}
