@@ -57,7 +57,9 @@ npx tsc --noEmit
 `NEXT_PUBLIC_SC_API_URL` points at the WordPress REST API;
 `NEXT_PUBLIC_SITE_URL` is the absolute origin used for hreflang and canonical;
 `REVALIDATION_SECRET` guards `/api/revalidate`, which WordPress calls on save
-and which revalidates both locales.
+and which revalidates both locales. It answers at once and rebuilds the pages in
+the background, a few at a time per process: rebuilding them all at once
+exhausted MySQL's connections and made WordPress fail in bursts.
 `BANNER_STATS_SECRET` lets `/api/counter` forward homepage banner views,
 clicks and closes to WordPress (`sc/v1/banner-stats`, added by
 `docs/banner-stats-wordpress-snippet.php` in the admin repo). Leave it unset

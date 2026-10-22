@@ -9,6 +9,25 @@ import {
 } from "@/features/paths";
 import type { NextApiRequest, NextApiResponse } from "next";
 
+// WordPress calls this route on every save (Code Snippets: "Nextjs revalidation
+// on content change"), and it rebuilds every page of the site in both locales.
+//
+// Rebuilding them all at once meant hundreds of concurrent page builds, each
+// fetching from WordPress: more PHP workers than MySQL's 151 connections, so
+// WordPress answered "Error establishing a database connection" in bursts all
+// through office hours. So WordPress gets its answer straight away (it waits on
+// this request, with a 5 s timeout), and the pages are rebuilt a few at a time
+// in the background. A save that arrives mid-sweep doesn't start a second
+// sweep; it queues one more pass, which picks up every save made meanwhile.
+//
+// The limit is per process: PM2 runs the site as a 4-worker cluster, so at most
+// 4 × CONCURRENCY pages are rebuilt at once.
+
+const CONCURRENCY = 3;
+
+let sweeping = false;
+let queued: NextApiResponse | null = null;
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
@@ -17,6 +36,68 @@ export default async function handler(
     return res.status(401).json({ message: "Invalid token" });
   }
 
+  if (sweeping) {
+    queued = res;
+    return res.status(202).json({ revalidating: true, queued: true });
+  }
+
+  res.status(202).json({ revalidating: true });
+  void sweepUntilIdle(res);
+}
+
+// `res.revalidate` rebuilds the page inside this server process through a mock
+// request (`next start`), so it keeps working after the response has been sent.
+async function sweepUntilIdle(res: NextApiResponse) {
+  sweeping = true;
+  let next: NextApiResponse | null = res;
+  while (next) {
+    const current: NextApiResponse = next;
+    queued = null;
+    await sweep(current);
+    next = queued;
+  }
+  sweeping = false;
+}
+
+async function sweep(res: NextApiResponse) {
+  const started = Date.now();
+
+  let paths: string[];
+  try {
+    paths = await getPathsToRevalidate();
+  } catch (err) {
+    console.error("Revalidation: failed to fetch paths:", err);
+    return;
+  }
+
+  const failed: string[] = [];
+  let index = 0;
+  await Promise.all(
+    Array.from({ length: CONCURRENCY }, async () => {
+      while (index < paths.length) {
+        const path = paths[index++];
+        try {
+          // Pages nobody has opened since the deploy are skipped rather than
+          // built; they are generated from fresh data on their first visit.
+          await res.revalidate(path, { unstable_onlyGenerated: true });
+        } catch (error) {
+          failed.push(`${path} (${(error as Error).message})`);
+        }
+      }
+    }),
+  );
+
+  const seconds = Math.round((Date.now() - started) / 1000);
+  const summary = `Revalidation: ${paths.length - failed.length}/${paths.length} paths in ${seconds}s`;
+  if (failed.length === 0) {
+    console.log(summary);
+  } else {
+    const more = failed.length > 5 ? ` and ${failed.length - 5} more` : "";
+    console.error(`${summary}, failed: ${failed.slice(0, 5).join(", ")}${more}`);
+  }
+}
+
+async function getPathsToRevalidate() {
   const allPathsToRevalidate = [
     "/",
     "/informacije",
@@ -39,78 +120,50 @@ export default async function handler(
     "/student-servis/faq",
   ];
 
-  try {
-    const [
-      informacijePosts,
-      eventiPaths,
-      tecajeviPaths,
-      obavijestiPaths,
-      jobsPaths,
-      restaurantsPaths,
-      domoviPaths,
-    ] = await Promise.all([
-      getInformacijePaths(),
-      getEventsPaths(),
-      getTecajeviPaths(),
-      getObavijestiPaths(),
-      getJobsPaths(),
-      getRestaurantsPaths(),
-      getDomoviPaths(),
-    ]);
+  const [
+    informacijePosts,
+    eventiPaths,
+    tecajeviPaths,
+    obavijestiPaths,
+    jobsPaths,
+    restaurantsPaths,
+    domoviPaths,
+  ] = await Promise.all([
+    getInformacijePaths(),
+    getEventsPaths(),
+    getTecajeviPaths(),
+    getObavijestiPaths(),
+    getJobsPaths(),
+    getRestaurantsPaths(),
+    getDomoviPaths(),
+  ]);
 
-    informacijePosts.forEach((p) =>
-      allPathsToRevalidate.push(`/informacije/${p.slug}`),
-    );
-    eventiPaths.forEach((e) =>
-      allPathsToRevalidate.push(`/kultura/eventi/${e.slug}`),
-    );
-    tecajeviPaths.forEach((t) =>
-      allPathsToRevalidate.push(`/kultura/tecajevi-i-radionice/${t.slug}`),
-    );
-    obavijestiPaths.forEach((o) =>
-      allPathsToRevalidate.push(`/obavijesti/${o.slug}`),
-    );
-    jobsPaths.forEach((j) => allPathsToRevalidate.push(`/poslovi/${j.slug}`));
-    restaurantsPaths.forEach((r) =>
-      allPathsToRevalidate.push(`/prehrana/restorani/${r.slug}`),
-    );
-    domoviPaths.forEach((d) =>
-      allPathsToRevalidate.push(`/smjestaj/domovi/${d.slug}`),
-    );
-  } catch (err) {
-    console.error("Failed to fetch paths for revalidation:", err);
-    return res.status(500).json({
-      error: "Error fetching paths",
-      message: (err as Error).message,
-    });
-  }
+  informacijePosts.forEach((p) =>
+    allPathsToRevalidate.push(`/informacije/${p.slug}`),
+  );
+  eventiPaths.forEach((e) =>
+    allPathsToRevalidate.push(`/kultura/eventi/${e.slug}`),
+  );
+  tecajeviPaths.forEach((t) =>
+    allPathsToRevalidate.push(`/kultura/tecajevi-i-radionice/${t.slug}`),
+  );
+  obavijestiPaths.forEach((o) =>
+    allPathsToRevalidate.push(`/obavijesti/${o.slug}`),
+  );
+  jobsPaths.forEach((j) => allPathsToRevalidate.push(`/poslovi/${j.slug}`));
+  restaurantsPaths.forEach((r) =>
+    allPathsToRevalidate.push(`/prehrana/restorani/${r.slug}`),
+  );
+  domoviPaths.forEach((d) =>
+    allPathsToRevalidate.push(`/smjestaj/domovi/${d.slug}`),
+  );
 
   // Every page exists twice now. Croatian is the default locale so it keeps
   // the bare path, and English lives under /en — revalidating only the bare
   // path would leave the English copy to age out on its own revalidate timer
   // instead of updating when an editor saves.
-  const localizedPaths = allPathsToRevalidate.flatMap((path) => [
+  return allPathsToRevalidate.flatMap((path) => [
     path,
     path === "/" ? "/en" : `/en${path}`,
   ]);
-
-  try {
-    const results = await Promise.all(
-      localizedPaths.map(async (path) => {
-        try {
-          await res.revalidate(path);
-          return { path, success: true };
-        } catch (error) {
-          return { path, success: false, error: (error as Error).message };
-        }
-      }),
-    );
-    return res.json({ revalidated: true, results });
-  } catch (err) {
-    console.error("Revalidation error:", err);
-    return res.status(500).json({
-      error: "Error revalidating",
-      message: (err as Error).message,
-    });
-  }
 }
