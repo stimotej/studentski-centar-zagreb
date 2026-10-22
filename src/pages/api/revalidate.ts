@@ -25,6 +25,12 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 const CONCURRENCY = 3;
 
+// A rebuild that never settles must not hold the sweep up. On the first
+// production run every page was rebuilt but the sweep never finished, which
+// left that worker "sweeping" for good and silently dropped every later save
+// it received. A path that takes longer than this is reported as failed.
+const PATH_TIMEOUT_MS = 60_000;
+
 let sweeping = false;
 let queued: NextApiResponse | null = null;
 
@@ -49,14 +55,28 @@ export default async function handler(
 // request (`next start`), so it keeps working after the response has been sent.
 async function sweepUntilIdle(res: NextApiResponse) {
   sweeping = true;
-  let next: NextApiResponse | null = res;
-  while (next) {
-    const current: NextApiResponse = next;
-    queued = null;
-    await sweep(current);
-    next = queued;
+  try {
+    let next: NextApiResponse | null = res;
+    while (next) {
+      const current: NextApiResponse = next;
+      queued = null;
+      await sweep(current);
+      next = queued;
+    }
+  } finally {
+    sweeping = false;
   }
-  sweeping = false;
+}
+
+function withTimeout<T>(promise: Promise<T>, ms: number) {
+  let timer: NodeJS.Timeout | undefined;
+  const timeout = new Promise<never>((_, reject) => {
+    timer = setTimeout(
+      () => reject(new Error(`timed out after ${ms / 1000}s`)),
+      ms,
+    );
+  });
+  return Promise.race([promise, timeout]).finally(() => clearTimeout(timer));
 }
 
 async function sweep(res: NextApiResponse) {
@@ -79,7 +99,10 @@ async function sweep(res: NextApiResponse) {
         try {
           // Pages nobody has opened since the deploy are skipped rather than
           // built; they are generated from fresh data on their first visit.
-          await res.revalidate(path, { unstable_onlyGenerated: true });
+          await withTimeout(
+            res.revalidate(path, { unstable_onlyGenerated: true }),
+            PATH_TIMEOUT_MS,
+          );
         } catch (error) {
           failed.push(`${path} (${(error as Error).message})`);
         }
