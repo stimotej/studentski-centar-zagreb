@@ -24,7 +24,7 @@ const banners = [
     stats: "otp-paket-young",
     img: bannerOtp,
     alt: "OTP Paket Young",
-    url: "https://www.otpbanka.hr/digitalni-paket/young/?&utm_source=sczg&utm_medium=display&utm_campaign=young_display&utm_content=image_970x250",
+    url: "https://www.otpbanka.hr/paket-young?&utm_source=sczg&utm_medium=display&utm_campaign=young_display&utm_content=image_970x250",
   },
   {
     id: 3,

@@ -23,7 +23,7 @@ export default function OTPBanner() {
         <a
           target="_blank"
           rel="noopener noreferrer"
-          href="https://www.otpbanka.hr/digitalni-paket/young/?&utm_source=sczg&utm_medium=display&utm_campaign=young_display&utm_content=image_970x250"
+          href="https://www.otpbanka.hr/paket-young?&utm_source=sczg&utm_medium=display&utm_campaign=young_display&utm_content=image_970x250"
         >
           <Image src={randomImage} alt="OTP Paket Young" className="mx-auto" />
         </a>
